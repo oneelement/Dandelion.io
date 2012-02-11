@@ -1,0 +1,14 @@
+<h1>New Entity User</h1>
+
+<%= form_for @user, :url => user_index_path do |f| %>
+    <%= f.hidden_field :adminent, :value => true %>
+    <% if current_user.adminent = false  %>
+        <div><%= f.label :entity_id %><br />
+        <%= f.collection_select :entity_id, Entity.all, :id, :name %></div>
+    <% else %>
+        <%= f.hidden_field :entity_id, :value => current_user.entity_id %>
+    <% end %>
+    <%= render 'form', :f => f %>
+<% end %>
+
+<%= link_to 'Back', user_index_path %>
