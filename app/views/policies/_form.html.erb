@@ -1,0 +1,36 @@
+<%= form_for(@policy) do |f| %>
+    <% if @policy.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@policy.errors.count, "error") %> prohibited this policy from being saved:</h2>
+                <ul>
+                    <% @policy.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+        </div>
+    <% end %>
+    <%= f.hidden_field :product_id, :value => params[:product_id] %>
+    <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+    </div>
+    <% @product.sections.each do |section| %>
+        <%= f.fields_for :policy_sections do |ps| %>
+            <div class="fields">
+                <%= section.name %>
+                <%= ps.hidden_field :section_id, :value => section.id %>
+                <% section.questions.each do |question| %>
+                    <%= ps.fields_for :question_answers do |qa| %>
+                        <%= qa.hidden_field :question_id, :value => question.id %>
+                        <%= qa.label :name, question.name %>
+                        <%= qa.text_field :name %>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>

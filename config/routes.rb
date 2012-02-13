@@ -1,5 +1,9 @@
 Onelement::Application.routes.draw do
 
+  resources :policies
+
+  resources :products
+
   resources :admins
 
   resources :entities

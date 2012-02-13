@@ -5,5 +5,25 @@
   <%= @contact.name %>
 </p>
 
+<br />
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= link_to('Get Quote', new_policy_path(:product_id => product.id)) %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
 <%= link_to 'Edit', edit_contact_path(@contact) %> |
 <%= link_to 'Back', contacts_path %>
