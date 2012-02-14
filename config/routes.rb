@@ -22,6 +22,8 @@ Onelement::Application.routes.draw do
     get :newent, :on => :collection
   end
 
+  resources :quotes
+
   root :to => "dashboards#index"
 
   # The priority is based upon order of creation:
