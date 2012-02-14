@@ -1,0 +1,22 @@
+<%= form_for(@quote) do |f| %>
+    <% if @quote.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@quote.errors.count, "error") %> prohibited this quote from being processed:</h2>
+
+            <ul>
+                <% @quote.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <%= f.fields_for(@quote.risk) do |risk_f| %>
+        <div class="field">
+            <%= risk_f.label :sum_insured %><br />
+            <%= risk_f.text_field :sum_insured %>
+        </div>
+    <% end %>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>
