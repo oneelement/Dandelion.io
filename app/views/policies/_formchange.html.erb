@@ -1,5 +1,10 @@
 <%= @policy.product_id  %>
 <%= @product.name %>
+
+<%= @product.sections.name %>
+
+
+
 <%= form_for(@policy) do |f| %>
     <% if @policy.errors.any? %>
         <div id="error_explanation">
@@ -20,10 +25,10 @@
     <%= f.fields_for :policy_sections do |ps| %>
         <div class="fields">
 
-
+            <%= ps.hidden_field :section_id %>
 
                 <%= ps.fields_for :question_answers do |qa| %>
-
+                    <%= qa.hidden_field :question_id %>
                     <%= qa.label :name %>
                     <%= qa.text_field :name %>
                 <% end %>

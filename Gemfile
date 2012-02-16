@@ -18,7 +18,7 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-  gem 'compass', git: 'git://github.com/chriseppstein/compass', branch: 'master'
+   gem 'compass', '~> 0.11.0'
 end
 
 gem 'jquery-rails'

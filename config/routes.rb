@@ -1,5 +1,13 @@
 Onelement::Application.routes.draw do
 
+  resources :question_types
+
+  resources :answer_types
+
+  resources :insurers
+
+  resources :trades
+
   resources :policies
 
   resources :products
