@@ -50,6 +50,7 @@ module Onelement
 
     # if you prefer `.sass` over `.scss`.
     #config.sass.preferred_syntax = :sass
+    config.sass.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
