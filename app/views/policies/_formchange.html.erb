@@ -29,7 +29,7 @@
 
                 <%= ps.fields_for :question_answers do |qa| %>
                     <%= qa.hidden_field :question_id %>
-                    <%= qa.label :name %>
+                    <%= qa.label :name, qa.object.question.name %>
                     <%= qa.text_field :name %>
                 <% end %>
 

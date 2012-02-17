@@ -3,7 +3,7 @@ class Product
 
   has_many :policies
 
-  embeds_many :sections
+  has_many :sections, :autosave => true
   accepts_nested_attributes_for :sections, :allow_destroy => true
 
   field :name, :type => String

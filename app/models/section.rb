@@ -1,10 +1,8 @@
 class Section
   include Mongoid::Document
 
-  has_many :policy_sections
-
-  embedded_in :product
-  embeds_many :questions
+  belongs_to :product
+  has_many :questions, :autosave => true
   accepts_nested_attributes_for :questions, :allow_destroy => true
 
   field :name, :type => String

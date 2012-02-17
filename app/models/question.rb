@@ -1,8 +1,8 @@
 class Question
   include Mongoid::Document
 
-  embedded_in :section
-  referenced_in :question_type
+  belongs_to :section
+  belongs_to :question_type
 
   field :name, :type => String
 end

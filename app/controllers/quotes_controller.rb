@@ -15,9 +15,6 @@ class QuotesController < ApplicationController
     #POST /quotes
     #POST /quotes.json
     def create
-        puts 'HERE NOW'
-        puts params[:quote].to_s
-        puts 'DONE NOW'
         @quote = Quote.new(params[:quote])
 
         respond_to do |format|
