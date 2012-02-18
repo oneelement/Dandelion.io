@@ -12,11 +12,10 @@ var tags = (function () {
     });
     return json;
 })(); 
-ContactArray = $.map(tags, function(i) { return i.label; });
 $(function() {
-  $('#autocomplete').autocomplete({
-   source: function (request, response) {
-        var results = $.ui.autocomplete.filter(ContactArray, request.term);
+  $('#autocomplete').autocomplete({ 
+    source: function (request, response) {
+        var results = $.ui.autocomplete.filter(tags, request.term);
 
         if (!results.length) {
             $("#searchbutton").attr('value','Add');
@@ -27,8 +26,15 @@ $(function() {
 
         }
         response(results);
-   }
-    ,
-    delay: 100,
-    minLength: 2
-  });});
+        return false;
+    },
+    delay: 100,       
+    minLength: 2,  
+    select: function (event, ui) {
+        $(event.target).val(ui.item.id);
+        var url =   "/contacts/" + ui.item.id;
+        window.location.href = url;
+        return false;
+    }
+  });
+});
