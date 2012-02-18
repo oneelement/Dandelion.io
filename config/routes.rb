@@ -10,7 +10,9 @@ Onelement::Application.routes.draw do
 
   resources :policies
 
-  resources :products
+  resources :products do 
+    resources :versions, :controller => 'product_versions'
+  end
 
   resources :admins
 

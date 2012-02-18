@@ -9,17 +9,13 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <%= f.fields_for :sections do |builder| %>
-    <div class="fields">
-        <%= render 'section_fields', :f => builder %>
-    </div>
+  <%= f.fields_for :versions do |v| %>
+      <%= v.hidden_field :version_description, :value => 'Initial development version' %>
+      <div class="field">
+        <%= v.label :product_name %><br />
+        <%= v.text_field :product_name %>
+      </div>
   <% end %>
-  <%= link_to_add_fields "Add Section", f, :sections %>
-
 
   <div class="actions">
     <%= f.submit %>

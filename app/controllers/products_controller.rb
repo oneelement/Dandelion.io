@@ -25,9 +25,7 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
-    #1.times do
-      #section = @product.sections.build
-    #end
+    @product.versions.build
 
     respond_to do |format|
       format.html # new.html.erb
