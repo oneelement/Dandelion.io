@@ -7,13 +7,7 @@ class Section
   field :name, :type => String
   validates_presence_of :name
 
-  def suggested_questions
-    builder_metadata.suggested_questions
-  end
-
-  def suggested_child_sections
-    builder_metadata.suggested_child_sections
-  end
+  delegate :suggested_questions, :suggested_child_sections, :to => :builder_metadata
 end
 
 #Some details about the section, used to assist the product/question set builder

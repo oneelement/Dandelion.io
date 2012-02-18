@@ -11,9 +11,7 @@ class Question
 
   field :name, :type => String
 
-  def suggested_possible_answer_group
-    builder_metadata.suggested_possible_answer_group
-  end
+  delegate :suggested_possible_answer_group, :to => :builder_metadata
 end
 #
 #Some details about the question, used to assist the product/question set builder

@@ -9,7 +9,7 @@ describe Section do
     s.should be_valid
   end
 
-  context "when builder metadata is filled out" do
+  context "when builder metadata is present" do
     let(:section) do
       Fabricate.build(:section_with_metadata)
     end
