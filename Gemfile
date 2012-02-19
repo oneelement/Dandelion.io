@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'backbone-on-rails'
 
 gem "mongrel", "1.2.0.pre2"
 

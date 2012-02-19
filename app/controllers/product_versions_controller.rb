@@ -28,7 +28,7 @@ class ProductVersionsController < ApplicationController
   end
 
   def create
-    @product = ProductVersion.new(params[:version])
+    @version = ProductVersion.new(params[:version])
 
     respond_to do |format|
       if @version.save

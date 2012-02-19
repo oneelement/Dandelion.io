@@ -1,3 +1,18 @@
 <p id="notice"><%= notice %></p>
-
-<div id="product-editor"></div>
+<div id="product-structure">
+    <h2>Product Structure</h2>
+    <div id="product-id" style="display:none"><%= @product.id %></div>
+    <div id="version-id" style="display:none"><%= @version.id %></div>
+    <div id="editor"></div>
+</div>
+<div id="suggestions">
+    <h2>Suggestions</h2>
+    <div id="suggestions-sections">
+        <p>Sections</p>
+        <div id="sections"></div>
+    </div>
+    <div id="suggestions-questions">
+        <p>Questions</p>
+        <div id="questions"></div>
+    </div>
+</div>

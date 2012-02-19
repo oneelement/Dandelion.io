@@ -14,6 +14,8 @@ Onelement::Application.routes.draw do
     resources :versions, :controller => 'product_versions'
   end
 
+  resources :sections, :defaults => {:format => 'json'}
+
   resources :admins
 
   resources :entities
