@@ -3,7 +3,7 @@
 <%= form_tag contacts_path, :method => 'get', :id => 'search_form' do %>
     <p>
         <%= text_field_tag :search, params[:search], :id => 'autocomplete' %>
-        <%=	 submit_tag "Search", :name => nil %>
+        <%=	 submit_tag "Search", :name => nil , :id => 'searchbutton' %>
     </p>
 <% end %>
 
@@ -11,7 +11,6 @@
 <br />
 
 <%= link_to 'Contacts', contacts_path %>
-
 <br />
 
 <%= link_to 'Organisations', organisations_path %>
