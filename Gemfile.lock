@@ -161,6 +161,7 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    underscore-rails (1.3.1)
     warden (1.1.0)
       rack (>= 1.0)
 
@@ -185,3 +186,4 @@ DEPENDENCIES
   sass-rails (~> 3.1.0)
   turn
   uglifier
+  underscore-rails

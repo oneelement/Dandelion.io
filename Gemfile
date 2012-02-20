@@ -23,6 +23,7 @@ end
 
 gem 'jquery-rails'
 gem 'backbone-on-rails'
+gem 'underscore-rails'
 
 gem "mongrel", "1.2.0.pre2"
 
