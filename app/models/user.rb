@@ -28,6 +28,8 @@ class User
   field :last_sign_in_ip,    :type => String
 
   ## Fields added after defaults
+  field :first_name, :type => String
+  field :last_name, :type => String
   field :adminorg, :type => Boolean, :default => false
   field :adminent, :type => Boolean, :default => false
   field :adminone, :type => Boolean, :default => false

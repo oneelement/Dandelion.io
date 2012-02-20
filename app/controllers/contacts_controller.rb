@@ -30,7 +30,14 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   # GET /contacts/new.json
   def new
-    @contact = Contact.new
+    if params[:search]
+      @contact = Contact.new(:name => params[:search])
+    else
+      @contact = Contact.new
+    end
+    phone = @contact.phones.build
+    address = @contact.addresses.build
+
 
     respond_to do |format|
       format.html # new.html.erb

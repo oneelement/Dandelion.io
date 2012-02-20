@@ -1,0 +1,11 @@
+<div class="fields">
+  <div>
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number %>
+  </div>
+  <div>
+    <%= f.label :phone_type %><br />
+    <%= f.select :phone_type, ['Home', 'Business', 'Mobile'] %>
+  </div>
+  <%= link_to_remove_fields "remove", f %>
+</div>

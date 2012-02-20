@@ -12,8 +12,35 @@
   <% end %>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name,:value => params[:search]  %>
+    <%= f.text_field :name, :value => @contact.name   %>
   </div>
+  <%= f.fields_for :addresses do |address| %>
+    <div>
+        <%= address.label :line1 %><br />
+        <%= address.text_field :line1 %>
+    </div>
+    <div>
+        <%= address.label :line2 %><br />
+        <%= address.text_field :line2 %>
+    </div>
+    <div>
+        <%= address.label :line3 %><br />
+        <%= address.text_field :line3 %>
+    </div>
+    <div>
+        <%= address.label :city %><br />
+        <%= address.text_field :city %>
+    </div>
+    <div>
+        <%= address.label :postcode %><br />
+        <%= address.text_field :postcode %>
+    </div>
+  <% end %>
+  <%= f.fields_for :phones do |phone| %>
+    <%= render 'phone_fields', :f => phone %>
+  <% end %>
+  <%= link_to_add_fields "Add Phone", f, :phones %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
