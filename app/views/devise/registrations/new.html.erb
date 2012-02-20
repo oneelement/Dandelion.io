@@ -3,8 +3,11 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :organisation_id %><br />
-  <%= f.collection_select :organisation_id, Organisation.all, :id, :name %></div>
+<% f.object.organisation = Organisation.new %>
+   <%= f.fields_for :organisation do |organisation_fields| %>
+       <div><%= organisation_fields.label :name %><br/>
+           <%= organisation_fields.text_field :name %></div>
+ <% end %>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>

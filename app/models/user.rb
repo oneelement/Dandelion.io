@@ -5,9 +5,10 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :organisation
+  belongs_to :organisation, :autosave => true
   belongs_to :entity
 
+  accepts_nested_attributes_for :organisation
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
   field :encrypted_password, :type => String, :null => false, :default => ""
