@@ -5,5 +5,23 @@
   <%= @product.name %>
 </p>
 
+<% if @product.development_versions.count > 0 %>
+    <div>
+        <h2>Development Versions</h2>
+        <% @product.development_versions.each do |version| %>
+            <%= render version, :product => @product %>
+        <% end %>
+    </div>
+<% end %>
+
+<% if @product.live_versions.count > 0 %>
+    <div>
+        <h2>Live Versions</h2>
+        <% @product.live_versions.each do |version| %>
+            <%= render version, :product => @product %>
+        <% end %>
+    </div>
+<% end %>
+
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

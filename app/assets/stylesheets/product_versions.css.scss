@@ -1,0 +1,28 @@
+#product-structure {
+    width: 600px;
+    float: left;
+    margin-left: 1em;
+
+}
+
+.product-section {
+    display: block;
+    text-align: left;
+}
+
+#suggestions {
+    float: right;
+    margin-right: 1em;
+    width: 300px;
+
+    #sections, #questions {
+        ul {
+            li {
+                width: 250px;
+                list-style: none;
+                text-align: left;
+            }
+        }
+    }
+}
+

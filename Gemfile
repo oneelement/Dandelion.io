@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'backbone-on-rails'
 
 gem "mongrel", "1.2.0.pre2"
 
@@ -37,4 +38,9 @@ gem "mongrel", "1.2.0.pre2"
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'fabrication'
 end

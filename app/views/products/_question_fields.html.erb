@@ -1,7 +1,0 @@
-<div class="fields">
-  <%= f.label :name, "Question Name" %>
-  <%= f.text_field :name %>
-  <%= f.label :question_type_id %>
-  <%= f.collection_select :question_type_id, QuestionType.order_by(:name), :id, :name %>
-  <%= link_to_remove_fields "remove", f %>
-</div>
