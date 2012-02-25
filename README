@@ -1,3 +1,25 @@
 This is the new Reposiory using MongoDB.
 
-OC
+Using autotest
+--------------
+
+1. bundle install to get all gems testing framework gems installed
+2. install autotest separately as it contains some platform specific stuff and the app doesn't need it to run.
+   Instructions are taken from here, which contains instructions for other platforms: 
+   http://ruby.railstutorial.org/chapters/static-pages#sec:autotest
+
+    gem install autotest
+    gem install autotest-rails-pure
+
+    on OSX only (assumes growl notifications are installed already):
+    gem install autotest-fsevent
+    gem install autotest-growl
+
+2. start spork server: bundle exec spork
+3. start autotest: bundle exec autotest
+
+Rspec knows to use spork by default because of --drb in the .rspec file.
+
+Now when you save a source file or a test file, autotest will auto rerun all tests and notify.
+Spork speeds things up by not reloading configuration, so if you make a change to config and the tests
+don't seem to pay attention to the config change, restart the spork server.

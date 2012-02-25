@@ -23,7 +23,6 @@ end
 
 gem 'jquery-rails'
 gem 'backbone-on-rails'
-gem 'jasmine'
 
 gem "mongrel", "1.2.0.pre2"
 
@@ -42,6 +41,8 @@ group :test do
 end
 
 group :development, :test do
+  gem 'jasmine'
   gem 'rspec-rails'
   gem 'fabrication'
+  gem 'spork'
 end

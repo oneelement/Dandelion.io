@@ -161,6 +161,9 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
+    spork (0.9.0)
+    spork (0.9.0-x86-mingw32)
+      win32-process
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -178,6 +181,14 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.1.0)
       rack (>= 1.0)
+    win32-api (1.4.8-x86-mingw32)
+    win32-process (0.6.5)
+      windows-pr (>= 1.1.2)
+    windows-api (0.4.1)
+      win32-api (>= 1.4.5)
+    windows-pr (1.2.1)
+      win32-api (>= 1.4.5)
+      windows-api (>= 0.3.0)
 
 PLATFORMS
   ruby
@@ -199,5 +210,6 @@ DEPENDENCIES
   rake (= 0.8.7)
   rspec-rails
   sass-rails (~> 3.1.0)
+  spork
   turn
   uglifier
