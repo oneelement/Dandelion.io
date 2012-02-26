@@ -1,0 +1,5 @@
+<% if @questions.length > 0: %>
+    <ul id="suggested-questions"></ul>
+<% else: %>
+    There are no suggested questions for the selected section.
+<% end %>

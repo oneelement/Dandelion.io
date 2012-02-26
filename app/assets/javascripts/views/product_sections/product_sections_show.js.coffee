@@ -26,4 +26,4 @@ class Onelement.Views.ProductSectionsShow extends Backbone.View
     @version = @options["version"]
 
   events:
-    "click": -> @version.set("selectedSection", @model)
+    "click": -> @version.selectSection(@model)

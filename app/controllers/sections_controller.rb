@@ -1,7 +1,12 @@
 class SectionsController < ApplicationController
   def index
-    if params[:topLevel]
-      @sections = Section.top_level
+    if params[:suggestions]
+      if params[:id]
+        @current_section = Section.find(params[:id])
+        @sections = @current_section.suggested_child_sections
+      else
+        @sections = Section.top_level_suggestions
+      end
     else
       @sections = Section.all
     end

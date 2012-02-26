@@ -1,6 +1,6 @@
-class Onelement.Views.SectionsShow extends Backbone.View
+class Onelement.Views.SuggestedQuestionsShow extends Backbone.View
 
-  template: JST['sections/show']
+  template: JST['suggested_questions/show']
   tagName: 'li'
   className: 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary'
   render: ->
@@ -9,4 +9,4 @@ class Onelement.Views.SectionsShow extends Backbone.View
 
   initialize: -> @version = @options["version"]
   events:
-    "click": -> @version.addSection(@model)
+    "click": -> @version.addQuestion(@model)

@@ -15,6 +15,7 @@ Onelement::Application.routes.draw do
   end
 
   resources :sections, :defaults => {:format => 'json'}
+  resources :questions, :defaults => {:format => 'json'}
 
   resources :admins
 

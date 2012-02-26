@@ -8,8 +8,8 @@ class Onelement.Views.ProductSectionsIndex extends Backbone.View
       (product_section) -> $(@el).append(new Onelement.Views.ProductSectionsShow(
         version: @version
         model: product_section).render().el)
-      this)
+      @)
 
-    return this
+    return @
 
   initialize: -> @version = @options["version"]

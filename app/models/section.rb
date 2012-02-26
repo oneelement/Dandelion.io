@@ -9,7 +9,7 @@ class Section
 
   delegate :suggested_questions, :suggested_child_sections, :to => :builder_metadata
 
-  scope :top_level, where("builder_metadata.is_top_level" => true)
+  scope :top_level_suggestions, where("builder_metadata.is_top_level" => true)
 end
 
 #Some details about the section, used to assist the product/question set builder

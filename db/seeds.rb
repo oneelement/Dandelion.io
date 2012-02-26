@@ -15,13 +15,29 @@ contents_section = Section.create({
   }
 })
 
+contents_value_question = Question.create({
+  :name => "Total contents value",
+  :section => contents_section
+})
+
+contents_section.builder_metadata.suggested_questions << contents_value_question
+
 premises_section = Section.create({
   :name => 'Premises',
   :builder_metadata_attributes => {
     :is_top_level => true,
-    :is_standard_section => true
+    :is_standard_section => true,
   }
 })
+
+premises_address_question = Question.create({
+  :name => "Address",
+  :section => premises_section
+})
+
+premises_section.builder_metadata.suggested_questions << premises_address_question
+
+premises_section.builder_metadata.suggested_child_sections << contents_section
 
 el_section = Section.create({
   :name => "Employer's Liability",
@@ -31,3 +47,9 @@ el_section = Section.create({
   }
 })
 
+el_loi_question = Question.create({
+  :name => "EL Limit of Indemnity",
+  :section => el_section
+})
+
+el_section.builder_metadata.suggested_questions << el_loi_question

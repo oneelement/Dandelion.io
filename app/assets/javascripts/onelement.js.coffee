@@ -3,7 +3,7 @@ window.Onelement =
   Collections: {}
   Views: {}
   Routers: {}
-  init: -> 
+  init: ->
 
 $(document).ready ->
   Onelement.init()

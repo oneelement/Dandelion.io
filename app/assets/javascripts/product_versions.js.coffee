@@ -1,4 +1,4 @@
 $(document).ready(->
-    router = new Onelement.Routers.ProductVersions()
+    window.ProductVersions = new Onelement.Routers.ProductVersions()
     Backbone.history.start()
 )

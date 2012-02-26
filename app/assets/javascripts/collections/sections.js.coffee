@@ -1,8 +1,8 @@
 class Onelement.Collections.Sections extends Backbone.Collection
     url: '/sections'
     model: Onelement.Models.Section
-    fetchTopLevel: ->
+    fetchSuggestions: (id) ->
         @fetch(
-            data: 
-                topLevel: true)
-
+            data:
+                suggestions: true
+                id: id)

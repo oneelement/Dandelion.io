@@ -42,7 +42,14 @@ class Onelement.Models.ProductVersion extends Backbone.RelationalModel
 
     console.log(@toJSON())
 
-  selectedSectionChanged: ->
+  selectSection: (section) ->
+    #Deselect current if 'selecting' the currently selected section
+    if @get("selectedSection") == section
+      @set("selectedSection", null)
+    else
+      @set("selectedSection", section)
+
+  selectedSectionChanged: (model, selectedSection) ->
     #Clear selection on all sections
     sections = @get("product_sections").models
     _.each(
@@ -50,6 +57,12 @@ class Onelement.Models.ProductVersion extends Backbone.RelationalModel
       (section) ->
         section.clearSelected())
 
-    #Set new selection
-    @get('selectedSection').set('selected', true)
+    if selectedSection?
+      #Set new selection
+      @get('selectedSection').set('selected', true)
+      id = @get('selectedSection').get("section").get("_id")
+      ProductVersions.navigate('sections/' + id, {trigger: true})
 
+    else
+      #Selection cleared, navigate to root
+      ProductVersions.navigate('', {trigger: true})

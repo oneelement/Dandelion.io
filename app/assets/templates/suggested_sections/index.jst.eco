@@ -1,0 +1,5 @@
+<% if @sections.length > 0: %>
+    <ul id="suggested-child-sections"></ul>
+<% else: %>
+    There are no suggested child sections for the selected section.
+<% end %>
