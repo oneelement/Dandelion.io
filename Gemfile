@@ -42,7 +42,17 @@ end
 
 group :development, :test do
   gem 'jasmine'
+  gem 'jasmine-headless-webkit'
   gem 'rspec-rails'
   gem 'fabrication'
   gem 'spork'
+  gem 'guard'
+  gem 'guard-jasmine-headless-webkit'
+  gem 'autotest'
+  gem 'autotest-rails-pure'
+  if RUBY_PLATFORM =~ /darwin/i
+    gem 'ruby_gntp'
+    gem 'autotest-fsevent'
+    gem 'autotest-growl'
+  end
 end
