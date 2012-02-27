@@ -1,5 +1,14 @@
+<h3>Sections</h3>
 <% if @product_sections.length > 0: %>
     <div id="product-sections"></div>
 <% else: %>
     This product currently has no sections. Add some from the suggestions on the right.
+<% end %>
+<% if @selectedSection?: %>
+    <% if @selectedSection.product_questions.length > 0: %>
+        <h3>Questions</h3>
+        <div id="section-questions"></div>
+    <% else: %>
+        This section currently has no questions. Add some from the suggestions on the right.
+    <% end %>
 <% end %>

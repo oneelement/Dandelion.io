@@ -13,7 +13,15 @@ class Onelement.Models.ProductSection extends Backbone.RelationalModel
       collectionType: 'Onelement.Collections.ProductSections'
       includeInJSON: true
       createModels: true
+    }, {
+      type: 'HasMany'
+      key: 'product_questions'
+      relatedModel: 'Onelement.Models.ProductQuestion'
+      collectionType: 'Onelement.Collections.ProductQuestions'
+      includeInJSON: true
+      createModels: true
     }
+
   ]
 
   clearSelected: ->

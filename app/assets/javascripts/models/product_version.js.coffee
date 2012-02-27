@@ -1,46 +1,68 @@
 class Onelement.Models.ProductVersion extends Backbone.RelationalModel
   urlRoot: -> '/products/' + @get('productId') + '/versions'
   relations: [
-    type: 'HasMany'
-    key: 'product_sections'
-    relatedModel: 'Onelement.Models.ProductSection'
-    collectionType: 'Onelement.Collections.ProductSections'
-    includeInJSON: true
-    createModels: true
+    {
+      type: 'HasMany'
+      key: 'product_sections'
+      relatedModel: 'Onelement.Models.ProductSection'
+      collectionType: 'Onelement.Collections.ProductSections'
+      includeInJSON: true
+      createModels: true
+    },{
+      type: 'HasOne'
+      key: 'selectedSection'
+      relatedModel: 'Onelement.Models.ProductSection'
+      includeInJSON: true
+      createModels: true
+    }
   ]
 
   initialize: ->
-    @bind(
-      "add:product_sections",
+    @bind("add:product_sections",
       -> @trigger("change"),
       @)
-
-    @bind(
-      "remove:product_sections",
+    @bind("remove:product_sections",
       -> @trigger("change"),
       @)
 
     @bind("change:selectedSection", @selectedSectionChanged)
+    @bind("change",
+      ->
+        console.log('changed')
+        console.log(@)
+      @)
 
   addSection: (section) ->
     s = new Onelement.Models.ProductSection(section: section)
-    s.bind(
-        "add:product_sections",
-        -> @trigger("change"),
-        @)
-    s.bind(
-        "remove:product_sections",
-        -> @trigger("change"),
-        @)
+    #Add event triggers, so if sections are added/removed to the new
+    #section, then the product version's change event is triggered.
+    #This is needed for redrawing.
+    s.bind("add:product_sections",
+      -> @trigger("change"),
+      @)
+    s.bind("remove:product_sections",
+      -> @trigger("change"),
+      @)
+    s.bind("add:product_questions",
+      -> @trigger("change"),
+      @)
+    s.bind("remove:product_questions",
+      -> @trigger("change"),
+      @)
 
 
-    currentSelection = @get("selectedSection")
-    if currentSelection?
-        currentSelection.get("product_sections").add(s)
+    currentSection = @get("selectedSection")
+    if currentSection?
+        currentSection.get("product_sections").add(s)
     else
         @get("product_sections").add(s)
 
-    console.log(@toJSON())
+  addQuestion: (question) ->
+    q = new Onelement.Models.ProductQuestion(question: question)
+
+    currentSection = @get("selectedSection")
+    if currentSection?
+      currentSection.get("product_questions").add(q)
 
   selectSection: (section) ->
     #Deselect current if 'selecting' the currently selected section
