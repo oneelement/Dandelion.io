@@ -29,7 +29,7 @@ class Onelement.Models.ProductVersion extends Backbone.RelationalModel
     @bind("change",
       ->
         console.log('changed')
-        console.log(@)
+        console.log(@.toJSON())
       @)
 
   addSection: (section) ->
