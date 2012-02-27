@@ -4,8 +4,10 @@ class Ability
   def initialize(user)
     if user.adminent?
       can :manage, User, :entity_id => user.entity_id
+      cannot :manage, Entity
     else
       can :manage, User, :organisation_id => user.organisation_id
+      can :manage, Entity, :id => user.entity_id
     end
 
     # Define abilities for the passed in user here. For example:

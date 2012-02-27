@@ -1,8 +1,9 @@
 class EntitiesController < ApplicationController
+  load_and_authorize_resource
   # GET /entities
   # GET /entities.json
   def index
-    @entities = Entity.all
+    @entities = Entity.where(organisation_id: current_user.organisation_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,7 +42,7 @@ class EntitiesController < ApplicationController
   # POST /entities.json
   def create
     @entity = Entity.new(params[:entity])
-
+    @entity.update_attributes(organisation_id: current_user.organisation_id)
     respond_to do |format|
       if @entity.save
         format.html { redirect_to @entity, notice: 'Entity was successfully created.' }

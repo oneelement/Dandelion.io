@@ -57,9 +57,9 @@ Ent <%= current_user.adminent %>
 <%= link_to 'Entities', entities_path %>
 
 <br />
-
+<% if can? :read, Entity %>
 <%= link_to 'New ' + current_user.organisation.name + ' User', new_user_path %>
-
 <br />
+<% end %>
 
 <%= link_to 'New Entity User', newent_user_index_path %>

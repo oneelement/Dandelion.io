@@ -16,10 +16,10 @@
 <%= link_to 'Organisations', organisations_path %>
 
 <br />
-
+<% if can? :read, Entity %>
 <%= link_to 'Entities', entities_path %>
-
 <br />
+<% end %>
 
 <%= link_to 'Manage Users', user_index_path %>
 
