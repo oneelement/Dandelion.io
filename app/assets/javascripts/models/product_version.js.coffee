@@ -1,5 +1,6 @@
 class Onelement.Models.ProductVersion extends Backbone.RelationalModel
-  urlRoot: -> '/products/' + @get('productId') + '/versions'
+  idAttribute: '_id'
+  urlRoot: -> '/products/' + @get('product_id') + '/versions'
   relations: [
     {
       type: 'HasMany'

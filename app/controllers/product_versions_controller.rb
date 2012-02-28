@@ -10,7 +10,13 @@ class ProductVersionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @product }
+      format.json { render json: @version.to_json(:include => {
+        :product_sections => {:include => {
+          :section => {},
+          :product_sections => {:include => :section},
+          :product_questions => {:include => :question}
+        }}
+      })}
     end
   end
 
@@ -45,7 +51,7 @@ class ProductVersionsController < ApplicationController
     @version = ProductVersion.find(params[:id])
 
     respond_to do |format|
-      if @version.update_attributes(params[:version])
+      if @version.update_attributes(params)
         format.html { redirect_to @version, notice: 'Version was successfully updated.' }
         format.json { head :ok }
       else

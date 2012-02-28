@@ -1,4 +1,5 @@
 class Onelement.Models.ProductSection extends Backbone.RelationalModel
+  idAttribute: '_id'
   relations: [
     {
       type: 'Backbone.HasOne'

@@ -5,8 +5,8 @@ class Onelement.Routers.ProductVersions extends Backbone.Router
 
   initialize: ->
     @version = new Onelement.Models.ProductVersion(
-      id: $('#version-id').text()
-      productId: $('#product-id').text()
+      _id: $('#version-id').text()
+      product_id: $('#product-id').text()
     )
     @versionView = new Onelement.Views.ProductVersionsShow(model: @version)
     $('#editor').html(@versionView.render().el)

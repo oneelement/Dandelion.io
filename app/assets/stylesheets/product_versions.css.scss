@@ -10,17 +10,19 @@
     text-align: left;
 }
 
-#suggestions {
+#menu {
     float: right;
     margin-right: 1em;
     width: 300px;
 
-    #sections, #questions {
-        ul {
-            li {
-                width: 250px;
-                list-style: none;
-                text-align: left;
+    #suggestions {
+        #sections, #questions {
+            ul {
+                li {
+                    width: 250px;
+                    list-style: none;
+                    text-align: left;
+                }
             }
         }
     }
