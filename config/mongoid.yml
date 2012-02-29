@@ -1,13 +1,19 @@
+defaults: &defaults
+  allow_dynamic_fields: false
+
 development:
+  <<: *defaults
   host: localhost
   database: onelement_development
 
 test:
+  <<: *defaults
   host: localhost
   database: onelement_test
 
 # set these environment variables on your prod server
 production:
+  <<: *defaults
   host: <%= ENV['MONGOID_HOST'] %>
   port: <%= ENV['MONGOID_PORT'] %>
   username: <%= ENV['MONGOID_USERNAME'] %>
