@@ -4,7 +4,6 @@
 #increase each time we save, but only when the version is 'published'
 class ProductVersion
   include Mongoid::Document
-  #Timestamps are used to help with the product builder interface
   include Mongoid::Timestamps
 
   belongs_to :product
@@ -47,10 +46,10 @@ class ProductSection
   include Mongoid::Document
 
   belongs_to :section, :autosave => true
-  embeds_many :product_sections
+  embeds_many :child_sections, :class_name => 'ProductSection'
   embeds_many :product_questions
   accepts_nested_attributes_for :sections, :allow_destroy => false
-  accepts_nested_attributes_for :product_sections, :product_questions, :allow_destroy => true
+  accepts_nested_attributes_for :child_sections, :product_questions, :allow_destroy => true
 end
 
 class ProductQuestion
