@@ -10,13 +10,22 @@ class ProductVersionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @version.to_json(:include => {
-        :product_sections => {:include => {
-          :section => {},
-          :child_sections => {:include => :section},
-          :product_questions => {:include => :question}
-        }}
-      })}
+      format.json { 
+        render json: @version.to_json(:include => {
+          :product_sections => {
+            :include => {
+              :section => {},
+              :child_sections => {
+                :include => {
+                  :section => {},
+                  :product_questions => {:include => :question}
+                }
+              },
+              :product_questions => {:include => :question}
+            }
+          }
+        })
+      }
     end
   end
 

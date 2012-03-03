@@ -8,5 +8,4 @@ class ProductEditor.Views.SuggestedQuestionsShow extends Backbone.View
     return this
 
   events: "click": ->
-    console.log(@model)
     ProductEditor.app.addQuestion(@model)

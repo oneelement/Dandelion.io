@@ -5,18 +5,6 @@ class ProductEditor.Views.AppView extends Backbone.View
       model: app.version
     )
 
-    #Trigger a change to the sections involved in selection change, for redraw
-    app.bind("change:selectedProductSection", (model, newSelection) ->
-
-      prevSelection = app.previous("selectedProductSection")
-      if prevSelection?
-        prevSelection.trigger("change")
-
-      if newSelection?
-        newSelection.trigger("change")
-    )
-
-    @selectedSectionView = new ProductEditor.Views.SelectedSection()
     @suggestedSectionsView = new ProductEditor.Views.SuggestedSectionsIndex(
       collection: app.suggestedSections
     )
@@ -27,9 +15,15 @@ class ProductEditor.Views.AppView extends Backbone.View
     $('#action-save').click ->
       app.save()
 
+    app.bind("change:selectedProductSection", (model, newSelection) ->
+      $detail = $('#section-detail').empty()
+      if newSelection?
+        $detail.append(new ProductEditor.Views.CurrentSection(
+          model: newSelection
+        ).render().el)
+    )
+
   render: ->
     $('#section-tree').html(@versionView.render().el)
-    $('#section-detail').html(@selectedSectionView.render().el)
-
     $('#sections', '#suggestions').html(@suggestedSectionsView.render().el)
     $('#questions', '#suggestions').html(@suggestedQuestionsView.render().el)
