@@ -17,7 +17,7 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
 
     $(@el).html(@template(@model.toJSON()))
 
-    sub_sections = @model.get("child_sections")
+    sub_sections = @model.get("product_sections")
     if sub_sections.length > 0
       $sub_el = $('.sub-sections', @el)
       $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(

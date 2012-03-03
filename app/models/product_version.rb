@@ -24,6 +24,15 @@ class ProductVersion
   #Live date is used to determine what the latest 'live' version is
   field :live_date, :type => DateTime
 
+  acts_as_api
+
+  api_accessible :product_version do |t|
+    t.add :product_name
+    t.add :version_description
+    t.add :live_date
+    t.add :product_sections, :template => :product_section
+  end
+
   def is_live
     if live_date.nil?
       return false
@@ -46,10 +55,19 @@ class ProductSection
   include Mongoid::Document
 
   belongs_to :section, :autosave => true
-  embeds_many :child_sections, :class_name => 'ProductSection'
+  embeds_many :product_sections
   embeds_many :product_questions
   accepts_nested_attributes_for :sections, :allow_destroy => false
-  accepts_nested_attributes_for :child_sections, :product_questions, :allow_destroy => true
+  accepts_nested_attributes_for :product_sections, :product_questions, :allow_destroy => true
+
+  acts_as_api
+
+  api_accessible :product_section do |t|
+    t.add :section
+    t.add :product_sections
+    t.add :product_questions, :template => :product_question
+  end
+
 end
 
 class ProductQuestion
@@ -58,6 +76,12 @@ class ProductQuestion
   belongs_to :question, :autosave => true
   embeds_many :product_question_possible_answers
   accepts_nested_attributes_for :questions, :product_question_possible_answers, :allow_destroy => false
+
+  acts_as_api
+
+  api_accessible :product_question do |t|
+    t.add :question
+  end
 end
 
 class ProductQuestionPossibleAnswer

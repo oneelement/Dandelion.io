@@ -11,6 +11,7 @@ gem "mongoid", "~> 2.2"
 gem "bson_ext", "~> 1.3"
 gem 'devise' # Authentication
 gem 'cancan'
+gem 'acts_as_api'
 
 # Gems used only for assets and not required
 # in production environments by default.

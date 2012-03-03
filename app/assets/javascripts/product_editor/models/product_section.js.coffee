@@ -9,7 +9,7 @@ class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
       createModels: true
     }, {
       type: 'HasMany'
-      key: 'child_sections'
+      key: 'product_sections'
       relatedModel: 'ProductEditor.Models.ProductSection'
       collectionType: 'ProductEditor.Collections.ProductSections'
       includeInJSON: true
@@ -25,13 +25,13 @@ class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
   ]
 
   initialize: ->
-    @bind("add:child_sections remove:child_sections add:product_questions remove:product_questions", ->
+    @bind("add:product_sections remove:product_sections add:product_questions remove:product_questions", ->
         @trigger("change")
       @)
 
   addSection: (section) ->
     s = new ProductEditor.Models.ProductSection(section: section)
-    @get("child_sections").add(s)
+    @get("product_sections").add(s)
 
   addQuestion: (question) ->
     q = new ProductEditor.Models.ProductQuestion(question: question)
