@@ -24,7 +24,9 @@ contents_item_section = Section.create({
   :name => "Specified Contents Item",
   :builder_metadata_attributes => {
     :is_top_level => false,
-    :is_standard_section => true
+    :is_standard_section => true,
+    :repeats => true,
+    :repeat_max_instances => 5
   }
 })
 
@@ -49,6 +51,9 @@ premises_section = Section.create({
   :builder_metadata_attributes => {
     :is_top_level => true,
     :is_standard_section => true,
+    :repeats => true,
+    :repeat_max_instances => 5
+
   }
 })
 

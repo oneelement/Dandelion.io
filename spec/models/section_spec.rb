@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe Section do
   it "has a name" do
     s = Section.new()
