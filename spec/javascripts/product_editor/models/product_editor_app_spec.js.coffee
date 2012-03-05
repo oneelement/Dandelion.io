@@ -24,6 +24,7 @@ beforeEach ->
 
 afterEach ->
   jQuery.ajax.restore()
+  @ajaxSpy.reset()
 
 describe 'ProductEditorApp model', ->
 
@@ -46,14 +47,31 @@ describe 'ProductEditorApp model', ->
   describe 'when no product section is selected', ->
 
     app = new ProductEditor.Models.ProductEditorApp()
+    newSec = new ProductEditor.Models.Section(
+      _id: 'a1b1c1d1'
+    )
 
     it 'should add sections to the root product version', ->
 
-      newSec = new ProductEditor.Models.Section()
       app.addSection(newSec)
-
       expect(app.version.get("product_sections").length).toEqual(1)
 
+    it 'should load suggestions when one is selected', ->
+
+      app.addSection(newSec)
+      newProductSection = app.version.get("product_sections").models[0]
+
+      app.selectProductSection(newProductSection)
+
+      for url in ['/sections', '/questions']
+        calledUrl = false
+
+        for callArgs in @ajaxSpy.args
+          if callArgs[0].url == url and callArgs[0].data.suggestions
+            if callArgs[0].data.id == newSec.id or callArgs[0].data.section_id == newSec.id
+              calledUrl = true
+
+        expect(calledUrl).toBeTruthy()
 
   describe 'when a product section is selected', ->
 
