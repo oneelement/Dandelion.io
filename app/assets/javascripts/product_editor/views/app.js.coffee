@@ -27,3 +27,5 @@ class ProductEditor.Views.AppView extends Backbone.View
     $('#section-tree').html(@versionView.render().el)
     $('#sections', '#suggestions').html(@suggestedSectionsView.render().el)
     $('#questions', '#suggestions').html(@suggestedQuestionsView.render().el)
+
+    return @
