@@ -1,9 +1,13 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag "product_editor" %>
+<% end %>
 <p id="notice"><%= notice %></p>
 <div id="product-structure">
     <h2>Product Structure</h2>
     <div id="product-id" style="display:none"><%= @product.id %></div>
     <div id="version-id" style="display:none"><%= @version.id %></div>
-    <div id="editor"></div>
+    <div id="section-tree"></div>
+    <div id="section-detail"></div>
 </div>
 <div id="menu">
     <div id="actions">

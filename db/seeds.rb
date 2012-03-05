@@ -20,6 +20,30 @@ contents_value_question = Question.create({
   :section => contents_section
 })
 
+contents_item_section = Section.create({
+  :name => "Specified Contents Item",
+  :builder_metadata_attributes => {
+    :is_top_level => false,
+    :is_standard_section => true,
+    :repeats => true,
+    :repeat_max_instances => 5
+  }
+})
+
+contents_item_type_question = Question.create({
+  :name => "Contents item type",
+  :section => contents_item_section
+})
+
+contents_item_value_question = Question.create({
+  :name => "Contents item value",
+  :section => contents_item_section
+})
+
+contents_item_section.builder_metadata.suggested_questions << [contents_item_type_question, contents_item_value_question]
+
+contents_section.builder_metadata.suggested_child_sections << contents_item_section
+
 contents_section.builder_metadata.suggested_questions << contents_value_question
 
 premises_section = Section.create({
@@ -27,6 +51,9 @@ premises_section = Section.create({
   :builder_metadata_attributes => {
     :is_top_level => true,
     :is_standard_section => true,
+    :repeats => true,
+    :repeat_max_instances => 5
+
   }
 })
 
