@@ -1,6 +1,7 @@
 src_dir: 
   - app/assets/templates
   - app/assets/javascripts
+  - spec/javascripts/support
 
 asset_paths:
   - lib/assets/javascripts

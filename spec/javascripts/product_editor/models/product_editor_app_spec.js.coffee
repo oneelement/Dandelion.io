@@ -1,5 +1,3 @@
-#= require sinon
-#= require_tree ../../helpers
 #= require_tree ../fixtures
 
 sectionSuggestionArgs =
@@ -29,11 +27,11 @@ beforeEach ->
 
 describe 'ProductEditorApp model', ->
 
-  describe 'when populated', ->
+  describe 'when initialFetch is called', ->
 
     beforeEach ->
       @versionSpy = sinon.spy(@app.version, "fetch")
-      @app.populate()
+      @app.initialFetch()
 
     it 'should get the product version', ->
 
@@ -77,10 +75,12 @@ describe 'ProductEditorApp model', ->
 
       @app.selectProductSection(@productSection)
 
+    it 'should populate the selectedProductSection attribute', ->
+      expect(@app.get("selectedProductSection")).toEqual(@productSection)
+
     it 'should add sections to the selected product section', ->
 
       anotherNewSec = new ProductEditor.Models.Section()
       @app.addSection(anotherNewSec)
 
       expect(@productSection.get("product_sections").length).toEqual(1)
-
