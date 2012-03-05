@@ -44,6 +44,7 @@ end
 group :development, :test do
   gem 'jasmine'
   gem 'jasmine-headless-webkit'
+  gem 'jasmine-spec-extras'
   gem 'rspec-rails'
   gem 'fabrication'
   gem 'spork'

@@ -109,6 +109,7 @@ GEM
       multi_json
       rainbow
       sprockets (~> 2)
+    jasmine-spec-extras (0.0.2)
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -239,6 +240,7 @@ DEPENDENCIES
   guard-jasmine-headless-webkit
   jasmine
   jasmine-headless-webkit
+  jasmine-spec-extras
   jquery-rails
   mongoid (~> 2.2)
   mongrel (= 1.2.0.pre2)
