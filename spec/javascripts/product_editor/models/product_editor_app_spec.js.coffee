@@ -19,76 +19,68 @@ beforeEach ->
   @server.respondWith("/questions",
     @validResponse(@fixtures.Questions.suggestions))
 
-  #Spy on jQuery ajax
-  @ajaxSpy = sinon.spy(jQuery, 'ajax')
 
-afterEach ->
-  jQuery.ajax.restore()
-  @ajaxSpy.reset()
+  #Create a new app each time
+  @app = new ProductEditor.Models.ProductEditorApp()
+
+  #Spy on version, and suggested sections and questions
+  @sugSectionsSpy = sinon.spy(@app.suggestedSections, "fetchSuggestions")
+  @sugQuestionsSpy = sinon.spy(@app.suggestedQuestions, "fetchSuggestions")
 
 describe 'ProductEditorApp model', ->
 
-  describe 'when created', ->
+  describe 'when populated', ->
+
+    beforeEach ->
+      @versionSpy = sinon.spy(@app.version, "fetch")
+      @app.populate()
+
+    it 'should get the product version', ->
+
+      expect(@versionSpy.called).toBeTruthy()
 
     it 'should get default suggestions', ->
 
-      app = new ProductEditor.Models.ProductEditorApp()
-
-      for url in ['/sections']
-        calledUrl = false
-
-        for callArgs in @ajaxSpy.args
-          if callArgs[0].url == url and callArgs[0].data.suggestions
-            calledUrl = true
-
-        expect(calledUrl).toBeTruthy()
-
+      expect(@sugSectionsSpy.calledWithExactly()).toBeTruthy()
+      expect(@sugQuestionsSpy.calledWithExactly()).toBeTruthy()
 
   describe 'when no product section is selected', ->
 
-    app = new ProductEditor.Models.ProductEditorApp()
-    newSec = new ProductEditor.Models.Section(
-      _id: 'a1b1c1d1'
-    )
+    beforeEach ->
+      @newSec = new ProductEditor.Models.Section(
+        _id: 'a1b1c1d1'
+      )
+
+      @app.addSection(@newSec)
 
     it 'should add sections to the root product version', ->
 
-      app.addSection(newSec)
-      expect(app.version.get("product_sections").length).toEqual(1)
+      expect(@app.version.get("product_sections").length).toEqual(1)
 
     it 'should load suggestions when one is selected', ->
 
-      app.addSection(newSec)
-      newProductSection = app.version.get("product_sections").models[0]
+      newProductSection = @app.version.get("product_sections").models[0]
+      @app.selectProductSection(newProductSection)
 
-      app.selectProductSection(newProductSection)
-
-      for url in ['/sections', '/questions']
-        calledUrl = false
-
-        for callArgs in @ajaxSpy.args
-          if callArgs[0].url == url and callArgs[0].data.suggestions
-            if callArgs[0].data.id == newSec.id or callArgs[0].data.section_id == newSec.id
-              calledUrl = true
-
-        expect(calledUrl).toBeTruthy()
+      expect(@sugSectionsSpy.calledWithExactly(@newSec.id)).toBeTruthy()
+      expect(@sugQuestionsSpy.calledWithExactly(@newSec.id)).toBeTruthy()
 
   describe 'when a product section is selected', ->
 
-    app = new ProductEditor.Models.ProductEditorApp()
-    sec = new ProductEditor.Models.Section(
-      id: 'abc123'
-    )
-    app.addSection(sec)
+    beforeEach ->
+      @newSec = new ProductEditor.Models.Section(
+        _id: 'a2b2c2d2'
+      )
 
-    productSection = app.version.get("product_sections").models[0]
+      @app.addSection(@newSec)
+      @productSection = @app.version.get("product_sections").models[0]
 
-    app.selectProductSection(productSection)
+      @app.selectProductSection(@productSection)
 
     it 'should add sections to the selected product section', ->
 
-      newSec = new ProductEditor.Models.Section()
-      app.addSection(newSec)
+      anotherNewSec = new ProductEditor.Models.Section()
+      @app.addSection(anotherNewSec)
 
-      expect(productSection.get("product_sections").length).toEqual(1)
+      expect(@productSection.get("product_sections").length).toEqual(1)
 
