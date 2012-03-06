@@ -5,6 +5,7 @@ window.ProductEditor =
   Routers: {}
   init: ->
     @app = new ProductEditor.Models.ProductEditorApp()
+    @app.initialFetch()
 
     @view = new ProductEditor.Views.AppView(@app)
     @view.render()

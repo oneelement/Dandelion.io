@@ -1,0 +1,7 @@
+<h3>Questions</h3>
+<div id="product-questions">
+<% if @length == 0: %>
+This section currently has no questions. Add some from the menu on the right.
+<% end %>
+</div>
+<div class="ui-helper-clearfix"></div>

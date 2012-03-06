@@ -1,3 +1,7 @@
-<span class="ui-button-icon-primary ui-icon ui-icon-plus"></span>
+<span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-se"></span>
 <span class="ui-button-text"><%= @section.name %></span>
+<% if @repeats: %>
+    <span class="ui-button-icon-secondary ui-icon ui-icon-refresh"></span>
+<% end %>
 <div class="sub-sections"></div>
+<span class="ui-helper-clearfix"></span>
