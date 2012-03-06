@@ -2,7 +2,7 @@
     <div id="section-details">
         <h3>Section Details</h3>
         <div id="section-details-list">
-            <input type="checkbox" id="section-attribute-repeats"/>
+            <input type="checkbox" id="section-attribute-repeats" <%= 'checked' if @repeats %> />
             <label for="section-attribute-repeats">Repeats</label>
         </div>
     </div>
