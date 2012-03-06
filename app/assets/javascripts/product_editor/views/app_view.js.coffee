@@ -16,16 +16,24 @@ class ProductEditor.Views.AppView extends Backbone.View
       app.save()
 
     app.bind("change:selectedProductSection", (model, newSelection) ->
-      $detail = $('#section-detail').empty()
+      $current = $('#current-section').empty()
       if newSelection?
-        $detail.append(new ProductEditor.Views.CurrentSection(
+        $current.html(new ProductEditor.Views.CurrentSection(
           model: newSelection
         ).render().el)
     )
 
+    app.bind("change:selectedProductSection", (model, newSelection) ->
+      $questions = $('#questions').empty()
+      if newSelection?
+        $questions.html(new ProductEditor.Views.ProductQuestionsIndex(
+          collection: newSelection.get("product_questions")
+        ).render().el)
+    )
+
   render: ->
-    $('#section-tree').html(@versionView.render().el)
-    $('#sections', '#suggestions').html(@suggestedSectionsView.render().el)
-    $('#questions', '#suggestions').html(@suggestedQuestionsView.render().el)
+    $('#sections').html(@versionView.render().el)
+    $('#suggested-sections-list', '#suggestions').html(@suggestedSectionsView.render().el)
+    $('#suggested-questions-list', '#suggestions').html(@suggestedQuestionsView.render().el)
 
     return @

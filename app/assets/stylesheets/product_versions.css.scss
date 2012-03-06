@@ -1,25 +1,56 @@
 #product-structure {
-    width: 600px;
+    width: 70%;
     float: left;
     margin-left: 1em;
-
 }
+
+#sections {
+    float: left;
+    width: 55%;
+    margin-right: 5%;
+}
+
+#current-section {
+    float: left;
+    width: 35%;
+}
+
+#questions {
+    float: left;
+    width: 51%;
+    margin-right: 2%;
+}
+
 
 .product-section, .product-question {
     display: block;
     text-align: left;
+
+    .ui-button-icon-secondary {
+        right: .5em;
+        top: 1em;
+    }
+
 }
 
+#current-product-section {
+    float: left;
+    width: 100%;
+}
+
+#section-details {
+    float: left;
+    width: 50%;
+}
 #menu {
     float: right;
     margin-right: 1em;
-    width: 300px;
+    width: 25%;
 
     #suggestions {
         #sections, #questions {
             ul {
                 li {
-                    width: 250px;
                     list-style: none;
                     text-align: left;
                 }
