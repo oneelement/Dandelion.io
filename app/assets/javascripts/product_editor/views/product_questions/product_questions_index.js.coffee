@@ -2,6 +2,9 @@ class ProductEditor.Views.ProductQuestionsIndex extends Backbone.View
 
   template: JST['product_editor/product_questions/index']
 
+  initialize: ->
+    @collection.bind("add remove", @render, @)
+
   render: ->
     $(@el).html(@template())
 

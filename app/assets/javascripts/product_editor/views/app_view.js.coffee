@@ -31,9 +31,17 @@ class ProductEditor.Views.AppView extends Backbone.View
         ).render().el)
     )
 
+    app.bind("change:selectedProductSection", (model, newSelection) ->
+      $sectionContext = $('#context-menu-section').empty()
+      if newSelection?
+        $sectionContext.html(new ProductEditor.Views.ContextMenuSection(
+          model: newSelection
+        ).render().el)
+    )
+
   render: ->
     $('#sections').html(@versionView.render().el)
-    $('#suggested-sections-list', '#suggestions').html(@suggestedSectionsView.render().el)
-    $('#suggested-questions-list', '#suggestions').html(@suggestedQuestionsView.render().el)
+    $('#suggested-sections-list').html(@suggestedSectionsView.render().el)
+    $('#suggested-questions-list').html(@suggestedQuestionsView.render().el)
 
     return @

@@ -60,7 +60,7 @@ class ProductSection
   accepts_nested_attributes_for :sections, :allow_destroy => false
   accepts_nested_attributes_for :product_sections, :product_questions, :allow_destroy => true
 
-  field :repeats, :type => Boolean
+  field :repeats, :type => Boolean, :default => false
 
   acts_as_api
 

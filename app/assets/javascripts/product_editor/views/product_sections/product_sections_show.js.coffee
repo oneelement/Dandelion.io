@@ -7,6 +7,9 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+  destroy: ->
+    alert 'yo'
+
   render: ->
     if ProductEditor.app.get("selectedProductSection") == @model
       $(@el).removeClass('ui-state-default')
