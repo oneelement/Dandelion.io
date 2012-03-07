@@ -40,9 +40,11 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       @version.addSection(section)
 
   removeSection: (section) ->
-    selected = @get("selectedProductSection")
-    if selected?
-      selected.trigger("destroy", section)
+    if section?
+      if section == @get("selectedProductSection")
+        @unset("selectedProductSection")
+
+      section.trigger("destroy", section)
 
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
