@@ -1,1 +1,10 @@
-<div id="questions-list"></div>
+<div id="current-product-section">
+    <div id="section-details">
+        <h3>Section Details</h3>
+        <div id="section-details-list">
+            <input type="checkbox" id="section-attribute-repeats" <%= 'checked' if @repeats %> />
+            <label for="section-attribute-repeats">Repeats</label>
+        </div>
+    </div>
+    <div class="ui-helper-clearfix"></div>
+</div>

@@ -6,25 +6,29 @@
     <h2>Product Structure</h2>
     <div id="product-id" style="display:none"><%= @product.id %></div>
     <div id="version-id" style="display:none"><%= @version.id %></div>
-    <div id="section-tree"></div>
-    <div id="section-detail"></div>
+    <div id="sections"></div>
+    <div id="current-section"></div>
+    <div id="questions"></div>
+    <div id="current-question"></div>
 </div>
 <div id="menu">
+    <h1>Menu</h1>
     <div id="actions">
         <h2>Actions</h2>
         <ul>
-            <li><a id="action-save" href="javascript: return false;">Save</a></li>
+            <li><a id="action-save">Save</a></li>
         </ul>
     </div>
-    <div id="suggestions">
-        <h2>Suggestions</h2>
-        <div id="suggestions-sections">
-            <p>Sections</p>
-            <div id="sections"></div>
-        </div>
-        <div id="suggestions-questions">
-            <p>Questions</p>
-            <div id="questions"></div>
-        </div>
+    <h2>Section</h2>
+    <div id="context-menu-section"></div>
+    <div id="suggested-sections">
+        <h3>Suggested sections</h3>
+        <div id="suggested-sections-list"></div>
     </div>
+    <div id="suggested-questions">
+        <h3>Suggested questions</h3>
+        <div id="suggested-questions-list"></div>
+    </div>
+    <h2>Question</h2>
+    <div id="context-menu-question"></div>
 </div>

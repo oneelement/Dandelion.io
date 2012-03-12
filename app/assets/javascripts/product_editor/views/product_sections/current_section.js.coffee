@@ -1,23 +1,12 @@
-class ProductEditor.Views.SelectedSection
+class ProductEditor.Views.CurrentSection extends Backbone.View
 
-  template: JST['product_editor/product_sections/show_selected']
-
-  initialize: ->
-    ProductEditor.state.bind("selectedProductSection", ->
-      @model = ProductEditor.state.get("selectedProductSection")
-      console.log(@)
-      @render()
-    @)
+  template: JST['product_editor/current_section']
 
   render: ->
-    if @model?
+    $(@el).html(@template(@model.toJSON()))
 
-      questions = @model.get("product_questions")
-
-      if questions.length > 0
-        $sub_el = $('#questions-list', @el).empty()
-        $sub_el.append(new ProductEditor.Views.ProductQuestionIndex(
-          collection: questions
-        ).render.el)
+    model = @model
+    $('#section-attribute-repeats', @el).bind("change", (event) ->
+        model.set("repeats", event.target.checked))
 
     return this

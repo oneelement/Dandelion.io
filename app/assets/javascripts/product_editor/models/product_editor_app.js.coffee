@@ -7,18 +7,24 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     @suggestedSections = new ProductEditor.Collections.Sections()
     @suggestedQuestions = new ProductEditor.Collections.Questions()
 
-    @version.fetch()
-    @suggestedSections.fetchSuggestions()
-    @suggestedQuestions.fetchSuggestions()
-
     @bind("change:selectedProductSection", (model, newSelection) ->
+        prevSelection = @previous("selectedProductSection")
+        if prevSelection?
+          prevSelection.trigger("change")
+
         if newSelection?
           @suggestedSections.fetchSuggestions(newSelection.get("section").id)
           @suggestedQuestions.fetchSuggestions(newSelection.get("section").id)
+          newSelection.trigger("change")
         else
           @suggestedSections.fetchSuggestions()
           @suggestedQuestions.fetchSuggestions()
       @)
+
+  initialFetch: ->
+    @version.fetch()
+    @suggestedSections.fetchSuggestions()
+    @suggestedQuestions.fetchSuggestions()
 
   selectProductSection: (productSection) ->
     if @get("selectedProductSection") == productSection
@@ -33,11 +39,17 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     else
       @version.addSection(section)
 
+  removeSection: (section) ->
+    if section?
+      if section == @get("selectedProductSection")
+        @unset("selectedProductSection")
+
+      section.trigger("destroy", section)
+
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
     if selected_section?
       selected_section.addQuestion(question)
-
 
   save: ->
     @version.save()

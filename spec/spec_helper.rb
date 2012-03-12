@@ -30,8 +30,9 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
-
+  Dir[Rails.root.join("spec/fabricators/**/*.rb")].each do |f| 
+    require f
+  end
 end
 
 # --- Instructions ---

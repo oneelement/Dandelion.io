@@ -3,11 +3,4 @@
 <h2>Version details</h2>
 <p>Description: <%= @version.version_description %></p>
 <p>Status: <%= @version.status %></p>
-
-<h2>Structure</h2>
-<% if @version.product_sections.empty? %>
-    <p>This product doesn't have any structure defined yet. <%= link_to 'Edit it', edit_product_version_path(@product, @version) %></p>
-<% end %>
-<% @version.product_sections do |product_section| %>
-    <%= render(product_section) %>
-<% end %>
+<p><%= link_to 'Edit this version', edit_product_version_path(@product, @version) %></p>

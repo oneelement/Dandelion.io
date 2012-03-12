@@ -27,6 +27,9 @@ class BuilderSectionMetadata
   #Suggestion of some helper data that could be used in the question set builder interface
   #We can always easily add these later using awesome MONGO POWER!!
   #embeds_many :product_category_tags
+  
+  field :repeats, :type => Boolean, :default => false
+  field :repeat_max_instances, :type => Integer, :default => 1
 
   has_and_belongs_to_many :suggested_questions, :inverse_of => nil, :class_name => 'Question', :autosave => true
   has_and_belongs_to_many :suggested_child_sections, :inverse_of => nil, :class_name => 'Section', :autosave => true
