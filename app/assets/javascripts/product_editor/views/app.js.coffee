@@ -2,7 +2,7 @@ class ProductEditor.Views.AppView extends Backbone.View
   initialize: (app) ->
 
     @versionView = new ProductEditor.Views.ProductVersionsShow(
-      model: app.version
+      model: @options.version
     )
 
     #Trigger a change to the sections involved in selection change, for redraw
