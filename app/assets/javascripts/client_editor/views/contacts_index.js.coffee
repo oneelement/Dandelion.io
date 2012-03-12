@@ -11,5 +11,5 @@ class ClientEditor.Views.ContactsIndex extends Backbone.View
     this
 
   appendEntry: (client) =>
-    view = new ClientEditor.Views.ContactShow(model: client)
-    @$('#client_list').append(view.render().el)
+    view = new ClientEditor.Views.ContactsShow(model: client)
+    $('#client_list').append(view.render().el)

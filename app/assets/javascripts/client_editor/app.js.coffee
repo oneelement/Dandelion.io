@@ -4,7 +4,7 @@ window.ClientEditor =
   Views: {}
   Routers: {}
   init: ->
-    new ClientEditor.Routers.Contacts()
+    @router = new ClientEditor.Routers.Contacts()
     Backbone.history.start()
 
 $(document).ready ->
