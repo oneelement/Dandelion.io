@@ -1,6 +1,6 @@
 class ClientEditor.Routers.Contacts extends Backbone.Router
   routes:
-    '': "index"
+    "": "index"
     "contact/:id": "edit"
     "new": "newClient"
 
