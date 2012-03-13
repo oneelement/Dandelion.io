@@ -9,8 +9,12 @@ class QuestionsController < ApplicationController
       @questions = Question.all
     end
 
+    if @questions.nil?
+      @questions = []
+    end
+
     respond_to do |format|
-      format.json { render json: @questions }
+      format.json { render_for_api :question, :json => @questions }
     end
   end
 

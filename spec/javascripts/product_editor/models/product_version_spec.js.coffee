@@ -1,11 +1,11 @@
 #= require_tree ../fixtures
 
-beforeEach ->
-  @server = sinon.fakeServer.create()
-  @server.respondWith("/products/pid/versions/vid",
-    @validResponse(@fixtures.ProductVersions.nestedStructure))
-
 describe 'ProductVersion model', ->
+
+  beforeEach ->
+    @server = sinon.fakeServer.create()
+    @server.respondWith("/products/pid/versions/vid",
+      @validResponse(@fixtures.ProductVersions.nestedStructure))
 
   beforeEach ->
     @version = new ProductEditor.Models.ProductVersion(

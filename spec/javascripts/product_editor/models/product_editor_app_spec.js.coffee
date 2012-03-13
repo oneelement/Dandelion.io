@@ -8,24 +8,25 @@ questionSuggestionArgs =
   "data":
     "suggestions": true
 
-beforeEach ->
-  #Mock out the server
-  @server = sinon.fakeServer.create()
-  @server.respondWith("/sections",
-    @validResponse(@fixtures.Sections.suggestions))
-
-  @server.respondWith("/questions",
-    @validResponse(@fixtures.Questions.suggestions))
-
-
-  #Create a new app each time
-  @app = new ProductEditor.Models.ProductEditorApp()
-
-  #Spy on version, and suggested sections and questions
-  @sugSectionsSpy = sinon.spy(@app.suggestedSections, "fetchSuggestions")
-  @sugQuestionsSpy = sinon.spy(@app.suggestedQuestions, "fetchSuggestions")
-
 describe 'ProductEditorApp model', ->
+
+  beforeEach ->
+    #Mock out the server
+    @server = sinon.fakeServer.create()
+    @server.respondWith("/sections",
+      @validResponse(@fixtures.Sections.suggestions))
+
+    @server.respondWith("/questions",
+      @validResponse(@fixtures.Questions.suggestions))
+
+
+    #Create a new app each time
+    @app = new ProductEditor.Models.ProductEditorApp()
+
+    #Spy on version, and suggested sections and questions
+    @sugSectionsSpy = sinon.spy(@app.suggestedSections, "fetchSuggestions")
+    @sugQuestionsSpy = sinon.spy(@app.suggestedQuestions, "fetchSuggestions")
+
 
   describe 'when initialFetch is called', ->
 

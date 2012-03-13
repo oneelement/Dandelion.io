@@ -39,6 +39,22 @@ class ProductEditor.Views.AppView extends Backbone.View
         ).render().el)
     )
 
+    app.bind("change:selectedProductQuestion", (model, newSelection) ->
+      $current = $('#current-question').empty()
+      if newSelection?
+        $current.html(new ProductEditor.Views.CurrentQuestion(
+          model: newSelection
+        ).render().el)
+    )
+
+    app.bind("change:selectedProductQuestion", (model, newSelection) ->
+      $questionContext = $('#context-menu-question').empty()
+      if newSelection?
+        $questionContext.html(new ProductEditor.Views.ContextMenuQuestion(
+          model: newSelection
+        ).render().el)
+    )
+
   render: ->
     $('#sections').html(@versionView.render().el)
     $('#suggested-sections-list').html(@suggestedSectionsView.render().el)

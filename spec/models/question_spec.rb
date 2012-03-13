@@ -16,8 +16,5 @@ describe Question do
       Fabricate.build(:question_with_metadata)
     end
 
-    it "should suggest a possible answer group" do
-      question.suggested_possible_answer_group.name.should == "Test group"
-    end
   end
 end

@@ -54,19 +54,22 @@ end
 class ProductSection
   include Mongoid::Document
 
-  belongs_to :section, :autosave => true
+  belongs_to :section
   embeds_many :product_sections
   embeds_many :product_questions
-  accepts_nested_attributes_for :sections, :allow_destroy => false
   accepts_nested_attributes_for :product_sections, :product_questions, :allow_destroy => true
 
+  field :mandatory, :type => Boolean, :default => false
   field :repeats, :type => Boolean, :default => false
+  field :repeat_max_instances, :type => Integer
 
   acts_as_api
 
   api_accessible :product_section do |t|
-    t.add :repeats
     t.add :section
+    t.add :mandatory
+    t.add :repeats
+    t.add :repeat_max_instances
     t.add :product_sections
     t.add :product_questions, :template => :product_question
   end
@@ -78,12 +81,11 @@ class ProductQuestion
 
   belongs_to :question, :autosave => true
   embeds_many :product_question_possible_answers
-  accepts_nested_attributes_for :questions, :product_question_possible_answers, :allow_destroy => false
 
   acts_as_api
 
   api_accessible :product_question do |t|
-    t.add :question
+    t.add :question, :template => :question
   end
 end
 
@@ -91,5 +93,4 @@ class ProductQuestionPossibleAnswer
   include Mongoid::Document
 
   belongs_to :question_answer, :autosave => true
-  accepts_nested_attributes_for :question_answers, :allow_destroy => false
 end

@@ -4,7 +4,7 @@
     margin-left: 1em;
 }
 
-#sections {
+#sections, #questions {
     float: left;
     width: 55%;
     margin-right: 5%;
@@ -23,32 +23,35 @@
     width: 35%;
 }
 
-#questions {
-    float: left;
-    width: 51%;
-    margin-right: 2%;
-}
-
-
 .product-section, .product-question {
     display: block;
     text-align: left;
+
+    .ui-button-icon-primary {
+        top: 1em;
+    }
 
     .ui-button-icon-secondary {
         right: .5em;
         top: 1em;
     }
 
+    #question-attribute-type {
+        position: absolute;
+        right: .5em;
+        top: 1em;
+        margin-top: -8px;
+    }
+
 }
 
-#current-product-section {
+#current-product-section, #current-product-question {
     float: left;
-    width: 100%;
-}
 
-#section-details {
-    float: left;
-    width: 50%;
+    #section-attribute-repeat-max-instances {
+        width: 3em;
+        margin: 0 .5em;
+    }
 }
 #menu {
     float: right;
