@@ -29,8 +29,19 @@ class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
         @trigger("change")
       @)
 
+  loadDefaults: ->
+    s = @get("section")
+
+    if s?
+      metadata = s.get("builder_metadata")
+      if metadata?
+        @set("repeats", metadata.repeats)
+        if metadata.repeats?
+          @set("repeat_max_instances", metadata.repeat_max_instances)
+
   addSection: (section) ->
     s = new ProductEditor.Models.ProductSection(section: section)
+    s.loadDefaults()
     @get("product_sections").add(s)
 
   addQuestion: (question) ->

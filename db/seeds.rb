@@ -17,7 +17,10 @@ contents_section = Section.create({
 
 contents_value_question = Question.create({
   :name => "Total contents value",
-  :section => contents_section
+  :section => contents_section,
+  :question_type => NumericQuestionType.new({
+    :decimal_places => 0
+  })
 })
 
 contents_item_section = Section.create({
@@ -30,14 +33,36 @@ contents_item_section = Section.create({
   }
 })
 
+contents_item_type_computers = PossibleAnswer.create({
+  :value => 'Computers'
+})
+contents_item_type_antiques = PossibleAnswer.create({
+  :value => 'Antiques'
+})
+contents_item_type_other = PossibleAnswer.create({
+  :value => 'Other'
+})
+
+contents_item_type_group = PossibleAnswerGroup.create({
+  :name => 'Contents item types'
+})
+
+contents_item_type_group.possible_answers << [contents_item_type_computers, contents_item_type_antiques, contents_item_type_other]
+
 contents_item_type_question = Question.create({
   :name => "Contents item type",
-  :section => contents_item_section
+  :section => contents_item_section,
+  :question_type => PossibleAnswerQuestionType.create({
+    :possible_answer_group => contents_item_type_group
+  })
 })
 
 contents_item_value_question = Question.create({
   :name => "Contents item value",
-  :section => contents_item_section
+  :section => contents_item_section,
+  :question_type => NumericQuestionType.new({
+    :decimal_places => 0
+  })
 })
 
 contents_item_section.builder_metadata.suggested_questions << [contents_item_type_question, contents_item_value_question]
@@ -59,7 +84,8 @@ premises_section = Section.create({
 
 premises_address_question = Question.create({
   :name => "Address",
-  :section => premises_section
+  :section => premises_section,
+  :question_type => AddressQuestionType.create({})
 })
 
 premises_section.builder_metadata.suggested_questions << premises_address_question
@@ -76,7 +102,10 @@ el_section = Section.create({
 
 el_loi_question = Question.create({
   :name => "EL Limit of Indemnity",
-  :section => el_section
+  :section => el_section,
+  :question_type => NumericQuestionType.new({
+    :decimal_places => 0
+  })
 })
 
 el_section.builder_metadata.suggested_questions << el_loi_question

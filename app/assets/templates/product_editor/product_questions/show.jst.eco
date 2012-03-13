@@ -1,2 +1,2 @@
-<span class="ui-button-icon-primary ui-icon ui-icon-plus"></span>
-<span class="ui-button-text"><%= @question.name %></span>
+<span class="ui-button-icon-primary ui-icon ui-icon-bullet"></span>
+<span class="ui-button-text"><%= @question.name %> [<%= @question.question_type.display_name %>]</span>

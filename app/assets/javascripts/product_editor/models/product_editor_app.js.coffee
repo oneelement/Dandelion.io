@@ -8,6 +8,7 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     @suggestedQuestions = new ProductEditor.Collections.Questions()
 
     @bind("change:selectedProductSection", (model, newSelection) ->
+        #Trigger change on old and new selection so the selection highlighting updates
         prevSelection = @previous("selectedProductSection")
         if prevSelection?
           prevSelection.trigger("change")
@@ -21,6 +22,16 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
           @suggestedQuestions.fetchSuggestions()
       @)
 
+    @bind("change:selectedProductQuestion", (model, newSelection) ->
+        #Trigger change on old and new selection so the selection highlighting updates
+        prevSelection = @previous("selectedProductQuestion")
+        if prevSelection?
+          prevSelection.trigger("change")
+
+        if newSelection?
+          newSelection.trigger("change")
+      @)
+
   initialFetch: ->
     @version.fetch()
     @suggestedSections.fetchSuggestions()
@@ -31,6 +42,14 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       @unset("selectedProductSection")
     else
       @set("selectedProductSection", productSection)
+
+    @unset("selectedProductQuestion")
+
+  selectProductQuestion: (productQuestion) ->
+    if @get("selectedProductQuestion") == productQuestion
+      @unset("selectedProductQuestion")
+    else
+      @set("selectedProductQuestion", productQuestion)
 
   addSection: (section) ->
     selected = @get("selectedProductSection")
@@ -50,6 +69,13 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     selected_section = @get("selectedProductSection")
     if selected_section?
       selected_section.addQuestion(question)
+
+  removeQuestion: (question) ->
+    if question?
+      if question == @get("selectedProductQuestion")
+        @unset("selectedProductQuestion")
+
+      question.trigger("destroy", question)
 
   save: ->
     @version.save()

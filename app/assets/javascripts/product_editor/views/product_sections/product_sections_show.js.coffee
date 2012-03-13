@@ -7,9 +7,6 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
-  destroy: ->
-    alert 'yo'
-
   render: ->
     if ProductEditor.app.get("selectedProductSection") == @model
       $(@el).removeClass('ui-state-default')
@@ -31,6 +28,6 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
 
   events:
     "click": ->
-      ProductEditor.app.selectProductSection @model
+      ProductEditor.app.selectProductSection(@model)
       #return false to prevent click propagation to parent sections
       return false

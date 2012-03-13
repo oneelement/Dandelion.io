@@ -1,5 +1,7 @@
 class ProductEditor.Views.ContextMenuSection extends Backbone.View
 
+  tagName: 'ul'
+
   template: JST['product_editor/context_menus/section']
 
   events: ->
