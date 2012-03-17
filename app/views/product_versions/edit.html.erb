@@ -1,7 +1,6 @@
 <%= content_for :head do %>
   <%= javascript_include_tag "product_editor" %>
 <% end %>
-<p id="notice"><%= notice %></p>
 <div id="product-structure">
     <h2>Product Structure</h2>
     <div id="product-id" style="display:none"><%= @product.id %></div>
@@ -13,14 +12,18 @@
 </div>
 <div id="menu">
     <h1>Menu</h1>
+    <div id="notice" style="display:none" class="ui-state-highlight ui-corner-all" style="margin-top: 20px;">
+      <p>
+        <span class="ui-icon ui-icon-info" style="float: left; margin: 2px 1em; height: 15px"></span>
+        <div id="notice-content" style="height: 15px"></div>
+      </p>
+    </div>
     <div id="actions">
         <h2>Product</h2>
         <ul>
             <li><a id="action-save">Save this version</a></li>
         </ul>
     </div>
-    <h2>Section</h2>
-    <div id="context-menu-section"></div>
     <div id="suggested-sections">
         <h3>Suggested sections</h3>
         <div id="suggested-sections-list"></div>
@@ -29,6 +32,4 @@
         <h3>Suggested questions</h3>
         <div id="suggested-questions-list"></div>
     </div>
-    <h2>Question</h2>
-    <div id="context-menu-question"></div>
 </div>

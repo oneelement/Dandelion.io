@@ -54,10 +54,8 @@ class ProductVersionsController < ApplicationController
 
     respond_to do |format|
       if @version.update_attributes(params[:product_version])
-        format.html { redirect_to @version, notice: 'Version was successfully updated.' }
-        format.json { head :ok }
+        format.json { render_for_api :product_version, :json => @version }
       else
-        format.html { render action: "edit" }
         format.json { render json: @version.errors, status: :unprocessable_entity }
       end
     end

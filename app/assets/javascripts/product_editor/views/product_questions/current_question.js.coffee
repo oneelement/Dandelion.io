@@ -12,4 +12,11 @@ class ProductEditor.Views.CurrentQuestion extends Backbone.View
 
     model = @model
 
+    $('#remove-selected-question', @el).button(
+      icons:
+        primary: 'ui-icon-circle-close')
+
+    $('#remove-selected-question', @el).click(->
+      ProductEditor.app.removeSelectedQuestion())
+
     return this

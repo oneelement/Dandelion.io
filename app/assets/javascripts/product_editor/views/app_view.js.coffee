@@ -12,8 +12,25 @@ class ProductEditor.Views.AppView extends Backbone.View
       collection: app.suggestedQuestions
     )
 
-    $('#action-save').click ->
+    saveButton = $('#action-save').button(
+      icons:
+        primary: 'ui-icon-disk')
+
+    saveButton.click ->
+      saveButton.button("option",
+        icons:
+          primary: 'ui-icon-disk'
+          secondary: 'ui-icon-transfer-e-w')
       app.save()
+
+    app.version.bind("sync", ->
+      saveButton.button("option",
+        icons:
+          primary: 'ui-icon-disk')
+
+      $('#notice-content').html('Saved successfully')
+      $('#notice').slideDown().delay(2000).slideUp()
+    )
 
     app.bind("change:selectedProductSection", (model, newSelection) ->
       $current = $('#current-section').empty()
@@ -31,26 +48,10 @@ class ProductEditor.Views.AppView extends Backbone.View
         ).render().el)
     )
 
-    app.bind("change:selectedProductSection", (model, newSelection) ->
-      $sectionContext = $('#context-menu-section').empty()
-      if newSelection?
-        $sectionContext.html(new ProductEditor.Views.ContextMenuSection(
-          model: newSelection
-        ).render().el)
-    )
-
     app.bind("change:selectedProductQuestion", (model, newSelection) ->
       $current = $('#current-question').empty()
       if newSelection?
         $current.html(new ProductEditor.Views.CurrentQuestion(
-          model: newSelection
-        ).render().el)
-    )
-
-    app.bind("change:selectedProductQuestion", (model, newSelection) ->
-      $questionContext = $('#context-menu-question').empty()
-      if newSelection?
-        $questionContext.html(new ProductEditor.Views.ContextMenuQuestion(
           model: newSelection
         ).render().el)
     )

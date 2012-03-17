@@ -1,19 +1,18 @@
-<div id="section-details">
-    <h3>Section Details</h3>
-    <ul id="section-details-list">
-        <li>
-            <input type="checkbox" id="section-attribute-mandatory" <%= 'checked' if @mandatory %> />
-            <label for="section-attribute-mandatory">Mandatory</label><br/>
-        </li>
-        <li>
-            <input type="checkbox" id="section-attribute-repeats" <%= 'checked' if @repeats %> />
-            <label for="section-attribute-repeats">Repeats</label>
-            <% if @repeats: %>
-                <label for="section-attribute-repeat-max-instances">up to</label>
-                <input id="section-attribute-repeat-max-instances" value="<%= @repeat_max_instances %>"/>
-                <label for="section-attribute-repeat-max-instances">times</label>
-            <% end %>
-        </li>
-    </ul>
-</div>
-<div class="ui-helper-clearfix"></div>
+<h3>Current Section</h3>
+<ul id="section-details-list">
+    <li>
+        <input type="checkbox" id="section-attribute-mandatory" <%= 'checked' if @mandatory %> />
+        <label for="section-attribute-mandatory">Mandatory</label><br/>
+    </li>
+    <li>
+        <input type="checkbox" id="section-attribute-repeats" <%= 'checked' if @repeats %> />
+        <label for="section-attribute-repeats">Repeats
+          <% if @repeats: %>
+              <label for="section-attribute-repeat-max-instances">up to</label>
+              <input id="section-attribute-repeat-max-instances" value="<%= @repeat_max_instances %>"/>
+              <label for="section-attribute-repeat-max-instances">times</label>
+          <% end %>
+        </label>
+    </li>
+</ul>
+<button id="remove-selected-section">Remove this section</button>

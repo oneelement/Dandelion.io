@@ -1,8 +1,4 @@
-<div id="current-product-question">
-    <div id="question-details">
-        <h3>Question Details</h3>
-        <div id="question-details-list">
-        </div>
-    </div>
-    <div class="ui-helper-clearfix"></div>
-</div>
+<h3>Current Question</h3>
+<ul id="question-details-list">
+</ul>
+<button id="remove-selected-question">Remove this question</button>

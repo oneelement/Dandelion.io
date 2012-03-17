@@ -86,9 +86,9 @@ describe 'ProductEditorApp model', ->
       @app.addSection(@anotherNewSec)
       expect(@productSection.get("product_sections").length).toEqual(1)
 
-    it 'removeSection should set destroy on the selected section', ->
+    it 'removeSelectedSection should set destroy on the selected section', ->
       selected = @app.get("selectedProductSection")
-      @app.removeSection(selected)
+      @app.removeSelectedSection()
 
       expect(selected.get("_destroy")).toBeTruthy()
 
@@ -116,7 +116,7 @@ describe 'ProductEditorApp model', ->
     it 'should populate the selectedProductQuestion attribute', ->
       expect(@app.get("selectedProductQuestion")).toEqual(@newQuestion)
 
-    it 'removeQuestion should set destroy on the selected question', ->
+    it 'removeSelectedQuestion should set destroy on the selected question', ->
       selected = @app.get("selectedProductQuestion")
-      @app.removeQuestion(selected)
+      @app.removeSelectedQuestion()
       expect(selected.get("_destroy")).toBeTruthy()

@@ -52,28 +52,34 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       @set("selectedProductQuestion", productQuestion)
 
   addSection: (section) ->
+    product_section = new ProductEditor.Models.ProductSection(section: section)
+    product_section.loadDefaults()
+
     selected = @get("selectedProductSection")
     if selected?
-      selected.addSection(section)
+      selected.addSection(product_section)
     else
-      @version.addSection(section)
+      @version.addSection(product_section)
 
-  removeSection: (section) ->
+    return product_section
+
+  removeSelectedSection: ->
+    section = @get("selectedProductSection")
+
     if section?
-      if section == @get("selectedProductSection")
-        section.set("_destroy", true)
-        @unset("selectedProductSection")
+      section.set("_destroy", true)
+      @unset("selectedProductSection")
 
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
     if selected_section?
       selected_section.addQuestion(question)
 
-  removeQuestion: (question) ->
+  removeSelectedQuestion: ->
+    question = @get("selectedProductQuestion")
     if question?
-      if question == @get("selectedProductQuestion")
-        question.set("_destroy", true)
-        @unset("selectedProductQuestion")
+      question.set("_destroy", true)
+      @unset("selectedProductQuestion")
 
   save: ->
     @version.save()

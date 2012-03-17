@@ -4,13 +4,12 @@ class ProductEditor.Views.ProductSectionsIndex extends Backbone.View
   render: ->
     $(@el).empty()
     _.each(
-      @collection.models
+      @collection.visibleModels()
       (product_section) ->
-        if not product_section.get("_destroy")
-          $(@el).append(new ProductEditor.Views.ProductSectionsShow(
-            model: product_section
-            collection: @collection
-          ).render().el)
+        $(@el).append(new ProductEditor.Views.ProductSectionsShow(
+          model: product_section
+          collection: @collection
+        ).render().el)
       @)
 
     return @

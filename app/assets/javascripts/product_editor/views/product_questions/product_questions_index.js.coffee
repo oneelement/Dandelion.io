@@ -6,18 +6,17 @@ class ProductEditor.Views.ProductQuestionsIndex extends Backbone.View
     @collection.bind("add remove", @render, @)
 
   render: ->
-    $(@el).html(@template())
+    $(@el).html(@template({hasVisible: @collection.hasVisible()}))
 
     $sub = $('#product-questions', @el)
     if $sub?
       $sub.empty()
 
       _.each(
-        @collection.models
+        @collection.visibleModels()
         (product_question) ->
-          if not product_question.get("_destroy")
-            $sub.append(new ProductEditor.Views.ProductQuestionsShow(
-              model: product_question).render().el)
+          $sub.append(new ProductEditor.Views.ProductQuestionsShow(
+            model: product_question).render().el)
         @)
 
     return @

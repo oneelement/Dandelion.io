@@ -38,10 +38,8 @@ class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
         if metadata.repeats?
           @set("repeat_max_instances", metadata.repeat_max_instances)
 
-  addSection: (section) ->
-    s = new ProductEditor.Models.ProductSection(section: section)
-    s.loadDefaults()
-    @get("product_sections").add(s)
+  addSection: (product_section) ->
+    @get("product_sections").add(product_section)
 
   addQuestion: (question) ->
     q = new ProductEditor.Models.ProductQuestion(question: question)
