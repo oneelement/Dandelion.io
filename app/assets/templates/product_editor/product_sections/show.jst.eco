@@ -2,7 +2,7 @@
 <% if @mandatory: %>
   <% mandatorization_icon = 'ui-icon-bullet' %> 
 <% end %>
-<span class="ui-button-icon-primary ui-icon <%= mandatorization_icon %>"></span>
+<span class="ui-button-icon-primary ui-icon <%= if @mandatory then 'ui-icon-bullet' else 'ui-icon-radio-on' %>"></span>
 <span class="ui-button-text"><%= @section.name %></span>
 <% if @repeats: %>
     <span class="ui-button-icon-secondary ui-icon ui-icon-refresh"></span>

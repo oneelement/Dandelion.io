@@ -5,10 +5,10 @@ class ProductEditor.Views.SuggestedSectionsIndex extends Backbone.View
     $(@el).html(@template({sections: @collection.toJSON()}))
 
     if @collection.length > 0
-      $('#suggested-child-sections', @el).empty()
+      $('#suggested-sections-list', @el).empty()
       _.each(
         @collection.models
-        (section) -> $('#suggested-child-sections', @el).append(
+        (section) -> $('#suggested-sections-list', @el).append(
           new ProductEditor.Views.SuggestedSectionsShow(model: section).render().el)
         @)
 
@@ -16,3 +16,4 @@ class ProductEditor.Views.SuggestedSectionsIndex extends Backbone.View
 
   initialize: ->
     @collection.bind("reset", @render, @)
+    @collection.bind("reset", -> $('#suggested-sections').fadeIn(500))

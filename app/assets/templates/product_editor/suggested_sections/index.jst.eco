@@ -1,5 +1,6 @@
+<h3>Suggested sections</h3>
 <% if @sections.length > 0: %>
-    <ul id="suggested-child-sections"></ul>
+    <ul id="suggested-sections-list"></ul>
 <% else: %>
     There are no suggested child sections for the selected section.
 <% end %>

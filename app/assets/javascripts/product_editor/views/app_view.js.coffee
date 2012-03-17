@@ -33,32 +33,46 @@ class ProductEditor.Views.AppView extends Backbone.View
     )
 
     app.bind("change:selectedProductSection", (model, newSelection) ->
-      $current = $('#current-section').empty()
-      if newSelection?
-        $current.html(new ProductEditor.Views.CurrentSection(
-          model: newSelection
-        ).render().el)
+      $questions = $('#questions')
+      $questions.fadeOut(50, ->
+        $questions.empty()
+        if newSelection?
+          $questions.html(new ProductEditor.Views.ProductQuestionsIndex(
+            collection: newSelection.get("product_questions")
+          ).render().el)
+        $questions.fadeIn(500))
     )
 
     app.bind("change:selectedProductSection", (model, newSelection) ->
-      $questions = $('#questions').empty()
-      if newSelection?
-        $questions.html(new ProductEditor.Views.ProductQuestionsIndex(
-          collection: newSelection.get("product_questions")
-        ).render().el)
+      $current = $('#current-section')
+      $current.fadeOut(50, ->
+        $current.empty()
+        if newSelection?
+          $current.html(new ProductEditor.Views.CurrentSection(
+            model: newSelection
+          ).render().el)
+        $current.fadeIn(500))
     )
 
     app.bind("change:selectedProductQuestion", (model, newSelection) ->
-      $current = $('#current-question').empty()
-      if newSelection?
-        $current.html(new ProductEditor.Views.CurrentQuestion(
-          model: newSelection
-        ).render().el)
+      $current = $('#current-question')
+      $current.fadeOut(50, ->
+        $current.empty()
+        if newSelection?
+          $current.html(new ProductEditor.Views.CurrentQuestion(
+            model: newSelection
+          ).render().el)
+        $current.fadeIn(500))
+    )
+
+    app.bind("change:selectedProductSection", ->
+      $('#suggested-sections').fadeOut(50)
+      $('#suggested-questions').fadeOut(50)
     )
 
   render: ->
     $('#sections').html(@versionView.render().el)
-    $('#suggested-sections-list').html(@suggestedSectionsView.render().el)
-    $('#suggested-questions-list').html(@suggestedQuestionsView.render().el)
+    $('#suggested-sections').html(@suggestedSectionsView.render().el)
+    $('#suggested-questions').html(@suggestedQuestionsView.render().el)
 
     return @
