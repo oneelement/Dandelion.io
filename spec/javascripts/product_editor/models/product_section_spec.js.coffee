@@ -8,10 +8,10 @@ describe 'ProductSection model', ->
       @validResponse(@fixtures.Sections.sectionWithMetadata))
 
 
-  describe 'when being created from a section', ->
+  describe 'when being created from a section, and loading defaults', ->
 
     beforeEach ->
-      @section = new ProductEditor.Models.Section(_id: 1)
+      @section = new ProductEditor.Models.Section(id: 1)
       @section.fetch()
       @server.respond()
 
@@ -21,7 +21,7 @@ describe 'ProductSection model', ->
 
       expect(@productSection.get("section")).toEqual(@section)
 
-    it 'should default suggested attributes from metadata', ->
+    it 'loadDefaults should suggested attributes from metadata', ->
 
       @productSection.loadDefaults()
 

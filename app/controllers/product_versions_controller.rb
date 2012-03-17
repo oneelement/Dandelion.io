@@ -44,6 +44,14 @@ class ProductVersionsController < ApplicationController
   def update
     @version = ProductVersion.find(params[:id])
 
+    nested_attributes = [
+      "product_sections",
+      "product_questions",
+      "question_type"
+    ]
+
+    params[:product_version] = params_to_nested_attributes(nested_attributes, params[:product_version])
+
     respond_to do |format|
       if @version.update_attributes(params[:product_version])
         format.html { redirect_to @version, notice: 'Version was successfully updated.' }

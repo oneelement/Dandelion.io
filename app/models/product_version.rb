@@ -27,6 +27,7 @@ class ProductVersion
   acts_as_api
 
   api_accessible :product_version do |t|
+    t.add :id
     t.add :product_name
     t.add :version_description
     t.add :live_date
@@ -55,6 +56,10 @@ class ProductSection
   include Mongoid::Document
 
   belongs_to :section
+
+  embedded_in :product_version, :inverse_of => :product_sections
+  embedded_in :product_section, :inverse_of => :product_sections
+
   embeds_many :product_sections
   embeds_many :product_questions
   accepts_nested_attributes_for :product_sections, :product_questions, :allow_destroy => true
@@ -66,7 +71,8 @@ class ProductSection
   acts_as_api
 
   api_accessible :product_section do |t|
-    t.add :section
+    t.add :id
+    t.add :section, :template => :section
     t.add :mandatory
     t.add :repeats
     t.add :repeat_max_instances
@@ -85,6 +91,7 @@ class ProductQuestion
   acts_as_api
 
   api_accessible :product_question do |t|
+    t.add :id
     t.add :question, :template => :question
   end
 end

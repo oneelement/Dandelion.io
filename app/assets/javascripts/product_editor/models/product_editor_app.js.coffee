@@ -1,8 +1,8 @@
 class ProductEditor.Models.ProductEditorApp extends Backbone.Model
   initialize: ->
-    @version = new ProductEditor.Models.ProductVersion
-      _id: $('#version-id').text()
-      product_id: $('#product-id').text()
+    @version = new ProductEditor.Models.ProductVersion(
+      id: $('#version-id').text()
+      product_id: $('#product-id').text())
     
     @suggestedSections = new ProductEditor.Collections.Sections()
     @suggestedQuestions = new ProductEditor.Collections.Questions()
@@ -61,9 +61,8 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
   removeSection: (section) ->
     if section?
       if section == @get("selectedProductSection")
+        section.set("_destroy", true)
         @unset("selectedProductSection")
-
-      section.trigger("destroy", section)
 
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
@@ -73,9 +72,8 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
   removeQuestion: (question) ->
     if question?
       if question == @get("selectedProductQuestion")
+        question.set("_destroy", true)
         @unset("selectedProductQuestion")
-
-      question.trigger("destroy", question)
 
   save: ->
     @version.save()

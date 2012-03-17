@@ -8,21 +8,24 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
     @model.bind("change", @render, @)
 
   render: ->
-    if ProductEditor.app.get("selectedProductSection") == @model
-      $(@el).removeClass('ui-state-default')
-      $(@el).addClass('ui-state-focus')
+    if @model.get("_destroy")
+      @remove()
     else
-      $(@el).removeClass('ui-state-focus')
-      $(@el).addClass('ui-state-default')
+      if ProductEditor.app.get("selectedProductSection") == @model
+        $(@el).removeClass('ui-state-default')
+        $(@el).addClass('ui-state-focus')
+      else
+        $(@el).removeClass('ui-state-focus')
+        $(@el).addClass('ui-state-default')
 
-    $(@el).html(@template(@model.toJSON()))
+      $(@el).html(@template(@model.toJSON()))
 
-    sub_sections = @model.get("product_sections")
-    if sub_sections.length > 0
-      $sub_el = $('.sub-sections', @el)
-      $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(
-        collection: sub_sections
-      ).render().el)
+      sub_sections = @model.get("product_sections")
+      if sub_sections.length > 0
+        $sub_el = $('.sub-sections', @el)
+        $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(
+          collection: sub_sections
+        ).render().el)
 
     return this
 

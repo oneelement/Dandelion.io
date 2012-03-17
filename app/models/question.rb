@@ -14,7 +14,7 @@ class Question
   acts_as_api
 
   api_accessible :question do |t|
-    t.add :_id
+    t.add :id
     t.add :name
     t.add :question_type, :template => :question_type
   end

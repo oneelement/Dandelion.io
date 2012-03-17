@@ -1,5 +1,4 @@
 class ProductEditor.Models.ProductVersion extends Backbone.RelationalModel
-  idAttribute: '_id'
   urlRoot: -> '/products/' + @get('product_id') + '/versions'
   relations: [
     {

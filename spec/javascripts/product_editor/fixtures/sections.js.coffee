@@ -5,12 +5,12 @@ beforeEach ->
   @fixtures.Sections = {
     suggestions: [
       {
-        "_id": "1",
+        "id": "1",
         "name": "Example section"
       }
     ]
     sectionWithMetadata: {
-      "_id": "1",
+      "id": "1",
       "name": "Example section"
       "builder_metadata": {
         "is_standard_section": true,

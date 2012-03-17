@@ -11,8 +11,12 @@ class SectionsController < ApplicationController
       @sections = Section.all
     end
 
+    if @sections.nil?
+      @sections = []
+    end
+
     respond_to do |format|
-      format.json { render json: @sections }
+      format.json { render_for_api :section, :json => @sections }
     end
   end
 

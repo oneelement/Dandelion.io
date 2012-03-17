@@ -10,6 +10,14 @@ class Section
   delegate :suggested_questions, :suggested_child_sections, :to => :builder_metadata
 
   scope :top_level_suggestions, where("builder_metadata.is_top_level" => true)
+
+  acts_as_api
+
+  api_accessible :section do |t|
+    t.add :id
+    t.add :name
+    t.add :builder_metadata
+  end
 end
 
 #Some details about the section, used to assist the product/question set builder
@@ -33,4 +41,13 @@ class BuilderSectionMetadata
 
   has_and_belongs_to_many :suggested_questions, :inverse_of => nil, :class_name => 'Question', :autosave => true
   has_and_belongs_to_many :suggested_child_sections, :inverse_of => nil, :class_name => 'Section', :autosave => true
+
+  acts_as_api
+
+  api_accessible :section do |t|
+    t.add :is_top_level
+    t.add :is_standard_section
+    t.add :repeats
+    t.add :repeat_max_instances
+  end
 end

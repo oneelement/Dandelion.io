@@ -10,7 +10,7 @@ describe 'ProductVersion model', ->
   beforeEach ->
     @version = new ProductEditor.Models.ProductVersion(
       product_id: 'pid'
-      _id: 'vid'
+      id: 'vid'
     )
 
   describe 'when fetching a nested product structure', ->
@@ -40,10 +40,3 @@ describe 'ProductVersion model', ->
       psec0psec0psec0 = psec0psec0.get("product_sections").models[0]
 
       expect(psec0psec0psec0.get("section").get("name")).toEqual("Specified Contents Item")
-
-    it 'should convert the nested product structure back to JSON correctly', ->
-
-      json = @version.toJSON()
-      fix = @fixtures.ProductVersions.nestedStructure
-
-      expect(json).toEqual(fix)

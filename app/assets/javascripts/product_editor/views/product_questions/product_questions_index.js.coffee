@@ -14,8 +14,10 @@ class ProductEditor.Views.ProductQuestionsIndex extends Backbone.View
 
       _.each(
         @collection.models
-        (product_question) -> $sub.append(new ProductEditor.Views.ProductQuestionsShow(
-          model: product_question).render().el)
+        (product_question) ->
+          if not product_question.get("_destroy")
+            $sub.append(new ProductEditor.Views.ProductQuestionsShow(
+              model: product_question).render().el)
         @)
 
     return @
