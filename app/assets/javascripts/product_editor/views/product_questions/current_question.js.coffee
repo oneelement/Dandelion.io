@@ -7,6 +7,10 @@ class ProductEditor.Views.CurrentQuestion extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+  remove: ->
+    @model.unbind("change", @render, @)
+    super()
+
   render: ->
     $(@el).html(@template(@model.toJSON()))
 

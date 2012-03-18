@@ -1,5 +1,5 @@
 <h3>Sections</h3>
-<% if @product_sections.length > 0: %>
+<% if @hasVisible: %>
     <div id="product-sections"></div>
 <% else: %>
     This product currently has no sections. Add some from the menu on the right.

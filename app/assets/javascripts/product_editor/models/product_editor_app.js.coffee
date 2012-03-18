@@ -33,7 +33,10 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       @)
 
   initialFetch: ->
-    @version.fetch()
+    @version.fetch(
+      success: ->
+        $('#sections').fadeIn(500)
+    )
     @suggestedSections.fetchSuggestions()
     @suggestedQuestions.fetchSuggestions()
 
@@ -65,7 +68,6 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
 
   removeSelectedSection: ->
     section = @get("selectedProductSection")
-
     if section?
       section.set("_destroy", true)
       @unset("selectedProductSection")

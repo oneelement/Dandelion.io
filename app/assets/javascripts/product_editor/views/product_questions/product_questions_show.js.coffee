@@ -7,6 +7,10 @@ class ProductEditor.Views.ProductQuestionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+  remove: ->
+    @model.unbind("change", @render, @)
+    super()
+
   render: ->
     if @model.get("_destroy")
       @remove()

@@ -32,37 +32,61 @@ class ProductEditor.Views.AppView extends Backbone.View
       $('#notice').slideDown().delay(2000).slideUp()
     )
 
+    productQuestionsView = @productQuestionsView = null
     app.bind("change:selectedProductSection", (model, newSelection) ->
       $questions = $('#questions')
       $questions.fadeOut(50, ->
+
         $questions.empty()
+        if productQuestionsView?
+          productQuestionsView.remove()
+
         if newSelection?
-          $questions.html(new ProductEditor.Views.ProductQuestionsIndex(
+          productQuestionsView = new ProductEditor.Views.ProductQuestionsIndex(
             collection: newSelection.get("product_questions")
-          ).render().el)
-        $questions.fadeIn(500))
+          ).render()
+
+          $questions.html(productQuestionsView.el)
+
+        $questions.fadeIn(200))
     )
 
+    currentSectionView = @currentSectionView = null
     app.bind("change:selectedProductSection", (model, newSelection) ->
       $current = $('#current-section')
       $current.fadeOut(50, ->
+
         $current.empty()
+        if currentSectionView?
+          currentSectionView.remove()
+
         if newSelection?
-          $current.html(new ProductEditor.Views.CurrentSection(
+          currentSectionView = new ProductEditor.Views.CurrentSection(
             model: newSelection
-          ).render().el)
-        $current.fadeIn(500))
+          ).render()
+
+          $current.html(currentSectionView.el)
+
+        $current.fadeIn(200))
     )
 
+    currentQuestionView = @currentQuestionView = null
     app.bind("change:selectedProductQuestion", (model, newSelection) ->
       $current = $('#current-question')
       $current.fadeOut(50, ->
+
         $current.empty()
+        if currentQuestionView?
+          currentQuestionView.remove()
+
         if newSelection?
-          $current.html(new ProductEditor.Views.CurrentQuestion(
+          currentQuestionView = new ProductEditor.Views.CurrentQuestion(
             model: newSelection
-          ).render().el)
-        $current.fadeIn(500))
+          ).render()
+
+          $current.html(currentQuestionView.el)
+
+        $current.fadeIn(200))
     )
 
     app.bind("change:selectedProductSection", ->

@@ -7,6 +7,9 @@ class ProductEditor.Views.CurrentSection extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+  remove: ->
+    @model.unbind("change", @render, @)
+
   render: ->
     $(@el).html(@template(@model.toJSON()))
 
@@ -43,4 +46,4 @@ class ProductEditor.Views.CurrentSection extends Backbone.View
     $('#remove-selected-section', @el).click ->
       ProductEditor.app.removeSelectedSection()
 
-    return this
+    return @

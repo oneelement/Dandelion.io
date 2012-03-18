@@ -7,6 +7,16 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+    product_sections = @model.get("product_sections")
+    @subView = new ProductEditor.Views.ProductSectionsIndex(
+      collection: product_sections
+    )
+
+  remove: ->
+    @model.unbind("change", @render, @)
+    super()
+
+
   render: ->
     if @model.get("_destroy")
       @remove()
@@ -20,14 +30,13 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
 
       $(@el).html(@template(@model.toJSON()))
 
-      sub_sections = @model.get("product_sections")
-      if sub_sections.length > 0
-        $sub_el = $('.sub-sections', @el)
-        $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(
-          collection: sub_sections
-        ).render().el)
+      $sub_el = $('.sub-sections', @el).empty()
 
-    return this
+      sub_sections = @model.get("product_sections")
+      if sub_sections.hasVisible()
+        $sub_el.append(@subView.render().el)
+
+    return @
 
   events:
     "click": ->

@@ -16,4 +16,4 @@ class ProductEditor.Views.SuggestedQuestionsIndex extends Backbone.View
 
   initialize: ->
     @collection.bind("reset", @render, @)
-    @collection.bind("reset", -> $('#suggested-questions').fadeIn(500))
+    @collection.bind("reset", -> $('#suggested-questions').fadeIn(200))
