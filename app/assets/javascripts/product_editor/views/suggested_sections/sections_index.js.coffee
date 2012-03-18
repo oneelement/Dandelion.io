@@ -16,4 +16,5 @@ class ProductEditor.Views.SuggestedSectionsIndex extends Backbone.View
 
   initialize: ->
     @collection.bind("reset", @render, @)
+    ProductEditor.app.bind("change:selectedProductSection", -> $('#suggested-sections').fadeOut(50))
     @collection.bind("reset", -> $('#suggested-sections').fadeIn(200))

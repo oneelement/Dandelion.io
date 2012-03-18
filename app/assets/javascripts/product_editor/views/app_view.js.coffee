@@ -89,11 +89,6 @@ class ProductEditor.Views.AppView extends Backbone.View
         $current.fadeIn(200))
     )
 
-    app.bind("change:selectedProductSection", ->
-      $('#suggested-sections').fadeOut(50)
-      $('#suggested-questions').fadeOut(50)
-    )
-
   render: ->
     $('#sections').html(@versionView.render().el)
     $('#suggested-sections').html(@suggestedSectionsView.render().el)
