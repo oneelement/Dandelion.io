@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/fabrik42/acts_as_api.git
+  revision: aa9770c9397766360950e9dbb68e85680c6c46f7
+  specs:
+    acts_as_api (0.3.11)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      rack (>= 1.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -31,10 +40,6 @@ GEM
       activesupport (= 3.1.0)
     activesupport (3.1.0)
       multi_json (~> 1.0)
-    acts_as_api (0.3.11)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      rack (>= 1.1.0)
     ansi (1.4.2)
     arel (2.2.1)
     autotest (4.4.6)
@@ -224,7 +229,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  acts_as_api
+  acts_as_api!
   autotest
   autotest-fsevent
   autotest-growl
