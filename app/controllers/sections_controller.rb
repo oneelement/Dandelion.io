@@ -3,9 +3,16 @@ class SectionsController < ApplicationController
     if params[:suggestions]
       if params[:id]
         @current_section = Section.find(params[:id])
-        @sections = @current_section.suggested_child_sections
+        @sections = Section.children_of(@current_section).suggestions
       else
-        @sections = Section.top_level_suggestions
+        @sections = Section.top_level.suggestions
+      end
+    elsif params[:custom]
+      if params[:id]
+        @current_section = Section.find(params[:id])
+        @sections = Section.children_of(@current_section).custom
+      else
+        @sections = Section.top_level.custom
       end
     else
       @sections = Section.all

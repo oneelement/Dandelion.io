@@ -7,6 +7,9 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     @suggestedSections = new ProductEditor.Collections.Sections()
     @suggestedQuestions = new ProductEditor.Collections.Questions()
 
+    @customSections = new ProductEditor.Collections.Sections()
+    @customQuestions = new ProductEditor.Collections.Questions()
+
     @bind("change:selectedProductSection", (model, newSelection) ->
         #Trigger change on old and new selection so the selection highlighting updates
         prevSelection = @previous("selectedProductSection")
@@ -16,10 +19,14 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
         if newSelection?
           @suggestedSections.fetchSuggestions(newSelection.get("section").id)
           @suggestedQuestions.fetchSuggestions(newSelection.get("section").id)
+          @customSections.fetchCustom(newSelection.get("section").id)
+          @customQuestions.fetchCustom(newSelection.get("section").id)
           newSelection.trigger("change")
         else
           @suggestedSections.fetchSuggestions()
           @suggestedQuestions.fetchSuggestions()
+          @customSections.fetchCustom()
+          @customQuestions.fetchCustom()
       @)
 
     @bind("change:selectedProductQuestion", (model, newSelection) ->
@@ -39,6 +46,8 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     )
     @suggestedSections.fetchSuggestions()
     @suggestedQuestions.fetchSuggestions()
+    @customSections.fetchCustom()
+    @customQuestions.fetchCustom()
 
   selectProductSection: (productSection) ->
     if @get("selectedProductSection") == productSection
@@ -63,6 +72,9 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       selected.addSection(product_section)
     else
       @version.addSection(product_section)
+      
+    #Redraw suggestions
+    @suggestedSections.trigger("reset")
 
     return product_section
 
@@ -71,17 +83,26 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
     if section?
       section.set("_destroy", true)
       @unset("selectedProductSection")
+      
+    #Redraw suggestions
+    @suggestedSections.trigger("reset")
 
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
     if selected_section?
       selected_section.addQuestion(question)
+      
+    #Redraw suggestions
+    @suggestedQuestions.trigger("reset")
 
   removeSelectedQuestion: ->
     question = @get("selectedProductQuestion")
     if question?
       question.set("_destroy", true)
       @unset("selectedProductQuestion")
+      
+    #Redraw suggestions
+    @suggestedQuestions.trigger("reset")
 
   save: ->
     @version.save()

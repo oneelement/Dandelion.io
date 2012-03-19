@@ -1,4 +1,5 @@
 <%= content_for :head do %>
+  <%= stylesheet_link_tag "product_editor" %>
   <%= javascript_include_tag "product_editor" %>
 <% end %>
 <div id="product-structure">
@@ -26,4 +27,6 @@
     </div>
     <div id="suggested-sections" style="display: none;"></div>
     <div id="suggested-questions" style="display: none;"></div>
+    <div id="custom-sections" style="display: none;"></div>
+    <div id="custom-questions" style="display: none;"></div>
 </div>

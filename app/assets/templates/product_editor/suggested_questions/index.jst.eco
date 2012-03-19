@@ -1,6 +1,8 @@
 <h3>Suggested questions</h3>
-<% if @questions.length > 0: %>
+<% if @questions_to_display.length > 0: %>
     <ul id="suggested-questions-list"></ul>
+<% else if @questions.length > 0: %>
+    All suggested questions have been added.
 <% else: %>
     There are no suggested questions for the selected section.
 <% end %>

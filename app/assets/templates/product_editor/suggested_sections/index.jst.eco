@@ -1,6 +1,8 @@
 <h3>Suggested sections</h3>
-<% if @sections.length > 0: %>
+<% if @sections_to_display.length > 0: %>
     <ul id="suggested-sections-list"></ul>
+<% else if @sections.length > 0: %>
+    All suggested sections have been added.
 <% else: %>
     There are no suggested child sections for the selected section.
 <% end %>

@@ -3,7 +3,12 @@ class QuestionsController < ApplicationController
     if params[:suggestions]
       if params[:section_id]
         @current_section = Section.find(params[:section_id])
-        @questions = @current_section.suggested_questions
+        @questions = Question.children_of(@current_section).suggestions
+      end
+    elsif params[:custom]
+      if params[:section_id]
+        @current_section = Section.find(params[:section_id])
+        @questions = Question.children_of(@current_section).custom
       end
     else
       @questions = Question.all

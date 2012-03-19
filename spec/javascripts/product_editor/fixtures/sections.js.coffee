@@ -12,7 +12,7 @@ beforeEach ->
     sectionWithMetadata: {
       "id": "1",
       "name": "Example section"
-      "builder_metadata": {
+      "builder_details_container": {
         "is_standard_section": true,
         "is_top_level": false,
         "repeats": true,

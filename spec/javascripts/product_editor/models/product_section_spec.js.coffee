@@ -25,6 +25,6 @@ describe 'ProductSection model', ->
 
       @productSection.loadDefaults()
 
-      expect(@productSection.get("repeats")).toEqual(@section.get("builder_metadata").repeats)
+      expect(@productSection.get("repeats")).toEqual(@section.get("builder_details_container").repeats)
 
-      expect(@productSection.get("repeat_max_instances")).toEqual(@section.get("builder_metadata").repeat_max_instances)
+      expect(@productSection.get("repeat_max_instances")).toEqual(@section.get("builder_details_container").repeat_max_instances)

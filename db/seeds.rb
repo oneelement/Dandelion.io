@@ -7,29 +7,54 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
+premises_section = Section.create({
+  :name => 'Premises',
+  :builder_details_container_attributes => {
+    :is_top_level => true,
+    :is_standard_section => true,
+    :repeats => true,
+    :repeat_max_instances => 5
+
+  }
+})
+
+premises_address_question = Question.create({
+  :name => "Address",
+  :question_type => AddressQuestionType.create({}),
+  :builder_details_container_attributes => {
+    :section => premises_section,
+    :is_standard_question => true
+  }
+})
+
 contents_section = Section.create({
   :name => "Contents",
-  :builder_metadata_attributes => {
+  :builder_details_container_attributes => {
     :is_top_level => false,
-    :is_standard_section => true
+    :is_standard_section => true,
+    :section => premises_section
   }
 })
 
 contents_value_question = Question.create({
   :name => "Total contents value",
-  :section => contents_section,
   :question_type => NumericQuestionType.new({
     :decimal_places => 0
-  })
+  }),
+  :builder_details_container_attributes => {
+    :section => contents_section,
+    :is_standard_question => true
+  }
 })
 
 contents_item_section = Section.create({
   :name => "Specified Contents Item",
-  :builder_metadata_attributes => {
+  :builder_details_container_attributes => {
     :is_top_level => false,
     :is_standard_section => true,
     :repeats => true,
-    :repeat_max_instances => 5
+    :repeat_max_instances => 5,
+    :section => contents_section
   }
 })
 
@@ -51,50 +76,29 @@ contents_item_type_group.possible_answers << [contents_item_type_computers, cont
 
 contents_item_type_question = Question.create({
   :name => "Contents item type",
-  :section => contents_item_section,
   :question_type => PossibleAnswerQuestionType.create({
     :possible_answer_group => contents_item_type_group
-  })
+  }),
+  :builder_details_container_attributes => {
+    :section => contents_item_section,
+    :is_standard_question => true
+  }
 })
 
 contents_item_value_question = Question.create({
   :name => "Contents item value",
-  :section => contents_item_section,
   :question_type => NumericQuestionType.new({
     :decimal_places => 0
-  })
-})
-
-contents_item_section.builder_metadata.suggested_questions << [contents_item_type_question, contents_item_value_question]
-
-contents_section.builder_metadata.suggested_child_sections << contents_item_section
-
-contents_section.builder_metadata.suggested_questions << contents_value_question
-
-premises_section = Section.create({
-  :name => 'Premises',
-  :builder_metadata_attributes => {
-    :is_top_level => true,
-    :is_standard_section => true,
-    :repeats => true,
-    :repeat_max_instances => 5
-
+  }),
+  :builder_details_container_attributes => {
+    :section => contents_item_section,
+    :is_standard_question => true
   }
 })
 
-premises_address_question = Question.create({
-  :name => "Address",
-  :section => premises_section,
-  :question_type => AddressQuestionType.create({})
-})
-
-premises_section.builder_metadata.suggested_questions << premises_address_question
-
-premises_section.builder_metadata.suggested_child_sections << contents_section
-
 el_section = Section.create({
   :name => "Employer's Liability",
-  :builder_metadata_attributes => {
+  :builder_details_container_attributes => {
     :is_top_level => true,
     :is_standard_section => true
   }
@@ -102,10 +106,11 @@ el_section = Section.create({
 
 el_loi_question = Question.create({
   :name => "EL Limit of Indemnity",
-  :section => el_section,
   :question_type => NumericQuestionType.new({
     :decimal_places => 0
-  })
+  }),
+  :builder_details_container_attributes => {
+    :section => el_section,
+    :is_standard_question => true
+  }
 })
-
-el_section.builder_metadata.suggested_questions << el_loi_question

@@ -1,0 +1,6 @@
+<h3>Custom questions</h3>
+<% if @questions.length > 0: %>
+    <ul id="custom-questions-list"></ul>
+<% else: %>
+    There are no custom questions for the selected section.
+<% end %>

@@ -1,15 +1,11 @@
 Fabricator(:section) do
-  name 'Test section'
+  name 'Standard top level section'
+  builder_details_container { Fabricate.build(:section_details) }
 end
 
-Fabricator(:section_with_metadata, class_name: 'Section') do
-  name 'Test section'
-  after_build do |s|
-    s.builder_metadata = Fabricate.build(:builder_section_metadata)
-  end
-end
-
-Fabricator(:builder_section_metadata, class_name: 'BuilderSectionMetadata') do
-  suggested_questions {[Fabricate(:question)]}
-  suggested_child_sections {[Fabricate(:section)]}
+Fabricator(:section_details, :class_name => 'BuilderSectionDetailsContainer') do
+  is_top_level true
+  is_standard_section true
+  repeats true
+  repeats_max_instances 5
 end

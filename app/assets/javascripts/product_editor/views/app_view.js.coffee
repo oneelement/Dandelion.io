@@ -11,6 +11,12 @@ class ProductEditor.Views.AppView extends Backbone.View
     @suggestedQuestionsView = new ProductEditor.Views.SuggestedQuestionsIndex(
       collection: app.suggestedQuestions
     )
+    @customSectionsView = new ProductEditor.Views.CustomSectionsIndex(
+      collection: app.customSections
+    )
+    @customQuestionsView = new ProductEditor.Views.CustomQuestionsIndex(
+      collection: app.customQuestions
+    )
 
     saveButton = $('#action-save').button(
       icons:
@@ -93,5 +99,7 @@ class ProductEditor.Views.AppView extends Backbone.View
     $('#sections').html(@versionView.render().el)
     $('#suggested-sections').html(@suggestedSectionsView.render().el)
     $('#suggested-questions').html(@suggestedQuestionsView.render().el)
+    $('#custom-sections').html(@customSectionsView.render().el)
+    $('#custom-questions').html(@customQuestionsView.render().el)
 
     return @
