@@ -33,5 +33,5 @@ class BuilderQuestionDetailsContainer
   #
   #Sensible default added by us, or bespoke section added by someone building a product?
   #Used to figure out whether or not to suggest the section to people
-  field :is_standard_question, :type => Boolean 
+  field :is_standard_question, :type => Boolean, :default => false
 end

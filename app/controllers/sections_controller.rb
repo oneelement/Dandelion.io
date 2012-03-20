@@ -27,6 +27,17 @@ class SectionsController < ApplicationController
     end
   end
 
+  def create
+    params[:section] = params_to_nested_attributes(["builder_details_container"], params[:section])
+    @section = Section.new(params[:section])
+
+    if @section.save
+      respond_to do |format|
+        format.json { render_for_api :section, :json => @section }
+      end
+    end
+  end
+
   def show
     @section = Section.find(params[:id])
 

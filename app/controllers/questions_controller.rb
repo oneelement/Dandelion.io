@@ -23,6 +23,17 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def create
+    params[:question] = params_to_nested_attributes(["builder_details_container"], params[:question])
+    @question = Question.new(params[:question])
+
+    if @question.save
+      respond_to do |format|
+        format.json { render_for_api :question, :json => @question }
+      end
+    end
+  end
+
   def show
     @question = Question.find(params[:id])
 

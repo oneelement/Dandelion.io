@@ -18,7 +18,7 @@ class ProductEditor.Views.SuggestedSectionsIndex extends Backbone.View
     if @collection.length > 0
       $('#suggested-sections-list', @el).empty()
       _.each(
-        @collection.notAlreadyAddedToSelected()
+        sections_to_display
         (section) -> $('#suggested-sections-list', @el).append(
           new ProductEditor.Views.SuggestedSectionsShow(model: section).render().el)
         @)

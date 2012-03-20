@@ -95,11 +95,23 @@ class ProductEditor.Views.AppView extends Backbone.View
         $current.fadeIn(200))
     )
 
+    tabs = $('#menu-tabs').tabs(
+      disabled: [1]
+    )
+    app.bind("change:selectedProductSection", (model, newSelection) ->
+      if newSelection?
+        tabs.tabs(disabled: [])
+      else if not newSelection?
+        tabs.tabs(selected: 0)
+        tabs.tabs(disabled: [1])
+    )
+
   render: ->
     $('#sections').html(@versionView.render().el)
     $('#suggested-sections').html(@suggestedSectionsView.render().el)
     $('#suggested-questions').html(@suggestedQuestionsView.render().el)
     $('#custom-sections').html(@customSectionsView.render().el)
     $('#custom-questions').html(@customQuestionsView.render().el)
+
 
     return @

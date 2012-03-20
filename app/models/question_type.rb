@@ -22,12 +22,12 @@ end
 
 class FreetextQuestionType < QuestionType
   self.display_name = 'Freetext'
-  field :max_length, :type => Integer
+  field :max_length, :type => Integer, :default => 200
 end
 
 class NumericQuestionType < QuestionType
   self.display_name = 'Numeric'
-  field :decimal_places, :type => Integer
+  field :decimal_places, :type => Integer, :default => 0
 end
 
 class PercentageQuestionType < NumericQuestionType

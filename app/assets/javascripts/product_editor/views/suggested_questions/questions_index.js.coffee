@@ -18,7 +18,7 @@ class ProductEditor.Views.SuggestedQuestionsIndex extends Backbone.View
     if @collection.length > 0
       $('#suggested-questions-list', @el).empty()
       _.each(
-        @collection.notAlreadyAddedToSelected()
+        questions_to_display
         (question) -> $('#suggested-questions-list', @el).append(
           new ProductEditor.Views.SuggestedQuestionsShow(model: question).render().el)
         @)

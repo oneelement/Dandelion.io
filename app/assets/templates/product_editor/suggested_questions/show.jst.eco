@@ -1,1 +1,4 @@
-<span class="ui-button-icon-primary ui-icon ui-icon-circle-plus"></span><span class="ui-button-text"> <%= @name %></span>
+<span class="ui-button-icon-primary ui-icon ui-icon-circle-plus"></span><span class="ui-button-text">
+  <%= @name %>
+  <span class="question-type"><%= @question_type.display_name %></span>
+</span>

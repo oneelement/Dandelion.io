@@ -41,7 +41,6 @@ describe 'ProductEditorApp model', ->
     it 'should get default suggestions', ->
 
       expect(@sugSectionsSpy.calledWithExactly()).toBeTruthy()
-      expect(@sugQuestionsSpy.calledWithExactly()).toBeTruthy()
 
   describe 'when no product section is selected', ->
 

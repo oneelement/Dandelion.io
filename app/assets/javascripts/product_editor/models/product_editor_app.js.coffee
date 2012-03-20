@@ -17,16 +17,9 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
           prevSelection.trigger("change")
 
         if newSelection?
-          @suggestedSections.fetchSuggestions(newSelection.get("section").id)
-          @suggestedQuestions.fetchSuggestions(newSelection.get("section").id)
-          @customSections.fetchCustom(newSelection.get("section").id)
-          @customQuestions.fetchCustom(newSelection.get("section").id)
           newSelection.trigger("change")
-        else
-          @suggestedSections.fetchSuggestions()
-          @suggestedQuestions.fetchSuggestions()
-          @customSections.fetchCustom()
-          @customQuestions.fetchCustom()
+
+        @fetchAll()
       @)
 
     @bind("change:selectedProductQuestion", (model, newSelection) ->
@@ -44,10 +37,19 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       success: ->
         $('#sections').fadeIn(500)
     )
-    @suggestedSections.fetchSuggestions()
-    @suggestedQuestions.fetchSuggestions()
-    @customSections.fetchCustom()
-    @customQuestions.fetchCustom()
+    @fetchAll()
+
+  fetchAll: ->
+    selected = @get("selectedProductSection")
+    if selected?
+      s_id = selected.get("section").id
+      @suggestedSections.fetchSuggestions(s_id)
+      @suggestedQuestions.fetchSuggestions(s_id)
+      @customSections.fetchCustom(s_id)
+      @customQuestions.fetchCustom(s_id)
+    else
+      @suggestedSections.fetchSuggestions()
+      @customSections.fetchCustom()
 
   selectProductSection: (productSection) ->
     if @get("selectedProductSection") == productSection
@@ -75,6 +77,7 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       
     #Redraw suggestions
     @suggestedSections.trigger("reset")
+    @customSections.trigger("reset")
 
     return product_section
 
@@ -86,6 +89,7 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       
     #Redraw suggestions
     @suggestedSections.trigger("reset")
+    @customSections.trigger("reset")
 
   addQuestion: (question) ->
     selected_section = @get("selectedProductSection")
@@ -94,6 +98,7 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       
     #Redraw suggestions
     @suggestedQuestions.trigger("reset")
+    @customQuestions.trigger("reset")
 
   removeSelectedQuestion: ->
     question = @get("selectedProductQuestion")
@@ -103,6 +108,50 @@ class ProductEditor.Models.ProductEditorApp extends Backbone.Model
       
     #Redraw suggestions
     @suggestedQuestions.trigger("reset")
+    @customQuestions.trigger("reset")
+
+  addCustomSection: (details) ->
+    selectedSection = @get("selectedProductSection")
+
+    newSection = new ProductEditor.Models.Section(details)
+
+    if selectedSection?
+      builder_details_container = {
+        section_id: selectedSection.get("section").id
+      }
+    else
+      builder_details_container = {
+        is_top_level: true
+      }
+
+    newSection.set("builder_details_container", builder_details_container)
+    newSection.save([],
+      success: =>
+        @fetchAll()
+    )
+
+  addCustomQuestion: (details) ->
+    selectedSection = @get("selectedProductSection")
+
+    if selectedSection?
+      builder_details_container = {
+        section_id: selectedSection.get("section").id
+      }
+
+      question_type = {
+        _type: details.type
+      }
+
+      newQuestion = new ProductEditor.Models.Question(
+        name: details.name
+      )
+      newQuestion.set("builder_details_container", builder_details_container)
+      newQuestion.set("question_type", question_type)
+
+      newQuestion.save([],
+        success: =>
+          @fetchAll()
+      )
 
   save: ->
     @version.save()
