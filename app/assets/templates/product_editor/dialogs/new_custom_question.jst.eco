@@ -26,7 +26,7 @@
             <option value="FreetextQuestionType">Freetext</option>
             <option value="NumericQuestionType">Numeric</option>
             <option value="PercentageQuestionType">Percentage</option>
-            <option value="DropdownQuestionType">Dropdown</option>
+            <option value="PossibleAnswerQuestionType">Dropdown</option>
             <option value="AddressQuestionType">Address</option>
           </select>
           <div class="ui-helper-clearfix"></div>
