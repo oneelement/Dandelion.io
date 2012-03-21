@@ -7,27 +7,39 @@ class ProductEditor.Views.ProductSectionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
+    product_sections = @model.get("product_sections")
+    @subView = new ProductEditor.Views.ProductSectionsIndex(
+      collection: product_sections
+    )
+
+  remove: ->
+    @model.unbind("change", @render, @)
+    super()
+
+
   render: ->
-    if ProductEditor.app.get("selectedProductSection") == @model
-      $(@el).removeClass('ui-state-default')
-      $(@el).addClass('ui-state-focus')
+    if @model.get("_destroy")
+      @remove()
     else
-      $(@el).removeClass('ui-state-focus')
-      $(@el).addClass('ui-state-default')
+      if ProductEditor.app.get("selectedProductSection") == @model
+        $(@el).removeClass('ui-state-default')
+        $(@el).addClass('ui-state-focus')
+      else
+        $(@el).removeClass('ui-state-focus')
+        $(@el).addClass('ui-state-default')
 
-    $(@el).html(@template(@model.toJSON()))
+      $(@el).html(@template(@model.toJSON()))
 
-    sub_sections = @model.get("product_sections")
-    if sub_sections.length > 0
-      $sub_el = $('.sub-sections', @el)
-      $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(
-        collection: sub_sections
-      ).render().el)
+      $sub_el = $('.sub-sections', @el).empty()
 
-    return this
+      sub_sections = @model.get("product_sections")
+      if sub_sections.hasVisible()
+        $sub_el.append(@subView.render().el)
+
+    return @
 
   events:
     "click": ->
-      ProductEditor.app.selectProductSection @model
+      ProductEditor.app.selectProductSection(@model)
       #return false to prevent click propagation to parent sections
       return false

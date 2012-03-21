@@ -1,0 +1,164 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#product-structure {
+    width: 70%;
+    float: left;
+    margin-left: 1em;
+}
+
+#sections, #questions {
+    float: left;
+    width: 55%;
+    margin-right: 5%;
+
+    ul {
+        padding: .5em;
+        padding-left: 40px;
+        li {
+            margin: 2px;
+        }
+    }
+}
+
+.product-section, .product-question {
+    display: block;
+    text-align: left;
+
+    .ui-button-icon-primary {
+        top: 1em;
+    }
+
+    .ui-button-icon-secondary {
+        right: .5em;
+        top: 1em;
+    }
+
+    .question-type {
+      font-size: 8pt;
+      padding: 2px;
+      float: right;
+    }
+
+}
+
+#current-section, #current-question {
+    float: left;
+    width: 35%;
+
+    button {
+      font-size: 9pt;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        margin: 2px;
+        list-style: none;
+        font-size: 9pt;
+
+        .ui-button-text {
+          text-align: left;
+        }
+
+        label {
+          width: 100%;
+        }
+
+        input {
+          font-size: 8pt;
+          height: 10px;
+        }
+      }
+    }
+
+    #section-attribute-repeat-max-instances {
+        width: 3em;
+        margin: 0 .5em;
+    }
+}
+
+#menu {
+    overflow: auto;
+    float: right;
+    margin-right: 1em;
+    width: 25%;
+    height: 100%;
+
+    ul {
+        padding: 0;
+
+        li {
+            display: block;
+            list-style: none;
+            text-align: left;
+        }
+    }
+}
+
+#custom-sections, #custom-questions {
+  button {
+    font-size: 9pt;
+    margin-bottom: 1em;
+  }
+}
+
+#new-custom-section-dialog, #new-custom-question-dialog {
+  padding: 1em 2em;
+
+  .new-custom-details {
+    margin-top: 1em;
+    background-color: #fff;
+    border: 1px #ddd solid;
+    padding: 1em;
+
+    .parent-section {
+      padding: .5em;
+      border: 1px #eee solid;
+
+      .parent-section-name {
+        margin-left: 1em;
+        font-weight: bold;
+      }
+    }
+
+    .new-custom-fields {
+      ul {
+        li {
+          list-style-type: none;
+          margin-bottom: 1em;
+
+          .new-custom-label {
+            float: left;
+            width: 50%;
+          }
+
+          .new-custom-field {
+            float: right;
+            margin-right: 9%;
+            width: 40%;
+          }
+        }
+      }
+    }
+  }
+
+  .new-custom-error-message {
+    margin-top: 1em;
+    float: left;
+    color: #f00;
+  }
+
+  .new-custom-submit {
+    margin-top: 1em;
+    float: right;
+  }
+}

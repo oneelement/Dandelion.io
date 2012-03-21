@@ -3,16 +3,38 @@ class SectionsController < ApplicationController
     if params[:suggestions]
       if params[:id]
         @current_section = Section.find(params[:id])
-        @sections = @current_section.suggested_child_sections
+        @sections = Section.children_of(@current_section).suggestions
       else
-        @sections = Section.top_level_suggestions
+        @sections = Section.top_level.suggestions
+      end
+    elsif params[:custom]
+      if params[:id]
+        @current_section = Section.find(params[:id])
+        @sections = Section.children_of(@current_section).custom
+      else
+        @sections = Section.top_level.custom
       end
     else
       @sections = Section.all
     end
 
+    if @sections.nil?
+      @sections = []
+    end
+
     respond_to do |format|
-      format.json { render json: @sections }
+      format.json { render_for_api :section, :json => @sections }
+    end
+  end
+
+  def create
+    params[:section] = params_to_nested_attributes(["builder_details_container"], params[:section])
+    @section = Section.new(params[:section])
+
+    if @section.save
+      respond_to do |format|
+        format.json { render_for_api :section, :json => @section }
+      end
     end
   end
 

@@ -4,7 +4,7 @@ beforeEach ->
 
     @fixtures.ProductVersions = {
       nestedStructure: {
-        "_id": "vid",
+        "id": "vid",
         "product_id": "pid",
         "product_name":"test product",
         "version_description":"Initial development version",
@@ -12,19 +12,19 @@ beforeEach ->
         "product_sections":[
           {
             "section":{
-              "_id":"1",
+              "id":"1",
               "name":"Premises"
             },
             "product_sections":[
               {
                 "section":{
-                  "_id":"2",
+                  "id":"2",
                   "name":"Contents"
                 },
                 "product_sections":[
                   {
                     "section":{
-                      "_id":"3",
+                      "id":"3",
                       "name":"Specified Contents Item"
                     },
                     "product_sections":[],
@@ -34,7 +34,7 @@ beforeEach ->
                 "product_questions":[]
               }, {
                 "section":{
-                  "_id":"4",
+                  "id":"4",
                   "name":"Buildings"
                 },
                 "product_sections":[],
@@ -44,7 +44,7 @@ beforeEach ->
             "product_questions":[]
           },{
             "section":{
-              "_id":"5",
+              "id":"5",
               "name":"Employer's Liability"
             },
             "product_sections":[],

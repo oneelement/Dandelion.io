@@ -1,32 +1,42 @@
 <%= content_for :head do %>
+  <%= stylesheet_link_tag "product_editor" %>
   <%= javascript_include_tag "product_editor" %>
 <% end %>
-<p id="notice"><%= notice %></p>
 <div id="product-structure">
     <h2>Product Structure</h2>
     <div id="product-id" style="display:none"><%= @product.id %></div>
     <div id="version-id" style="display:none"><%= @version.id %></div>
-    <div id="sections"></div>
+    <div id="sections" style="display: none;"></div>
     <div id="current-section"></div>
     <div id="questions"></div>
     <div id="current-question"></div>
 </div>
 <div id="menu">
+    <h1>Menu</h1>
+    <div id="notice" style="display:none" class="ui-state-highlight ui-corner-all" style="margin-top: 20px;">
+      <p>
+        <span class="ui-icon ui-icon-info" style="float: left; margin: 2px 1em; height: 15px"></span>
+        <div id="notice-content" style="height: 15px"></div>
+      </p>
+    </div>
     <div id="actions">
-        <h2>Actions</h2>
+        <h2>Product</h2>
         <ul>
-            <li><a id="action-save" href="javascript: return false;">Save</a></li>
+            <li><a id="action-save">Save this version</a></li>
         </ul>
     </div>
-    <div id="suggestions">
-        <h2>Suggestions</h2>
-        <div id="suggested-sections">
-            <p>Sections</p>
-            <div id="suggested-sections-list"></div>
-        </div>
-        <div id="suggested-questions">
-            <p>Questions</p>
-            <div id="suggested-questions-list"></div>
-        </div>
+    <div id="menu-tabs">
+      <ul>
+        <li><a href="#menu-tab-sections">Sections</a></li>
+        <li><a href="#menu-tab-questions">Questions</a></li>
+      </ul>
+      <div id="menu-tab-sections">
+        <div id="suggested-sections" style="display: none;"></div>
+        <div id="custom-sections" style="display: none;"></div>
+      </div>
+      <div id="menu-tab-questions">
+        <div id="suggested-questions" style="display: none;"></div>
+        <div id="custom-questions" style="display: none;"></div>
+      </div>
     </div>
 </div>

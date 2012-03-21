@@ -1,0 +1,9 @@
+<h3>Custom sections</h3>
+<button id="new-custom-section">Create a new section</button><br/>
+<% if @sections_to_display.length > 0: %>
+    <ul id="custom-sections-list"></ul>
+<% else if @sections.length > 0: %>
+    All custom child sections have been added.
+<% else: %>
+    There are no custom child sections for the selected section.
+<% end %>

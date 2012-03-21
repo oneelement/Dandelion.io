@@ -11,7 +11,7 @@ src_files:
   - '**/*.*'
 
 spec_files:
-  - '**/*[sS]pec.js'
+  - '**/*[sS]pec.*'
 
 spec_dir: spec/javascripts
 

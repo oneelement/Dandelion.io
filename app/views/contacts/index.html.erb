@@ -1,5 +1,8 @@
-<h1>Listing contacts</h1>
+<%= content_for :head do %>
+  <%= javascript_include_tag "client_editor" %>
+<% end %>
 
+<h1>Listing contacts</h1>
 <table>
   <tr>
     <th></th>
@@ -23,3 +26,5 @@
 <%= link_to 'New Contact', new_contact_path %>
 
 <%= link_to 'Dashboard', dashboards_path %>
+<div id="notice"></div>
+<div id="app"></div>

@@ -8,4 +8,6 @@ class ProductEditor.Views.SuggestedSectionsShow extends Backbone.View
     return this
 
   events:
-    "click": -> ProductEditor.app.addSection(@model)
+    "click": ->
+      newProductSection = ProductEditor.app.addSection(@model)
+      ProductEditor.app.selectProductSection(newProductSection)

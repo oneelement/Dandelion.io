@@ -1,14 +1,27 @@
 class ProductEditor.Views.ProductSectionsIndex extends Backbone.View
 
+  initialize: ->
+    @subViews = []
+
   tagName: 'ul'
+
   render: ->
-    $(@el).empty()
-    _.each(
-      @collection.models
-      (product_section) ->
-        $(@el).append(new ProductEditor.Views.ProductSectionsShow(
+
+    #Tidy up existing views
+    _.each(@subViews, (view) ->
+      view.remove())
+
+    @subViews = []
+
+    _.each(@collection.visibleModels(), (product_section) ->
+        @subViews.push(new ProductEditor.Views.ProductSectionsShow(
           model: product_section
-        ).render().el)
+        ).render())
       @)
+
+    _.each(@subViews, (view) ->
+        $(@el).append(view.el)
+      @)
+
 
     return @

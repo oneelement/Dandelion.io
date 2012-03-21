@@ -1,5 +1,4 @@
 class ProductEditor.Models.ProductVersion extends Backbone.RelationalModel
-  idAttribute: '_id'
   urlRoot: -> '/products/' + @get('product_id') + '/versions'
   relations: [
     {
@@ -23,9 +22,8 @@ class ProductEditor.Models.ProductVersion extends Backbone.RelationalModel
         @trigger("change")
       @)
 
-  addSection: (section) ->
-    s = new ProductEditor.Models.ProductSection(section: section)
-    @get("product_sections").add(s)
+  addSection: (product_section) ->
+    @get("product_sections").add(product_section)
 
   addQuestion: (question) ->
     q = new ProductEditor.Models.ProductQuestion(question: question)

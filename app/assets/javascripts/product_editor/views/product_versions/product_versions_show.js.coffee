@@ -5,14 +5,18 @@ class ProductEditor.Views.ProductVersionsShow extends Backbone.View
   initialize: ->
     @model.bind("change", @render, @)
 
-  render: ->
-    $(@el).html(@template(@model.toJSON()))
-
     product_sections = @model.get("product_sections")
-    if product_sections.length > 0
+
+    product_sections.bind("change", @render, @)
+    @productSectionsView = new ProductEditor.Views.ProductSectionsIndex(
+      collection: product_sections
+    )
+
+  render: ->
+    $(@el).html(@template({hasVisible: @model.get("product_sections").hasVisible()}))
+
+    if @model.get("product_sections").hasVisible()
       $sub_el = $('#product-sections', @el).empty()
-      $sub_el.append(new ProductEditor.Views.ProductSectionsIndex(
-        collection: product_sections
-      ).render().el)
+      $sub_el.append(@productSectionsView.render().el)
 
     return this

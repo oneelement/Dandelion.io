@@ -1,5 +1,4 @@
 class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
-  idAttribute: '_id'
   relations: [
     {
       type: 'Backbone.HasOne'
@@ -29,9 +28,18 @@ class ProductEditor.Models.ProductSection extends Backbone.RelationalModel
         @trigger("change")
       @)
 
-  addSection: (section) ->
-    s = new ProductEditor.Models.ProductSection(section: section)
-    @get("product_sections").add(s)
+  loadDefaults: ->
+    s = @get("section")
+
+    if s?
+      details = s.get("builder_details_container")
+      if details?
+        @set("repeats", details.repeats)
+        if details.repeats?
+          @set("repeat_max_instances", details.repeat_max_instances)
+
+  addSection: (product_section) ->
+    @get("product_sections").add(product_section)
 
   addQuestion: (question) ->
     q = new ProductEditor.Models.ProductQuestion(question: question)
