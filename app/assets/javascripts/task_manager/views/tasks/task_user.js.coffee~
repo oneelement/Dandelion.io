@@ -1,0 +1,16 @@
+class Crm.Views.TaskUser extends Backbone.View
+
+  template: JST['tasks/user']
+  tagName:  "div"
+  
+  initialize: ->
+    @collection = new Crm.Collections.Users()
+    @collection.fetch()
+    #@collection.on('reset', @render, this)
+    @render
+  
+  render: ->
+    users = new Crm.Collections.Users()
+    users.fetch()
+    $(@el).html(@template(users: users))
+    this
