@@ -1,7 +1,5 @@
 Onelement::Application.routes.draw do
 
-  resources :tasks
-
   resources :home
 
   resources :question_types
@@ -41,9 +39,7 @@ Onelement::Application.routes.draw do
 
   resources :quotes
 
-  resources :rating_blocks
-
-  root :to => "home#index"
+  root :to => "dashboards#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

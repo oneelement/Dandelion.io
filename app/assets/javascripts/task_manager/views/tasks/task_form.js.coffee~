@@ -1,0 +1,22 @@
+class Crm.Views.TaskForm extends Backbone.View
+
+  template: JST['tasks/form']
+  
+  initialize: ->
+    #this.render()
+  
+  events:
+    'submit .bbf-form': 'createTask'
+
+  
+  render: ->
+    tasks = new Crm.Models.Task
+    form = new Backbone.Form(model: tasks).render()
+    $(this.el).append(form.el)
+    this.$('form.bbf-form').append('<input type="submit" value="Add Task" class="nice small radius blue button">')
+    #$('<input type="submit" value="Add Task" class="nice small radius blue button">').appendTo('#.bbf-form')
+    this
+    
+  createTask: (event) ->
+    event.preventDefault()
+    @collection.create title: $('input#c9_title').val(), content: $('input#c9_content').val()
