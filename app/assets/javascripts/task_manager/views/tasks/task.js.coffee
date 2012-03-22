@@ -5,7 +5,8 @@ class TaskManager.Views.Task extends Backbone.View
   
   initialize: ->
     @model.on('change', @render, this)
-    @render()
+    #@model.on('destroy', @render, this)
+    #@render()
   
   events:
     'click .task-complete': 'toggleComplete'
@@ -28,18 +29,6 @@ class TaskManager.Views.Task extends Backbone.View
     else
       $(this.el).addClass('checked')
       
-  
-  
-     # if ($('input#check').hasClass('checked')) 
-        #this.$('input#check').removeClass('checked')
-        #$(this.el).removeClass('working')
-      #else 
-        #this.$('input#check').addClass('checked')
-       #$(this.el).addClass('working')
-    
-  #this.$('input#check').change -> this.$('input#check').addClass('checked'), -> this.$('input#check').removeClass('checked')
-
-    
   clearTask: ->
     this.model.destroy()
     
