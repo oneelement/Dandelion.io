@@ -37,6 +37,8 @@ Onelement::Application.routes.draw do
 
   resources :quotes
 
+  resources :rating_blocks
+
   root :to => "dashboards#index"
 
   # The priority is based upon order of creation:
