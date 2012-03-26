@@ -1,7 +1,4 @@
 class TaskManager.Models.User extends Backbone.RelationalModel
-  #urlRoot: -> '/users'
-  #relations: [
-    #idAttribute: '_id'
-  #]
+    idAttribute: '_id'
 
 

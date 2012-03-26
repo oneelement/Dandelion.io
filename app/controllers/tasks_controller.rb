@@ -1,23 +1,59 @@
 class TasksController < ApplicationController
-  respond_to :json
+  #respond_to :json
   
   def index
-    respond_with Task.all
-  end
+    @tasks = Task.all
 
-  def show
-    respond_with Task.find(params[:id])
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @tasks }
+    end
+  end
+  
+  def new
+    @task = Task.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @task }
+    end
   end
 
   def create
-    respond_with Task.create(params[:task])
+    @task = Task.new(params[:task])
+
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to @task, notice: 'Home was successfully created.' }
+        format.json { render json: @task, status: :created, location: @task }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def edit
+    @task = Task.find(params[:id])
   end
 
   def update
-    respond_with Task.update(params[:id], params[:task])
+    @task = Task.find(params[:id])
+    @task.update_attributes!(params[:task])
+    
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :ok }
+    end
   end
 
   def destroy
-    respond_with Task.destroy(params[:id])
+    @task = Task.find(params[:id])
+    @task.destroy
+
+    respond_to do |format|
+      format.html { redirect_to tasks_url }
+      format.json { head :ok }
+    end
   end
 end

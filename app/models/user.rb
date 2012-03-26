@@ -7,6 +7,8 @@ class User
 
   belongs_to :organisation, :autosave => true
   belongs_to :entity
+  
+  has_many :tasks
 
   accepts_nested_attributes_for :organisation
   ## Database authenticatable
