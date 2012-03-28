@@ -6,9 +6,23 @@
 * PANELS
 **********************************************************************************/
 
-.outer-center {
-  background: url(/assets/textures.png) repeat !important;
-  @include background-image(radial-gradient(center top, circle closest-corner, #FFF 0%, #1e90ff 100%)); 
+/* TOP MENU BAR FIXED */
+.navbar-fixed-top {
+  height: 40px;
+  background: #000;
+  border-bottom: solid 1px #000;
+  background: -moz-linear-gradient(center top , #414149 0%, #2A2A30 100%) repeat scroll 0 0 transparent !important;
+  border-bottom: 1px solid #1D1E21;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#account-info {
+  margin: 0px 20px 0px 0px;
+  float: right;
+}
+
+#account-info ul.dropdown-menu{
+  
 }
 
 /*********************************************************************************
@@ -253,14 +267,6 @@ ul.nav-west li {
 }
 
 .outer-north {
-  background: #000;
-  border-bottom: solid 1px #000;
-  color: #FFF;
-  
-  background: -moz-linear-gradient(center top , #414149 0%, #2A2A30 100%) repeat scroll 0 0 transparent !important;
-  border-bottom: 1px solid #1D1E21;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-
 }
 
 .outer-west {
@@ -271,6 +277,7 @@ ul.nav-west li {
 .outer-west .content {
   background: url(/assets/textures.png) repeat;
   color: #FFF;
+  overflow: visible !important;
 }
 
 

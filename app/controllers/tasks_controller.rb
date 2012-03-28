@@ -2,7 +2,9 @@ class TasksController < ApplicationController
   #respond_to :json
   
   def index
-    @tasks = Task.all
+    #@tasks = Task.all
+    @tasks = Task.where(:user_id => current_user.id)
+
 
     respond_to do |format|
       format.html # index.html.erb

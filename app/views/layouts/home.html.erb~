@@ -9,10 +9,26 @@
 </head>
 <body>
 
-<div class="outer-north">
-  <div class="content">
+<div class="navbar navbar-fixed-top">
+  <div id="account-info">
+    <ul class="nav pull-right">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <%= current_user.first_name %>
+      <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+	<li><%= link_to 'Profile', user_path(current_user.id) %></li>
+	<li class="divider"></li>
+	<li><%= link_to('Log out', destroy_user_session_path, :method => :delete) %></li>
+      </ul>
+    </li>
+    </ul>
   </div>
-</div> 
+</div>
+
+<div class="outer-north"></div>
+
 
 <div class="outer-center"> 
   <div class="content">
@@ -34,7 +50,7 @@
 	</a>
       </li>
       <li>
-	<a href="/dashboards">
+	<a href="/dashboard">
 	<span class="nav-west-icon">	  
 	  <!--<span class="nav-west-icon-mask"></span>-->
 	  <span class="nav-west-icon-image"><%= image_tag "dashboard-icon.png" %></span>

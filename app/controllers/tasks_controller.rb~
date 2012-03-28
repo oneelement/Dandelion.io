@@ -3,6 +3,15 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.all
+    if current_user.user_type.name == "Organisation"
+      @tasks = Task.where(:user_id => current_user.id)
+      #@users = @users.where(:organisation_id => current_user.organisation_id)
+      #@users = @users.where(:adminent => true)
+      #@users = @users.where(:entity_id => current_user.entity_id)
+    elsif current_user.user_type.name == "Entity"
+      @tasks = Task.all
+      #@users = @users.where(:entity_id => current_user.entity_id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,10 +49,6 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update_attributes!(params[:task])
-    
-    entry = Entry.find(params[:id])
-      entry.update_attributes!(params[:entry])
-      render :json => entry
     
     respond_to do |format|
       format.html { redirect_to tasks_url }
