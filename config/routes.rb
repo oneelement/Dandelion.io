@@ -41,6 +41,8 @@ Onelement::Application.routes.draw do
 
   resources :quotes
 
+  resources :rating_blocks
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:
