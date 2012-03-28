@@ -1,8 +1,33 @@
 <h1>Listing Users</h1>
 
-<p>Current user is <%= current_user.email %> in <%= current_user.organisation.name %> Org <%= current_user.adminorg %>
-Ent <%= current_user.adminent %>
+<p>
+Current user is <%= current_user.first_name %> <%= current_user.last_name %> in <%= current_user.organisation.name %> 
+Admin <%= current_user.is_admin %>
+User Type <%= current_user.user_type.name %>
 </p>
+
+<table>
+  <tr>
+    <th>ALL USERS</th>
+    <th>ADMIN</th>
+    <th>User Type</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>  
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.is_admin %></td>
+    <td><%= user.user_type.name %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>  
+<% end %>
+</table>
+
+<br />
 
 <table>
   <tr>
@@ -13,15 +38,18 @@ Ent <%= current_user.adminent %>
     <th></th>
   </tr>
 
-<% @users.where(:adminorg => true).each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.organisation.name %></td>
-    <td><%= user.adminorg %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% @users.each do |user| %>
+  <% if user.user_type.name == "Organisation" %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.organisation.name %></td>
+      <td><%= user.user_type.name %></td>
+      <td><%= user.is_admin %></td>
+      <td><%= link_to 'Show', user %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 
@@ -36,30 +64,42 @@ Ent <%= current_user.adminent %>
     <th></th>
   </tr>
 
-<% @users.where(:adminent => true).each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.entity.name %></td>
-    <td><%= user.adminorg %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% @users.each do |user| %>
+  <% if user.user_type.name == "Entity" %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.organisation.name %></td>
+      <td><%= user.entity.name %></td>
+      <td><%= user.user_type.name %></td>
+      <td><%= user.is_admin %></td>
+      <td><%= link_to 'Show', user %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'Dashboard', dashboards_path %>
+
 
 <br />
 
-<%= link_to 'Entities', entities_path %>
+<%= link_to 'Dashboard', dashboard_index_path %>
 
 <br />
+
 <% if can? :read, Entity %>
-<%= link_to 'New ' + current_user.organisation.name + ' User', new_user_path %>
-<br />
+  <%= link_to 'Entities', entities_path %>
+  <br />
 <% end %>
 
-<%= link_to 'New Entity User', newent_user_index_path %>
+<% if can? :new, User %>
+  <%= link_to 'New ' + current_user.organisation.name + ' User', new_user_path %>
+  <br />
+<% end %>
+
+<% if can? :read, Entity %>
+  <%= link_to 'New Entity User', newent_user_index_path %>
+<% end %>

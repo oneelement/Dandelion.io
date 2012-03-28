@@ -4,7 +4,7 @@ class EntitiesController < ApplicationController
   # GET /entities.json
   def index
     if current_user.user_type.name == "Organisation"
-      @entities = Entity.where(organisation_id: current_user.organisation_id)
+      @entities = Entity.where(organisation_id: current_user.organisation_id).all
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @entities }

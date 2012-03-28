@@ -10,6 +10,10 @@
 </div>
 <% end %>
 
+
+
+<%= f.hidden_field :organisation_id, :value => current_user.organisation.id %>
+
 <div><%= f.label :first_name %>
 <%= f.text_field :first_name %></div>
 

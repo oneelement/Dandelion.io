@@ -117,6 +117,6 @@ el_loi_question = Question.create({
 
 #Entering User Types
 
-UserType.create!(name: "Superuser")
+UserType.create!(name: "Bespokd")
 UserType.create!(name: "Organisation")
 UserType.create!(name: "Entity")

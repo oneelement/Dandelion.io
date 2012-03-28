@@ -33,7 +33,7 @@ Onelement::Application.routes.draw do
     get 'autocomplete', :on => :collection
   end
 
-  resources :dashboards
+  resources :dashboard
 
   resources :user do
     get :newent, :on => :collection

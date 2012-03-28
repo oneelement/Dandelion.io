@@ -3,6 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /*********************************************************************************
+* PANELS
+**********************************************************************************/
+
+
+
+/*********************************************************************************
 * HOME
 **********************************************************************************/
 
@@ -65,6 +71,10 @@
   color: #999;
 }
 
+.task {
+  margin: 10px 0px 10px 0px;
+}
+
 .task .check {
   margin: 2px 0px 0px 0px;
 }
@@ -106,7 +116,7 @@ span.task-destroy {
 span.task-assignee {
   font-size: 10px;
   color: #FFF;
-  padding: 2px;
+  padding: 2px 4px 2px 4px;
   margin: 4px 40px 0px 0px;
   float: right;
   background: -moz-linear-gradient(center top , #DE0052 0%, #EE6B9C 100%) repeat scroll 0 0 transparent !important;
@@ -125,8 +135,7 @@ span.task-assignee {
   font-size: 0.85em;
   position: relative;
   overflow: hidden;
-  white-space: nowrap; 
-  
+  white-space: nowrap;   
   background: -moz-linear-gradient(center top , #414149 0%, #2A2A30 100%) repeat scroll 0 0 transparent !important;
   border-top: 1px solid #1D1E21;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 1px 0 0 rgba(255, 255, 255, 0.1) inset;
@@ -144,9 +153,9 @@ ul.nav-west {
 }
 
 .nav-west-icon {
-    border: 1px solid black;
+    /*border: 1px solid black;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);*/
     cursor: pointer;
     height: 45px;
     left: 12px;
@@ -211,7 +220,7 @@ ul.nav-west li a {
 
 ul.nav-west li a:hover {
   color: #FFF;
-  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.05) !important;
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.3) !important;
 }
 
 
@@ -257,7 +266,7 @@ ul.nav-west li {
 }
 
 .outer-west .content {
-  background: url(/assets/fabric-texture.png) repeat;
+  background: url(/assets/textures.png) repeat;
   color: #FFF;
 }
 

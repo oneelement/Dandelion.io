@@ -19,7 +19,6 @@ class Ability
 	can :update, Entity, :id => user.entity_id	
       else
 	can :update, User, :id => user.id
-	can :read, User, :entity_id => user.entity_id
 	cannot :manage, Entity
       end
       cannot :new, User

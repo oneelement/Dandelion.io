@@ -24,4 +24,9 @@ h1, h2, h3, h4, h5, h6 {
   @include border-radius(4px);
 }
 
+.outer-center {  
+  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), 
+      image-url("/assets/wood089.jpg") repeat !important); 
+}
+
 

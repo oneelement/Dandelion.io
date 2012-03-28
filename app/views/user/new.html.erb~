@@ -1,8 +1,6 @@
 <h1>New User</h1>
 
 <%= form_for @user, :url => user_index_path do |f| %>
-    <div><%= f.label :user_type_id %>
-    <%= f.collection_select :user_type_id, UserType.all, :id, :name %></div>
     <%= render 'form', :f => f %>
 <% end %>
 

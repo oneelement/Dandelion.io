@@ -11,6 +11,19 @@ class User
   
   has_many :tasks
   
+  #scope :is_org, where(:live_date => nil)
+  
+  #scope :is_org, includes(:user_types).where("user_types.name" == "Organisation")
+  
+  #scope :is_org, join(:user_types)
+  
+  #def self.user_orgs
+    #temps = User.includes(:user_types).where(:name => "Organisation")
+    #temps = User.where(:user.user_types.name => 'Organiaion')
+    #return temps
+  #end
+  
+
   accepts_nested_attributes_for :organisation
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""

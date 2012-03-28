@@ -13,16 +13,21 @@
 <%= link_to 'Contacts', contacts_path %>
 <br />
 
-<%= link_to 'Organisations', organisations_path %>
+<% if can? :read, Organisation %>
+  <%= link_to 'Organisations', organisations_path %>
+  <br />
+<% end %>
 
-<br />
+
 <% if can? :read, Entity %>
-<%= link_to 'Entities', entities_path %>
+  <%= link_to 'Entities', entities_path %>
 <br />
 <% end %>
 
-<%= link_to 'Manage Users', user_index_path %>
-
+<% if can? :read, User %>
+  <%= link_to 'Manage Users', user_index_path %>
+  <br />
+<% end %>
 <br />
 
 <%= link_to('Log out', destroy_user_session_path, :method => :delete) %>
