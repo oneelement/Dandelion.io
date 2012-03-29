@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  layout "home"
   # GET /dashboards
   # GET /dashboards.json
   def index

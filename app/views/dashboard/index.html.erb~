@@ -1,4 +1,4 @@
-<h1>Listing dashboards</h1>
+<h1>Dashboard</h1>
 
 <%= form_tag contacts_path, :method => 'get', :id => 'search_form' do %>
     <p>
@@ -19,7 +19,7 @@
 <% end %>
 
 
-<% if can? :read, Entity %>
+<% if can? :create, Entity %>
   <%= link_to 'Entities', entities_path %>
 <br />
 <% end %>
@@ -29,5 +29,3 @@
   <br />
 <% end %>
 <br />
-
-<%= link_to('Log out', destroy_user_session_path, :method => :delete) %>

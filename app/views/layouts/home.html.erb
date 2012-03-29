@@ -10,6 +10,41 @@
 <body>
 
 <div class="navbar navbar-fixed-top">
+  <div id="logo-placeholder">
+    <a class="brand" href="#">
+      <%= current_user.organisation.name %>
+    </a>
+  </div>
+  <div id="sitewide-search">
+    <%= form_tag contacts_path, :method => 'get', :id => 'search_form', :class => 'navbar-search' do %>
+        <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', placeholder: "Search..." %>
+        <%= submit_tag "", :name => nil , :id => 'searchbutton' %>
+	<i class="icon-search icon-white"></i>
+	<i class="icon-plus icon-white disabled"></i>
+    <% end %>
+  </div>
+  <div id="top-navigation">
+    <ul class="nav">
+      <li>
+	<%= link_to 'Contacts', contacts_path %>
+      </li>
+      <li>
+	<% if can? :read, Organisation %>
+	  <%= link_to 'Organisations', organisations_path %>
+	<% end %>
+      </li>
+      <li>
+	<% if can? :create, Entity %>
+	  <%= link_to 'Entities', entities_path %>
+	<% end %>
+      </li>
+      <li>
+	<% if can? :read, User %>
+	  <%= link_to 'Manage Users', user_index_path %>
+	<% end %>
+      </li>
+    </ul>
+  </div>
   <div id="account-info">
     <ul class="nav pull-right">
     <li class="dropdown">
@@ -31,7 +66,7 @@
 
 
 <div class="outer-center"> 
-  <div class="content">
+  <div class="content padded">
     <%= yield %>
   </div>
 </div> 

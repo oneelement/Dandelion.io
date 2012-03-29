@@ -1,4 +1,4 @@
-<h1>Listing dashboards</h1>
+<h1>Dashboard</h1>
 
 <%= form_tag contacts_path, :method => 'get', :id => 'search_form' do %>
     <p>
@@ -7,27 +7,3 @@
     </p>
 <% end %>
 
-
-<br />
-
-<%= link_to 'Contacts', contacts_path %>
-<br />
-
-<% if can? :read, Organisation %>
-  <%= link_to 'Organisations', organisations_path %>
-  <br />
-<% end %>
-
-
-<% if can? :create, Entity %>
-  <%= link_to 'Entities', entities_path %>
-<br />
-<% end %>
-
-<% if can? :read, User %>
-  <%= link_to 'Manage Users', user_index_path %>
-  <br />
-<% end %>
-<br />
-
-<%= link_to('Log out', destroy_user_session_path, :method => :delete) %>

@@ -1,3 +1,8 @@
+$(function() {
+    $('#auto_complete').typeahead({source: "/contacts/autocomplete"});
+});
+
+
 var tags = (function () {
     var json = null;
     $.ajax({
@@ -17,12 +22,15 @@ $(function() {
         var results = $.ui.autocomplete.filter(tags, request.term);
 
         if (!results.length) {
-            $("#searchbutton").attr('value','Add');
+	    $(".icon-search").addClass('disabled');
+	    $(".icon-plus").removeClass('disabled');
+            $("#searchbutton").attr('value','');
             $("#search_form").attr('action','/contacts/new');
         } else {
-           $("#searchbutton").attr('value','Search');
+	    $(".icon-search").removeClass('disabled');
+	    $(".icon-plus").addClass('disabled');
+            $("#searchbutton").attr('value','');
             $("#search_form").attr('action','/contacts');
-
         }
         response(results);
         return false;
