@@ -2,6 +2,7 @@ class AuthenticationsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
+    current_user.authentications.where(:provider => auth['provider']).delete_all
     current_user.authentications.create(:provider => auth['provider'], :uid => auth['uid'])
     flash[:notice] = "Authentication successful"
     redirect_to current_user

@@ -1,13 +1,14 @@
 Given /^I'm logged in$/ do
-  UserType.create!(name: "Superuser")
   email = 'user@example.com'
   password = 'password'
   visit '/users/sign_up'
-  fill_in 'Name', :with => 'Test organisation'
-  fill_in 'Email', :with => email
-  fill_in 'Password', :with => password
-  fill_in 'Password confirmation', :with => password
-  click_on 'Sign up'
+  consumer = find('#signup-consumer')
+  consumer.fill_in 'First name', :with => 'Firstname'
+  consumer.fill_in 'Last name', :with => 'Lastname'
+  consumer.fill_in 'Email', :with => email
+  consumer.fill_in 'Password', :with => password
+  consumer.fill_in 'Password confirmation', :with => password
+  consumer.click_on 'Sign up'
 end
 
 When /^I visit the user profile$/ do
@@ -16,7 +17,7 @@ When /^I visit the user profile$/ do
 end
 
 When /^press the "([^"]*)" authentication connection button$/ do |authentication|
-  find('#authentications').find('#' + authentication).find_link('Create Link').click
+  find("#authentication-#{authentication} > a").click
 end
 
 Then /^the page should say "([^"]*)"$/ do |message|
@@ -24,7 +25,7 @@ Then /^the page should say "([^"]*)"$/ do |message|
 end
 
 Then /^the "([^"]*)" authentication should appear as connected$/ do |authentication|
-  page.should have_selector('#' + authentication) do |li|
+  page.should have_selector("#authentication-#{authentication}") do |li|
     li.should contain("Connected")
   end
 end

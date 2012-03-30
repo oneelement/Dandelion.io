@@ -48,3 +48,58 @@ label.remember-me {
   display: inline;
 }
 
+/*********************************************************************************
+* USER PROFILE
+**********************************************************************************/
+
+#user-profile {
+
+  #user-profile-image {
+    float: left;
+    width: 20%;
+  }
+
+  #user-profile-details {
+
+    float: left;
+    width: 75%;
+
+    .edit-profile {
+      font-size: 50%;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    .detail-label {
+      font-weight: bold;
+    }
+
+    #authentications {
+
+      ul {
+        margin: 0;
+      }
+      .authentication {
+
+        width: 300px;
+
+        .authentication-icon {
+          float: left;
+          margin-right: 1em;
+        }
+
+        .authentication-name {
+          float: left;
+          margin-top: 6px;
+        }
+
+        .authentication-connected {
+          float: right;
+          margin-top: 6px;
+        }
+      }
+    }
+  }
+}

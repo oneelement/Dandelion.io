@@ -1,65 +1,68 @@
-<h2>Sign up a NEW Organisation</h2>
+<div id="signup-organisation">
+  <h2>Sign up a NEW Organisation</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-<% f.object.organisation = Organisation.new %>
+  <% f.object.organisation = Organisation.new %>
 
-  <%= f.fields_for :organisation do |organisation_fields| %>
-    <div><%= organisation_fields.label :name %>
-    <%= organisation_fields.text_field :name %></div>
+    <%= f.fields_for :organisation do |organisation_fields| %>
+      <div><%= organisation_fields.label :name %>
+      <%= organisation_fields.text_field :name %></div>
+    <% end %>
+
+    <%= f.hidden_field :is_admin, :value => true %>
+
+    <div><%= f.label :user_type_id %>
+    <%= f.collection_select :user_type_id, UserType.all, :id, :name %></div>
+
+    <div><%= f.label :first_name %>
+    <%= f.text_field :first_name %></div>
+
+    <div><%= f.label :last_name %>
+    <%= f.text_field :last_name %></div>
+
+    <div><%= f.label :email %>
+    <%= f.email_field :email %></div>
+
+    <div><%= f.label :password %>
+    <%= f.password_field :password %></div>
+
+    <div><%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %></div>
+
+    <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
   <% end %>
 
-  <%= f.hidden_field :is_admin, :value => true %>
+  <%= render "links" %>
+</div>
+<div id="signup-consumer">
+  <h2>Sign up as a Consumer</h2>
 
-  <div><%= f.label :user_type_id %>
-  <%= f.collection_select :user_type_id, UserType.all, :id, :name %></div>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-  <div><%= f.label :first_name %>
-  <%= f.text_field :first_name %></div>
+    <%= f.hidden_field :is_admin, :value => true %>
 
-  <div><%= f.label :last_name %>
-  <%= f.text_field :last_name %></div>
+    <%= f.hidden_field :user_type_id, :value => UserType.get_consumer.id %>
 
-  <div><%= f.label :email %>
-  <%= f.email_field :email %></div>
+    <div><%= f.label :first_name %>
+    <%= f.text_field :first_name %></div>
 
-  <div><%= f.label :password %>
-  <%= f.password_field :password %></div>
+    <div><%= f.label :last_name %>
+    <%= f.text_field :last_name %></div>
 
-  <div><%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %></div>
+    <div><%= f.label :email %>
+    <%= f.email_field :email %></div>
 
-  <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
-<% end %>
+    <div><%= f.label :password %>
+    <%= f.password_field :password %></div>
 
-<%= render "links" %>
+    <div><%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %></div>
 
-<h2>Sign up as a Consumer</h2>
+    <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
+  <% end %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <%= f.hidden_field :is_admin, :value => true %>
-
-  <%= f.hidden_field :user_type_id, :value => UserType.get_consumer.id %>
-
-  <div><%= f.label :first_name %>
-  <%= f.text_field :first_name %></div>
-
-  <div><%= f.label :last_name %>
-  <%= f.text_field :last_name %></div>
-
-  <div><%= f.label :email %>
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %>
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
-<% end %>
-
-<%= render "links" %>
+  <%= render "links" %>
+</div>

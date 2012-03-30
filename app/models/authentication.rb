@@ -2,9 +2,10 @@ class Authentication
   include Mongoid::Document
   embedded_in :user
 
-  def self.allowed_providers 
+  def self.available_providers 
     {
-      :linkedin => 'LinkedIn'
+      :linkedin => 'LinkedIn',
+      :facebook => 'Facebook'
     }
   end
 

@@ -56,4 +56,12 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def authenticated_with?(auth)
+    return (authentications.where(provider: auth.to_s).count > 0)
+  end
 end
