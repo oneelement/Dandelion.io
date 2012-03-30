@@ -6,28 +6,28 @@
 <% f.object.organisation = Organisation.new %>
 
   <%= f.fields_for :organisation do |organisation_fields| %>
-    <div><%= organisation_fields.label :name %><br/>
+    <div><%= organisation_fields.label :name %>
     <%= organisation_fields.text_field :name %></div>
   <% end %>
 
   <%= f.hidden_field :is_admin, :value => true %>
 
-  <div><%= f.label :entity_id %><br />
-  <%= f.collection_select :entity_id, Entity.all, :id, :name %></div>
+  <div><%= f.label :user_type_id %>
+  <%= f.collection_select :user_type_id, UserType.all, :id, :name %></div>
 
-  <div><%= f.label :first_name %><br />
+  <div><%= f.label :first_name %>
   <%= f.text_field :first_name %></div>
 
-  <div><%= f.label :last_name %><br />
+  <div><%= f.label :last_name %>
   <%= f.text_field :last_name %></div>
 
-  <div><%= f.label :email %><br />
+  <div><%= f.label :email %>
   <%= f.email_field :email %></div>
 
-  <div><%= f.label :password %><br />
+  <div><%= f.label :password %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
 
   <div><%= f.submit "Sign up" %></div>

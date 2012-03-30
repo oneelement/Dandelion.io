@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
@@ -6,10 +8,11 @@
  *= require vendor
  *= require scaffolds
  *= require home
-  *= require contacts
+ *= require user
+ *= require contacts
 */
 
-@import "compass/css3";
+
 
 @import "bootstrap";
 
@@ -22,7 +25,7 @@ html {
 }
 
 body.main-application {
-  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), 
+  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.1) 90%), 
     image-url("/assets/textures.png") repeat !important);
 }
 
