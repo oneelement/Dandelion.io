@@ -10,6 +10,7 @@ class User
   belongs_to :user_type
   
   has_many :tasks
+  embeds_many :authentications
   
   accepts_nested_attributes_for :organisation
   ## Database authenticatable

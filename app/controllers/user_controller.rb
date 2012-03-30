@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  layout "home"
   load_and_authorize_resource
   # GET /users
   # GET /users.json

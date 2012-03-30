@@ -5,5 +5,22 @@
   <%= @user.email %>
 </p>
 
+<div id='authentications'>
+  <ul>
+    <% Authentication.allowed_providers.each do |auth, display_name| %>
+      <li id="<%= auth.to_s %>">
+        <%= display_name %>
+        <% matching_authentications = @user.authentications.where(provider: auth.to_s) %>
+        <% if matching_authentications.count > 0 %>
+          <% match = matching_authentications.first %>
+          Connected (uid: <%= match.uid %>)
+        <% else %>
+          <a href="/auth/<%= auth %>" class="auth-provider">Create Link</a>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', user_index_path %>

@@ -12,6 +12,8 @@ gem "bson_ext", "~> 1.3"
 gem 'devise' # Authentication
 gem 'cancan'
 gem 'acts_as_api'
+gem 'omniauth'
+gem 'omniauth-linkedin'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -52,6 +54,10 @@ group :development, :test do
   gem 'guard-jasmine-headless-webkit'
   gem 'autotest'
   gem 'autotest-rails-pure'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
   if RUBY_PLATFORM =~ /darwin/i
     gem 'ruby_gntp'
     gem 'autotest-fsevent'

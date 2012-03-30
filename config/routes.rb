@@ -45,6 +45,8 @@ Onelement::Application.routes.draw do
 
   root :to => "home#index"
 
+  match '/auth/:provider/callback' => 'authentications#create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
