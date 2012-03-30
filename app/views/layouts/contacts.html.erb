@@ -4,6 +4,7 @@
   <title>Onelement</title>
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "contacts.js" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
@@ -72,7 +73,10 @@
 </div> 
 
 <div class="outer-west">
-  <div class="content">
+
+
+<div class="inner-west">
+<div class="content">
     <ul class="nav-west">
       <li>
 	<a href="/">
@@ -80,8 +84,6 @@
 	  <!--<span class="nav-west-icon-mask"></span>-->
 	  <span class="nav-west-icon-image"><%= image_tag "home-icon.png" %></span>
 	</span>
-	<span class="nav-west-title">Home</span>
-	<span class="nav-west-desc">master search and task list</span>
 	</a>
       </li>
       <li>
@@ -90,12 +92,26 @@
 	  <!--<span class="nav-west-icon-mask"></span>-->
 	  <span class="nav-west-icon-image"><%= image_tag "dashboard-icon.png" %></span>
 	</span>
-	<span class="nav-west-title">Dashboard</span>
-	<span class="nav-west-desc">overview of recent activity</span>
 	</a>
       </li>
     </ul>
+    </div>
+</div>
+
+
+<div class="inner-center">
+  <div class="content">
   </div>
+</div>
+
+  <div class="content">
+  </div>
+
+
+
+
+
+
   <div class="footer">
   </div>
 </div> 

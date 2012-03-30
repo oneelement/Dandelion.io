@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  layout "home"
   load_and_authorize_resource
   # GET /users
   # GET /users.json
@@ -9,7 +10,7 @@ class UserController < ApplicationController
       #@users = @users.where(:adminent => true)
       #@users = @users.where(:entity_id => current_user.entity_id)
     elsif current_user.user_type.name == "Entity"
-      @users = @users.where(:organisation_id => current_user.organisation_id)
+      @users = @users.where(:entity_id => current_user.entity_id)
     end
     
     @organisations = Organisation.all

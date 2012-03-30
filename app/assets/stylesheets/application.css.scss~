@@ -6,6 +6,7 @@
  *= require vendor
  *= require scaffolds
  *= require home
+  *= require contacts
 */
 
 @import "compass/css3";
@@ -14,6 +15,15 @@
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0px 0px 10px 0px;
+}
+
+html {
+  min-height: 100%;
+}
+
+body.main-application {
+  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), 
+    image-url("/assets/textures.png") repeat !important);
 }
 
 .panel {
@@ -25,7 +35,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .outer-center {  
-  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), image-url("/assets/wood089.jpg") repeat !important); 
+  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), 
+      image-url("/assets/wood089.jpg") repeat !important); 
 }
 
 

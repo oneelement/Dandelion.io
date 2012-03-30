@@ -7,25 +7,3 @@
     </p>
 <% end %>
 
-
-<br />
-
-<%= link_to 'Contacts', contacts_path %>
-<br />
-
-<% if can? :read, Organisation %>
-  <%= link_to 'Organisations', organisations_path %>
-  <br />
-<% end %>
-
-
-<% if can? :create, Entity %>
-  <%= link_to 'Entities', entities_path %>
-<br />
-<% end %>
-
-<% if can? :read, User %>
-  <%= link_to 'Manage Users', user_index_path %>
-  <br />
-<% end %>
-<br />

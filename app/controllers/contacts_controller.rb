@@ -1,5 +1,4 @@
 class ContactsController < ApplicationController
-  layout "home"
   # GET /contacts
   # GET /contacts.json
   def index

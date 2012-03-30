@@ -12,3 +12,4 @@
 //= require vendor
 //= require bootstrap
 //= require home.js
+//= require dashboard.js
