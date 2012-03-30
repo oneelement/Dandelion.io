@@ -52,7 +52,7 @@
   color: #FFF;
   border: none;
   margin: 0px;
-  border-radius: none;
+  border-radius: 0px;
 }
 
 #sitewide-search i {

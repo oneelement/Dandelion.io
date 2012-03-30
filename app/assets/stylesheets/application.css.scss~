@@ -1,5 +1,3 @@
-@import "compass/css3";
-
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
@@ -7,14 +5,15 @@
  *= require_self
  *= require vendor
  *= require scaffolds
- *= require home
- *= require user
  *= require contacts
 */
 
-
+@import "compass/css3";
 
 @import "bootstrap";
+@import "home";
+@import "contacts";
+@import "user";
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0px 0px 10px 0px;
