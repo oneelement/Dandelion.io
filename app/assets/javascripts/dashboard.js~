@@ -24,12 +24,12 @@ $(function() {
         if (!results.length) {
 	    $(".icon-search").addClass('disabled');
 	    $(".icon-plus").removeClass('disabled');
-            $("#searchbutton").attr('value','Add');
+            $("#searchbutton").attr('value','');
             $("#search_form").attr('action','/contacts/new');
         } else {
 	    $(".icon-search").removeClass('disabled');
 	    $(".icon-plus").addClass('disabled');
-            $("#searchbutton").attr('value','Search');
+            $("#searchbutton").attr('value','');
             $("#search_form").attr('action','/contacts');
         }
         response(results);

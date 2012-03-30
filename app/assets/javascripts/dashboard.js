@@ -1,8 +1,3 @@
-$(function() {
-    $('#auto_complete').typeahead({source: "/contacts/autocomplete"});
-});
-
-
 var tags = (function () {
     var json = null;
     $.ajax({
