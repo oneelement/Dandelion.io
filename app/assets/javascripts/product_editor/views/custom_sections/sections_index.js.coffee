@@ -16,10 +16,7 @@ class ProductEditor.Views.CustomSectionsIndex extends Backbone.View
       sections_to_display: sections_to_display
     ))
 
-    $('#new-custom-section').button(
-      icons:
-        primary: 'ui-icon-plusthick'
-    )
+    $('#new-custom-section').button()
 
     if @collection.length > 0
       $('#custom-sections-list', @el).empty()

@@ -15,4 +15,4 @@
         </label>
     </li>
 </ul>
-<button id="remove-selected-section">Remove this section</button>
+<button id="remove-selected-section" class="btn">Remove this section</button>

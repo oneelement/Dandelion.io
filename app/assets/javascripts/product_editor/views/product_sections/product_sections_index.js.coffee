@@ -4,6 +4,7 @@ class ProductEditor.Views.ProductSectionsIndex extends Backbone.View
     @subViews = []
 
   tagName: 'ul'
+  className: 'nav nav-stacked nav-tabs'
 
   render: ->
 

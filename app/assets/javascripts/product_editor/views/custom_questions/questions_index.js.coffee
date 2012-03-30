@@ -16,10 +16,7 @@ class ProductEditor.Views.CustomQuestionsIndex extends Backbone.View
       questions_to_display: questions_to_display
     ))
 
-    $('#new-custom-question').button(
-      icons:
-        primary: 'ui-icon-plusthick'
-    )
+    $('#new-custom-question').button()
 
     if @collection.length > 0
       $('#custom-questions-list', @el).empty()

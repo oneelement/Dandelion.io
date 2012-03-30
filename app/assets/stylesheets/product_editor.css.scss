@@ -8,6 +8,12 @@ body {
   padding: 0;
 }
 
+#menu {
+  #actions {
+    margin-bottom: 1em;
+  }
+}
+
 #product-structure {
     width: 70%;
     float: left;
@@ -19,13 +25,6 @@ body {
     width: 55%;
     margin-right: 5%;
 
-    ul {
-        padding: .5em;
-        padding-left: 40px;
-        li {
-            margin: 2px;
-        }
-    }
 }
 
 .product-section, .product-question {
@@ -41,12 +40,21 @@ body {
         top: 1em;
     }
 
-    .question-type {
-      font-size: 8pt;
-      padding: 2px;
-      float: right;
-    }
+    .sub-sections {
+      margin-left: 2em;
+      padding: 0;
 
+      ul {
+        padding-top: 0;
+        margin: 0;
+      }
+    }
+}
+
+.question-type {
+  font-size: 8pt;
+  padding: 2px;
+  float: right;
 }
 
 #current-section, #current-question {
@@ -104,11 +112,12 @@ body {
     }
 }
 
-#custom-sections, #custom-questions {
+#custom-sections, #custom-questions{
   button {
     font-size: 9pt;
     margin-bottom: 1em;
   }
+
 }
 
 #new-custom-section-dialog, #new-custom-question-dialog {
