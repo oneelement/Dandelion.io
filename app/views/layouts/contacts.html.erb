@@ -13,7 +13,11 @@
 <div class="navbar navbar-fixed-top">
   <div id="logo-placeholder">
     <a class="brand" href="#">
-      <%= current_user.organisation.name %>
+      <% if current_user.user_type.name == "Consumer" %>
+	<%= current_user.first_name %> <%= current_user.last_name %>
+      <% else %>
+	<%= current_user.organisation.name %>
+      <% end %> 
     </a>
   </div>
   <div id="sitewide-search">

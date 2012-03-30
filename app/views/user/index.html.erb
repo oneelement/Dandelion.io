@@ -1,5 +1,29 @@
 <h1>Listing Users</h1>
 
+<% if current_user.user_type.name == "Consumer" %>
+<table>
+  <tr>
+    <th>ALL USERS</th>
+    <th>ADMIN</th>
+    <th>User Type</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>  
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.is_admin %></td>
+    <td><%= user.user_type.name %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>  
+<% end %>
+</table>
+<% else %>
+
+
 <p>
 Current user is <%= current_user.first_name %> <%= current_user.last_name %> in <%= current_user.organisation.name %> 
 Admin <%= current_user.is_admin %>
@@ -80,7 +104,7 @@ User Type <%= current_user.user_type.name %>
 <% end %>
 </table>
 
-<br />
+<% end %>
 
 
 

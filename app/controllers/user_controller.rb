@@ -10,6 +10,8 @@ class UserController < ApplicationController
       #@users = @users.where(:entity_id => current_user.entity_id)
     elsif current_user.user_type.name == "Entity"
       @users = @users.where(:entity_id => current_user.entity_id)
+    elsif current_user.user_type.name == "Consumer"
+      @users = @users.where(:_id => current_user.id)
     end
     
     @organisations = Organisation.all

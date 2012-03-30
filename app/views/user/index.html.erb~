@@ -1,5 +1,9 @@
 <h1>Listing Users</h1>
 
+<% if current_user.user_type.name == "Consumer" %>
+<% else %>
+
+
 <p>
 Current user is <%= current_user.first_name %> <%= current_user.last_name %> in <%= current_user.organisation.name %> 
 Admin <%= current_user.is_admin %>
@@ -80,7 +84,7 @@ User Type <%= current_user.user_type.name %>
 <% end %>
 </table>
 
-<br />
+<% end %>
 
 
 
@@ -100,6 +104,6 @@ User Type <%= current_user.user_type.name %>
   <br />
 <% end %>
 
-<% if can? :read, Entity %>
+<% if can? :create, User %>
   <%= link_to 'New Entity User', newent_user_index_path %>
 <% end %>

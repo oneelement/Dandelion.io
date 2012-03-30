@@ -15,4 +15,9 @@ class UserType
     return usertype.first
   end
   
+  def self.get_consumer
+    usertype = UserType.where(:name => "Consumer")
+    return usertype.first
+  end
+  
 end

@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     alias_action :new => :new
+    alias_action :show => :show
     if user.user_type.name == "Organisation" #is_admin?
       if user.is_admin?
 	can :manage, User, :organisation_id => user.organisation_id
@@ -28,6 +29,11 @@ class Ability
       can :manage, User #, :organisation_id => user.organisation_id
       can :manage, Entity #, :id => user.entity_id
       can :manage, Organisation
+    elsif user.user_type.name == "Consumer"
+      can :update, User, :id => user.id
+      can :read, User, :id => user.id
+      cannot :manage, Entity
+      cannot :manage, Organisation
     else
       cannot :manage, :all
     end
