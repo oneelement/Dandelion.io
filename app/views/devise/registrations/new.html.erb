@@ -6,31 +6,60 @@
 <% f.object.organisation = Organisation.new %>
 
   <%= f.fields_for :organisation do |organisation_fields| %>
-    <div><%= organisation_fields.label :name %><br/>
+    <div><%= organisation_fields.label :name %>
     <%= organisation_fields.text_field :name %></div>
   <% end %>
 
   <%= f.hidden_field :is_admin, :value => true %>
 
-  <div><%= f.label :user_type_id %><br />
+  <div><%= f.label :user_type_id %>
   <%= f.collection_select :user_type_id, UserType.all, :id, :name %></div>
 
-  <div><%= f.label :first_name %><br />
+  <div><%= f.label :first_name %>
   <%= f.text_field :first_name %></div>
 
-  <div><%= f.label :last_name %><br />
+  <div><%= f.label :last_name %>
   <%= f.text_field :last_name %></div>
 
-  <div><%= f.label :email %><br />
+  <div><%= f.label :email %>
   <%= f.email_field :email %></div>
 
-  <div><%= f.label :password %><br />
+  <div><%= f.label :password %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
+<% end %>
+
+<%= render "links" %>
+
+<h2>Sign up as a Consumer</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= f.hidden_field :is_admin, :value => true %>
+
+  <%= f.hidden_field :user_type_id, :value => UserType.get_consumer.id %>
+
+  <div><%= f.label :first_name %>
+  <%= f.text_field :first_name %></div>
+
+  <div><%= f.label :last_name %>
+  <%= f.text_field :last_name %></div>
+
+  <div><%= f.label :email %>
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %>
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>
 <% end %>
 
 <%= render "links" %>
