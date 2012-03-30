@@ -18,22 +18,14 @@ class ProductEditor.Views.AppView extends Backbone.View
       collection: app.customQuestions
     )
 
-    saveButton = $('#action-save').button(
-      icons:
-        primary: 'ui-icon-disk')
+    saveButton = $('#action-save').button()
 
     saveButton.click ->
-      saveButton.button("option",
-        icons:
-          primary: 'ui-icon-disk'
-          secondary: 'ui-icon-transfer-e-w')
+      $('#action-save-icon').removeClass('icon-ok').addClass('icon-refresh')
       app.save()
 
     app.version.bind("sync", ->
-      saveButton.button("option",
-        icons:
-          primary: 'ui-icon-disk')
-
+      $('#action-save-icon').addClass('icon-ok').removeClass('icon-refresh')
       $('#notice-content').html('Saved successfully')
       $('#notice').slideDown().delay(2000).slideUp()
     )
@@ -95,15 +87,13 @@ class ProductEditor.Views.AppView extends Backbone.View
         $current.fadeIn(200))
     )
 
-    tabs = $('#menu-tabs').tabs(
-      disabled: [1]
-    )
+    $('#menu-tabs-questions-tab').removeAttr('data-toggle')
     app.bind("change:selectedProductSection", (model, newSelection) ->
       if newSelection?
-        tabs.tabs(disabled: [])
+        $('#menu-tabs-questions-tab').attr('data-toggle', 'tab')
       else if not newSelection?
-        tabs.tabs(selected: 0)
-        tabs.tabs(disabled: [1])
+        $('#menu-tabs-sections-tab > a').click()
+        $('#menu-tabs-questions-tab').removeAttr('data-toggle')
     )
 
   render: ->

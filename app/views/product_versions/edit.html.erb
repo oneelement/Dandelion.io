@@ -13,28 +13,28 @@
 </div>
 <div id="menu">
     <h1>Menu</h1>
-    <div id="notice" style="display:none" class="ui-state-highlight ui-corner-all" style="margin-top: 20px;">
-      <p>
-        <span class="ui-icon ui-icon-info" style="float: left; margin: 2px 1em; height: 15px"></span>
-        <div id="notice-content" style="height: 15px"></div>
-      </p>
+    <div id="notice" class="alert" style="display:none">
+      <div id="notice-content"></div>
     </div>
     <div id="actions">
         <h2>Product</h2>
-        <ul>
-            <li><a id="action-save">Save this version</a></li>
-        </ul>
+        <a id="action-save" class="btn">
+          <i id="action-save-icon" class="icon-ok"></i>
+          Save this version
+        </a>
     </div>
     <div id="menu-tabs">
-      <ul>
-        <li><a href="#menu-tab-sections">Sections</a></li>
-        <li><a href="#menu-tab-questions">Questions</a></li>
+      <ul class="nav nav-tabs">
+        <li id="menu-tabs-sections-tab" class="active" data-toggle="tab" data-target="#menu-tab-sections"><a>Sections</a></li>
+        <li id="menu-tabs-questions-tab" data-toggle="tab" data-target="#menu-tab-questions"><a>Questions</a></li>
       </ul>
-      <div id="menu-tab-sections">
+    </div>
+    <div class="tab-content">
+      <div id="menu-tab-sections" class="tab-pane active">
         <div id="suggested-sections" style="display: none;"></div>
         <div id="custom-sections" style="display: none;"></div>
       </div>
-      <div id="menu-tab-questions">
+      <div id="menu-tab-questions" class="tab-pane">
         <div id="suggested-questions" style="display: none;"></div>
         <div id="custom-questions" style="display: none;"></div>
       </div>

@@ -1,5 +1,5 @@
-<span class="ui-button-icon-primary ui-icon ui-icon-bullet"></span>
-<span class="ui-button-text">
+<a>
+  <i class="icon-question-sign"></i>
   <%= @question.name %>
   <span class="question-type"><%= @question.question_type.display_name %></span>
-</span>
+</a>

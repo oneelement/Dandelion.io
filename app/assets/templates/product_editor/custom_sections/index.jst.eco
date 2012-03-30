@@ -1,9 +1,12 @@
 <h3>Custom sections</h3>
-<button id="new-custom-section">Create a new section</button><br/>
+<button id="new-custom-section" class="btn">
+    <i class="icon-plus"></i>
+    Create a new section
+</button>
 <% if @sections_to_display.length > 0: %>
-    <ul id="custom-sections-list"></ul>
+    <ul id="custom-sections-list" class="nav nav-tabs nav-stacked"></ul>
 <% else if @sections.length > 0: %>
-    All custom child sections have been added.
+    <p>All custom child sections have been added.</p>
 <% else: %>
-    There are no custom child sections for the selected section.
+    <p>There are no custom child sections for the selected section.</p>
 <% end %>
