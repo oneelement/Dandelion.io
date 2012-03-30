@@ -1,3 +1,0 @@
-class Crm.Collections.Tasks extends Backbone.Collection
-  model: Crm.Models.Task
-  url: '/api/tasks'
