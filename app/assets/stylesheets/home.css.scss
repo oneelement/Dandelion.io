@@ -243,7 +243,7 @@ span.task-assignee {
   padding: 0px;
 }
 
-ul.nav-west, ul.nav-contact-tree {
+ul.nav-west, div.nav-contact-tree ul {
   margin: 0px;
   padding: 0px;
   border-bottom: 1px solid #4A4A54 !important;
@@ -324,7 +324,7 @@ ul.nav-west li a:hover {
 
 
 
-ul.nav-west li, ul.nav-contact-tree li {
+ul.nav-west li, div.nav-contact-tree ul li {
   border-bottom: 1px solid #1D1E21 !important;
   border-top: 1px solid #4A4A54;
   color: #FFFFFF;

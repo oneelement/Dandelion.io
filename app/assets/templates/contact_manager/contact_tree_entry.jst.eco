@@ -1,0 +1,5 @@
+<span class="nav-west-icon contact-icon">	  
+    <span class="nav-west-icon-image"><img src="/assets/avatar-man.png"/>
+    </span>
+</span>
+<span class="nav-contact-name"><%= @model.name %></span>

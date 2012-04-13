@@ -1,10 +1,2 @@
-<a href="contacts/#">
-  <span class="nav-west-icon contact-icon">	  
-    <!--<span class="nav-west-icon-mask"></span>-->
-    <span class="nav-west-icon-image"><img src="/assets/avatar-man.png"/></span>
-  </span>
-  <span class="nav-contact-name"></span>
-</a>
-
-
-
+<ul id="contacts-tree-list">
+</ul>
