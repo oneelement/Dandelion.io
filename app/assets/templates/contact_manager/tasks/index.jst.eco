@@ -1,0 +1,12 @@
+<h1>Tasks</h1>
+
+<div id="task-form"></div>
+
+<form id="new_task" class="well">
+  <input type="text" name="title" id="new_task_title" class="input-text" placeholder="Title"></br>
+  <textarea name="content" id="new_task_content" placeholder="Content"></textarea>
+  <div id="task_user"></div>
+  <input type="submit" value="Add Task" class="btn btn-primary">
+</form>
+
+<ul id="tasks"></ul>

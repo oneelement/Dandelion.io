@@ -1,3 +1,3 @@
-class ContactManager.Collections.Currentuser extends Backbone.Collection
-    model: ContactManager.Models.Currentuser
+class RippleApp.Collections.Currentuser extends Backbone.Collection
+    model: RippleApp.Models.Currentuser
     url: '/user/currentuser'

@@ -1,11 +1,11 @@
-class TaskManager.Views.UsersIndex extends Backbone.View
+class RippleApp.Views.UsersIndex extends Backbone.View
 
-  template: JST['task_manager/users/index']
+  template: JST['contact_manager/users/index']
   tagName: "select"
   id: "new_task_id"
   
   initialize: ->
-    @collection = new TaskManager.Collections.Users()
+    @collection = new RippleApp.Collections.Users()
     @collection.fetch()
     @collection.on('reset', @render, this)
   

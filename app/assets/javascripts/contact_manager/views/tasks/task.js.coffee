@@ -1,6 +1,6 @@
-class TaskManager.Views.Task extends Backbone.View
+class RippleApp.Views.Task extends Backbone.View
 
-  template: JST['task_manager/tasks/task']
+  template: JST['contact_manager/tasks/task']
   tagName:  "li"
   
   initialize: ->
@@ -17,8 +17,8 @@ class TaskManager.Views.Task extends Backbone.View
     'keypress #edit_task_content': 'updateOnEnter'
   
   render: ->
-    this.model.user = new TaskManager.Models.User(this.model.get('user'))
-    #this.model.setUser(new TaskManager.Models.User(this.model.get("user")))
+    this.model.user = new RippleApp.Models.User(this.model.get('user'))
+    #this.model.setUser(new RippleApp.Models.User(this.model.get("user")))
     $(@el).html(@template(task: @model))
     this
     

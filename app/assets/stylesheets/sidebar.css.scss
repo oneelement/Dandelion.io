@@ -1,0 +1,58 @@
+$sidebarBorder: #ccc;
+
+#view-sidebar {
+
+  background-image: url('http://subtlepatterns.com/patterns/tasky_pattern.png');
+  border-right: 1px $sidebarBorder solid;
+
+  p {
+    text-align: center;
+    font-size: 5pt;
+    font-weight: bold;
+    @include background-image(linear-gradient(#555, #444));
+    color: #fff;
+    margin: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: 12px;
+    border-bottom: 1px $sidebarBorder solid;
+  }
+
+  .sidebar-icon {
+      width: 48px;
+      height: 48px;
+      display: block;
+      background-repeat: no-repeat;
+  }
+
+  #sidebar-home {
+    .sidebar-icon {
+      background-image: url('http://placehold.it/48x48&text=home');
+    }
+  }
+  #sidebar-contacts {
+    .sidebar-icon {
+      background-image: url('http://placehold.it/48x48&text=contacts');
+    }
+  }
+  #sidebar-tasks {
+    .sidebar-icon {
+      background-image: url('http://placehold.it/48x48&text=tasks');
+    }
+  }
+
+  #recent-contacts {
+    .sidebar-icon {
+      background-image: url('http://placehold.it/48x48&text=contact');
+    }
+  }
+
+}

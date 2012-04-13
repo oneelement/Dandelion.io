@@ -1,0 +1,21 @@
+#view-layout {
+  margin-top: 40px;
+  height: 100%;
+}
+
+#view-sidebar {
+  width: 72px;
+  height: 100%;
+  float: left;
+}
+
+#view-context {
+  width: 400px;
+  float: left;
+}
+
+#view-main {
+  float: left;
+  padding: 1em;
+  width: 300px;
+}

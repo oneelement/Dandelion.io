@@ -1,11 +1,16 @@
-window.ContactManager =
+window.RippleApp =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
   init: ->
-    @router = new ContactManager.Routers.Contacts()
+    @contactsRouter = new RippleApp.Routers.Contacts()
+    @tasksRouter = new RippleApp.Routers.Tasks()
+
+    @layout = new RippleApp.Views.Layout()
+    $('#container').html(@layout.render().el)
+
     Backbone.history.start()
 
 $(document).ready ->
-  ContactManager.init()
+  RippleApp.init()
