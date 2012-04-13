@@ -19,3 +19,11 @@ outerLayout = $('body').layout({
     north__spacing_open: 0
     }); 
 }); 
+
+
+
+jQuery(document).ready(function() {
+    $('#autocomplete').typeahead({
+      source: [{value: 'Charlie'}, {value: 'Gudbergur'}]
+    });
+});

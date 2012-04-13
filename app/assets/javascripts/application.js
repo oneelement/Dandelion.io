@@ -6,9 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require underscore
 //= require backbone
 //= require vendor
 //= require bootstrap
-//= require dashboard.js

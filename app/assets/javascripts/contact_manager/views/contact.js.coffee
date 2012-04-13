@@ -40,9 +40,9 @@ class ContactManager.Views.Contact extends Backbone.View
     #console.log(id)
     #console.log(currentuser)
     #console.log(this.model.get('favorite_ids'))
+    user = new 
     this.model.get('favorite_ids').push(id)
     this.model.save()
-    this.model.save favorite_ids: [1234]
     
   handleDelete: (currentuser, response) =>
     id = response._id
@@ -53,27 +53,3 @@ class ContactManager.Views.Contact extends Backbone.View
     console.log(included)
     this.model.get('favorite_ids').pop(id)
     this.model.save()
- 
-      #currentuser = currentusers.shuffle()[0]
-      #currentuser.get('_id')
-      #attributes = currentuser.toJSON()      
-      #console.log(currentuser.get('_id'))
-      #id = currentuser.attributes.id     
-      #console.log(currentuser.id)
-      
-      #a[1] = 5
-      #this.model.set favorite_ids: a
-      #console.log(a)
-      #this.model.set favorite_ids:
-      #a = this.model.get("favorite_ids")
-      #this.model.save (favorite_ids: a)
-      #a << "help"
-      #this.model.save favorite_ids: "1224"
-      #this.model.save
-      #a = this.model.get("favorite_ids")
-      #a.push[5]
-      #this.model.set("favorite_ids": 5)
-      
-      #favorite = new ContactManager.Models.Favorite()
-      #this.model.set (favorite_ids: "12345")
-
