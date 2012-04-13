@@ -1,6 +1,6 @@
 class RippleApp.Views.ContactsShow extends Backbone.View
   template: JST['contact_manager/contact_show']
-  className: 'contact-inactive'  
+  className: 'contact-inactive'
   
   initialize: ->
     @model.on('change', @render, this)
