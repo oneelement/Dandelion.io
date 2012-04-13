@@ -1,10 +1,9 @@
-class ContactManager.Views.ContactsTreeEntry extends Backbone.View
-  template: JST['contact_manager/contact_tree_entry']
+class RippleApp.Views.RecentContactsEntry extends Backbone.View
+  template: JST['contact_manager/recent_contacts_entry']
   tagName: 'li'
-  className: 'contact-tree-entry'
 
   render: ->
-    isCurrent = (ContactManager.router.currentContact.id == @model.id)
+    isCurrent = (RippleApp.contactsRouter.currentContact.id == @model.id)
     if (isCurrent)
       @$el.addClass('active')
     else
@@ -18,6 +17,6 @@ class ContactManager.Views.ContactsTreeEntry extends Backbone.View
     "click": "clicked"
 
   clicked: ->
-    ContactManager.router.navigate('show/' + @model.id, {
+    RippleApp.router.navigate('show/' + @model.id, {
       trigger: true
     })

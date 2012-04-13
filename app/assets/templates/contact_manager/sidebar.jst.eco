@@ -1,0 +1,14 @@
+<ul id="sidebar-buttons">
+    <li id="sidebar-home">
+        <span class="sidebar-icon"></span>
+    </li>
+    <li id="sidebar-contacts">
+        <span class="sidebar-icon"></span>
+    </li>
+    <li id="sidebar-tasks">
+        <span class="sidebar-icon"></span>
+    </li>
+</ul>
+<p>Recent Contacts</p>
+<div id="recent-contacts">
+</div>

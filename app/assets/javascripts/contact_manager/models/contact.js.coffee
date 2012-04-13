@@ -1,4 +1,4 @@
-class ContactManager.Models.Contact extends Backbone.RelationalModel
+class RippleApp.Models.Contact extends Backbone.RelationalModel
   idAttribute: '_id'
   urlRoot: -> '/contacts/'
   
@@ -8,9 +8,9 @@ class ContactManager.Models.Contact extends Backbone.RelationalModel
 
   initialize: ->
     #this.user = new Crm.Models.User(this.get('user'))
-    #addresses = new ContactManager.Models.Address(this.get('addresses'))
+    #addresses = new RippleApp.Models.Address(this.get('addresses'))
     #this.setAddresses(addresses)
-    #phones = new ContactManager.Models.Phone(this.get('phones'))
+    #phones = new RippleApp.Models.Phone(this.get('phones'))
     #this.setPhones(phones)
     #this.set({favorite_ids: new Array()})
    
@@ -24,7 +24,7 @@ class ContactManager.Models.Contact extends Backbone.RelationalModel
   #relations: [
    # type: 'HasMany'
    # key: 'addresses'
-   # relatedModel: 'ContactManager.Models.Address'
+   # relatedModel: 'RippleApp.Models.Address'
    # includeInJSON: true
    # createModels: true
   #]

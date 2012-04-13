@@ -1,4 +1,4 @@
-class ContactManager.Views.ContactsIndex extends Backbone.View
+class RippleApp.Views.ContactsIndex extends Backbone.View
   template: JST['contact_manager/contact_index']
   id: 'contacts-overview'
   
@@ -9,26 +9,24 @@ class ContactManager.Views.ContactsIndex extends Backbone.View
     #@contactSearch()
     @newContact()
 
-    @contactsTree = new ContactManager.Views.ContactsTree(collection: @options.treeCollection)
-    $('#contact-tree').append(@contactsTree.render().el)
-
   render: ->
-    $(@el).html(@template())        
+    @$el.html(@template())
+    @newContact()
     @collection.each(@appendContact)
-    this
+    @
   
   contactSearch: ->
-    view = new ContactManager.Views.ContactsSearch(model: @model)
+    view = new RippleApp.Views.ContactsSearch(model: @model)
     $('#sitewide-search').append(view.render().el)
     
   newContact: ->
-    view = new ContactManager.Views.ContactNew(model: @model)
-    $('#contact-modal').append(view.render().el)
+    view = new RippleApp.Views.ContactNew(model: @model)
+    $('#contact-modal', @el).append(view.render().el)
     
   appendObsolete: (contact) =>
-    view = new ContactManager.Views.ContactsShow(model: contact)
-    $('#contact-profiles').append(view.render().el)
+    view = new RippleApp.Views.ContactsShow(model: contact)
+    $('#contact-profiles', @el).append(view.render().el)
     
   appendContact: (contact) =>
-    view = new ContactManager.Views.ContactsList(model: contact)
-    $('#contacts-overview').append(view.render().el)
+    view = new RippleApp.Views.ContactsList(model: contact)
+    $('#contacts-overview', @el).append(view.render().el)

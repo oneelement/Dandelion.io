@@ -1,0 +1,16 @@
+<div class="task panel">
+    <form id="edit_task" class="nice">
+      <span class="task-complete"></span>
+      <span class="task-title visible"><%= @task.get('title') %></span>
+      <span class="task-title edit"><input type="text" name="title" id="edit_task_title" class="input-text" value="<%= @task.get('title') %>"></input></span>
+      <span class="task-content visible"><%= @task.get('content') %></span>
+      <span class="task-content edit"><input type="text" name="content" id="edit_task_content" class="input-text" value="<%= @task.get('content') %>"></input></span>
+      <span class="task-destroy"></span>
+      <span class="task-assignee"><%= @task.user.get('first_name') %> <%= @task.user.get('last_name') %></span>
+      
+    </form>
+    <div class="clear"/>
+</div>
+
+
+  <% console.log(@task.get('user')) %>

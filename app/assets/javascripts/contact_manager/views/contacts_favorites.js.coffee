@@ -1,4 +1,4 @@
-class ContactManager.Views.ContactsList extends Backbone.View
+class RippleApp.Views.ContactsList extends Backbone.View
   template: JST['contact_manager/contact_list']
   className: 'contact-list-items'  
   
@@ -11,10 +11,10 @@ class ContactManager.Views.ContactsList extends Backbone.View
     
 
   render: ->
-    this.model.addresses = new ContactManager.Collections.Contacts(this.model.get('addresses'))
-    this.model.phones = new ContactManager.Collections.Contacts(this.model.get('phones'))
-    #this.model.phones = new ContactManager.Collections.Phones(this.model.get('phones'))
-    #this.model.address = new ContactManager.Models.Address(this.model.get('address'))
+    this.model.addresses = new RippleApp.Collections.Contacts(this.model.get('addresses'))
+    this.model.phones = new RippleApp.Collections.Contacts(this.model.get('phones'))
+    #this.model.phones = new RippleApp.Collections.Phones(this.model.get('phones'))
+    #this.model.address = new RippleApp.Models.Address(this.model.get('address'))
     #myphones = this.model.get("phones")
     $(@el).html(@template(contact: @model))
     return this
@@ -25,7 +25,7 @@ class ContactManager.Views.ContactsList extends Backbone.View
       $(".contact-list-items").removeClass('active')
       $("#contact-container").html('')
       $(this.el).addClass('active')
-      view = new ContactManager.Views.Contact(model: @model)
+      view = new RippleApp.Views.Contact(model: @model)
       $('#contact-container').append(view.render().el)
       
   destroyContact: ->

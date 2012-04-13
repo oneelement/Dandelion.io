@@ -1,3 +1,3 @@
-class ContactManager.Collections.Favorites extends Backbone.Collection
-    model: ContactManager.Models.Favorite
+class RippleApp.Collections.Favorites extends Backbone.Collection
+    model: RippleApp.Models.Favorite
     url: '/favorites'

@@ -1,5 +1,5 @@
-class ContactManager.Collections.Contacts extends Backbone.Collection
-    model: ContactManager.Models.Contact
+class RippleApp.Collections.Contacts extends Backbone.Collection
+    model: RippleApp.Models.Contact
     url: '/contacts'
     
 

@@ -1,11 +1,11 @@
-class ContactManager.Views.ContactNew extends Backbone.View
+class RippleApp.Views.ContactNew extends Backbone.View
   template: JST['contact_manager/contact_new']
   
   events:
     'click #submit-contact': 'createContact'
     
   initialize: ->
-    @collection = new ContactManager.Collections.Contacts()
+    @collection = new RippleApp.Collections.Contacts()
   
   render: ->
     $(@el).html(@template)

@@ -1,6 +1,6 @@
-class TaskManager.Views.TasksIndex extends Backbone.View
+class RippleApp.Views.TasksIndex extends Backbone.View
 
-  template: JST['task_manager/tasks/index']
+  template: JST['contact_manager/tasks/index']
   id: "home"
   
   events:
@@ -18,11 +18,11 @@ class TaskManager.Views.TasksIndex extends Backbone.View
     this
     
   appendUser: ->
-    view = new TaskManager.Views.UsersIndex()
+    view = new RippleApp.Views.UsersIndex()
     $('#task_user').append(view.render().el)
     
   appendTask: (task) ->
-    view = new TaskManager.Views.Task(model: task)
+    view = new RippleApp.Views.Task(model: task)
     $('#tasks').append(view.render().el)
     
   createTask: (event) ->
