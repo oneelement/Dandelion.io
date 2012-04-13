@@ -17,6 +17,4 @@ class RippleApp.Views.RecentContactsEntry extends Backbone.View
     "click": "clicked"
 
   clicked: ->
-    RippleApp.router.navigate('show/' + @model.id, {
-      trigger: true
-    })
+    Backbone.history.navigate('contacts/show/' + @model.id, true)

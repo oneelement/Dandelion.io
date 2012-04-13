@@ -20,10 +20,12 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     $('#contact-modal', @el).html(view.render().el)
   
   edit: (id) ->
-    console.log('edit, ' + id)
     @currentContact = new RippleApp.Models.Contact({_id: id})
     view = new RippleApp.Views.Contact(model: @currentContact)
     RippleApp.layout.setContextView(view)
+
+    showView = new RippleApp.Views.ContactsShow(model: @currentContact)
+    RippleApp.layout.setMainView(showView)
 
     recent = @recentContacts
     @currentContact.fetch(success: (model) ->
