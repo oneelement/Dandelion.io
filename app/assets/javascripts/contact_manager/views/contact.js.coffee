@@ -1,0 +1,79 @@
+class ContactManager.Views.Contact extends Backbone.View
+  template: JST['contact_manager/contact_show']
+  #className: 'contact-inactive'
+  
+  #initialize: ->
+    #@collection.on('reset', @render, this)
+    
+  events:
+    'click .favorite-ind': 'checkFavorite'
+    
+  initialize: ->
+    @model.on('change', @render, this)
+
+  render: ->
+    this.model.addresses = new ContactManager.Collections.Contacts(this.model.get('addresses'))
+    this.model.phones = new ContactManager.Collections.Contacts(this.model.get('phones'))
+    #this.model.phones = new ContactManager.Collections.Phones(this.model.get('phones'))
+    #this.model.address = new ContactManager.Models.Address(this.model.get('address'))
+    #myphones = this.model.get("phones")
+    $(@el).html(@template(contact: @model))
+    return this
+    
+  checkFavorite: ->
+    if ($(this.el).hasClass('favorite'))
+      $(this.el).removeClass('favorite')
+      currentuser = new ContactManager.Models.Currentuser()
+      currentuser.fetch({success: @handleDelete})
+      #console.log(this.model.get('favorite_ids'))
+      #favorite = new ContactManager.Models.Favorite(favorite_id: this.model.get('_id'))
+      #favorite.destroy()
+    else
+      $(this.el).addClass('favorite')
+      currentuser = new ContactManager.Models.Currentuser()
+      currentuser.fetch({success: @handleSuccess})
+      #console.log(this.model.get('favorite_ids'))
+
+	
+  handleSuccess: (currentuser, response) =>
+    id = response._id
+    #console.log(id)
+    #console.log(currentuser)
+    #console.log(this.model.get('favorite_ids'))
+    this.model.get('favorite_ids').push(id)
+    this.model.save()
+    this.model.save favorite_ids: [1234]
+    
+  handleDelete: (currentuser, response) =>
+    id = response._id
+    console.log(id)
+    console.log(currentuser)
+    console.log(this.model.get('favorite_ids'))
+    included = "test" in this.model.get('favorite_ids')
+    console.log(included)
+    this.model.get('favorite_ids').pop(id)
+    this.model.save()
+ 
+      #currentuser = currentusers.shuffle()[0]
+      #currentuser.get('_id')
+      #attributes = currentuser.toJSON()      
+      #console.log(currentuser.get('_id'))
+      #id = currentuser.attributes.id     
+      #console.log(currentuser.id)
+      
+      #a[1] = 5
+      #this.model.set favorite_ids: a
+      #console.log(a)
+      #this.model.set favorite_ids:
+      #a = this.model.get("favorite_ids")
+      #this.model.save (favorite_ids: a)
+      #a << "help"
+      #this.model.save favorite_ids: "1224"
+      #this.model.save
+      #a = this.model.get("favorite_ids")
+      #a.push[5]
+      #this.model.set("favorite_ids": 5)
+      
+      #favorite = new ContactManager.Models.Favorite()
+      #this.model.set (favorite_ids: "12345")
+

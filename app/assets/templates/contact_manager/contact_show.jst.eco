@@ -1,0 +1,58 @@
+<div id="<%= @contact.get('_id') %>">
+  <div class="contact-profile-map">
+    <% for address in @contact.addresses.models: %>
+   
+      <img src="http://maps.google.com/maps/api/staticmap?size=330x200&sensor=false&maptype=hybrid&zoom=16&markers=<%= address.get('coordinates')[1] %>%2C<%= address.get('coordinates')[0] %>"/>
+    
+    <% end %>
+  </div>
+  <div class="contact-profile-map-cover">
+  </div>
+  <div class="contact-profile-head">
+    <div class="contact-profile-avatar">
+      <img src="/assets/avatar-man.png"/>
+    </div>
+    <div class="contact-profile-name">
+      <h3><%= @contact.get('name') %></h3>
+      <p>Contact position at Contact Company</p>
+    </div>
+  </div>
+
+  <div class="contact-profile-input">
+    <form id="new_task">
+      <input type="text" name="title" id="new_task_title" class="input-text" placeholder="Enter here.."></br>
+    </form>
+  </div>
+
+  <div class="contact-profile-details">
+      <span><i class="icon-envelope icon-white"></i></span>
+      <span><%= @contact.get('email') %></i></span>
+  </div>
+
+  <div class="contact-profile-details">
+      <span><i class="icon-envelope icon-white"></i></span>
+      <span><%= @contact.get('_id') %></i></span>
+  </div>
+
+<% for address in @contact.addresses.models: %>
+  <div class="contact-profile-details">
+      <span><i class="icon-envelope icon-white"></i></span>
+      <span><%= address.get('postcode') %></i></span>
+  </div>
+<% end %>
+
+<% for phone in @contact.phones.models: %>
+  <div class="contact-profile-details">
+      <span><i class="icon-envelope icon-white"></i></span>
+      <span><%= phone.get('phone_number') %></i></span>
+  </div>
+<% end %>
+
+<div class="contact-profile-details">
+    <span>Favorite?</span>
+    <span class="favorite-ind"></span>
+</div>
+
+
+  
+</div>

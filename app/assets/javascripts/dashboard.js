@@ -20,7 +20,7 @@ $(function() {
 	    $(".icon-search").addClass('disabled');
 	    $(".icon-plus").removeClass('disabled');
             $("#searchbutton").attr('value','');
-            $("#search_form").attr('action','/contacts/new');
+            $("#search_form").attr('action','/contacts/');
         } else {
 	    $(".icon-search").removeClass('disabled');
 	    $(".icon-plus").addClass('disabled');
@@ -34,7 +34,7 @@ $(function() {
     minLength: 2,  
     select: function (event, ui) {
         $(event.target).val(ui.item.id);
-        var url =   "/contacts/" + ui.item.id;
+        var url =   "/contacts/#show/" + ui.item.id;
         window.location.href = url;
         return false;
     }

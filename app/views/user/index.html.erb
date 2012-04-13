@@ -107,11 +107,6 @@ User Type <%= current_user.user_type.name %>
 <% end %>
 
 
-
-<br />
-
-<%= link_to 'Dashboard', dashboard_index_path %>
-
 <br />
 
 <% if can? :read, Entity %>

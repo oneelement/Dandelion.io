@@ -3,9 +3,10 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     if params[:search]
-      @contacts = Contact.where(:name => /#{params[:search]}/i)
+      @contacts = Contact.where(:user_id => current_user.id)
+      @contacts = @contacts.where(:name => /#{params[:search]}/i)
     else
-      @contacts = Contact.all
+      @contacts = Contact.where(:user_id => current_user.id)
     end
 
 
@@ -20,6 +21,8 @@ class ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
     @products = Product.find(:all)
+    
+    #@contact.address.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,7 +57,7 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(params[:contact])
-
+    @contact.update_attributes(user_id: current_user.id)
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }

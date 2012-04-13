@@ -1,0 +1,25 @@
+<div class="contact-list-item panel">
+  <div class="avatar">
+    <img src="/assets/avatar-man.png"/>
+  </div>
+  <div class="name">
+    <h3><%= @contact.get('name') %></h3>
+  </div>
+  <div class="details">
+    <span><i class="icon-envelope"></i></span>
+    <span>Contact position at Contact Company</span>
+  </div>
+  <div class="details">
+    <span><i class="icon-envelope"></i></span>
+    <span>phone number</span>
+  </div>
+  <div class="details">
+    <span><i class="icon-envelope"></i></span>
+    <span>phone number</span>
+  </div>
+
+  <a class="close">×</a>
+  <div class="clear"/>
+</div>
+
+

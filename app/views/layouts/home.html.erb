@@ -12,7 +12,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div id="logo-placeholder">
-    <a class="brand" href="#">
+    <a class="brand" href="/">
       <% if current_user.user_type.name == "Consumer" %>
 	<%= current_user.full_name %>
       <% else %>
@@ -44,9 +44,12 @@
 	<% end %>
       </li>
       <li>
-	<% if can? :read, User %>
-	  <%= link_to 'Manage Users', user_index_path %>
-	<% end %>
+	<% if current_user.user_type.name == "Consumer" %>
+	<% else %>
+	  <% if can? :read, User %>
+	    <%= link_to 'Manage Users', user_index_path %>
+	  <% end %>
+	<% end %>	
       </li>
     </ul>
   </div>

@@ -5,7 +5,27 @@
   <%= @contact.name %>
 </p>
 
+<% @contact.addresses.each do |address| %>
+  <p>
+    <b>Address:</b><br />
+    <%= address.full_address %><br />
+    <%= address.coordinates %><br />
+  </p>
+
+  <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{address.coordinates[1]}%2C#{address.coordinates[0]}" %>
+  
+<% end %>
+
+<% @contact.phones.each do |phone| %>
+  <p>
+    <b><%= phone.phone_type %> Phone:</b>
+    <%= phone.phone_number %>
+  </p>
+<% end %>
+
 <br />
+
+
 
 <table>
   <tr>

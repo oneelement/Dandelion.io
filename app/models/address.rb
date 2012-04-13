@@ -1,7 +1,11 @@
 class Address
   include Mongoid::Document
+  include Geocoder::Model::Mongoid  
+  
+  geocoded_by :full_address
+  after_validation :geocode
 
-  referenced_in :contact
+  belongs_to :contact
 
   field :name, :type => String
   field :line1, :type => String
@@ -12,6 +16,15 @@ class Address
   field :country, :type => String
   field :postcode, :type => String
   field :address_type, :type => String
+  
+  field :coordinates, :type => Array
+  
+  def full_address
+    address = "#{self.line1}, #{self.line2}, #{self.city}, #{self.county}, #{self.postcode}"
+    address = "#{address} #{self.country}"
+    return address
+  end
+
 
   #Validation
   #validates_presence_of :line1

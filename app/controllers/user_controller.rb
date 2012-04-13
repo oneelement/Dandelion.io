@@ -1,25 +1,41 @@
 class UserController < ApplicationController
   layout "home"
   load_and_authorize_resource
+  
+  def currentuser
+    @user = User.find(current_user.id) #find(:_id => current_user.id)
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+  
   # GET /users
   # GET /users.json
   def index
     @users = User.all #excludes(:id => current_user.id)
     if current_user.user_type.name == "Organisation"
       @users = @users.where(:organisation_id => current_user.organisation_id)
-      #@users = @users.where(:adminent => true)
-      #@users = @users.where(:entity_id => current_user.entity_id)
     elsif current_user.user_type.name == "Entity"
       @users = @users.where(:entity_id => current_user.entity_id)
     elsif current_user.user_type.name == "Consumer"
       @users = @users.where(:_id => current_user.id)
+      #redirect_to root_path
     end
     
     @organisations = Organisation.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
+    
+    if current_user.user_type.name == "Consumer"
+      respond_to do |format|
+	format.html { redirect_to root_path } # index.html.erb
+	format.json { render json: @users }
+      end
+    else
+      respond_to do |format|
+	format.html # index.html.erb
+	format.json { render json: @users }
+      end
     end
   end
 

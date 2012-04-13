@@ -1,5 +1,9 @@
 Onelement::Application.routes.draw do
 
+  resources :favorites
+
+  resources :addresses
+
   resources :tasks
 
   resources :home
@@ -37,6 +41,7 @@ Onelement::Application.routes.draw do
 
   resources :user do
     get :newent, :on => :collection
+    get :currentuser, :on => :collection
   end
 
   resources :quotes

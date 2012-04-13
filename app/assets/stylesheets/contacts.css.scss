@@ -3,10 +3,176 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /*********************************************************************************
-* INNER PANELS
+* WEST INNER PANELS
 **********************************************************************************/
 
 .inner-west {
   border-right: 1px solid #1D1E21;
 }
 
+.contact-list-items.active {
+  .contact-list-item.panel {
+    background: #FCC;
+    .close {
+      display: block;
+      margin-top: 4px;
+    }
+  }
+}
+
+.contact-list-item.panel {
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  .close {
+      display: none;
+    }
+  .avatar {
+    padding: 0px;
+    width: 10%;
+    float: left;
+    img {
+      height: 35px;
+      width: 35px;
+      margin: 0px 0px 0px 5px;
+    }
+  }
+  .name {
+    padding: 0px;
+    width: 40%;
+    float: left;
+    h3 {
+      font-size: 14px;
+      line-height: 18px;
+    }
+    p {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+  .details {
+    padding: 0px;
+    width: 40%;
+    float: left;
+    h3 {
+      font-size: 14px;
+      line-height: 18px;
+    }
+    p {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+}
+
+#contact-profiles h1, h2, h3{
+  color: #999;
+  padding: 0px 0px 0px 0px !important;
+}
+
+.contact-profile-map {
+  padding: 0px;
+  margin: 0px;
+  width: 330px;
+  height: 200px;
+  background: #FFF;
+}
+
+.contact-profile-map-cover {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 30px;
+  background: url(/assets/textures.png) repeat;
+  position: absolute;
+  top: 170px;
+}
+
+.contact-profile-head {
+  position: relative;
+  margin-top: -30px;
+  height: 55px;
+}
+
+.contact-profile-avatar {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  border: 1px solid #4A4A54;
+  border-radius: 6px;
+  background: #FFF;
+  width: 45px;
+  position: relative;
+  top: -30px;
+}
+
+.contact-profile-name {
+  width: 248px;
+  position: absolute;
+  left: 82px;
+  top: -2px;  
+}
+
+.contact-profile-input {
+  padding: 0px 10px 0px 10px;
+  position: relative;
+}
+
+.contact-profile-input form input{
+  width: 300px; 
+}
+
+.contact-profile-input form{
+  padding: 0px;
+  margin: 0px;  
+}
+
+.contact-profile-details {
+  padding: 0px 10px 0px 10px;
+  margin: 0px;
+}
+
+.favorite-ind {
+  height: 14px;
+  width: 14px;
+  padding: 0px !important;
+  margin: 6px 0px 0px 0px;
+  border: solid 1px #444;
+  border-radius: 4px 4px 4px 4px;
+  background: -moz-linear-gradient(center top , #FFF 0%, #777 100%) repeat scroll 0 0 transparent !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 1px 0 0 rgba(255, 255, 255, 0.1) inset;
+  display: inline-block;
+  
+}
+
+.favorite .favorite-ind{
+  background: -moz-linear-gradient(center top , #FFF 0%, #F00 100%) repeat scroll 0 0 transparent !important;
+}
+
+.contact-icon {
+  top: 8px;
+}
+
+li.active {
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.contact-active {
+  display: block !important;
+}
+
+.contact-inactive {
+  display: none;
+}
+
+span.nav-contact-name {
+  margin: 0px 2px 0px 2px;
+  font-size: 10px;
+  width: 66px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  position: relative;
+  top: 50px;
+}

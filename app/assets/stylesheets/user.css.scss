@@ -14,11 +14,10 @@
 #sign-logo {
   margin: 0px 0px 20px 0px;
   /*background: url(/assets/logo-here.png) no-repeat;*/
-}
-
-#sign-logo h1{
-  text-align: center;
-  color: #FFF;
+  h1 {
+    text-align: center;
+    color: #FFF;
+  }
 }
 
 #sign-content {
@@ -27,11 +26,10 @@
   @include box-shadow(0px 0px 10px rgba(255,255,255, 0.5));
   @include border-radius(5px);
   color: #FFF;
-}
-
-#sign-content h1, h2 {
-  color: #0088CC;
-  text-shadow:-1px -1px #CCC;
+  h1, h1 {
+    color: #0088CC;
+    text-shadow:-1px -1px #CCC;
+  }
 }
 
 #remember-me {

@@ -9,10 +9,13 @@ class User
   belongs_to :entity
   belongs_to :user_type
   
+  has_many :contacts
   has_many :tasks
+  has_many :favorites
   embeds_many :authentications
   
-  accepts_nested_attributes_for :organisation
+  accepts_nested_attributes_for :organisation, :contacts
+  
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
   field :encrypted_password, :type => String, :null => false, :default => ""
@@ -35,6 +38,7 @@ class User
   field :first_name, :type => String
   field :last_name, :type => String
   field :is_admin, :type => Boolean, :default => false
+  field :favorite_ids, :type => Array
   #field :adminorg, :type => Boolean, :default => false
   #field :adminent, :type => Boolean, :default => false
   #field :adminone, :type => Boolean, :default => false
@@ -56,6 +60,10 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
+  def as_json(options = nil)
+    super((options || {}).merge(include: { favorites: { only: [:favorite_id] } }))
+  end
   
   def full_name
     "#{first_name} #{last_name}"

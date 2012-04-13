@@ -1,11 +1,11 @@
-window.ClientEditor =
+window.ContactManager =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
   init: ->
-    new ClientEditor.Routers.Contacts()
+    new ContactManager.Routers.Contacts()
     Backbone.history.start()
 
 $(document).ready ->
-  ClientEditor.init()
+  ContactManager.init()

@@ -2,7 +2,7 @@ var outerLayout;
 var innerLayout; 
 
 $(document).ready(function () { 
-
+  
 outerLayout = $('body').layout({ 
     center__paneSelector: ".outer-center", 
     west__paneSelector: ".outer-west", 
@@ -17,7 +17,10 @@ outerLayout = $('body').layout({
     north__size: 40,
     north__resizable: false,
     north__closable: false,
-    north__spacing_open: 0
+    north__spacing_open: 0,
+    west__resizable: false,
+    west__closable: false,
+    west__spacing_open: 0
     }); 
 
 innerLayout = $('div.outer-west').layout({ 

@@ -28,6 +28,8 @@ end
 gem 'jquery-rails'
 gem 'backbone-on-rails'
 
+gem "geocoder"
+
 gem "mongrel", "1.2.0.pre2"
 
 # Use unicorn as the web server

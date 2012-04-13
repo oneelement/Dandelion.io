@@ -30,10 +30,12 @@ class Ability
       can :manage, Entity #, :id => user.entity_id
       can :manage, Organisation
     elsif user.user_type.name == "Consumer"
-      can :update, User, :id => user.id
-      can :read, User, :id => user.id
+      #can :update, User, :id => user.id
+      can :manage, User, :id => user.id
+      #can :read, User, :id => user.id
       cannot :manage, Entity
       cannot :manage, Organisation
+      #cannot :manage, :all
     else
       cannot :manage, :all
     end
