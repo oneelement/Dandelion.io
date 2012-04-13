@@ -1,6 +1,6 @@
 class RippleApp.Views.ContactsList extends Backbone.View
   template: JST['contact_manager/contact_list']
-  className: 'contact-list-items'  
+  className: 'contact-list-items'
   
   initialize: ->
     @model.on('change', @render, this)
@@ -20,6 +20,9 @@ class RippleApp.Views.ContactsList extends Backbone.View
     return this
   
   activeContact: (event) ->
+    view = new RippleApp.Views.Contact(model: @model)
+    RippleApp.layout.setContextView(view)
+
     if ($(this.el).hasClass('active'))
     else
       $(".contact-list-items").removeClass('active')
@@ -33,8 +36,3 @@ class RippleApp.Views.ContactsList extends Backbone.View
     if getrid == true
       this.model.destroy()
       $("#contact-container").html('')
-      
-    
-
-    
-
