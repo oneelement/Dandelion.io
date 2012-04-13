@@ -1,27 +1,14 @@
 class ContactManager.Views.ContactsTree extends Backbone.View
   template: JST['contact_manager/contact_tree']
-  tagName: 'li'
   className: 'contact-tree'
   
   initialize: ->
-    #@model.on('change', @render, this)
-    @collection = new ContactManager.Collections.Latestcontacts()
-    #@collection.fetch()
-    #@collection.on('reset', @render, this)
+    @collection.on('add remove reset', @render, @)
   
-  #events:
-    #'click .contact-icon': 'activeContact'
-    
   render: ->
-    $(@el).html(@template(contacts: @collection))
+    $(@el).html(@template())
+    _.each(@collection.models, (model) ->
+      $('#contacts-tree-list', @el).append(
+        new ContactManager.Views.ContactsTreeEntry(model: model).render().el
+      ))
     this
-    
-  #activeContact: (event) ->
-    #if ($(this.el).hasClass('active'))      
-    #else
-      #$("li").removeClass('active')
-      #$(this.el).addClass('active')
-      #$("#contact-profiles div").removeClass('contact-active')
-      #test = "#" + this.model.get('_id')
-     #$(test).parent('div').addClass("contact-active")
-    

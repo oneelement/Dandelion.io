@@ -6,28 +6,26 @@ class ContactManager.Routers.Contacts extends Backbone.Router
 
   initialize: ->
     @collection = new ContactManager.Collections.Contacts()
+    @contactsTree = new ContactManager.Collections.ContactsTree()
     @collection.fetch()
+    @view = new ContactManager.Views.ContactsIndex(collection: @collection, treeCollection: @contactsTree)
     return @
 
   index: ->
-    view = new ContactManager.Views.ContactsIndex(collection: @collection)
-    $('#contacts-container').html(view.render().el)
-    
+    $('#contacts-container').html(@view.render().el)
   
   newContact: ->
     view = new ContactManager.Views.ContactNew
     $('#contact-modal').html(view.render().el)
   
-  
   edit: (id) ->
-    #id = #{id}
-    #@model = @collection.get('id')
-    contact = new ContactManager.Models.Contact({_id: id})      
-    #contact = @model.get('id')
-    view = new ContactManager.Views.Contact(model: contact)
+    console.log('edit, ' + id)
+    @currentContact = new ContactManager.Models.Contact({_id: id})
+    view = new ContactManager.Views.Contact(model: @currentContact)
     $('#contact-container').html(view.render().el)
-    #alert "#{id}"
-    contact.fetch()
-    
-  
 
+    tree = @contactsTree
+    @currentContact.fetch(success: (model) ->
+      tree.add(model)
+      tree.trigger("add")
+    )
