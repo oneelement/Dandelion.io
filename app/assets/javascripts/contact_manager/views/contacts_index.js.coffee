@@ -6,15 +6,20 @@ class ContactManager.Views.ContactsIndex extends Backbone.View
     @collection.on('reset', @render, this)
     @collection.on('add', @render, this)
     @collection.on('destroy', @render, this)
+    #@contactSearch()
+    @newContact()
 
     @contactsTree = new ContactManager.Views.ContactsTree(collection: @options.treeCollection)
     $('#contact-tree').append(@contactsTree.render().el)
 
   render: ->
-    $(@el).html(@template())
-    @newContact()
+    $(@el).html(@template())        
     @collection.each(@appendContact)
     this
+  
+  contactSearch: ->
+    view = new ContactManager.Views.ContactsSearch(model: @model)
+    $('#sitewide-search').append(view.render().el)
     
   newContact: ->
     view = new ContactManager.Views.ContactNew(model: @model)

@@ -28,33 +28,6 @@
   float: left;
 }
 
-.ui-menu .ui-menu-item a {
-  border-radius: none;
-}
-
-.ui-widget-content {
-  background: #FFF;
-  border: 1px solid #DDDDDD;
-  color: #333333;
-  background-clip: padding-box;
-  background-color: #FFFFFF;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 5px 5px;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 4px 4px 4px 4px;
-  padding: 2px 0px 2px 0px;
-}
-
-.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {
-  background: #0088CC;
-  color: #FFF;
-  border: none;
-  margin: 0px;
-  border-radius: 0px;
-}
-
 #sitewide-search i {
   position: relative;
   left: -70px;
@@ -96,6 +69,96 @@
 .padded {
   padding: 20px !important;
 }
+
+/*********************************************************************************
+* MAGIC BAR OVERRIDE
+**********************************************************************************/
+
+.ui-corner-all {
+  span.ripicon {
+    float: right;
+    margin: 0px 5px 0px 0px;
+  }
+}
+
+.rip-search-label {
+  padding: 0px 0px 0px 15px;
+}
+
+#ripple-search-add {
+  position: relative;
+  background: #FFF;
+  color: #333333;
+  background-clip: padding-box;
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 5px 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px 4px 4px 4px;
+  padding: 2px 0px 2px 0px;
+  z-index: 1033;
+  top: 34px;
+  width: 228px;
+  left: 283px;
+}
+
+#ripple-search-add > li a {
+  width: 100%;
+  display: inline-block;
+  padding: 3px 0px 3px 0px;
+}
+
+#ripple-search-add > li a:hover {
+  background: #0088CC;
+}
+
+
+.ui-menu {
+  width: 224px;
+  
+}
+
+.ui-menu .ui-menu-item a {
+  border-radius: none;
+}
+
+.ui-widget-content {
+  background: #FFF;
+  color: #333333;
+  background-clip: padding-box;
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 5px 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px 4px 4px 4px;
+  padding: 2px 0px 2px 0px;
+}
+
+.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {
+  background: #0088CC;
+  color: #FFF;
+  border: none;
+  margin: 0px;
+  border-radius: 0px;
+}
+
+.ui-menu .ui-menu-item a {
+    display: inline-block;
+}
+
+.ui-menu .ui-menu-item a {
+  width: 100%;
+  padding: 3px 0px 3px 0px;
+  cursor: pointer;
+}
+
+
+
+
 
 /*********************************************************************************
 * GENERAL CLASSES

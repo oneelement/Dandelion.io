@@ -20,10 +20,3 @@ outerLayout = $('body').layout({
     }); 
 }); 
 
-
-
-jQuery(document).ready(function() {
-    $('#autocomplete').typeahead({
-      source: [{value: 'Charlie'}, {value: 'Gudbergur'}]
-    });
-});

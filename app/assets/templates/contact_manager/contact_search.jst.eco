@@ -1,0 +1,8 @@
+<div id="test">
+  <form id="search_form" class="navbar-search">
+    <input type="text" name="search" id="autocomplete" class="search-query" placeholder="Search"></br>
+    <input id="searchbutton" type="submit"/>
+    <i class="icon-search icon-white"></i>
+    <i class="icon-plus icon-white disabled"></i>
+  </form>
+</div>

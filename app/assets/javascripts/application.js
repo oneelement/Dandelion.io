@@ -10,3 +10,4 @@
 //= require backbone
 //= require vendor
 //= require bootstrap
+//= require dashboard
