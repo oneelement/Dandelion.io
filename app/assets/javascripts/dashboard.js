@@ -15,23 +15,29 @@ $(function() {
   $('#autocomplete').catcomplete({ 
     source: function (request, response) {
         var results = $.ui.autocomplete.filter(tags, request.term);
-
+	results.push({
+	  label: 'Add Contact',
+	  category: 'Actions',
+	  value: request.term
+	}
+	);
+	results.push({
+	  label: 'Add Task',
+	  category: 'Actions'
+	}
+	);
+	
         if (!results.length) {
 	    $(".icon-search").addClass('disabled');
 	    $(".icon-plus").removeClass('disabled');
             $("#searchbutton").attr('value','');
-            $("#search_form").attr('action','/contacts/');
-	    $("ul.ui-autocomplete").css('display','block');
-	    $("ul.ui-autocomplete").after("<ul id='ripple-search-add'></ul>");
-	    $("#ripple-search-add").html();
-	    $("#ripple-search-add").html("<li><a><span class='rip-search-label'>Add Contact</span></a></li>");
+            $("#search_form").attr('action','/');
 	    
         } else {
 	    $(".icon-search").removeClass('disabled');
 	    $(".icon-plus").addClass('disabled');
             $("#searchbutton").attr('value','');
-            $("#search_form").attr('action','/contacts');
-	    $("#ripple-search-add").remove();
+            $("#search_form").attr('action','/');
         }
         response(results);
         return false;
@@ -40,8 +46,28 @@ $(function() {
     minLength: 2,  
     select: function (event, ui) {
         $(event.target).val(ui.item.id);
-        var url =   "/contacts/#show/" + ui.item.id;
-        window.location.href = url;
+	
+	if (ui.item.label == "Add Contact") {
+	    var show_id
+	    var addName = ui.item.value;
+	    $("#search_form").attr('action','/help');
+	    console.log(addName);
+	    console.log(ui);
+	    console.log(event);
+	    var newContact = new RippleApp.Models.Contact({name: addName})
+	    newContact.save({name: addName}, {success: 
+	      function(model, response) {
+		  show_id = response._id;
+		  console.log(show_id);
+		  var url = "/#contacts/show/" + show_id;
+		  window.location.href = url;
+	      }
+	    });	    
+	    
+	} else {
+	    var url =   "/#contacts/show/" + ui.item.id;
+	    window.location.href = url;
+	} 	
         return false;
     }
   })
@@ -51,6 +77,7 @@ $(function() {
 		  .append( "<a><span class='rip-search-label'>" + item.label + "</span><span class='ripicon " + item.icon + "'></span></a>" )
 		  .appendTo( ul );
   };
+  
 });
 
 $.widget( "custom.catcomplete", $.ui.autocomplete, {

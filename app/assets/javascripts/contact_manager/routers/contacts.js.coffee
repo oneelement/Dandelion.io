@@ -17,7 +17,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     currentuser.fetch(success: (currentuser, response) ->
       contact_id = response.contact_id
       @homeContact = new RippleApp.Models.Contact({_id: contact_id}) 
-      @homeContact.fetch(success: ->
+      @homeContact.fetch(success: (response) ->
         view = new RippleApp.Views.Contact(model: @homeContact)
         RippleApp.layout.setContextView(view)
       ) 
