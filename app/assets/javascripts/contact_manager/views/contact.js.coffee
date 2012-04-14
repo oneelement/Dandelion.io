@@ -4,7 +4,7 @@ class RippleApp.Views.Contact extends Backbone.View
     
   events:
     'click .favorite-ind': 'checkFavorite'
-    'keydown input#contact-profile-input': 'matchInputDetails'
+    'keyup input#contact-profile-details-input': 'inputDetails'
     'click #contact-profile-toggle-actions': 'toggleActionsBar'
 
   initialize: ->
@@ -56,8 +56,8 @@ class RippleApp.Views.Contact extends Backbone.View
     @model.get('favorite_ids').pop(id)
     @model.save()
 
-  matchInputDetails: (e) ->
+  inputDetails: (e) ->
     matcher = new RippleApp.Lib.DetailsMatcher(
       e.currentTarget.value
     )
-    $('#matchtype', @el).html(matcher.topMatch())
+    $('#matchtype', @el).html('[' + matcher.matchText + ']: ' + matcher.topMatch())

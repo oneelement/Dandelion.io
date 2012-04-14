@@ -1,16 +1,24 @@
 class RippleApp.Lib.DetailsMatcher
   matchers:
     mobilePhone:
-      expr: /^(\+44|0)7\d*$/
+      exprs: [
+        /^(\+44|0)7\d*$/,
+      ]
       rank: 1
     landline:
-      expr: /^\d*$/
+      exprs: [
+        /^(\+|\d)\d*$/,
+      ]
       rank: 2
     email:
-      expr: /^.*@.*$/
+      exprs: [
+        /^.+@.+$/,
+      ]
       rank: 3
     address:
-      expr: /^.*,.*$/
+      exprs: [
+        /^.+$/,
+      ]
       rank: 4
 
   constructor: (@matchText) ->
@@ -20,8 +28,10 @@ class RippleApp.Lib.DetailsMatcher
     matches = []
     text = @matchText
     _.each(@matchers, (matcher, key) ->
-      if matcher.expr.test(text)
-        matches.push(key)
+      _.each(matcher.exprs, (expr) ->
+        if expr.test(text) and not _.include(matches, key)
+          matches.push(key)
+      )
     )
 
     @matches = matches
