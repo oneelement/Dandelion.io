@@ -18,7 +18,9 @@
     <span>phone number</span>
   </div>
 
-  <a class="close">×</a>
+  <% if @contact.get('is_user') == false: %>
+    <a class="close">×</a>
+  <% end %>
   <div class="clear"/>
 </div>
 

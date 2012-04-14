@@ -21,7 +21,7 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     
   newContact: ->
     view = new RippleApp.Views.ContactNew(model: @model)
-    $('#contact-modal', @el).append(view.render().el)
+    $('#test').append(view.render().el)
     
   appendObsolete: (contact) =>
     view = new RippleApp.Views.ContactsShow(model: contact)

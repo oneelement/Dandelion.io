@@ -8,6 +8,7 @@ class Task
   field :content, :type => String
   field :complete, :type => Boolean
   
+ 
   def as_json(options = nil)
     super((options || {}).merge(include: { user: { only: [:first_name, :last_name] } }))
   end  

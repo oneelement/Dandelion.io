@@ -13,6 +13,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   index: ->
     console.log('at contacts index')
     RippleApp.layout.setMainView(@view)
+    #RippleApp.layout.setContextView(@view)
     @collection.fetch()
   
   newContact: ->
