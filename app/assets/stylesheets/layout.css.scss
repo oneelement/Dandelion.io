@@ -1,25 +1,28 @@
 #view-layout {
   margin-top: 40px;
-  height: 100%;
+  width: 100%;
 }
 
 #view-sidebar {
   height: 100%;
   width: 72px;
   float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 #view-context {
   height: 100%;
   width: 400px;
   float: left;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #view-main {
   height: 100%;
   float: left;
   padding: 1em;
-  width: 600px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }

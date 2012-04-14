@@ -16,3 +16,28 @@ span.ripicon {
 .icon-group {
   background-position: -14px 0px;
 }
+
+$largeIconSize: 48px;
+
+span.largeIcon {
+  background-image: url("/assets/ripple-icon-large-48.png");
+  height: $largeIconSize;
+  width: $largeIconSize;
+  display: inline-block;
+}
+
+.custom-largeIcon-contact {
+  background-position: -0*$largeIconSize 0px;
+}
+.custom-largeIcon-rocket {
+  background-position: -1*$largeIconSize 0px;
+}
+.custom-largeIcon-tick {
+  background-position: -2*$largeIconSize 0px;
+}
+.custom-largeIcon-home {
+  background-position: -3*$largeIconSize 0px;
+}
+.custom-largeIcon-address-book {
+  background-position: -4*$largeIconSize 0px;
+}

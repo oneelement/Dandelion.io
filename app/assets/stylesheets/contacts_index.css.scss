@@ -1,0 +1,24 @@
+#contacts-index {
+
+  .contact-list-item {
+
+    padding: 1em;
+
+    .avatar {
+      float: left;
+    }
+
+    .name {
+      float: left;
+
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .details {
+      float: right;
+    }
+  }
+}

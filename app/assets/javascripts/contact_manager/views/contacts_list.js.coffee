@@ -1,12 +1,12 @@
 class RippleApp.Views.ContactsList extends Backbone.View
   template: JST['contact_manager/contact_list']
-  className: 'contact-list-items'
+  className: 'contact-list-item'
   
   initialize: ->
     @model.on('change', @render, this)
   
   events:
-    'click .contact-list-item': 'activeContact'
+    'click': 'activeContact'
     'click .close': 'destroyContact'
     
 

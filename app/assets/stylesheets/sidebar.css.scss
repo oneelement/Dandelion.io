@@ -30,26 +30,4 @@ $sidebarBorder: #ccc;
       background-repeat: no-repeat;
   }
 
-  #sidebar-home {
-    .sidebar-icon {
-      background-image: url('http://placehold.it/48x48&text=home');
-    }
-  }
-  #sidebar-contacts {
-    .sidebar-icon {
-      background-image: url('http://placehold.it/48x48&text=contacts');
-    }
-  }
-  #sidebar-tasks {
-    .sidebar-icon {
-      background-image: url('http://placehold.it/48x48&text=tasks');
-    }
-  }
-
-  #recent-contacts {
-    .sidebar-icon {
-      background-image: url('http://placehold.it/48x48&text=contact');
-    }
-  }
-
 }

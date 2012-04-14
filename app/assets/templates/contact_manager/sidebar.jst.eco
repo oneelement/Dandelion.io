@@ -1,12 +1,12 @@
 <ul id="sidebar-buttons">
     <li id="sidebar-home">
-        <span class="sidebar-icon"></span>
+        <span class="largeIcon custom-largeIcon-home"></span>
     </li>
     <li id="sidebar-contacts">
-        <span class="sidebar-icon"></span>
+        <span class="largeIcon custom-largeIcon-address-book"></span>
     </li>
     <li id="sidebar-tasks">
-        <span class="sidebar-icon"></span>
+        <span class="largeIcon custom-largeIcon-tick"></span>
     </li>
 </ul>
 <div class="separator"></div>
