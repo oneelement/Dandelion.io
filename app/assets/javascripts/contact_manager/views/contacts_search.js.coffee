@@ -1,4 +1,4 @@
-class ContactManager.Views.ContactsSearch extends Backbone.View
+class RippleApp.Views.ContactsSearch extends Backbone.View
   template: JST['contact_manager/contact_search']
   #className: 'contact-list-items'  
   
@@ -16,7 +16,7 @@ class ContactManager.Views.ContactsSearch extends Backbone.View
 
     
   getSource: ->
-    @collection = new ContactManager.Collections.Contacts()
+    @collection = new RippleApp.Collections.Contacts()
     @collection.fetch({success: @handleSuccess})
 
       

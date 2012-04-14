@@ -1,5 +1,8 @@
 class User 
   include Mongoid::Document
+  
+  after_create :contact_create
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -37,6 +40,7 @@ class User
   ## Fields added after defaults
   field :first_name, :type => String
   field :last_name, :type => String
+  field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favorite_ids, :type => Array
   #field :adminorg, :type => Boolean, :default => false
@@ -60,6 +64,13 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
+  def contact_create
+    record = Contact.new(:name => self.first_name + " " +self.last_name, :user_id => self._id, :is_user => true)
+    record.save
+    self.contact_id = record._id
+    self.save
+  end
   
   def as_json(options = nil)
     super((options || {}).merge(include: { favorites: { only: [:favorite_id] } }))

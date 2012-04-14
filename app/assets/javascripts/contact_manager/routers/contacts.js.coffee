@@ -1,6 +1,7 @@
 class RippleApp.Routers.Contacts extends Backbone.Router
   routes:
-    "contacts": "index"
+    "": "index"
+    "contacts": "indexContact"
     "contacts/show/:id": "edit"
     "contacts/new": "newContact"
 
@@ -9,8 +10,23 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @recentContacts = new RippleApp.Collections.Contacts()
     @view = new RippleApp.Views.ContactsIndex(collection: @collection)
     return @
-
+    
   index: ->
+    console.log('at main index')
+    currentuser = new RippleApp.Models.Currentuser()
+    currentuser.fetch(success: (currentuser, response) ->
+      contact_id = response.contact_id
+      @homeContact = new RippleApp.Models.Contact({_id: contact_id}) 
+      @homeContact.fetch(success: ->
+        view = new RippleApp.Views.Contact(model: @homeContact)
+        RippleApp.layout.setContextView(view)
+      ) 
+    )
+    
+    
+
+  indexContact: ->
+    console.log('at contacts index')
     RippleApp.layout.setMainView(@view)
     @collection.fetch()
   

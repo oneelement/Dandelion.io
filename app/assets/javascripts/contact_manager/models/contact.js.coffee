@@ -2,6 +2,9 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
   idAttribute: '_id'
   urlRoot: -> '/contacts/'
   
+  isUser: ->
+    return this.get('is_user') == true
+  
   #I think all this code is redundant, it seemed to work ok with ActiveRecord but i've had to add 
   #code to the render function in contacts_show view which makes it work.  A collection is 
   #required though so the phones are not working unless it is moved form being embedded.
