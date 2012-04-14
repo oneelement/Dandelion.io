@@ -40,6 +40,7 @@ class User
   ## Fields added after defaults
   field :first_name, :type => String
   field :last_name, :type => String
+  field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favorite_ids, :type => Array
   #field :adminorg, :type => Boolean, :default => false
@@ -67,6 +68,8 @@ class User
   def contact_create
     record = Contact.new(:name => self.first_name + " " +self.last_name, :user_id => self._id, :is_user => true)
     record.save
+    self.contact_id = record._id
+    self.save
   end
   
   def as_json(options = nil)
