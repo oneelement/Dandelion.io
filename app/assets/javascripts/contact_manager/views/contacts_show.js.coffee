@@ -12,5 +12,5 @@ class RippleApp.Views.ContactsShow extends Backbone.View
     #this.model.address = new RippleApp.Models.Address(this.model.get('address'))
     #myphones = this.model.get("phones")
     $(@el).html(@template(contact: @model))
-    return this
 
+    return this

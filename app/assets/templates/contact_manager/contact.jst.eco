@@ -1,1 +1,57 @@
-<p>HELLO WORLD</p>
+<div class="contact-profile-map">
+    <img src="http://placehold.it/400x216"/>
+    <!--img src="http://maps.google.com/maps/api/staticmap?size=330x200&sensor=false&maptype=hybrid&zoom=16&markers=address.get('coordinates')[1]%2Caddress.get('coordinates')[0]"/-->
+</div>
+<a id="contact-profile-toggle-actions"><i class="icon-chevron-left"></i></a>
+<div id="contact-profile-actions-wrapper">
+    <div id="contact-profile-actions" style="opacity: 0; width: 0">
+        <ul>
+            <li>Favourite</li>
+            <li>Refresh</li>
+            <li>Delete</li>
+            <li>Edit</li>
+            <li>Send</li>
+            <li>Add to Group</li>
+        </ul>
+    </div>
+</div>
+
+<div class="contact-profile-head">
+    <div class="contact-profile-avatar">
+      <img src="http://placehold.it/100x120"/>
+    </div>
+    <div class="contact-profile-name">
+      <h3><%= @contact.name %></h3>
+      <p>Contact position at Contact Company</p>
+    </div>
+</div>
+
+<form id="contact-profile-input-form">
+<input type="text" name="contact-profile-input" id="contact-profile-input" class="input-text" placeholder="Add contact details..."></br>
+</form>
+<span style="color: red" id='matchtype'></span>
+
+<div class="contact-profile-details">
+  <span><i class="icon-envelope icon-white"></i></span>
+  <span><%= @contact.email %></i></span>
+</div>
+
+<div class="contact-profile-details">
+  <span><i class="icon-envelope icon-white"></i></span>
+  <span><%= @contact.id %></i></span>
+</div>
+
+<div class="contact-profile-details">
+  <span><i class="icon-envelope icon-white"></i></span>
+  <span>KT10 0JX</span>
+</div>
+
+<div class="contact-profile-details">
+  <span><i class="icon-envelope icon-white"></i></span>
+  <span>01234 12345</span>
+</div>
+
+<div class="contact-profile-details">
+<span>Favorite?</span>
+<span class="favorite-ind"></span>
+</div>

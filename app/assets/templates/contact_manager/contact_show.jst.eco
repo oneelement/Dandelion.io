@@ -18,11 +18,10 @@
     </div>
   </div>
 
-  <div class="contact-profile-input">
-    <form id="new_task">
-      <input type="text" name="title" id="new_task_title" class="input-text" placeholder="Enter here.."></br>
-    </form>
-  </div>
+<form id="contact-profile-input-form">
+  <input type="text" name="contact-profile-input" id="contact-profile-input" class="input-text" placeholder="Add contact details..."></br>
+</form>
+<span style="color: red" id='matchtype'></span>
 
   <div class="contact-profile-details">
       <span><i class="icon-envelope icon-white"></i></span>

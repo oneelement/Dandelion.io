@@ -1,55 +1,63 @@
 class RippleApp.Views.Contact extends Backbone.View
-  template: JST['contact_manager/contact_show']
-  #className: 'contact-inactive'
-  
-  #initialize: ->
-    #@collection.on('reset', @render, this)
+  template: JST['contact_manager/contact']
+  id: 'contact-profile'
     
   events:
     'click .favorite-ind': 'checkFavorite'
-    
+    'keydown input#contact-profile-input': 'matchInputDetails'
+    'click #contact-profile-toggle-actions': 'toggleActionsBar'
+
   initialize: ->
     @model.on('change', @render, this)
 
   render: ->
-    this.model.addresses = new RippleApp.Collections.Contacts(this.model.get('addresses'))
-    this.model.phones = new RippleApp.Collections.Contacts(this.model.get('phones'))
-    #this.model.phones = new RippleApp.Collections.Phones(this.model.get('phones'))
-    #this.model.address = new RippleApp.Models.Address(this.model.get('address'))
-    #myphones = this.model.get("phones")
-    $(@el).html(@template(contact: @model))
-    return this
+    $(@el).html(@template(contact: @model.toJSON()))
+    @
+
+  toggleActionsBar: ->
+    if @actionsBarDisplayed
+      $('#contact-profile-actions').animate(
+        width: '0px'
+        opacity: '0'
+      )
+      $('#contact-profile-toggle-actions i', @el)
+        .removeClass('icon-chevron-right')
+        .addClass('icon-chevron-left')
+        @actionsBarDisplayed = false
+    else
+      $('#contact-profile-actions').animate(
+        width: '100%'
+        opacity: '100'
+      )
+      $('#contact-profile-toggle-actions i', @el)
+        .removeClass('icon-chevron-left')
+        .addClass('icon-chevron-right')
+        @actionsBarDisplayed = true
     
   checkFavorite: ->
     if ($(this.el).hasClass('favorite'))
       $(this.el).removeClass('favorite')
       currentuser = new RippleApp.Models.Currentuser()
       currentuser.fetch({success: @handleDelete})
-      #console.log(this.model.get('favorite_ids'))
-      #favorite = new RippleApp.Models.Favorite(favorite_id: this.model.get('_id'))
-      #favorite.destroy()
     else
       $(this.el).addClass('favorite')
       currentuser = new RippleApp.Models.Currentuser()
       currentuser.fetch({success: @handleSuccess})
-      #console.log(this.model.get('favorite_ids'))
 
 	
   handleSuccess: (currentuser, response) =>
     id = response._id
-    #console.log(id)
-    #console.log(currentuser)
-    #console.log(this.model.get('favorite_ids'))
-    user = new 
-    this.model.get('favorite_ids').push(id)
-    this.model.save()
+    @model.get('favorite_ids').push(id)
+    @model.save()
     
   handleDelete: (currentuser, response) =>
     id = response._id
-    console.log(id)
-    console.log(currentuser)
-    console.log(this.model.get('favorite_ids'))
     included = "test" in this.model.get('favorite_ids')
-    console.log(included)
-    this.model.get('favorite_ids').pop(id)
-    this.model.save()
+    @model.get('favorite_ids').pop(id)
+    @model.save()
+
+  matchInputDetails: (e) ->
+    matcher = new RippleApp.Lib.DetailsMatcher(
+      e.currentTarget.value
+    )
+    $('#matchtype', @el).html(matcher.topMatch())

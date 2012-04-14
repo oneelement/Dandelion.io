@@ -3,6 +3,7 @@ window.RippleApp =
   Collections: {}
   Views: {}
   Routers: {}
+  Lib: {}
   init: ->
     @contactsRouter = new RippleApp.Routers.Contacts()
     @tasksRouter = new RippleApp.Routers.Tasks()

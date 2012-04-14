@@ -11,7 +11,6 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     return @
 
   index: ->
-    console.log('at contacts index')
     RippleApp.layout.setMainView(@view)
     @collection.fetch()
   

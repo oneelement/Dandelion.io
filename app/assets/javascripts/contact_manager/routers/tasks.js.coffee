@@ -7,7 +7,6 @@ class RippleApp.Routers.Tasks extends Backbone.Router
     @collection.fetch()
     
   index: ->
-    console.log('at tasks index')
     view = new RippleApp.Views.TasksIndex(collection: @collection)
     RippleApp.layout.setMainView(view)
 

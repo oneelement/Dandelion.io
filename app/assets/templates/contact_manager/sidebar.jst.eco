@@ -9,6 +9,6 @@
         <span class="sidebar-icon"></span>
     </li>
 </ul>
-<p>Recent Contacts</p>
+<div class="separator"></div>
 <div id="recent-contacts">
 </div>
