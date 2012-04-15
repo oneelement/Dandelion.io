@@ -16,7 +16,7 @@
   width: 400px;
   float: left;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #view-main {
@@ -24,5 +24,5 @@
   float: left;
   padding: 1em;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
