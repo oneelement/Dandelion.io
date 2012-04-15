@@ -1,5 +1,5 @@
-<div class="avatar">
-    <img src="/assets/avatar-man.png"/>
+<div class="avatar" style="background-color: black">
+    <span class="c-lg-icon c-lg-icon-contact"></span>
 </div>
 <div class="name">
     <h3><%= @contact.get('name') %></h3>

@@ -9,8 +9,8 @@
   <div class="contact-profile-map-cover">
   </div>
   <div class="contact-profile-head">
-    <div class="contact-profile-avatar">
-      <img src="/assets/avatar-man.png"/>
+    <div class="contact-profile-avatar" style="background-color: black">
+        <span class="c-lg-icon c-lg-icon-contact"></span>
     </div>
     <div class="contact-profile-name">
       <h3><%= @contact.get('name') %></h3>

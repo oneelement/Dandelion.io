@@ -26,5 +26,5 @@ class RippleApp.Views.Layout extends Backbone.View
     layoutHeight = $(window).height() - $('.navbar').height()
     @$el.height(layoutHeight)
 
-    mainWidth = $(window).innerWidth() - $('#view-sidebar', @el).width() - $('#view-context', @el).width() - 25
+    mainWidth = $(window).innerWidth() - $('#view-sidebar', @el).width() - $('#view-context', @el).width() - 200
     $('#view-main', @el).width(mainWidth)

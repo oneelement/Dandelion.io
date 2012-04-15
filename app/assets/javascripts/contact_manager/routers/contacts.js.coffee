@@ -2,8 +2,8 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   routes:
     "": "index"
     "contacts": "indexContact"
-    "contacts/show/:id": "edit"
-    "contacts/new": "newContact"
+    "contacts/show/:id": "show"
+    "contacts/new": "new"
 
   initialize: ->
     @collection = new RippleApp.Collections.Contacts()
@@ -12,44 +12,51 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     return @
     
   index: ->
-    console.log('at main index')
     currentuser = new RippleApp.Models.Currentuser()
-    currentuser.fetch(success: (currentuser, response) ->
+    currentuser.fetch(success: (currentuser, response) =>
       contact_id = response.contact_id
       @homeContact = new RippleApp.Models.Contact({_id: contact_id})
-      @homeContact.fetch(success: (response) ->
-        view = new RippleApp.Views.Contact(model: @homeContact)
-        RippleApp.layout.setContextView(view)
+      @homeContact.fetch(success: (response) =>
+        @setContextContact(@homeContact)
       )
     )
-    
-    
 
   indexContact: ->
-    console.log('at contacts index')
-    RippleApp.layout.setMainView(@view)
-    @collection.fetch()
+    @collection.fetch(
+      success:
+        RippleApp.layout.setMainView(@view)
+    )
   
-  newContact: ->
+  new: ->
     view = new RippleApp.Views.ContactNew()
     $('#contact-modal', @el).html(view.render().el)
   
-  edit: (id) ->
-    @currentContact = new RippleApp.Models.Contact({_id: id})
-    view = new RippleApp.Views.Contact(model: @currentContact)
-    RippleApp.layout.setContextView(view)
+  show: (id) ->
+    @_contextContact = @recentContacts.get(id)
 
-    showView = new RippleApp.Views.ContactsShow(model: @currentContact)
-    RippleApp.layout.setMainView(showView)
+    if not @_contextContact?
+      @_contextContact = new RippleApp.Models.Contact({_id: id})
 
-    recent = @recentContacts
-    @currentContact.fetch(success: (model) ->
-      recent.add(model)
-      recent.trigger("add")
-    )
+      @_contextContact.fetch(success: (model) =>
+        @recentContacts.add(model)
+        @setContextContact(model)
+        @showContact(model)
+      )
+    else
+        @setContextContact(@_contextContact)
+        @showContact(@_contextContact)
 
   contextContact: ->
-    if @currentContact?
-      return @currentContact
+    if @_contextContact?
+      return @_contextContact
     else
       return null
+
+  setContextContact: (contact) ->
+    @_contextContact = contact
+    view = new RippleApp.Views.Contact(model: @_contextContact)
+    RippleApp.layout.setContextView(view)
+
+  showContact: (contact) ->
+    showView = new RippleApp.Views.ContactsShow(model: contact)
+    RippleApp.layout.setMainView(showView)
