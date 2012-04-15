@@ -15,7 +15,6 @@ class Address
   field :city, :type => String
   field :country, :type => String
   field :postcode, :type => String
-  field :address_type, :type => String
   
   field :coordinates, :type => Array
   
@@ -30,3 +29,15 @@ class Address
   #validates_presence_of :line1
   #validates_presence_of :postcode
 end
+
+class HomeAddress < Address
+end
+
+class BusinessAddress < Address
+end
+
+class CustomAddress < Address
+  field :custom_name, :type => String
+end
+
+
