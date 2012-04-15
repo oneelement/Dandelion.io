@@ -32,6 +32,7 @@ class Ability
     elsif user.user_type.name == "Consumer"
       #can :update, User, :id => user.id
       can :manage, User, :id => user.id
+      can :manage, Contact, :user_id => user.id
       #can :read, User, :id => user.id
       cannot :manage, Entity
       cannot :manage, Organisation
