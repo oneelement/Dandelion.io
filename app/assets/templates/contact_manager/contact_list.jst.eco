@@ -13,4 +13,9 @@
     <span><i class="icon-envelope"></i></span>
     <span>phone number</span>
 </div>
+<div class="actions">
+    <ul>
+        <li id="open-action">Open Contact</li>
+    </ul>
+</div>
 <div class="clear"/>

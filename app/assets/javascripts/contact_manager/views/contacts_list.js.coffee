@@ -8,6 +8,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
   events:
     'click': 'activeContact'
     'click .close': 'destroyContact'
+    'click #open-action': 'openContact'
     
 
   render: ->
@@ -36,3 +37,6 @@ class RippleApp.Views.ContactsList extends Backbone.View
     if getrid == true
       this.model.destroy()
       $("#contact-container").html('')
+
+  openContact: ->
+    Backbone.history.navigate('#contacts/show/'+ @model.id, true)
