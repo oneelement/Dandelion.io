@@ -5,7 +5,8 @@ class Authentication
   def self.available_providers 
     {
       :linkedin => 'LinkedIn',
-      :facebook => 'Facebook'
+      :facebook => 'Facebook',
+      :twitter => 'Twitter'
     }
   end
 
