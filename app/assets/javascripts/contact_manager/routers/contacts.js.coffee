@@ -47,3 +47,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       recent.add(model)
       recent.trigger("add")
     )
+
+  contextContact: ->
+    if @currentContact?
+      return @currentContact
+    else
+      return null

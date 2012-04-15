@@ -8,7 +8,7 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     @collection.on('destroy', @render, this)
 
   render: ->
-    @$el.html(@template())
+    $(@el).html(@template())
     @collection.each(@appendContact)
     @
   
