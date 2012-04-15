@@ -3,14 +3,19 @@ class RippleApp.Views.RecentContactsEntry extends Backbone.View
   tagName: 'li'
 
   render: ->
-    isCurrent = (RippleApp.contactsRouter.currentContact.id == @model.id)
-    if (isCurrent)
+    isContextContact = false
+
+    contextContact = RippleApp.contactsRouter.contextContact()
+    if (contextContact)
+      isContextContact = (contextContact.id == @model.id)
+
+    if (isContextContact)
       @$el.addClass('active')
     else
       if @$el.hasClass('active')
         @$el.removeClass('active')
 
-    $(@el).html(@template(model: @model.toJSON(), isCurrent: isCurrent))
+    $(@el).html(@template(model: @model.toJSON(), isSelected: isContextContact))
     @
 
   events:

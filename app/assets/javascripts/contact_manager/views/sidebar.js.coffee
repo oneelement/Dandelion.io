@@ -7,8 +7,9 @@ class RippleApp.Views.Sidebar extends Backbone.View
     )
 
   render: ->
-    @$el.html(@template())
+    $(@el).html(@template())
     $('#recent-contacts', @el).html(@recentContactsView.render().el)
+    @delegateEvents()
     @
 
   events:
