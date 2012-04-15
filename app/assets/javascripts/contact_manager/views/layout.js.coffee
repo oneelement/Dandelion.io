@@ -10,16 +10,15 @@ class RippleApp.Views.Layout extends Backbone.View
     $(window).resize(->
       that.render())
 
-  render: ->
     @$el.html(@template())
-    
     $('#view-sidebar', @el).html(@sidebarView.render().el)
+
+  render: ->
+    
     if @contextView?
       $('#view-context', @el).html(@contextView.render().el)
     if @mainView?
       $('#view-main', @el).html(@mainView.render().el)
-
-    @fitPanesToWindow()
     @
 
   setContextView: (view) ->
