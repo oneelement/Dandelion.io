@@ -2,7 +2,7 @@ class UserController < ApplicationController
   layout "home"
   load_and_authorize_resource
   
-  def currentuser
+  def current
     @user = User.find(current_user.id) #find(:_id => current_user.id)
     
     respond_to do |format|
@@ -11,36 +11,40 @@ class UserController < ApplicationController
     end
   end
   
-  # GET /users
-  # GET /users.json
+  # GET /user
+  # GET /user.json
   def index
-    @users = User.all #excludes(:id => current_user.id)
-    if current_user.user_type.name == "Organisation"
-      @users = @users.where(:organisation_id => current_user.organisation_id)
-    elsif current_user.user_type.name == "Entity"
-      @users = @users.where(:entity_id => current_user.entity_id)
-    elsif current_user.user_type.name == "Consumer"
-      @users = @users.where(:_id => current_user.id)
-      #redirect_to root_path
-    end
-    
-    @organisations = Organisation.all
-    
-    if current_user.user_type.name == "Consumer"
-      respond_to do |format|
-	format.html { redirect_to root_path } # index.html.erb
-	format.json { render json: @users }
-      end
+    if params[:current]
+      current
     else
-      respond_to do |format|
-	format.html # index.html.erb
-	format.json { render json: @users }
+      @users = User.all #excludes(:id => current_user.id)
+      if current_user.user_type.name == "Organisation"
+        @users = @users.where(:organisation_id => current_user.organisation_id)
+      elsif current_user.user_type.name == "Entity"
+        @users = @users.where(:entity_id => current_user.entity_id)
+      elsif current_user.user_type.name == "Consumer"
+        @users = @users.where(:_id => current_user.id)
+        #redirect_to root_path
+      end
+      
+      @organisations = Organisation.all
+      
+      if current_user.user_type.name == "Consumer"
+        respond_to do |format|
+          format.html { redirect_to root_path } # index.html.erb
+          format.json { render json: @users }
+        end
+      else
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @users }
+        end
       end
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /user/1
+  # GET /user/1.json
   def show
     @user = User.find(params[:id])
 
@@ -50,8 +54,8 @@ class UserController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.json
+  # GET /user/new
+  # GET /user/new.json
   def new
     @user = User.new
     respond_to do |format|
@@ -60,8 +64,8 @@ class UserController < ApplicationController
     end
   end
 
-  # GET /users/newent
-  # GET /users/newent.json
+  # GET /user/newent
+  # GET /user/newent.json
   def newent
     @user = User.new
     respond_to do |format|
@@ -70,13 +74,13 @@ class UserController < ApplicationController
     end
   end
 
-  # GET /users/1/edit
+  # GET /user/1/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
+  # POST /user
+  # POST /user.json
   def create
     @user = User.new(params[:user])
     if current_user 
@@ -93,8 +97,8 @@ class UserController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
+  # PUT /user/1
+  # PUT /user/1.json
   def update
     @user = User.find(params[:id])
 
@@ -109,8 +113,8 @@ class UserController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
+  # DELETE /user/1
+  # DELETE /user/1.json
   def destroy
     @user = User.find(params[:id])
     @user.destroy

@@ -1,30 +1,34 @@
 class RippleApp.Routers.Contacts extends Backbone.Router
   routes:
-    "": "index"
-    "contacts": "indexContact"
+    "": "home"
+    "contacts": "index"
     "contacts/show/:id": "show"
     "contacts/preview/:id": "preview"
     "contacts/new": "new"
 
   initialize: ->
+    @currentUser = new RippleApp.Models.User()
     @contacts = new RippleApp.Collections.Contacts()
     @recentContacts = new RippleApp.Collections.Contacts()
-    @view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     return @
     
+  home: ->
+    after = (contact) =>
+      @setContextContact(contact)
+
+    if @currentUser.isNew()
+      @currentUser.fetchCurrent(success: (model) =>
+        @getContact(model.get("contact_id"), after)
+      )
+
+    else
+      @getContact(@currentUser.id, after)
+
   index: ->
-    currentuser = new RippleApp.Models.Currentuser()
-    currentuser.fetch(success: (currentuser, response) =>
-      after = (contact) =>
-        @setContextContact(contact)
-
-      @getContact(response.contact_id, after)
-    )
-
-  indexContact: ->
     @contacts.fetch(
       success: =>
-        RippleApp.layout.setMainView(@view)
+        view = new RippleApp.Views.ContactsIndex(collection: @contacts)
+        RippleApp.layout.setMainView(view)
     )
   
   new: ->
