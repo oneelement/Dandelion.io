@@ -2,24 +2,29 @@ class RippleApp.Lib.DetailsMatcher
   matchers:
     mobilePhone:
       exprs: [
-        /^(\+44|0)7\d*$/,
+        /^(\+44|0)7(\d|\s)*$/,
       ]
       rank: 1
     landline:
       exprs: [
-        /^(\+|\d)\d*$/,
+        /^(\+|\d)(\d|\s)*$/,
       ]
       rank: 2
     email:
       exprs: [
-        /^.+@.+$/,
+        /^.+@.*$/,
       ]
       rank: 3
     address:
       exprs: [
-        /^.+$/,
+        /^.+,.+$/,
       ]
       rank: 4
+    notes:
+      exprs: [
+        /^.+$/,
+      ]
+      rank: 5
 
   constructor: (@matchText) ->
     @match()

@@ -29,7 +29,8 @@
     </div>
     <form id="contact-card-details-input-form">
         <div class="input-append">
-            <input type="text" name="contact-card-details-input" id="contact-card-details-input" class="input-text" placeholder="Add contact details..."><span id="matchtype" class="add-on"></span>
+            <input type="text" name="contact-card-details-input" id="contact-card-details-input" class="input-text" placeholder="Add contact details...">
+            <span id="contact-card-details-input-type" class="add-on"></span>
         </div>
     </form>
 

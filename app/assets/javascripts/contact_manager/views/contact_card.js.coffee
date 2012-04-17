@@ -5,6 +5,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   events:
     'keyup input#contact-card-details-input': 'inputDetails'
     'click #contact-card-toggle-actions': 'toggleActionsBar'
+    'submit #contact-card-details-input-form': 'submitDetails'
 
   initialize: ->
     @model.on('change', @render, this)
@@ -48,4 +49,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
     matcher = new RippleApp.Lib.DetailsMatcher(
       e.currentTarget.value
     )
-    $('#matchtype', @el).html(matcher.topMatch())
+    $('#contact-card-details-input-type', @el).html(matcher.topMatch())
+
+  submitDetails: (e) ->
+    e.preventDefault()
+    console.log('BAM')
+    console.log($('#contact-card-details-input', @el).val())

@@ -1,4 +1,7 @@
 #contact-card {
+  position: absolute;
+  top: 0;
+  left: 0;
 
   #contact-card-map {
     margin: 0;
@@ -18,12 +21,13 @@
 
     #contact-card-toggle-actions {
       float: right;
-      width: 20px;
+      width: 5%;
     }
 
     #contact-card-actions-bar {
       float: right;
-      width: 375px;
+      width: 90%;
+      margin-right: 3%;
     }
 
     #contact-card-actions {
@@ -43,8 +47,10 @@
 
   #contact-card-details {
     float: left;
-    width: 380px;
+    width: auto;
     padding: 10px;
+    position: absolute;
+    left: 0;
 
     #contact-card-head {
 
@@ -59,9 +65,13 @@
     }
 
     #contact-card-details-input-form {
+      width: 100%;
 
       #contact-card-details-input {
-        width: 250px;
+        width: 75%;
+      }
+      #contact-card-details-input-type {
+        width: 24%;
       }
     }
   }
