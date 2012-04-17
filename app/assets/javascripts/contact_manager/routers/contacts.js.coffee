@@ -23,7 +23,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   indexContact: ->
     @collection.fetch(
-      success:
+      success: =>
         RippleApp.layout.setMainView(@view)
     )
   
