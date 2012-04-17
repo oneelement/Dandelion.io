@@ -1,6 +1,6 @@
-#contact-profile {
+#contact-card {
 
-  #contact-profile-map {
+  #contact-card-map {
     margin: 0;
     padding: 0;
     height: 219px;
@@ -9,24 +9,24 @@
   }
 
 
-  #contact-profile-actions-wrapper {
+  #contact-card-actions-wrapper {
     position: relative;
     margin: -30px 0 30px 0;
     z-index: 10;
     width: 100%;
     padding: 0;
 
-    #contact-profile-toggle-actions {
+    #contact-card-toggle-actions {
       float: right;
       width: 20px;
     }
 
-    #contact-profile-actions-bar {
+    #contact-card-actions-bar {
       float: right;
       width: 375px;
     }
 
-    #contact-profile-actions {
+    #contact-card-actions {
       height: 20px;
       float: right;
       overflow: none;
@@ -41,27 +41,27 @@
     }
   }
 
-  #contact-profile-details {
+  #contact-card-details {
     float: left;
     width: 380px;
     padding: 10px;
 
-    #contact-profile-head {
+    #contact-card-head {
 
-      #contact-profile-avatar {
+      #contact-card-avatar {
         margin-right: 1em;
         float: left;
       }
-      #contact-profile-name {
+      #contact-card-name {
         margin-top: 2em;
         float: left;
       }
     }
 
-    #contact-profile-details-input-form {
+    #contact-card-details-input-form {
 
-      #contact-profile-details-input {
-        width: 360px;
+      #contact-card-details-input {
+        width: 250px;
       }
     }
   }

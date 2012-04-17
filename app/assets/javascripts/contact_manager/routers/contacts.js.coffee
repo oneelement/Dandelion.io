@@ -68,7 +68,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   setContextContact: (contact) ->
     @_contextContact = contact
-    view = new RippleApp.Views.ContactProfile(model: @_contextContact)
+    view = new RippleApp.Views.ContactCard(model: @_contextContact)
     RippleApp.layout.setContextView(view)
 
   showContact: (contact) ->
