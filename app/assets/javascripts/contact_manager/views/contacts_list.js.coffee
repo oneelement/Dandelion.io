@@ -6,7 +6,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     @model.on('change', @render, this)
   
   events:
-    'click': 'activeContact'
+    'click': 'previewContact'
     'click .close': 'destroyContact'
     'click #open-action': 'openContact'
     
@@ -14,23 +14,11 @@ class RippleApp.Views.ContactsList extends Backbone.View
   render: ->
     this.model.addresses = new RippleApp.Collections.Contacts(this.model.get('addresses'))
     this.model.phones = new RippleApp.Collections.Contacts(this.model.get('phones'))
-    #this.model.phones = new RippleApp.Collections.Phones(this.model.get('phones'))
-    #this.model.address = new RippleApp.Models.Address(this.model.get('address'))
-    #myphones = this.model.get("phones")
     $(@el).html(@template(contact: @model))
     return this
   
-  activeContact: (event) ->
-    view = new RippleApp.Views.Contact(model: @model)
-    RippleApp.layout.setContextView(view)
-
-    if ($(this.el).hasClass('active'))
-    else
-      $(".contact-list-items").removeClass('active')
-      $("#contact-container").html('')
-      $(this.el).addClass('active')
-      view = new RippleApp.Views.Contact(model: @model)
-      $('#contact-container').append(view.render().el)
+  previewContact: (event) ->
+    Backbone.history.navigate('#contacts/preview/' + @model.id, true)
       
   destroyContact: ->
     getrid = confirm "Are you sure you want to delete this contact?"

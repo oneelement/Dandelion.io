@@ -1,5 +1,5 @@
-class RippleApp.Views.Contact extends Backbone.View
-  template: JST['contact_manager/contact']
+class RippleApp.Views.ContactProfile extends Backbone.View
+  template: JST['contact_manager/contact_profile']
   id: 'contact-profile'
     
   events:

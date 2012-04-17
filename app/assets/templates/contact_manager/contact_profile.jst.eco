@@ -28,8 +28,9 @@
         <div style="clear: both"></div>
     </div>
     <form id="contact-profile-details-input-form">
-        <input type="text" name="contact-profile-details-input" id="contact-profile-details-input" class="input-text" placeholder="Add contact details...">
-        <span id="matchtype"></span>
+        <div class="input-append">
+            <input type="text" name="contact-profile-details-input" id="contact-profile-details-input" class="input-text" placeholder="Add contact details..."><span id="matchtype" class="add-on"></span>
+        </div>
     </form>
 
     <% if @contact.emails: %>

@@ -3,26 +3,26 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "": "index"
     "contacts": "indexContact"
     "contacts/show/:id": "show"
+    "contacts/preview/:id": "preview"
     "contacts/new": "new"
 
   initialize: ->
-    @collection = new RippleApp.Collections.Contacts()
+    @contacts = new RippleApp.Collections.Contacts()
     @recentContacts = new RippleApp.Collections.Contacts()
-    @view = new RippleApp.Views.ContactsIndex(collection: @collection)
+    @view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     return @
     
   index: ->
     currentuser = new RippleApp.Models.Currentuser()
     currentuser.fetch(success: (currentuser, response) =>
-      contact_id = response.contact_id
-      @homeContact = new RippleApp.Models.Contact({_id: contact_id})
-      @homeContact.fetch(success: (response) =>
-        @setContextContact(@homeContact)
-      )
+      after = (contact) =>
+        @setContextContact(contact)
+
+      @getContact(response.contact_id, after)
     )
 
   indexContact: ->
-    @collection.fetch(
+    @contacts.fetch(
       success: =>
         RippleApp.layout.setMainView(@view)
     )
@@ -31,20 +31,30 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     view = new RippleApp.Views.ContactNew()
     $('#contact-modal', @el).html(view.render().el)
   
+  #Display the contact, and full detail in the main view
   show: (id) ->
-    @_contextContact = @recentContacts.get(id)
+    after = (contact) =>
+      @recentContacts.add(contact)
+      @setContextContact(contact)
+      @showContact(contact)
 
-    if not @_contextContact?
-      @_contextContact = new RippleApp.Models.Contact({_id: id})
+    @getContact(id, after)
 
-      @_contextContact.fetch(success: (model) =>
-        @recentContacts.add(model)
-        @setContextContact(model)
-        @showContact(model)
-      )
+  #Display the contact card, without full detail
+  preview: (id) ->
+    after = (contact) =>
+      @setContextContact(contact)
+
+    @getContact(id, after)
+
+  getContact: (id, after) ->
+    contact = @contacts.get(id)
+
+    if not contact?
+      contact = new RippleApp.Models.Contact({_id: id})
+      contact.fetch(success: after)
     else
-        @setContextContact(@_contextContact)
-        @showContact(@_contextContact)
+      after(contact)
 
   contextContact: ->
     if @_contextContact?
@@ -54,7 +64,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   setContextContact: (contact) ->
     @_contextContact = contact
-    view = new RippleApp.Views.Contact(model: @_contextContact)
+    view = new RippleApp.Views.ContactProfile(model: @_contextContact)
     RippleApp.layout.setContextView(view)
 
   showContact: (contact) ->
