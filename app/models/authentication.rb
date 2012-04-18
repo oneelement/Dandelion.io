@@ -12,4 +12,6 @@ class Authentication
 
   field :provider
   field :uid
+  field :token
+  field :secret
 end
