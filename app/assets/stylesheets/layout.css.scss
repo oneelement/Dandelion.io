@@ -1,28 +1,42 @@
 #view-layout {
-  margin-top: 40px;
-  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: auto;
 }
 
 #view-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   height: 100%;
   width: 72px;
-  float: left;
+
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 #view-context {
+  position: absolute;
+  top: 0;
+  left: 72px;
+
   height: 100%;
   width: 400px;
-  float: left;
+
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 #view-main {
+  position: absolute;
+  top: 0;
+  left: 472px;
+
   height: 100%;
-  float: left;
-  padding: 1em;
+
+  padding: 10px;
   overflow-x: hidden;
   overflow-y: auto;
 }
