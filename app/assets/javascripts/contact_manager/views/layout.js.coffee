@@ -2,12 +2,6 @@ class RippleApp.Views.Layout extends Backbone.View
   id: 'view-layout'
   template: JST['contact_manager/layout']
 
-  initialize: ->
-    that = @
-    $(window).resize(->
-      that.fitPanesToWindow()
-    )
-
   render: ->
     $(@el).html(@template())
     sidebarView = new RippleApp.Views.Sidebar()
@@ -16,17 +10,6 @@ class RippleApp.Views.Layout extends Backbone.View
 
   setContextView: (view) ->
     $('#view-context', @el).html(view.render().el)
-    @fitPanesToWindow()
 
   setMainView: (view) ->
     $('#view-main', @el).html(view.render().el)
-    @fitPanesToWindow()
-
-  fitPanesToWindow: ->
-    layoutHeight = $(window).height() - $('.navbar').height()
-    @$el.height(layoutHeight)
-
-    mainMargin = $('#view-main').innerWidth() - $('#view-main').width()
-
-    mainWidth = $(window).innerWidth() - $('#view-sidebar', @el).width() - $('#view-context', @el).width() - mainMargin
-    $('#view-main', @el).width(mainWidth)
