@@ -26,38 +26,40 @@
           <h3><%= @contact.name %></h3>
         </div>
         <div style="clear: both"></div>
+        <form id="contact-card-details-input-form">
+            <div class="input-append">
+                <input type="text" name="contact-card-details-input" id="contact-card-details-input" class="input-text" placeholder="Add contact details...">
+                <span id="contact-card-details-input-type" class="add-on"></span>
+            </div>
+        </form>
     </div>
-    <form id="contact-card-details-input-form">
-        <div class="input-append">
-            <input type="text" name="contact-card-details-input" id="contact-card-details-input" class="input-text" placeholder="Add contact details...">
-            <span id="contact-card-details-input-type" class="add-on"></span>
-        </div>
-    </form>
-
-    <% if @contact.emails: %>
-        <% for email in @contact.emails: %>
-            <div class="contact-card-detail">
-              <span><i class="icon-email"></i></span>
-              <span><%= email %></i></span>
-            </div>
+    <div id="contact-card-body">
+        boo
+        <% if @contact.emails: %>
+            <% for email in @contact.emails: %>
+                <div class="contact-card-detail">
+                  <span><i class="icon-email"></i></span>
+                  <span><%= email %></i></span>
+                </div>
+            <% end %>
         <% end %>
-    <% end %>
 
-    <% if @contact.phones: %>
-        <% for phone in @contact.phones: %>
-            <div class="contact-card-detail">
-              <span><i class="icon-phone"></i></span>
-              <span><%= phone %></span>
-            </div>
+        <% if @contact.phones: %>
+            <% for phone in @contact.phones: %>
+                <div class="contact-card-detail">
+                  <span><i class="icon-phone"></i></span>
+                  <span><%= phone %></span>
+                </div>
+            <% end %>
         <% end %>
-    <% end %>
 
-    <% if @contact.addresses: %>
-        <% for address in @contact.addresses: %>
-            <div class="contact-card-detail">
-              <span><i class="icon-address"></i></span>
-              <span><%= address %></span>
-            </div>
+        <% if @contact.addresses: %>
+            <% for address in @contact.addresses: %>
+                <div class="contact-card-detail">
+                  <span><i class="icon-address"></i></span>
+                  <span><%= address %></span>
+                </div>
+            <% end %>
         <% end %>
-    <% end %>
+    </div>
 </div>

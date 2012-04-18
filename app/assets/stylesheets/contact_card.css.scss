@@ -3,37 +3,51 @@
   top: 0;
   left: 0;
 
+  width: 100%;
+  height: 100%;
+
   #contact-card-map {
-    margin: 0;
-    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
     height: 219px;
-    position: relative;
+
     z-index: 0;
   }
 
 
   #contact-card-actions-wrapper {
-    position: relative;
-    margin: -30px 0 30px 0;
-    z-index: 10;
+    position: absolute;
+    top: 190px;
+    left: 0;
+
     width: 100%;
-    padding: 0;
+    height: 20px;
+    z-index: 1;
 
     #contact-card-toggle-actions {
-      float: right;
+      position: absolute;
+      top: 1px;
+      right: 2%;
+
+      height: 20px;
       width: 5%;
     }
 
     #contact-card-actions-bar {
-      float: right;
-      width: 90%;
-      margin-right: 3%;
+      position: absolute;
+      right: 10%;
+
+      height: 20px;
+      width: 85%;
+      overflow: hidden;
     }
 
     #contact-card-actions {
-      height: 20px;
       float: right;
-      overflow: none;
+
       background-color: #ddd;
     }
 
@@ -46,33 +60,54 @@
   }
 
   #contact-card-details {
-    float: left;
-    width: auto;
-    padding: 10px;
     position: absolute;
-    left: 0;
+    top: 225px;
+    left: 10px;
+    right: 10px;
 
     #contact-card-head {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
 
       #contact-card-avatar {
-        margin-right: 1em;
-        float: left;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
       #contact-card-name {
-        margin-top: 2em;
-        float: left;
+        position: absolute;
+        top: 2em;
+        left: 100px;
+      }
+
+      #contact-card-details-input-form {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        right: 0;
+
+        #contact-card-details-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 30%
+        }
+        #contact-card-details-input-type {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 70%;
+        }
       }
     }
 
-    #contact-card-details-input-form {
-      width: 100%;
-
-      #contact-card-details-input {
-        width: 75%;
-      }
-      #contact-card-details-input-type {
-        width: 24%;
-      }
+    #contact-card-body {
+      position: absolute;
+      top: 130px;
+      left: 0;
     }
+
   }
 }
