@@ -1,16 +1,17 @@
 #view-layout {
   position: absolute;
   top: 40px;
+  bottom: 0;
   left: 0;
-  width: auto;
+  right: 0;
 }
 
 #view-sidebar {
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
 
-  height: 100%;
   width: 72px;
 
   overflow-x: hidden;
@@ -20,9 +21,9 @@
 #view-context {
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 72px;
 
-  height: 100%;
   width: 400px;
 
   overflow-x: hidden;
@@ -32,9 +33,9 @@
 #view-main {
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 472px;
-
-  height: 100%;
+  right: 0;
 
   padding: 10px;
   overflow-x: hidden;

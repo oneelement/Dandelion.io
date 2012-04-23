@@ -17,6 +17,14 @@ class Address
   field :postcode, :type => String
   
   field :coordinates, :type => Array
+
+  def self.type_json_name
+    ''
+  end
+
+  def type_json_name
+    self.class.type_json_name
+  end
   
   def full_address
     address = "#{self.line1}, #{self.line2}, #{self.city}, #{self.county}, #{self.postcode}"
@@ -24,20 +32,12 @@ class Address
     return address
   end
 
+  acts_as_api
 
-  #Validation
-  #validates_presence_of :line1
-  #validates_presence_of :postcode
+  api_accessible :contact do |t|
+    t.add :type_json_name, :as => :type
+    t.add :full_address
+    t.add :coordinates
+  end
+
 end
-
-class HomeAddress < Address
-end
-
-class BusinessAddress < Address
-end
-
-class CustomAddress < Address
-  field :custom_name, :type => String
-end
-
-

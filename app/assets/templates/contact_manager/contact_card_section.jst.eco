@@ -1,0 +1,2 @@
+<p class="contact-card-section-title"><%= @title %></p>
+<ul class="contact-details-list"></ul>

@@ -1,30 +1,30 @@
 class RippleApp.Lib.DetailsMatcher
   matchers:
-    mobilePhone:
+    "Mobile":
       exprs: [
         /^(\+44|0)7(\d|\s)*$/,
       ]
-      rank: 1
-    landline:
+    "Home Phone":
       exprs: [
         /^(\+|\d)(\d|\s)*$/,
       ]
-      rank: 2
-    email:
+    "D.O.B":
+      exprs: [
+        /^\d{1,2}\/\d{1,2}\/\d{2}$/,
+        /^\d{1,2}\/\d{1,2}\/\d{4}$/,
+      ]
+    "Email":
       exprs: [
         /^.+@.*$/,
       ]
-      rank: 3
-    address:
+    "Address":
       exprs: [
         /^.+,.+$/,
       ]
-      rank: 4
-    notes:
+    "Note":
       exprs: [
         /^.+$/,
       ]
-      rank: 5
 
   constructor: (@matchText) ->
     @match()
@@ -43,15 +43,7 @@ class RippleApp.Lib.DetailsMatcher
 
   topMatch: ->
     if @matches.length > 0
-      result = @matches[0]
-      matchers = @matchers
-
-      _.each(@matches, (key) ->
-        if matchers[key].rank < matchers[result].rank
-          result = key
-      )
-
-      return result
+      return @matches[0]
     else
       return null
 
