@@ -17,6 +17,92 @@ span.ripicon {
   background-position: -14px 0px;
 }
 
+$sm-icon-size: 14px;
+
+span.c-sm-icon {
+  background-image: url("/assets/ripple-c-sm-icon-14.png");
+  height: $sm-icon-size;
+  width: $sm-icon-size;
+  display: inline-block;
+}
+.c-sm-icon-reload {
+  background-position: -0*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-group-add {
+  background-position: -1*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-bin-dark {
+  background-position: -2*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-bin-light {
+  background-position: -3*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-contact {
+  background-position: -4*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-contact-add {
+  background-position: -5*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-star-inactive {
+  background-position: -6*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-house {
+  background-position: -7*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-pencil-dark {
+  background-position: -8*$sm-icon-size -0*$sm-icon-size;
+}
+.c-sm-icon-building-dark {
+  background-position: -9*$sm-icon-size -0*$sm-icon-size;
+}
+
+.c-sm-icon-iphone {
+  background-position: -0*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-mobile {
+  background-position: -1*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-mobile-antenna {
+  background-position: -2*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-blackberry {
+  background-position: -3*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-phone {
+  background-position: -4*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-full-phone {
+  background-position: -5*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-star-active {
+  background-position: -6*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-envelope {
+  background-position: -7*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-pencil-coloured{
+  background-position: -8*$sm-icon-size -1*$sm-icon-size;
+}
+.c-sm-icon-building-light {
+  background-position: -9*$sm-icon-size -1*$sm-icon-size;
+}
+
+.c-sm-icon-facebook {
+  background-position: -0*$sm-icon-size -2*$sm-icon-size;
+}
+.c-sm-icon-twitter {
+  background-position: -1*$sm-icon-size -2*$sm-icon-size;
+}
+.c-sm-icon-linkedin {
+  background-position: -2*$sm-icon-size -2*$sm-icon-size;
+}
+.c-sm-icon-google {
+  background-position: -3*$sm-icon-size -2*$sm-icon-size;
+}
+.c-sm-icon-skype {
+  background-position: -4*$sm-icon-size -2*$sm-icon-size;
+}
+
 $lg-icon-size: 48px;
 
 span.c-lg-icon {

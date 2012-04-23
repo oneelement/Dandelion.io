@@ -1,5 +1,5 @@
 <div id="contact-card-map">
-    <img src="http://placehold.it/400x216"/>
+    <img src="http://placehold.it/380x216"/>
     <!--img src="http://maps.google.com/maps/api/staticmap?size=330x200&sensor=false&maptype=hybrid&zoom=16&markers=address.get('coordinates')[1]%2Caddress.get('coordinates')[0]"/-->
 </div>
 <div id="contact-card-actions-wrapper">
@@ -25,41 +25,15 @@
         <div id="contact-card-name">
           <h3><%= @contact.name %></h3>
         </div>
-        <div style="clear: both"></div>
         <form id="contact-card-details-input-form">
-            <div class="input-append">
-                <input type="text" name="contact-card-details-input" id="contact-card-details-input" class="input-text" placeholder="Add contact details...">
-                <span id="contact-card-details-input-type" class="add-on"></span>
+            <div class="input-append" id="contact-card-details-input">
+                <input type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
+                <span class="add-on">
+                    <span id="contact-card-details-input-type">...</span>
+                <span>
             </div>
         </form>
     </div>
     <div id="contact-card-body">
-        boo
-        <% if @contact.emails: %>
-            <% for email in @contact.emails: %>
-                <div class="contact-card-detail">
-                  <span><i class="icon-email"></i></span>
-                  <span><%= email %></i></span>
-                </div>
-            <% end %>
-        <% end %>
-
-        <% if @contact.phones: %>
-            <% for phone in @contact.phones: %>
-                <div class="contact-card-detail">
-                  <span><i class="icon-phone"></i></span>
-                  <span><%= phone %></span>
-                </div>
-            <% end %>
-        <% end %>
-
-        <% if @contact.addresses: %>
-            <% for address in @contact.addresses: %>
-                <div class="contact-card-detail">
-                  <span><i class="icon-address"></i></span>
-                  <span><%= address %></span>
-                </div>
-            <% end %>
-        <% end %>
     </div>
 </div>
