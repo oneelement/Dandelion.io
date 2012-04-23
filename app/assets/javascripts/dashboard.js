@@ -1,3 +1,4 @@
+if (window.location.hash == '#_=_')window.location.hash = '';
 var tags = (function () {
     var json = null;
     $.ajax({

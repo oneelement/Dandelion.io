@@ -14,7 +14,14 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
   home: ->
     after = (contact) =>
-      @setContextContact(contact)
+      @setContextContact(contact)   
+    
+    @tweets = new RippleApp.Collections.Tweets([], { query : "cats" }) 
+    view = new RippleApp.Views.HomePage(model: @currentUser, collection: @tweets)
+    @tweets.fetch(success: (collection) ->
+      RippleApp.layout.setMainView(view)
+    )
+    
 
     if @currentUser.isNew()
       @currentUser.fetchCurrent(success: (model) =>

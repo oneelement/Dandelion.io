@@ -1,1 +1,20 @@
-<div id="contact-home"></div>
+<div id="contact-home">HELLO WORLD</div>
+<%= @user.email %>
+<% for auth in @user.authentications.models: %>
+  <%= auth.get('provider') %>
+  <%= auth.get('token') %>
+<% end %>
+
+
+
+<form id="search_form" action="" method="GET">
+    <label for="q">Search Twitter for</label>
+    <input autocomplete="off" autofocus="true" type="text" name="q" id="q" value="" />
+    <input type="submit" id="button" value="Go" />
+</form>
+
+<ul id="tweets">
+</ul>
+
+
+

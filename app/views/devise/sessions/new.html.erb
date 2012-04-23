@@ -1,20 +1,35 @@
-<h2>Sign in</h2>
+<div class="sign-types">
+    <h2>Sign in below</h2>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <div><%= f.label :email %>
+      <%= f.email_field :email %></div>
+      <div><%= f.label :password %>
+      <%= f.password_field :password %></div>
+      <% if devise_mapping.rememberable? -%>
+	<div id="remember-me">
+	  <%= f.check_box :remember_me, :class => 'remember-me' %> 
+	  <%= f.label :remember_me, :class => 'remember-me' %>
+	</div>
+      <% end -%>
+      <div><%= f.submit "Sign in", :class => 'btn btn-primary' %></div>
+    <% end %>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %>
-  <%= f.email_field :email %></div>
+    <%= render "links" %>
+</div>
 
-  <div><%= f.label :password %>
-  <%= f.password_field :password %></div>
+<div class="sign-types">
+    <h2>...or with one of these</h2>
 
-  <% if devise_mapping.rememberable? -%>
-    <div id="remember-me">
-      <%= f.check_box :remember_me, :class => 'remember-me' %> 
-      <%= f.label :remember_me, :class => 'remember-me' %>
-    </div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in", :class => 'btn btn-primary' %></div>
-<% end %>
-
-<%= render "links" %>
+    <% Authentication.available_providers.each do |auth, display_name| %>
+      <% link = if @user.authenticated_with?(auth) then "#" else "/auth/#{auth}" end %>
+	<div class="sign-socials">
+	<a href="<%= link %>" class="authentication">
+	  <%= image_tag "authentications/#{auth.to_s}_64.png", :size => "64x64", :class => 'authentication-icon' %>
+	  <!--<span class="authentication-name"><%= display_name %></span>-->
+	  <div style="clear: both"></div>
+	</a>
+	</div>
+    <% end %>
+    <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>

@@ -1,6 +1,6 @@
 class Authentication
   include Mongoid::Document
-  embedded_in :user
+  belongs_to :user
 
   def self.available_providers 
     {

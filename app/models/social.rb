@@ -13,5 +13,5 @@ end
 class Linkedin < Social
 end
 
-class Twitter < Social
+class TwitterSocial < Social
 end
