@@ -1,9 +1,6 @@
 <div id="contact-home">HELLO WORLD</div>
-<%= @user.email %>
-<% for auth in @user.authentications.models: %>
-  <%= auth.get('provider') %>
-  <%= auth.get('token') %>
-<% end %>
+<%= @contact.email %>
+
 
 
 
@@ -15,6 +12,14 @@
 
 <ul id="tweets">
 </ul>
+
+<div id="twitter-wrapper">
+</div>
+
+<div id="facebook-wrapper">
+</div>
+
+
 
 
 

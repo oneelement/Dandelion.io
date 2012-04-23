@@ -1,4 +1,4 @@
-<%= @tweet.text %> by
-<%= @tweet.user.screen_name %>
+<%= @tweet.text %>
 
+<% console.log("test") %>
 <% console.log(@tweet) %>
