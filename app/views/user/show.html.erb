@@ -22,6 +22,10 @@
       <h3>Connect your account</h3>
       <p>Contact search and creation will be assisted using contact information from your connected social networks.</p>
       <ul>
+	<% auth_ids = Hash.new %>
+	  <% @user.authentications.each do |authentication| %>
+	  <% auth_ids[authentication.provider] = authentication._id.to_s %>
+	<% end %>
         <% Authentication.available_providers.each do |auth, display_name| %>
           <% link = if @user.authenticated_with?(auth) then "#" else "/auth/#{auth}" end %>
           <li id="authentication-<%= auth.to_s %>">
@@ -36,9 +40,19 @@
               <% end %>
               <div style="clear: both"></div>
             </a>
+	    <% if auth_ids.has_key?(auth.to_s) %>
+	      <% disconnect_url = "/authentications/" + auth_ids[auth.to_s] %>
+	      <%= link_to "Disconnect", disconnect_url, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>	    
+	    <% end %>
           </li>
         <% end %>
       </ul>
+    </div>
+    <div>
+      <% if auth_ids.has_key?('twitter') %>
+	<%= @user.tweeting.user_timeline("chestermano").first.text %>
+	<%= @user.tweeting.home_timeline.first.text %>
+      <% end %>
     </div>
   </div>
   <div style="clear: both"></div>

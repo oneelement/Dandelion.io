@@ -1,1 +1,26 @@
-<div id="contact-home"></div>
+<div id="contact-home">HELLO WORLD</div>
+<%= @contact.email %>
+
+
+
+
+<form id="search_form" action="" method="GET">
+    <label for="q">Search Twitter for</label>
+    <input autocomplete="off" autofocus="true" type="text" name="q" id="q" value="" />
+    <input type="submit" id="button" value="Go" />
+</form>
+
+
+
+<div id="twitter-wrapper">
+  <ul id="tweets">
+  </ul>
+</div>
+
+<div id="facebook-wrapper">
+</div>
+
+
+
+
+

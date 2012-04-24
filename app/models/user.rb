@@ -15,7 +15,7 @@ class User
   has_many :contacts
   has_many :tasks
   has_many :favorites
-  embeds_many :authentications
+  has_many :authentications, :dependent => :delete
   
   accepts_nested_attributes_for :organisation, :contacts
   
@@ -73,7 +73,7 @@ class User
   end
   
   def as_json(options = nil)
-    super((options || {}).merge(include: { favorites: { only: [:favorite_id] } }))
+    super((options || {}).merge(include: { authentications: { only: [:token, :provider] } }))
   end
   
   def full_name
@@ -82,5 +82,62 @@ class User
 
   def authenticated_with?(auth)
     return (authentications.where(provider: auth.to_s).count > 0)
+  end
+  
+  #def apply_omniauth(omniauth)
+    #authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  #end
+  
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+  
+  def apply_omniauth(omniauth)
+    self.email = omniauth['info']['email'] unless omniauth['info']['email'].blank?
+    apply_trusted_services(omniauth) if self.new_record?
+  end
+  
+  def apply_trusted_services(omniauth) 
+    #info = omniauth['info']
+    #if omniauth['extra'] && omniauth['extra']['user_hash']
+      #user_info.merge!(omniauth['extra']['user_hash'])
+    #end 
+    if self.first_name.blank?
+      if omniauth['info']['first_name']
+	self.first_name = omniauth['info']['first_name'] unless omniauth['info']['first_name'].blank? #"joe" #(user_info['first_name']) unless user_info['first_name'].blank?
+      elsif omniauth['info']['name']
+	self.first_name = omniauth['info']['name'] unless omniauth['info']['name'].blank?
+      elsif omniauth['info']['nickname']
+	self.first_name = omniauth['info']['nickname'] unless omniauth['info']['nickname'].blank?
+      end
+    end  
+    if self.last_name.blank?
+      if omniauth['info']['last_name']
+	self.last_name = omniauth['info']['last_name'] unless omniauth['info']['last_name'].blank? #"joe" #(user_info['first_name']) unless user_info['first_name'].blank?
+      else
+	self.last_name = ""
+      end
+    end  
+    if self.email.blank?
+      if omniauth['info']['email']
+	self.email = omniauth['info']['email'] unless omniauth['info']['email'].blank? #"joe" #(user_info['first_name']) unless user_info['first_name'].blank?
+      else
+	self.email = "" #user_info['email'] unless user_info['email'].blank?
+      end
+    end 
+    self.password, self.password_confirmation = String::RandomString(16) 
+    self.user_type_id = UserType.get_consumer.id
+  end
+  
+  
+  def tweeting
+    provider = self.authentications.where(:provider => 'twitter').first
+    Twitter.configure do |config|
+      config.consumer_key = 'ABP2ZruFX54U9FpM3HOzNg'
+      config.consumer_secret = '7sk9KK4mraEdpv9vvJfgeySnLsukauxOwQeK88WuhA'
+      config.oauth_token = provider.token
+      config.oauth_token_secret = provider.secret
+    end
+    @tweeting ||= Twitter::Client.new
   end
 end

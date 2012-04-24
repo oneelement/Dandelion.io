@@ -8,7 +8,7 @@
 
 #sign-container {
   margin: 40px auto;
-  width: 500px;  
+  width: 600px;  
 }
 
 #sign-logo {
@@ -18,6 +18,15 @@
     text-align: center;
     color: #FFF;
   }
+}
+
+.sign-types {
+  float: left;
+  width: 280px;
+}
+
+.sign-socials {
+  float: left;
 }
 
 #sign-content {

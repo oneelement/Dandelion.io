@@ -1,14 +1,17 @@
 class Authentication
   include Mongoid::Document
-  embedded_in :user
+  belongs_to :user
 
   def self.available_providers 
     {
       :linkedin => 'LinkedIn',
-      :facebook => 'Facebook'
+      :facebook => 'Facebook',
+      :twitter => 'Twitter'
     }
   end
 
   field :provider
   field :uid
+  field :token
+  field :secret
 end

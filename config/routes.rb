@@ -1,4 +1,6 @@
 Onelement::Application.routes.draw do
+  
+  resources :authentications
 
   resources :favorites
 
@@ -29,8 +31,8 @@ Onelement::Application.routes.draw do
 
   resources :entities
 
-  devise_for :users
-
+  devise_for :users, :controllers => {:registrations => 'registrations'}
+  
   resources :organisations
 
   resources :contacts do
@@ -51,6 +53,8 @@ Onelement::Application.routes.draw do
   root :to => "home#index"
 
   match '/auth/:provider/callback' => 'authentications#create'
+  
+  match '/auth/failure' => 'authentications#create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

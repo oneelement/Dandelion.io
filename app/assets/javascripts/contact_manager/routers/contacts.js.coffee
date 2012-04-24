@@ -14,7 +14,14 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
   home: ->
     after = (contact) =>
-      @setContextContact(contact)
+      @setContextContact(contact)   
+    
+    #im thinking this could be incorporated into the logic below, i dont get the isNew bit as I though
+    #the user model will always have been saved to the server. DA to clarify. OC
+    @currentUser.fetchCurrent(success: (model) =>
+      view = new RippleApp.Views.HomePage(model: model)
+      RippleApp.layout.setMainView(view)
+    )    
 
     if @currentUser.isNew()
       @currentUser.fetchCurrent(success: (model) =>

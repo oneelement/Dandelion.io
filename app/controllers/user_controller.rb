@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  
   layout "home"
   load_and_authorize_resource
   
@@ -47,7 +48,7 @@ class UserController < ApplicationController
   # GET /user/1.json
   def show
     @user = User.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -86,6 +87,12 @@ class UserController < ApplicationController
     if current_user 
       @user.update_attributes(organisation_id: current_user.organisation_id)
     end
+    #if @user.save
+      #if session[:omniauth]
+	#@user.authentications.create!(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'])
+      #end
+    #end
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
