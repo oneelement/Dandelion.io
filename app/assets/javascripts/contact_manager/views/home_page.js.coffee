@@ -6,7 +6,8 @@ class RippleApp.Views.HomePage extends Backbone.View
   
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
-    @getTweets()    
+    #@getTweets()   
+    @getTwitter()
     this
     
   getTwitter: =>
@@ -16,17 +17,22 @@ class RippleApp.Views.HomePage extends Backbone.View
     @tweets = new RippleApp.Collections.Tweets([], { query : test })
     #@collection.each(@appendTweet)
     @tweets.fetch(success: (collection) =>
-      @getTweets()
+      console.log(collection)
+      view = new RippleApp.Views.Twitter(collection: collection)
+      $('#twitter-wrapper').append(view.render().el)
+      #@getTweets()
+      #collection.each(@appendTweet)
     )
     
   getFacebook: =>
     console.log("TBC")
     
-    
-  #appendTweet: (tweet) ->
-    #view = new RippleApp.Views.Tweet(model: tweet)
-    #$('#tweets').append(view.render().el)
-    
+  #redundant function, dont delete. OC  
+  appendTweet: (tweet) ->
+    view = new RippleApp.Views.Tweet(model: tweet)
+    $('#tweets').append(view.render().el)
+  
+  #redundant function, dont delete. OC
   getTweets: ->
     view = new RippleApp.Views.Twitter(collection: @tweets)
     $('#twitter-wrapper').append(view.render().el)

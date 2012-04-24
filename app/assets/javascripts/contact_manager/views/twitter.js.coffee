@@ -1,25 +1,37 @@
 class RippleApp.Views.Twitter extends Backbone.View
   template: JST['contact_manager/twitter']
+  tagName: 'ul'
+  #id: 'tweets'
     
-  render: =>    
-    $(@el).html(@template)
+  initialize: ->
+    @collection.on('reset', @render, this)
+    @collection.on('add', @render, this)
+    @collection.on('destroy', @render, this)
+
+  render: ->    
+    $(@el).html(@template())
+    console.log(@collection)
     @collection.each(@appendTweet) 
     this    
         
   getTweets: ->
     @collection.each(@appendTweet)
   
-  appendTweet: (tweet) ->
+  appendTweet: (tweet) =>
+    console.log(tweet)
     view = new RippleApp.Views.Tweet(model: tweet)
     $('#tweets').append(view.render().el)
+    # i dont get why this isn't rendering within this element but does in the id within homepage. ask DA
     
-  ##code below is redundant but DONT delete - OC
     
+    
+  #redundant function, dont delete. OC  
   outputAuth: (auth) ->    
     console.log("1")
     console.log(auth)
     test = auth._id
     
+  #redundant function, dont delete. OC  
   searchTwitter: =>
     console.log("search twitter")
     #event.preventDefault() 

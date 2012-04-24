@@ -10,10 +10,11 @@
     <input type="submit" id="button" value="Go" />
 </form>
 
-<ul id="tweets">
-</ul>
+
 
 <div id="twitter-wrapper">
+  <ul id="tweets">
+  </ul>
 </div>
 
 <div id="facebook-wrapper">

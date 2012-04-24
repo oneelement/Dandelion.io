@@ -1,4 +1,4 @@
 <%= @tweet.text %>
-
+test
 <% console.log("test") %>
 <% console.log(@tweet) %>
