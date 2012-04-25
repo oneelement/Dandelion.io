@@ -3,18 +3,32 @@ class RippleApp.Views.HomePage extends Backbone.View
   
   initialize: ->
     @model.on('change', @render, this)
+    @contact = @options.contact
+    console.log(@contact)
   
   render: ->
-    $(@el).html(@template(contact: @model.toJSON()))
+    $(@el).html(@template(user: @model.toJSON(), contact: @contact.toJSON()))
     #@getTweets()   
     @getTwitter()
     this
     
-  getTwitter: =>
-    console.log(@model)
-    test = @model.get('first_name')
-    console.log(test)
-    @tweets = new RippleApp.Collections.Tweets([], { query : test })
+  getSocialId: (socialnetwork) ->
+    socials = @contact.get('socials')
+    #console.log(socials)
+    network = socials.filter (social) => 
+      social.get("type") == socialnetwork
+    #console.log(network)
+    social_id = network[0].get('social_id')
+    #console.log(social_id)
+    #@getTwitter(twitter_id)
+    return social_id
+    
+  getTwitter: ->
+    #social_id = @getSocialId('facebook')
+    social_id = "chestermano"
+    #url = "https://search.twitter.com/search.json?q=" + social_id + "&callback=?"
+    url = "https://api.twitter.com/1/statuses/user_timeline.json?count=5&screen_name=" + social_id
+    @tweets = new RippleApp.Collections.Tweets()
     #@collection.each(@appendTweet)
     @tweets.fetch(success: (collection) =>
       console.log(collection)
@@ -26,6 +40,7 @@ class RippleApp.Views.HomePage extends Backbone.View
     
   getFacebook: =>
     console.log("TBC")
+    
     
   #redundant function, dont delete. OC  
   appendTweet: (tweet) ->

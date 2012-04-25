@@ -10,7 +10,7 @@ class RippleApp.Views.Twitter extends Backbone.View
 
   render: ->    
     $(@el).html(@template())
-    console.log(@collection)
+    #console.log(@collection)
     @collection.each(@appendTweet) 
     this    
         
@@ -18,7 +18,7 @@ class RippleApp.Views.Twitter extends Backbone.View
     @collection.each(@appendTweet)
   
   appendTweet: (tweet) =>
-    console.log(tweet)
+    #console.log(tweet)
     view = new RippleApp.Views.Tweet(model: tweet)
     $('#tweets').append(view.render().el)
     # i dont get why this isn't rendering within this element but does in the id within homepage. ask DA

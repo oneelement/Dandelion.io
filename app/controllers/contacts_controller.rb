@@ -29,7 +29,7 @@ class ContactsController < ApplicationController
 
     if @contact.socials.length == 0
       test_linkedin = SocialLinkedin.new(social_id: 'Example Name')
-      test_twitter = SocialTwitter.new(social_id: '@examplename')
+      test_twitter = SocialTwitter.new(social_id: 'chestermano')
       test_facebook = SocialFacebook.new(social_id: 'Example Name')
       @contact.socials << test_linkedin
       @contact.socials << test_twitter

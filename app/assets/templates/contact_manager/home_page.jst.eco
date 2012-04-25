@@ -1,7 +1,7 @@
 <div id="contact-home">HELLO WORLD</div>
-<%= @contact.email %>
-
-
+<%= @user.email %>
+<% console.log(@contact) %>
+<%= @contact.name %>
 
 
 <form id="search_form" action="" method="GET">

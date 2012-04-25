@@ -1,5 +1,7 @@
 Onelement::Application.routes.draw do
   
+  resources :twitter_feeds
+
   resources :authentications
 
   resources :favorites
