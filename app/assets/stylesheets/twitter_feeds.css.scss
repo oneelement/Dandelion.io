@@ -1,3 +1,50 @@
 // Place all the styles related to the TwitterFeeds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#tweets {
+  border: 1px solid #CCC;
+  margin: 0px;
+  padding: 0px;
+  @include border-radius(8px);
+}
+
+#tweets-loading img{
+  margin: 0px auto;
+  text-align: center;
+  display: block;
+}
+
+.tweets-header {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+}
+
+.tweet-header {
+  img {
+      position: absolute;
+      top: 10px;
+      left: 10px;   
+      @include border-radius(5px);
+  } 
+  .tweet-name {
+    font-weight: bold;
+    margin: 0px 0px 0px 60px;
+  }
+  .tweet-screen-name {
+    margin: 0px 0px 0px 60px;
+  }
+}
+
+.tweet-content {
+  margin: 0px 0px 0px 60px;
+}
+
+.tweet {
+  padding: 10px;
+  border-top: 1px solid #CCC;
+  position: relative;
+}
+

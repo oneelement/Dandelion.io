@@ -10,6 +10,8 @@ class RippleApp.Views.HomePage extends Backbone.View
     $(@el).html(@template(user: @model.toJSON(), contact: @contact.toJSON()))
     #@getTweets()   
     @getTwitter()
+    @getFacebook()
+    @getLinkedin()
     this
     
   getSocialId: (socialnetwork) ->
@@ -27,19 +29,40 @@ class RippleApp.Views.HomePage extends Backbone.View
     #social_id = @getSocialId('facebook')
     social_id = "chestermano"
     #url = "https://search.twitter.com/search.json?q=" + social_id + "&callback=?"
-    url = "https://api.twitter.com/1/statuses/user_timeline.json?count=5&screen_name=" + social_id
-    @tweets = new RippleApp.Collections.Tweets()
+    call = "/show"
+    @tweets = new RippleApp.Collections.Tweets([], { call : call })
     #@collection.each(@appendTweet)
     @tweets.fetch(success: (collection) =>
       console.log(collection)
       view = new RippleApp.Views.Twitter(collection: collection)
       $('#twitter-wrapper').append(view.render().el)
+      $('#tweets-loading').addClass('disabled')
       #@getTweets()
       #collection.each(@appendTweet)
     )
     
   getFacebook: =>
-    console.log("TBC")
+    #social_id = @getSocialId('facebook')
+    social_id = "chestermano"
+    call = "/show"
+    @faces = new RippleApp.Collections.Faces([], { call : call })
+    @faces.fetch(success: (collection) =>
+      console.log(collection)
+      view = new RippleApp.Views.Facebook(collection: collection)
+      $('#facebook-wrapper').append(view.render().el)
+      $('#faces-loading').addClass('disabled')
+    )
+    
+  getLinkedin: =>
+    #social_id = @getSocialId('facebook')
+    social_id = "chestermano"
+    call = "/show"
+    @linkedins = new RippleApp.Collections.Linkedins([], { call : call })
+    @linkedins.fetch(success: (collection) =>
+      console.log(collection)
+      view = new RippleApp.Views.Linkedin(collection: collection)
+      $('#linkedin-wrapper').append(view.render().el)
+    )
     
     
   #redundant function, dont delete. OC  

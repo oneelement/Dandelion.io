@@ -7,7 +7,7 @@ class RippleApp.Views.Facebook extends Backbone.View
     this    
   
   appendFace: (face) ->
-    view = new RippleApp.Views.Tweet(model: face)
+    view = new RippleApp.Views.Face(model: face)
     $('#faces').append(view.render().el)  
 
 

@@ -48,6 +48,22 @@ class UserController < ApplicationController
   # GET /user/1.json
   def show
     @user = User.find(params[:id])
+    if @user.facebook
+      @friends = @user.facebook.get_connections("me", "friends")
+      @friends.each do |face|
+	name = face["name"]
+	id = face["id"]
+	if FacebookFriend.where(:facebook_id => id).exists?
+	else
+	  friend = FacebookFriend.new(:name => name, :facebook_id => id, :user_id => current_user.id)
+	  friend.save
+	end
+      end
+      @facefriends = FacebookFriend.where(:user_id => current_user.id).asc(:name)
+      @facefriends = @facefriends.where(:contact_id.exists => false)
+    end
+    #@friends.sort_by{|e| e["name"]}
+    
     
     respond_to do |format|
       format.html # show.html.erb

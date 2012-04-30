@@ -1,4 +1,21 @@
 if (window.location.hash == '#_=_')window.location.hash = '';
+
+$(document).ready(function(){
+  $('#select_all').click(function(event) { 
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+  });
+  $('#deselect_all').click(function(event) { 
+        $(':checkbox').each(function() {
+            this.checked = false;                        
+        });
+  });
+  $("#facebook_import_submit").click(function() { $("#facebook_import").submit(); });
+});
+
+
+
 var tags = (function () {
     var json = null;
     $.ajax({

@@ -11,3 +11,4 @@
 //= require vendor
 //= require bootstrap
 //= require dashboard
+//= require user

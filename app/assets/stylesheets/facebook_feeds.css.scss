@@ -1,0 +1,54 @@
+// Place all the styles related to the TwitterFeeds controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#faces {
+  border: 1px solid #CCC;
+  margin: 0px;
+  padding: 0px;
+  @include border-radius(8px);
+}
+
+#faces-loading img{
+  margin: 0px auto;
+  text-align: center;
+  display: block;
+}
+
+.faces-header {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+}
+
+.face-image {
+  width: 48px;
+  float: left;
+  img {
+      @include border-radius(5px);
+      height: 48px;
+      width: 48px;
+  }
+}
+
+.face-header {
+  .face-name {
+    font-weight: bold;
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+.face-content {
+  margin: 0px 0px 0px 0px;
+  .face-story {
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+.face {
+  padding: 10px;
+  border-top: 1px solid #CCC;
+  position: relative;
+}
+

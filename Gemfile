@@ -16,7 +16,9 @@ gem 'omniauth'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'twitter'
+gem 'twitter' #api for twitter
+gem 'koala' #api for facebook
+gem 'linkedin' #api for linkedin
 
 # Gems used only for assets and not required
 # in production environments by default.
