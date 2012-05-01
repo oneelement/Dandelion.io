@@ -1,57 +1,18 @@
-<div id="<%= @contact.get('_id') %>">
-  <div class="contact-profile-map">
-    <% for address in @contact.addresses.models: %>
-   
-      <img src="http://maps.google.com/maps/api/staticmap?size=330x200&sensor=false&maptype=hybrid&zoom=16&markers=<%= address.get('coordinates')[1] %>%2C<%= address.get('coordinates')[0] %>"/>
-    
-    <% end %>
-  </div>
-  <div class="contact-profile-map-cover">
-  </div>
-  <div class="contact-profile-head">
-    <div class="contact-profile-avatar" style="background-color: black">
-        <span class="c-lg-icon c-lg-icon-contact"></span>
-    </div>
-    <div class="contact-profile-name">
-      <h3><%= @contact.get('name') %></h3>
-      <p>Contact position at Contact Company</p>
-    </div>
-  </div>
-
-<form id="contact-profile-input-form">
-  <input type="text" name="contact-profile-input" id="contact-profile-input" class="input-text" placeholder="Add contact details..."></br>
-</form>
-<span style="color: red" id='matchtype'></span>
-
-  <div class="contact-profile-details">
-      <span><i class="icon-envelope icon-white"></i></span>
-      <span><%= @contact.get('email') %></i></span>
-  </div>
-
-  <div class="contact-profile-details">
-      <span><i class="icon-envelope icon-white"></i></span>
-      <span><%= @contact.get('_id') %></i></span>
-  </div>
-
-<% for address in @contact.addresses.models: %>
-  <div class="contact-profile-details">
-      <span><i class="icon-envelope icon-white"></i></span>
-      <span><%= address.get('postcode') %></i></span>
-  </div>
-<% end %>
-
-<% for phone in @contact.phones.models: %>
-  <div class="contact-profile-details">
-      <span><i class="icon-envelope icon-white"></i></span>
-      <span><%= phone.get('phone_number') %></i></span>
-  </div>
-<% end %>
-
-<div class="contact-profile-details">
-    <span>Favorite?</span>
-    <span class="favorite-ind"></span>
+<div id="twitter-wrapper">  
+  <ul id="tweets">
+    <li class="tweets-header">Twitter Feed</li>
+    <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
+  </ul>
 </div>
 
+<div id="facebook-wrapper">
+  <ul id="faces">
+    <li class="faces-header">Facebook Feed</li>
+    <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
+  </ul>
+</div>
 
-  
+<div id="linkedin-wrapper">
+  <ul id="linkedins">
+  </ul>
 </div>

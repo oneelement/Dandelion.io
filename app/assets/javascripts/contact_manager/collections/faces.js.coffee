@@ -7,7 +7,7 @@ class RippleApp.Collections.Faces extends Backbone.Collection
     this.call = options.call
     
   url: ->
-    '/facebook_feeds' # + this.call
+    '/facebook_feeds/' + this.call
     
   #parse: (data) ->
     #data.results

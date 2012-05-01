@@ -85,5 +85,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     RippleApp.layout.setContextView(view)
 
   showContact: (contact) ->
-    showView = new RippleApp.Views.ContactsShow(model: contact)
-    RippleApp.layout.setMainView(showView)
+    @currentUser.fetchCurrent(success: (model) =>
+      showView = new RippleApp.Views.ContactShow(model: contact, user: model)
+      RippleApp.layout.setMainView(showView)
+    )
+
+

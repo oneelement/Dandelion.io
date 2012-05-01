@@ -7,7 +7,7 @@ class RippleApp.Collections.Tweets extends Backbone.Collection
     this.call = options.call
     
   url: ->
-    '/twitter_feeds/timeline' # + this.call
+    '/twitter_feeds/' + this.call
     
   #parse: (data) ->
     #data.results

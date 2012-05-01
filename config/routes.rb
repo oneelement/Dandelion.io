@@ -6,10 +6,13 @@ Onelement::Application.routes.draw do
 
   resources :linkedin_feeds
 
-  resources :facebook_feeds
+  resources :facebook_feeds do
+    get 'feed', :on => :collection
+  end
 
   resources :twitter_feeds do
-    get 'timeline', :on => :collection
+    get 'hometimeline', :on => :collection
+    get 'contacttimeline', :on => :collection
   end
 
   resources :authentications

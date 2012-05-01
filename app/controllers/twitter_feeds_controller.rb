@@ -19,9 +19,20 @@ class TwitterFeedsController < ApplicationController
     render :json => list.to_json
   end
   
-  def timeline
+  def hometimeline
     @user = User.find(current_user.id)
     tweets = @user.tweeting.user_timeline(count: '10', exclude_replies: 1)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: tweets }
+    end
+  end
+  
+  def contacttimeline
+    social_id = params[:id]
+    @user = User.find(current_user.id)
+    tweets = @user.tweeting.user_timeline(screen_name: social_id, count: '10', exclude_replies: 1)
 
     respond_to do |format|
       format.html # index.html.erb
