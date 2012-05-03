@@ -11,4 +11,5 @@
 //= require vendor
 //= require bootstrap
 //= require dashboard
+//= require dataTables/jquery.dataTables
 //= require user

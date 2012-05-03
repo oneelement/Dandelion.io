@@ -29,9 +29,6 @@
   </div>
   <div id="top-navigation">
     <ul class="nav">
-<li>
-	<a data-toggle="modal" href="#myModal" >Add Contact</a>
-      </li>
       <li>
 	<% if can? :read, Organisation %>
 	  <%= link_to 'Organisations', organisations_path %>
@@ -72,8 +69,6 @@
 <div id="container">
   <%= yield %>
 </div>
-
-<div id="test"></div>
 
 </body>
 </html>

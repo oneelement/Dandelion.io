@@ -2,7 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$('#select-all').click (event) -> 
+jQuery ->
+  $('#select-all').click (event) -> 
     if(this.checked)
-        $(':checkbox').each ->
-            this.checked = true                     
+      $(':checkbox').each ->
+        this.checked = true                     
