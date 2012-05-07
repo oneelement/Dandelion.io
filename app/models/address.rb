@@ -1,7 +1,9 @@
+require 'backbone_helpers'
+
 class Address
   include Mongoid::Document
   include Geocoder::Model::Mongoid  
-  
+
   geocoded_by :full_address
   after_validation :geocode
 
@@ -18,24 +20,25 @@ class Address
   
   field :coordinates, :type => Array
 
-  def self.type_json_name
-    ''
-  end
-
-  def type_json_name
-    self.class.type_json_name
+  def full_address=(address_string)
+    #Not really sure how we're gonna go about this... for now I will shove it in line1. Need to discuss
+    self.line1= address_string
   end
   
   def full_address
-    address = "#{self.line1}, #{self.line2}, #{self.city}, #{self.county}, #{self.postcode}"
-    address = "#{address} #{self.country}"
-    return address
+    address_components = [self.line1, self.line2, self.line3, 
+      self.county, self.postcode]
+
+    for_output = address_components.select {|comp| (comp != nil && comp != '') }
+
+    return for_output.join(', ')
   end
 
   acts_as_api
 
   api_accessible :contact do |t|
-    t.add :type_json_name, :as => :type
+    t.add :_id
+    t.add :_type
     t.add :full_address
     t.add :coordinates
   end

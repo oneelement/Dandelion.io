@@ -1,13 +1,14 @@
 class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
+  idAttribute: '_id'
 
   getViewIcon: ->
-    type = @get("type")
+    type = @get("_type")
 
-    if type == 'Home'
+    if type == 'PhoneHome'
       return 'house'
-    else if type == 'Business'
+    else if type == 'PhoneBusiness'
       return 'building-dark'
-    else if type == 'Mobile'
+    else if type == 'PhoneMobile'
       return 'mobile'
     else
       return 'phone'

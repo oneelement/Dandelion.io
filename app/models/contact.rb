@@ -1,5 +1,8 @@
+require 'backbone_helpers'
+
 class Contact
   include Mongoid::Document
+  include BackboneHelpers::Model
   
   belongs_to :user
   has_many :addresses, :autosave => true, :dependent => :destroy
@@ -9,6 +12,7 @@ class Contact
   accepts_nested_attributes_for :phones, :allow_destroy => true
   accepts_nested_attributes_for :addresses, :allow_destroy => true
   accepts_nested_attributes_for :notes, :allow_destroy => true
+  accepts_nested_attributes_for :socials, :allow_destroy => true
 
   field :name, :type => String
   field :email, :type => String
@@ -30,7 +34,12 @@ class Contact
     t.add :dob
   end
 
-  
+  def update_attributes_from_api(params)
+    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes"]
+    params = api_to_nested_attributes(params, keys_with_nested_attributes)
+    update_attributes(params)
+  end
+
   def as_json(options = nil)
     super((options || {}).merge(include: { addresses: { only: [:postcode, :coordinates] }, socials: {}}))
   end

@@ -35,8 +35,9 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
   isUser: ->
     return this.get('is_user') == true
   
-  setAddresses: (addresses) ->
-    this.addresses = addresses
-    
-  setPhones: (phones) ->
-    this.phones = phones
+  #  Perhaps not needed anymore? Commenting out to see
+  #  setAddresses: (addresses) ->
+  #    this.addresses = addresses
+  #    
+  #  setPhones: (phones) ->
+  #    this.phones = phones

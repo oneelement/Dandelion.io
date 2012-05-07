@@ -26,6 +26,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1.json
   def show
     @contact = Contact.find(params[:id])
+    p @contact.phones
 
     if @contact.socials.length == 0
       test_linkedin = SocialLinkedin.new(social_id: 'Example Name')
@@ -93,9 +94,9 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     respond_to do |format|
-      if @contact.update_attributes(params[:contact])
+      if @contact.update_attributes_from_api(params[:contact])
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
-        format.json { head :ok }
+        format.json { render_for_api :contact, :json => @contact }
       else
         format.html { render action: "edit" }
         format.json { render json: @contact.errors, status: :unprocessable_entity }

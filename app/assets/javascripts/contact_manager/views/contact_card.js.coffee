@@ -118,15 +118,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("phones")
 
         if @match == 'Mobile'
-          m.set('type', 'Mobile')
+          m.set('_type', 'PhoneMobile')
         else if @match == 'Home Phone'
-          m.set('type', 'Home')
+          m.set('_type', 'PhoneHome')
 
         c.add(m)
 
       if _.include(['Address'], @match)
         m = new RippleApp.Models.ContactAddressDetail(
-          type: 'Home'
+          _type: 'AddressHome'
           full_address: val
         )
 
@@ -142,6 +142,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c.add(m)
 
     $input.val('')
+    @model.save()
 
   calculateMatchLabelWidth: (text, $addon) ->
     textWidth = @measureTextWidth(text)

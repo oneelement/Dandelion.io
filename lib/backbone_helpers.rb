@@ -1,20 +1,28 @@
+require 'active_support/core_ext'
+
 module BackboneHelpers
-  module Controller
 
-    #Takes an array of params key names which should have _attributes appended to them (recursively)
-    #e.g. calling params_to_nested_attributes([a, b], {a => {a => 1, b => 2}, b => 3}) will give
-    #{a_attributes => {a_attributes => 1, b_attributes => 2}, b_attributes => 3}
-    def params_to_nested_attributes(attributes_to_map, params)
+  module Common
+    #Takes an array of params key names which should have _attributes 
+    #appended to them (recursively)
+    #
+    #e.g. calling api_to_nested_attributes(
+    #    {a => {a => 1, b => 2}, b => 3}, [a, b])
+    #
+    # will give {a_attributes => {
+    #         a_attributes => 1, b_attributes => 2}, b_attributes => 3}
+    def api_to_nested_attributes(params, nested_attribute_keys)
 
-      attributes_to_map.each do |k|
+      nested_attribute_keys.each do |k|
         if params.has_key?(k)
 
           if params[k].is_a?(Array)
-            out = params[k].map do |elem|
-              params_to_nested_attributes(attributes_to_map, elem)
+            params[k].map do |elem|
+              api_to_nested_attributes(elem, nested_attribute_keys)
             end
           else
-            params[k] = params_to_nested_attributes(attributes_to_map, params[k])
+            params[k] = api_to_nested_attributes(
+                            params[k], nested_attribute_keys)
           end
 
           params[k + '_attributes'] = params[k]
@@ -23,8 +31,15 @@ module BackboneHelpers
       end
 
       return params
-
     end
 
+  end
+
+  module Model
+    include BackboneHelpers::Common
+  end
+
+  module Controller
+    include BackboneHelpers::Common
   end
 end
