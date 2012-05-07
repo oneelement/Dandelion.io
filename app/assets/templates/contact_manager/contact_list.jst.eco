@@ -1,21 +1,32 @@
-<div class="avatar" style="background-color: black">
-    <span class="c-lg-icon c-lg-icon-contact"></span>
-</div>
-<div class="name">
-    <h3><%= @contact.get('name') %></h3>
-    <p>Contact position at Contact Company</p>
-</div>
-<div class="details">
-    <span><i class="icon-envelope"></i></span>
-    <span>phone number</span>
-</div>
-<div class="details">
-    <span><i class="icon-envelope"></i></span>
-    <span>phone number</span>
-</div>
-<div class="actions">
-    <ul>
-        <li id="open-action">Open Contact</li>
-    </ul>
-</div>
-<div class="clear"/>
+
+<td>
+  <div class="avatar" style="background-color: black">
+      <span class="c-lg-icon c-lg-icon-contact"></span>
+  </div>
+</td>
+<td>
+  <div class="name">
+      <h3><%= @contact.get('name') %></h3>
+      <p>Contact position at Contact Company</p>
+  </div>
+</td>
+<td>
+  <div class="details">
+      <span><i class="icon-envelope"></i></span>
+      <span>phone number</span>
+  </div>
+</td>
+<td>
+  <div class="details">
+      <span><i class="icon-envelope"></i></span>
+      <span>phone number</span>
+  </div>
+</td>
+<td>
+  <div class="actions">
+      <ul>
+	  <li id="open-action">Open Contact</li>
+      </ul>
+  </div>
+</td>
+

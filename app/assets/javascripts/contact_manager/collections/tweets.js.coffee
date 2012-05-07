@@ -1,11 +1,13 @@
 class RippleApp.Collections.Tweets extends Backbone.Collection
   model: RippleApp.Models.Tweet
+  #url: '/twitter_feeds'
   
   initialize: (models, options) ->
     this.query = options.query
+    this.call = options.call
     
   url: ->
-    "http://search.twitter.com/search.json?q=" + this.query + "&callback=?"
+    '/twitter_feeds/' + this.call
     
-  parse: (data) ->
-    data.results
+  #parse: (data) ->
+    #data.results

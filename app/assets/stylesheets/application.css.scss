@@ -5,6 +5,7 @@
  *= require_self
  *= require vendor
  *= require scaffolds
+ *= require dataTables/jquery.dataTables
 */
 
 @import "compass/css3";
@@ -17,6 +18,8 @@
 @import "contacts_index";
 @import "user";
 @import "icons";
+@import "twitter_feeds";
+@import "facebook_feeds";
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0px 0px 10px 0px;
@@ -37,6 +40,11 @@ html, body {
 
 li {
   list-style: none;
+}
+
+.modal-body {
+  height: 350px;
+  overflow: auto;
 }
 
 body.main-application {

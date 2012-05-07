@@ -1,4 +1,12 @@
-<%= @tweet.text %>
-test
-<% console.log("test") %>
-<% console.log(@tweet) %>
+<div class="tweet-header">
+  <span class="tweet-time"></span>
+    <img src="<%= @tweet.user.profile_image_url %>" alt="">
+    <span class="tweet-name"><%= @tweet.user.name %></span>
+    <span class="tweet-screem-name">@<%= @tweet.user.screen_name %></span>
+</div>
+<div class="tweet-content">
+    <p><%= @tweet.text %></p>
+</div>
+
+
+

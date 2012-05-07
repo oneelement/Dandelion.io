@@ -1,0 +1,16 @@
+<% if @face.picture: %>
+  <div class="face-image"><img src="<%= @face.picture %>" alt=""></div>
+<% else: %>
+  <div class="face-image"><img src="https://graph.facebook.com/<%= @face.from.id %>/picture" alt=""></div>
+<% end %>
+<div class="face-header">     
+  <span class="face-name"><%= @face.name %></span>
+</div>
+<div class="face-content">
+    <span class="face-icon"><img src="<%= @face.icon %>" alt=""></span> 
+    <span class="face-story"><%= @face.story %></span>
+    <% if @face.message: %>
+      <span class="face-story"><%= @face.message %> ... sent from </span><span class="face-story"><%= @face.from.name %></span>
+    <% end %>
+</div>
+<div class="clear"/>

@@ -15,6 +15,7 @@ class User
   has_many :contacts
   has_many :tasks
   has_many :favorites
+  has_many :facebook_friends
   has_many :authentications, :dependent => :delete
   
   accepts_nested_attributes_for :organisation, :contacts
@@ -140,4 +141,19 @@ class User
     end
     @tweeting ||= Twitter::Client.new
   end
+  
+  def facebook
+    provider = self.authentications.where(:provider => 'facebook').first
+    if provider
+      @facebook ||= Koala::Facebook::API.new(provider.token)
+    end
+  end
+  
+  def linkedin
+    provider = self.authentications.where(:provider => 'linkedin').first
+    client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
+    client.authorize_from_access(provider.token, provider.secret)
+    @linkedin = client
+  end
+  
 end

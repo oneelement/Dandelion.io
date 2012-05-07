@@ -1,5 +1,6 @@
 class RippleApp.Views.ContactsList extends Backbone.View
   template: JST['contact_manager/contact_list']
+  tagName: 'tr'
   className: 'contact-list-item'
   
   initialize: ->

@@ -10,6 +10,7 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
   render: ->
     $(@el).html(@template())
     @collection.each(@appendContact)
+    this.$('#contacts-table').dataTable("bPaginate": false, "bInfo": false, "aaSorting": [ [1,'asc'] ])
     @
   
   contactSearch: ->
@@ -18,4 +19,5 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     
   appendContact: (contact) =>
     view = new RippleApp.Views.ContactsList(model: contact)
-    @$el.append(view.render().el)
+    #@$el.append(view.render().el)
+    this.$('#contacts-table-body').append(view.render().el)

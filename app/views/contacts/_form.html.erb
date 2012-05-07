@@ -36,10 +36,7 @@
         <%= address.text_field :postcode %>
     </div>
   <% end %>
-  <%= f.fields_for :phones do |phone| %>
-    <%= render 'phone_fields', :f => phone %>
-  <% end %>
-  <%= link_to_add_fields "Add Phone", f, :phones %>
+
 
   <div class="actions">
     <%= f.submit %>

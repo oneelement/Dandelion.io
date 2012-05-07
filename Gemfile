@@ -16,7 +16,9 @@ gem 'omniauth'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'twitter'
+gem 'twitter' #api for twitter
+gem 'koala' #api for facebook
+gem 'linkedin' #api for linkedin
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,6 +28,7 @@ group :assets do
   gem 'uglifier'
   gem 'compass', '~> 0.11.0'
   gem 'bootstrap-sass', '~> 2.0.1'
+  gem 'jquery-datatables-rails'
 end
 
 gem 'jquery-rails'
