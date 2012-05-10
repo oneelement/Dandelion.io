@@ -11,8 +11,11 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @contacts = new RippleApp.Collections.Contacts()
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
     @recentContacts = new RippleApp.Collections.Contacts()
+    #@currentUser.fetchCurrent(success: (model) =>
+    #)
     return @
-    
+
+  
   home: ->
     after = (contact) =>
       @setContextContact(contact)   
@@ -44,7 +47,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
         #view = new RippleApp.Views.ContactsIndex(collection: @contacts)
         #RippleApp.layout.setMainView(view)
     #)
-    #OC was taking way too long to load the screen as was fething each time, with 250 contacts
+    #OC was taking way too long to load the screen as was fetching each time, with 250 contacts
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     RippleApp.layout.setMainView(view)
   
@@ -86,13 +89,13 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   setContextContact: (contact) ->
     @_contextContact = contact
-    view = new RippleApp.Views.ContactCard(model: @_contextContact)
-    RippleApp.layout.setContextView(view)
+    @currentUser.fetchCurrent(success: (model) =>
+      view = new RippleApp.Views.ContactCard(model: @_contextContact, user: model)
+      RippleApp.layout.setContextView(view)
+    )
 
   showContact: (contact) ->
     @currentUser.fetchCurrent(success: (model) =>
       showView = new RippleApp.Views.ContactShow(model: contact, user: model)
       RippleApp.layout.setMainView(showView)
     )
-
-

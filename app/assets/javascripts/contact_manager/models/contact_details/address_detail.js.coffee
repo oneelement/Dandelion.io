@@ -13,3 +13,6 @@ class RippleApp.Models.ContactAddressDetail extends Backbone.RelationalModel
 
   getViewValue: ->
     return @get("full_address")
+    
+  getFieldName: ->
+    return "full_address"

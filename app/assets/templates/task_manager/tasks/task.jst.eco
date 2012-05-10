@@ -11,6 +11,3 @@
     </form>
     <div class="clear"/>
 </div>
-
-
-  <% console.log(@task.get('user')) %>

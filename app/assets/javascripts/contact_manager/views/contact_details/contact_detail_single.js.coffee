@@ -1,4 +1,4 @@
-class RippleApp.Views.ContactCardDetail extends Backbone.View
+class RippleApp.Views.ContactCardDetailSingle extends Backbone.View
   template: JST['contact_manager/contact_details/detail']
   className: 'contact-detail'
   tagName: 'li'
@@ -10,14 +10,12 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'focusout input#edit_value': 'closeEdit'
 
   initialize: ->
-    #console.log(@options)
-    #console.log(@model)
     @icon = @options.icon
     @value = @options.value
-    @model.on('change', @renderEdit, this)
+    @model.on('change', @render, this)
 
   render: ->
-    $(@el).html(@template(icon: @icon, value: @value))
+    $(@el).html(@template(icon: @icon, value: @model.get(@value)))
     @
     
   renderEdit: ->
@@ -37,8 +35,8 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       @closeEdit()
       
   closeEdit: ->
-    value = @model.getFieldName()
-    this.model.set(value, this.$('input#edit_value').val())
+    #value = @model.getFieldName()
+    this.model.set(@value, this.$('input#edit_value').val())
     console.log(@model)
     $(this.el).removeClass('editing')
     this.$('span.edit-icon').css('display', 'none')

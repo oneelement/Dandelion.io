@@ -25,6 +25,10 @@ class RippleApp.Lib.DetailsMatcher
       exprs: [
         /^.+$/,
       ]
+    "Facebook":
+      exprs: [
+        /^.+$/,
+      ]
 
   constructor: (@matchText) ->
     @match()

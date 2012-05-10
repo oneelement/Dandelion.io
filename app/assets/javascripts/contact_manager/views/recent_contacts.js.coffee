@@ -7,7 +7,7 @@ class RippleApp.Views.RecentContacts extends Backbone.View
   render: ->
     $(@el).html(@template())
     _.each(@collection.models, (model) ->
-      $('#recent-contacts-list', @el).append(
+      $('#recent-contacts-list', @el).prepend(
         new RippleApp.Views.RecentContactsEntry(model: model).render().el
       )
     )

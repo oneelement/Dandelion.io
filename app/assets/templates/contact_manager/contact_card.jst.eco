@@ -31,9 +31,11 @@
                 <span class="add-on">
                     <span id="contact-card-details-input-type">...</span>
                 <span>
+                
             </div>
         </form>
     </div>
     <div id="contact-card-body">
+        <ul id="contact-card-body-list"></ul>
     </div>
 </div>

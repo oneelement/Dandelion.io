@@ -7,12 +7,33 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click #contact-card-toggle-actions': 'toggleActionsBar'
     'submit #contact-card-details-input-form': 'submitDetails'
     'render': 'matchInputDetails'
-
+    'dblclick span.contact-detail-value': 'editValue'    
+    'keypress #edit_value': 'checkEnter'
+    'focusout input#edit_value': 'closeEdit'
+    
   initialize: ->
     @model.on('change', @render, this)
+    @user = @options.user
+    console.log(@user)
 
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
+    if @model.get('email')
+      email = new RippleApp.Views.ContactCardDetailSingle(
+        icon: 'envelope'
+        value: 'email'
+        model: @model
+      )
+      $('#contact-card-body-list', @el).append(email.render().el)
+      
+    if @model.get('dob')
+      email = new RippleApp.Views.ContactCardDetailSingle(
+        icon: 'contact'
+        value: 'dob'
+        model: @model
+      )
+      $('#contact-card-body-list', @el).append(email.render().el)
+    
     phonesSection = new RippleApp.Views.ContactCardSection(
       title: 'Phone Numbers'
       collection: @model.get("phones")
@@ -37,7 +58,21 @@ class RippleApp.Views.ContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(notesSection.render().el)
     
-    @
+    return @
+    
+
+    
+  editValue: ->
+    $(this.el).addClass('editing')
+    
+  checkEnter: (event) ->
+    if (event.keyCode == 13) 
+      event.preventDefault()
+      @closeEdit()
+      
+  closeEdit: ->
+    $(this.el).removeClass('editing')
+    @model.save()
 
   toggleActionsBar: ->
     if @actionsBarDisplayed
@@ -92,11 +127,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
         matchText = @inputTypeDefaultLabel
 
       formWidth = $form.width()
+      console.log(formWidth)
       labelWidth = @calculateMatchLabelWidth(matchText, $addon)
+      console.log(labelWidth)
       inputWidth = formWidth - labelWidth
+      console.log(inputWidth)
 
       $matchLabel.fadeOut(100, ->
-        $input.animate({right: labelWidth}, 100)
+        #$input.animate({right: labelWidth}, 100)
+        $input.animate({width: inputWidth - 10}, 100)
         $addon.animate({left: inputWidth}, 100, ->
           $matchLabel.text(matchText)
           $matchLabel.fadeIn(200))
@@ -140,6 +179,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
         c = @model.get("notes")
         c.add(m)
+      
+      if _.include(['Email'], @match)
+        @model.set('email', val)
+      
+      if _.include(['D.O.B'], @match)
+        @model.set('dob', val)
 
     $input.val('')
     @model.save()

@@ -16,3 +16,6 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
 
   getViewValue: ->
     return @get("number")
+    
+  getFieldName: ->
+    return "number"
