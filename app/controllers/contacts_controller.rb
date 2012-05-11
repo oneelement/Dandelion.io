@@ -26,20 +26,19 @@ class ContactsController < ApplicationController
   # GET /contacts/1.json
   def show
     @contact = Contact.find(params[:id])
-    p @contact.phones
+    #@contact.phones
 
-    if @contact.socials.length == 0
-      test_linkedin = SocialLinkedin.new(social_id: 'Example Name')
-      test_twitter = SocialTwitter.new(social_id: 'chestermano')
-      test_facebook = SocialFacebook.new(social_id: 'Example Name')
-      @contact.socials << test_linkedin
-      @contact.socials << test_twitter
-      @contact.socials << test_facebook
-      @contact.save
-    end
+    #if @contact.socials.length == 0
+      #test_linkedin = SocialLinkedin.new(social_id: 'Example Name')
+      #test_twitter = SocialTwitter.new(social_id: 'chestermano')
+      #test_facebook = SocialFacebook.new(social_id: 'Example Name')
+      #@contact.socials << test_linkedin
+      #@contact.socials << test_twitter
+      #@contact.socials << test_facebook
+      #@contact.save
+    #end
 
-    @products = Product.find(:all)
-    
+    #@products = Product.find(:all)
     #@contact.address.build
 
     respond_to do |format|

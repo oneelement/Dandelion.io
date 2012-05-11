@@ -53,7 +53,7 @@ class UserController < ApplicationController
       @friends.each do |face|
 	name = face["name"]
 	id = face["id"]
-	if FacebookFriend.where(:facebook_id => id).exists?
+	if FacebookFriend.where(:facebook_id => id, :user_id => current_user.id).exists?
 	else
 	  friend = FacebookFriend.new(:name => name, :facebook_id => id, :user_id => current_user.id)
 	  friend.save

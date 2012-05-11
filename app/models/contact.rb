@@ -15,6 +15,7 @@ class Contact
   accepts_nested_attributes_for :socials, :allow_destroy => true
 
   field :name, :type => String
+  field :position, :type => String
   field :email, :type => String
   field :dob, :type => Date
   field :is_user, :type => Boolean, :default => false

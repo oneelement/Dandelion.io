@@ -5,6 +5,7 @@ class RippleApp.Views.ContactShow extends Backbone.View
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
+    console.log(@user)
 
   render: ->
     $(@el).html(@template(contact: @model.toJSON())) 

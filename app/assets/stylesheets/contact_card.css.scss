@@ -98,8 +98,10 @@
             top: 0;
             left: 0;
             right: 40px;
-
-            width: auto;
+            width: 290px;
+          }
+          input:focus {
+            @include box-shadow(none);
           }
 
           .add-on {
@@ -118,6 +120,7 @@
       position: absolute;
       top: 130px;
       left: 0;
+      width: 360px;
 
       .contact-card-section-title {
         font-size: 11pt;
@@ -136,10 +139,43 @@
         .contact-detail-value {
           float: left;
           margin-left: 1em;
-          width: 200px;
+          width: 85%;
           
           font-weight: bold;
-          font-size: 9pt;
+          font-size: 12px;
+          color: #BBB;
+        }
+        .contact-detail-edit {
+          display: none;
+        }
+        .edit-icon {
+          display: none; 
+        }
+      }
+      li:hover span.edit-icon {
+        display: block;
+        @include opacity(0.2);
+      } 
+      .contact-detail.editing {
+        .contact-detail-value {
+          display: none;
+        }
+        .contact-detail-edit {
+          display: block;
+          input {
+            width: 85%;
+            font-weight: bold;
+            font-size: 12px;
+            border: none;
+            box-shadow: none;
+            padding: 0px;
+            margin: 0px 0px 0px 12px;
+            line-height: 18px;
+            vertical-align: baseline;
+            background-color: transparent;
+            float: left;
+            color: #333;
+          }
         }
       }
     }

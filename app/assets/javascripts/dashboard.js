@@ -12,15 +12,7 @@ $(document).ready(function(){
         });
   });
   $("#facebook_import_submit").click(function() { $("#facebook_import").submit(); });
-  $('#contacts-table').dataTable( {
-    "sPaginationType": "full_numbers",
-    "bPaginate": false,
-    "bLengthChange": false,
-    "bFilter": true,
-    "bSort": false,
-    "bInfo": false,
-    "bAutoWidth": false
-  });
+
 });
 
 

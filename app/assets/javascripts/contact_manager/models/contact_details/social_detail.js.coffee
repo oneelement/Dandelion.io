@@ -12,3 +12,6 @@ class RippleApp.Models.ContactSocialDetail extends Backbone.RelationalModel
 
   getViewValue: ->
     return @get("social_id")
+    
+  getFieldName: ->
+    return "social_id"
