@@ -103,6 +103,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
     if e.target.checked
       favouriteIds.push(@model.get('_id'))
+      _.uniq(favouriteIds)
       @user.set('favorite_ids', favouriteIds)
       console.log(@user)
       @user.save()
@@ -161,14 +162,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
           $matchLabel.fadeIn(200))
       )
 
-
   submitDetails: (e) ->
     e.preventDefault()
 
     $form = $('#contact-card-details-input-form', @el)
-    $input = $('input', $form)
+    $input = $('input', $form)    
     val = $input.val()
-
+    
     if @match
       if _.include(['Mobile', 'Home Phone'], @match)
         m = new RippleApp.Models.ContactPhoneDetail(
@@ -191,7 +191,64 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
         c = @model.get("addresses")
         c.add(m)
-
+      
+      if _.include(['LinkedIn'], @match)
+        c = @model.get("socials")
+        exists = false        
+        
+        if c?
+          for social in c.models 
+            if social.attributes.social_id is val
+              exists = true
+              break
+          
+        if exists
+          alert('duplicate alert!!')
+        else
+          m = new RippleApp.Models.ContactSocialDetail(
+            _type: 'SocialLinkedin'
+            social_id: val
+          )
+          c.add(m)
+        
+      if _.include(['Facebook'], @match)
+        c = @model.get("socials")
+        exists = false        
+        
+        if c?
+          for social in c.models 
+            if social.attributes.social_id is val
+              exists = true
+              break
+          
+        if exists
+          alert('duplicate alert!!')
+        else
+          m = new RippleApp.Models.ContactSocialDetail(
+            _type: 'SocialFacebook'
+            social_id: val
+          )
+          c.add(m)
+        
+      if _.include(['Twitter'], @match)
+        c = @model.get("socials")
+        exists = false        
+      
+        if c?
+          for social in c.models 
+            if social.attributes.social_id is val
+              exists = true
+              break
+          
+        if exists
+          alert('duplicate alert!!')
+        else
+          m = new RippleApp.Models.ContactSocialDetail(
+            _type: 'SocialTwitter'
+            social_id: val
+          )
+          c.add(m)
+        
       if _.include(['Note'], @match)
         m = new RippleApp.Models.ContactNoteDetail(
           text: val
