@@ -1,4 +1,5 @@
 class RippleApp.Models.User extends Backbone.RelationalModel
+  idAttribute: '_id'
   urlRoot: -> '/user'
 
   fetchCurrent: (args) ->

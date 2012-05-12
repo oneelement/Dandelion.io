@@ -10,7 +10,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @currentUser = new RippleApp.Models.User()
     @contacts = new RippleApp.Collections.Contacts()
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
-    @recentContacts = new RippleApp.Collections.Contacts()
+    @recentContacts = new RippleApp.Collections.RecentContacts()
     #@currentUser.fetchCurrent(success: (model) =>
     #)
     return @

@@ -31,7 +31,7 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
   ]
   idAttribute: '_id'
   urlRoot: -> '/contacts/'
-  
+
   isUser: ->
     return this.get('is_user') == true
   

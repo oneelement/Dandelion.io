@@ -25,13 +25,15 @@
         <div id="contact-card-name">
           <h3><%= @contact.name %></h3>
         </div>
+        <div id="contact-card-favourite">
+          <input id="isFavourite" type="checkbox" name="isFavourite"/>
+        </div>
         <form id="contact-card-details-input-form">
             <div class="input-append" id="contact-card-details-input">
                 <input type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
                 <span class="add-on">
                     <span id="contact-card-details-input-type">...</span>
-                <span>
-                
+                <span>                
             </div>
         </form>
     </div>

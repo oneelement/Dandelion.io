@@ -5,6 +5,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   events:
     'keyup #contact-card-details-input input': 'matchInputDetails'
     'click #contact-card-toggle-actions': 'toggleActionsBar'
+    'click #isFavourite': 'toggleFavourite'
     'submit #contact-card-details-input-form': 'submitDetails'
     'render': 'matchInputDetails'
     'dblclick span.contact-detail-value': 'editValue'    
@@ -15,7 +16,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @model.on('change', @render, this)
     @user = @options.user
     console.log(@user)
-
+    favouriteIds = @user.get('favorite_ids')
+    if favouriteIds
+      if @model._id in favouriteIds
+        $('#isFavourite', @el).attr('checked','checked')
+    
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
     if @model.get('email')
@@ -59,9 +64,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $('#contact-card-body', @el).append(notesSection.render().el)
     
     return @
-    
 
-    
   editValue: ->
     $(this.el).addClass('editing')
     
@@ -93,6 +96,23 @@ class RippleApp.Views.ContactCard extends Backbone.View
         .removeClass('icon-chevron-left')
         .addClass('icon-chevron-right')
         @actionsBarDisplayed = true
+  
+  toggleFavourite: (e) ->
+    #want to set favourite_ids default to [] but neither contact or user model seem to work. ew
+    favouriteIds  = @user.get('favorite_ids') ? []
+    
+    if e.target.checked
+      favouriteIds.push(@model.get('_id'))
+      @user.set('favorite_ids', favouriteIds)
+      console.log(@user)
+      @user.save()
+    else       
+      index = favouriteIds.indexOf(@model.get('_id'))
+      if index >= 0
+        favouriteIds.splice(index, 1)
+        @user.set('favorite_ids', favouriteIds)
+        console.log(@user)
+        @user.save()
     
   handleSuccess: (currentuser, response) =>
     id = response._id
