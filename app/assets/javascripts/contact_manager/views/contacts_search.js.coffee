@@ -4,22 +4,17 @@ class RippleApp.Views.ContactsSearch extends Backbone.View
   
   initialize: ->
     #@model.on('change', @render, this)
-    
-    
-  
 
   render: ->
     $(@el).html(@template)
     @getSource()
     console.log("hello")
     return this
-
-    
+  
   getSource: ->
     @collection = new RippleApp.Collections.Contacts()
     @collection.fetch({success: @handleSuccess})
-
-      
+   
   handleSuccess: (collection, response) ->
     console.log(collection)
     console.log(response)

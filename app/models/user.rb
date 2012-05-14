@@ -44,6 +44,7 @@ class User
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favorite_ids, :type => Array
+  field :recent_ids, :type => Array
   #field :adminorg, :type => Boolean, :default => false
   #field :adminent, :type => Boolean, :default => false
   #field :adminone, :type => Boolean, :default => false

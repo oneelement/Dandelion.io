@@ -22,7 +22,7 @@
   <div id="sitewide-search">
     <%= form_tag contacts_path, :method => 'get', :id => 'search_form', :class => 'navbar-search' do %>
         <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', value: "", placeholder: "Search..." %>
-        <%= submit_tag "", :name => nil , :id => 'searchbutton' %>
+        <%# submit_tag "", :name => nil , :id => 'searchbutton' %>
 	<i class="icon-search icon-white"></i>
 	<i class="icon-plus icon-white disabled"></i>
     <% end %>

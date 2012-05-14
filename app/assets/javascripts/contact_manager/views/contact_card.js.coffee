@@ -105,14 +105,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
       favouriteIds.push(@model.get('_id'))
       _.uniq(favouriteIds)
       @user.set('favorite_ids', favouriteIds)
-      console.log(@user)
       @user.save()
     else       
       index = favouriteIds.indexOf(@model.get('_id'))
       if index >= 0
         favouriteIds.splice(index, 1)
         @user.set('favorite_ids', favouriteIds)
-        console.log(@user)
         @user.save()
     
   handleSuccess: (currentuser, response) =>
