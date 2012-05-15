@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { redirect_to root_path }
       format.json { render_for_api :contact, :json => @contacts }
     end
   end

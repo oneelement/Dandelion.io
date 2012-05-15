@@ -20,7 +20,7 @@
 <div id="contact-card-details">
     <div id="contact-card-head">
         <div id="contact-card-avatar">
-          <img src="http://placehold.it/80x80"/>
+          <img src="<%= @contact.avatar %>"/>
         </div>
         <div id="contact-card-name">
           <h3><%= @contact.name %></h3>

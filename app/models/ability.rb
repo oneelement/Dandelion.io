@@ -29,10 +29,12 @@ class Ability
       can :manage, User #, :organisation_id => user.organisation_id
       can :manage, Entity #, :id => user.entity_id
       can :manage, Organisation
+      can :manage, Group
     elsif user.user_type.name == "Consumer"
       #can :update, User, :id => user.id
       can :manage, User, :id => user.id
       can :manage, Contact, :user_id => user.id
+      can :manage, Group, :user_id => user.id
       #can :read, User, :id => user.id
       cannot :manage, Entity
       cannot :manage, Organisation

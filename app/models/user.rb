@@ -13,6 +13,7 @@ class User
   belongs_to :user_type
   
   has_many :contacts
+  has_many :groups
   has_many :tasks
   has_many :favorites
   has_many :facebook_friends

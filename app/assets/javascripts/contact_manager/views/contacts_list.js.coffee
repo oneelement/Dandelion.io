@@ -15,7 +15,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
   render: ->
     this.model.addresses = new RippleApp.Collections.Contacts(this.model.get('addresses'))
     this.model.phones = new RippleApp.Collections.Contacts(this.model.get('phones'))
-    $(@el).html(@template(contact: @model))
+    $(@el).html(@template(contact: @model.toJSON()))
     return this
   
   previewContact: (event) ->

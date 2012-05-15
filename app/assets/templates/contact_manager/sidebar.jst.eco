@@ -5,6 +5,9 @@
     <li id="sidebar-contacts">
         <span class="c-lg-icon c-lg-icon-address-book"></span>
     </li>
+    <li id="sidebar-groups">
+        <span class="c-lg-icon c-lg-icon-rocket"></span>
+    </li>
     <li id="sidebar-tasks">
         <span class="c-lg-icon c-lg-icon-tick"></span>
     </li>

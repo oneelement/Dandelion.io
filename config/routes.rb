@@ -14,6 +14,8 @@ Onelement::Application.routes.draw do
     get 'hometimeline', :on => :collection
     get 'contacttimeline', :on => :collection
   end
+  
+  resources :groups
 
   resources :authentications
 

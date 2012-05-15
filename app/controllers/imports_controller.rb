@@ -10,8 +10,9 @@ class ImportsController < ApplicationController
         name = face[1]['name']
         check = face[1]['check']
 	face_id = face[1]['face_id']
+	avatar = 'https://graph.facebook.com/' + face_id + '/picture?size=square'
         if check  
-          contact = Contact.new(:name => name, :user_id => id)
+          contact = Contact.new(:name => name, :user_id => id, :facebook_id => face_id, :avatar => avatar)
           contact.save
 	  friend = FacebookFriend.where(:facebook_id => face_id, :user_id => id).first
 	  friend.contact_id = contact._id

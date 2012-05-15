@@ -15,6 +15,7 @@ class RippleApp.Views.Sidebar extends Backbone.View
   events:
     "click #sidebar-home": "clickHome"
     "click #sidebar-contacts": "clickContacts"
+    "click #sidebar-groups": "clickGroups"
     "click #sidebar-tasks": "clickTasks"
 
   clickHome: ->
@@ -25,3 +26,6 @@ class RippleApp.Views.Sidebar extends Backbone.View
 
   clickTasks: ->
     Backbone.history.navigate('#tasks', true)
+    
+  clickGroups: ->
+    Backbone.history.navigate('#groups', true)

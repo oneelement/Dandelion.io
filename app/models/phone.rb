@@ -4,6 +4,7 @@ class Phone
   include Mongoid::Document
 
   embedded_in :contact
+  embedded_in :group
   
   #to do Add country code to phone -- think skype icons etc
   field :number, :type => String

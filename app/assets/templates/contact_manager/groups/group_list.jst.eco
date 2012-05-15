@@ -1,11 +1,11 @@
 <td>
   <div class="avatar">
-      <img src="<%= @contact.avatar %>"/>
+      <img src="<%= @group.avatar %>"/>
   </div>
 </td>
 <td>
   <div class="name">
-      <h3><%= @contact.name %></h3>
+      <h3><%= @group.name %></h3>
       <p>Contact position at Contact Company</p>
   </div>
 </td>
@@ -24,7 +24,7 @@
 <td>
   <div class="actions">
       <ul>
-	  <li id="open-action">Open Contact</li>
+	  <li id="open-action">Open Group</li>
       </ul>
   </div>
 </td>

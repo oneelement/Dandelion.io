@@ -41,8 +41,15 @@ $(function() {
 	}
 	);
 	results.push({
+	  label: 'Add Group',
+	  category: 'Actions',
+	  value: request.term
+	}
+	);
+	results.push({
 	  label: 'Add Task',
-	  category: 'Actions'
+	  category: 'Actions',
+	  value: request.term
 	}
 	);
 	
@@ -79,6 +86,23 @@ $(function() {
 		  show_id = response._id;
 		  console.log(show_id);
 		  var url = "/#contacts/show/" + show_id;
+		  window.location.href = url;
+	      }
+	    });	    
+	    
+	} else if (ui.item.label == "Add Group") {
+	    var show_id
+	    var addGroup = ui.item.value;
+	    $("#search_form").attr('action','/help');
+	    console.log(addGroup);
+	    console.log(ui);
+	    console.log(event);
+	    var newGroup = new RippleApp.Models.Group({name: addGroup})
+	    newGroup.save({name: addGroup}, {success: 
+	      function(model, response) {
+		  show_id = response._id;
+		  console.log(show_id);
+		  var url = "/#groups/show/" + show_id;
 		  window.location.href = url;
 	      }
 	    });	    

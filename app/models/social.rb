@@ -4,6 +4,8 @@ class Social
   include Mongoid::Document
 
   embedded_in :contact
+  embedded_in :group
+  
   field :social_id, :type => String
   
   acts_as_api
