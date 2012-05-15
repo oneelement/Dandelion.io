@@ -1,3 +1,3 @@
-class RippleApp.Models.Favorite extends Backbone.RelationalModel
+class RippleApp.Models.Favourite extends Backbone.RelationalModel
   idAttribute: '_id'
-  urlRoot: -> '/favorites/'
+  urlRoot: -> '/favourites/'

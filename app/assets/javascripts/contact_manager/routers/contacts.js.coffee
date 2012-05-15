@@ -10,12 +10,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @currentUser = new RippleApp.Models.User()
     @contacts = new RippleApp.Collections.Contacts()
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
-    @recentContacts = new RippleApp.Collections.Contacts()
-    #@currentUser.fetchCurrent(success: (model) =>
-    #)
+    @recentContacts = new RippleApp.Collections.RecentContacts()
     return @
-
-  
+    
   home: ->
     after = (contact) =>
       @setContextContact(contact)   
@@ -24,7 +21,6 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     #the user model will always have been saved to the server. DA to clarify. OC
     @currentUser.fetchCurrent(success: (model) =>
       id = model.get("contact_id")
-      #console.log(id)
       contact = @contacts.get(id)      
       contact = new RippleApp.Models.Contact({_id: id})
       contact.fetch(success: (contact) =>

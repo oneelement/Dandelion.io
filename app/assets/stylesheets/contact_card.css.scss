@@ -78,6 +78,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        width: 80px;
         img {
           width: 80px;
           height: 80px;
@@ -88,6 +89,13 @@
         position: absolute;
         top: 2em;
         left: 100px;
+        width: 220px;
+    
+      }
+      #contact-card-favourite {
+        position: absolute;
+        top: 2em;
+        left: 335px;
       }
 
       #contact-card-details-input-form {

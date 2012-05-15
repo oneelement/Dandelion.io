@@ -12,115 +12,75 @@ $(document).ready(function(){
         });
   });
   $("#facebook_import_submit").click(function() { $("#facebook_import").submit(); });
-
 });
 
-
-
-var tags = (function () {
-    var json = null;
-    $.ajax({
-        'async': false,
-        'global': false,
-        'url':"../contacts/autocomplete" ,
-        'dataType': "json",
-        'success': function (data) {
-            json = data;
-        }
-    });
-    return json;
-})(); 
 $(function() {
+  $('#search_form').submit(function(e, ui) { 
+      e.preventDefault();
+  });
+  $('#search_form').click(function(e, ui) { 
+      e.preventDefault();
+  });
+  
   $('#autocomplete').catcomplete({ 
     source: function (request, response) {
-        var results = $.ui.autocomplete.filter(tags, request.term);
-	results.push({
-	  label: 'Add Contact',
-	  category: 'Actions',
-	  value: request.term
-	}
-	);
-	results.push({
-	  label: 'Add Group',
-	  category: 'Actions',
-	  value: request.term
-	}
-	);
-	results.push({
-	  label: 'Add Task',
-	  category: 'Actions',
-	  value: request.term
-	}
-	);
-	
-        if (!results.length) {
-	    $(".icon-search").addClass('disabled');
-	    $(".icon-plus").removeClass('disabled');
-            $("#searchbutton").attr('value','');
-            $("#search_form").attr('action','/');
-	    
-        } else {
-	    $(".icon-search").removeClass('disabled');
-	    $(".icon-plus").addClass('disabled');
-            $("#searchbutton").attr('value','');
-            $("#search_form").attr('action','/');
-        }
-        response(results);
-        return false;
+        $.getJSON("../contacts/autocomplete", {"term": request.term}, function(results){
+            results.push({
+              label: 'Add Contact',
+              category: 'Actions',
+              value: request.term
+            }
+            );
+            results.push({
+              label: 'Add Task',
+              category: 'Actions'
+            }
+            );
+            if (!results.length) {
+                $(".icon-search").addClass('disabled');
+                $(".icon-plus").removeClass('disabled');
+                $("#searchbutton").attr('value','');
+                $("#search_form").attr('action','/');
+            } else {
+                $(".icon-search").removeClass('disabled');
+                $(".icon-plus").addClass('disabled');
+                $("#searchbutton").attr('value','');
+                $("#search_form").attr('action','/');
+            }
+            response(results);
+            return false;
+        });
     },
     delay: 100,       
     minLength: 2,  
     select: function (event, ui) {
-        $(event.target).val(ui.item.id);
-	
-	if (ui.item.label == "Add Contact") {
-	    var show_id
-	    var addName = ui.item.value;
-	    $("#search_form").attr('action','/help');
-	    console.log(addName);
-	    console.log(ui);
-	    console.log(event);
-	    var newContact = new RippleApp.Models.Contact({name: addName})
-	    newContact.save({name: addName}, {success: 
-	      function(model, response) {
-		  show_id = response._id;
-		  console.log(show_id);
-		  var url = "/#contacts/show/" + show_id;
-		  window.location.href = url;
-	      }
-	    });	    
-	    
-	} else if (ui.item.label == "Add Group") {
-	    var show_id
-	    var addGroup = ui.item.value;
-	    $("#search_form").attr('action','/help');
-	    console.log(addGroup);
-	    console.log(ui);
-	    console.log(event);
-	    var newGroup = new RippleApp.Models.Group({name: addGroup})
-	    newGroup.save({name: addGroup}, {success: 
-	      function(model, response) {
-		  show_id = response._id;
-		  console.log(show_id);
-		  var url = "/#groups/show/" + show_id;
-		  window.location.href = url;
-	      }
-	    });	    
-	    
-	} else {
-	    var url =   "/#contacts/show/" + ui.item.id;
-	    window.location.href = url;
-	} 	
+        $(event.target).val(ui.item.value);
+        if (ui.item.label == "Add Contact") {
+            var show_id,
+            addName = ui.item.value;           
+            $("#search_form").attr('action','/help');
+            var newContact = new RippleApp.Models.Contact({name: addName});
+            newContact.save({name: addName}, {success: 
+                function(model, response) {
+                    show_id = response._id;
+                    var url = "/#contacts/show/" + show_id;
+                    window.location.href = url;
+                }
+            });	    
+        } else {
+            addName = ui.item.value;
+            var url = "/#contacts/show/" + ui.item.id;
+            window.location.href = url;
+        } 	
         return false;
     }
-  })
-  .data( "catcomplete" )._renderItem = function( ul, item ) {
-	  return $( "<li></li>" )
-		  .data( "item.autocomplete", item )
-		  .append( "<a><span class='rip-search-label'>" + item.label + "</span><span class='ripicon " + item.icon + "'></span></a>" )
-		  .appendTo( ul );
-  };
-  
+    })
+    .data( "catcomplete" )._renderItem = function( ul, item ) {
+      return $( "<li></li>" )
+        .data( "item.autocomplete", item )
+        .append( "<a><span class='rip-search-label'>" + item.label + "</span><span class='ripicon " + item.icon + "'></span></a>" )
+        .appendTo( ul );
+    };
 });
 
 $.widget( "custom.catcomplete", $.ui.autocomplete, {
@@ -136,6 +96,4 @@ $.widget( "custom.catcomplete", $.ui.autocomplete, {
 		});
 	}
 });
-
-
 
