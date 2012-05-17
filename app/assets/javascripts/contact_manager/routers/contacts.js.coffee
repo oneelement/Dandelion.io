@@ -8,9 +8,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   initialize: ->
     @currentUser = new RippleApp.Models.User()
+    @recentContacts = new RippleApp.Collections.RecentContacts()
     @contacts = new RippleApp.Collections.Contacts()
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
-    @recentContacts = new RippleApp.Collections.RecentContacts()
     return @
     
   home: ->
@@ -33,7 +33,6 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @currentUser.fetchCurrent(success: (model) =>
         @getContact(model.get("contact_id"), after)
       )
-
     else
       @getContact(@currentUser.id, after)
 
@@ -55,6 +54,11 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   show: (id) ->
     after = (contact) =>
       @recentContacts.add(contact)
+      #if @recentContacts.length > @recentContacts.maxSize
+        #first = @recentContacts.at(0)
+        #@recentContacts.remove(first)
+        #@recentContacts.reset(@recentContacts.models)
+        #console.log(first)
       @setContextContact(contact)
       @showContact(contact)
       @contacts.add(contact) #OC added so new contacts are added to the collection and we dont have to fetch from the server

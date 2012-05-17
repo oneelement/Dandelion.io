@@ -17,8 +17,10 @@ class Group
   
   field :name, :type => String
   field :web, :type => String
-  field :web, :email => String
+  field :email, :type => String
   field :avatar, :type => String, :default => "http://placehold.it/80x80"
+  field :map, :type => Array, :default => []
+  field :contact_ids, :type => Array, :default => []
   
   acts_as_api
 
@@ -31,6 +33,8 @@ class Group
     t.add :name
     t.add :email
     t.add :avatar
+    t.add :map
+    t.add :contact_ids
   end
 
   def update_attributes_from_api(params)

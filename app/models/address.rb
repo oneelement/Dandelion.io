@@ -6,8 +6,11 @@ class Address
 
   geocoded_by :full_address
   after_validation :geocode
+  
+  after_create :check_subject_map
 
   belongs_to :contact
+  belongs_to :group
 
   field :name, :type => String
   field :line1, :type => String
@@ -19,6 +22,16 @@ class Address
   field :postcode, :type => String
   
   field :coordinates, :type => Array
+  
+  def check_subject_map
+    if self.contact_id
+      id = self.contact_id
+      contact = Contact.find(id)
+      contact.map << self.coordinates[0]
+      contact.map << self.coordinates[1]
+      contact.save
+    end
+  end
 
   def full_address=(address_string)
     #Not really sure how we're gonna go about this... for now I will shove it in line1. Need to discuss
@@ -37,6 +50,13 @@ class Address
   acts_as_api
 
   api_accessible :contact do |t|
+    t.add :_id
+    t.add :_type
+    t.add :full_address
+    t.add :coordinates
+  end
+  
+  api_accessible :group do |t|
     t.add :_id
     t.add :_type
     t.add :full_address

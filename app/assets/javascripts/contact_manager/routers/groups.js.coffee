@@ -22,7 +22,7 @@ class RippleApp.Routers.Groups extends Backbone.Router
     after = (group) =>
       #@recentContacts.add(group)
       @setContextGroup(group)
-      #@showContact(group)
+      @showGroup(group)
       @groups.add(group) #OC added so new contacts are added to the collection and we dont have to fetch from the server
 
     @getGroup(id, after)
@@ -56,8 +56,8 @@ class RippleApp.Routers.Groups extends Backbone.Router
       RippleApp.layout.setContextView(view)
     )
 
-  showContact: (contact) ->
+  showGroup: (group) ->
     @currentUser.fetchCurrent(success: (model) =>
-      showView = new RippleApp.Views.ContactShow(model: contact, user: model)
+      showView = new RippleApp.Views.GroupShow(model: group, user: model)
       RippleApp.layout.setMainView(showView)
     )

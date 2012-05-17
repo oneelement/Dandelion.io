@@ -15,14 +15,16 @@ class RippleApp.Views.ContactCard extends Backbone.View
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
-    console.log(@user)
-    favouriteIds = @user.get('favorite_ids')
-    if favouriteIds
-      if @model._id in favouriteIds
-        $('#isFavourite', @el).attr('checked','checked')
+
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
+    
+    favouriteIds = @user.get('favorite_ids')
+    if favouriteIds
+      if @model.get("_id") in favouriteIds
+        $('#isFavourite', @el).attr('checked','checked')
+        
     if @model.get('email')
       email = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'envelope'
@@ -32,12 +34,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
       $('#contact-card-body-list', @el).append(email.render().el)
       
     if @model.get('dob')
-      email = new RippleApp.Views.ContactCardDetailSingle(
+      dob = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'contact'
         value: 'dob'
         model: @model
       )
-      $('#contact-card-body-list', @el).append(email.render().el)
+      $('#contact-card-body-list', @el).append(dob.render().el)
     
     phonesSection = new RippleApp.Views.ContactCardSection(
       title: 'Phone Numbers'
@@ -99,8 +101,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
   
   toggleFavourite: (e) ->
     #want to set favourite_ids default to [] but neither contact or user model seem to work. ew
-    favouriteIds  = @user.get('favorite_ids') ? []
-    
+    #I have set this in the rails model, OC
+    favouriteIds  = @user.get('favorite_ids') ? []    
     if e.target.checked
       favouriteIds.push(@model.get('_id'))
       _.uniq(favouriteIds)
@@ -146,11 +148,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
         matchText = @inputTypeDefaultLabel
 
       formWidth = $form.width()
-      console.log(formWidth)
+      #console.log(formWidth)
       labelWidth = @calculateMatchLabelWidth(matchText, $addon)
-      console.log(labelWidth)
+      #console.log(labelWidth)
       inputWidth = formWidth - labelWidth
-      console.log(inputWidth)
+      #console.log(inputWidth)
 
       $matchLabel.fadeOut(100, ->
         #$input.animate({right: labelWidth}, 100)

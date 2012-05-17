@@ -17,6 +17,7 @@ class RippleApp.Views.ContactShow extends Backbone.View
     
   getSocials: ->
     auths = @user.get('authentications')
+    console.log(auths)
     socials = @model.get('socials')
     
     twitter = auths.filter (auth) =>

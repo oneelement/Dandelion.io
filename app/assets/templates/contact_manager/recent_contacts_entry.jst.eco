@@ -1,1 +1,1 @@
-<span class="c-lg-icon c-lg-icon-contact"></span>
+<img src="<%= @model.avatar %>"/>

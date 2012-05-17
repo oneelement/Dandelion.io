@@ -16,4 +16,10 @@ class Phone
     t.add :_type
     t.add :number
   end
+  
+  api_accessible :group do |t|
+    t.add :_id
+    t.add :_type
+    t.add :number
+  end
 end

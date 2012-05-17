@@ -21,6 +21,7 @@ class Contact
   field :is_user, :type => Boolean, :default => false
   field :favorite_ids, :type => Array, :default => []
   field :avatar, :type => String, :default => "http://placehold.it/80x80"
+  field :map, :type => Array, :default => []
   field :facebook_id, :type => String
   #field :favorite_users, :type => Array
   
@@ -36,6 +37,7 @@ class Contact
     t.add :email
     t.add :dob
     t.add :avatar
+    t.add :map
     t.add :facebook_id
   end
 

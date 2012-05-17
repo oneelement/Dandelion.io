@@ -3,6 +3,7 @@ class RippleApp.Views.RecentContacts extends Backbone.View
   
   initialize: ->
     @collection.on('add remove reset', @render, @)
+    console.log(@collection)
   
   render: ->
     $(@el).html(@template())
@@ -11,4 +12,5 @@ class RippleApp.Views.RecentContacts extends Backbone.View
         new RippleApp.Views.RecentContactsEntry(model: model).render().el
       )
     )
+    console.log(@collection)
     @

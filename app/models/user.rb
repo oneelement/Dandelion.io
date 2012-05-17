@@ -1,5 +1,8 @@
+require 'backbone_helpers'
+
 class User 
   include Mongoid::Document
+  include BackboneHelpers::Model
   
   after_create :contact_create
   
@@ -17,9 +20,10 @@ class User
   has_many :tasks
   has_many :favorites
   has_many :facebook_friends
-  has_many :authentications, :dependent => :delete
+  has_many :authentications, :autosave => true, :dependent => :destroy
   
-  accepts_nested_attributes_for :organisation, :contacts
+  accepts_nested_attributes_for :organisation, :contacts, :groups, :tasks, :favorites, :facebook_friends
+  accepts_nested_attributes_for :authentications, :allow_destroy => true
   
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
@@ -44,8 +48,8 @@ class User
   field :last_name, :type => String
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
-  field :favorite_ids, :type => Array
-  field :recent_ids, :type => Array
+  field :favorite_ids, :type => Array, :default => []
+  field :recent_ids, :type => Array, :default => []
   #field :adminorg, :type => Boolean, :default => false
   #field :adminent, :type => Boolean, :default => false
   #field :adminone, :type => Boolean, :default => false
@@ -68,6 +72,26 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
+  acts_as_api
+
+  api_accessible :user do |t|
+    t.add :_id
+    t.add :authentications
+    t.add :first_name
+    t.add :last_name
+    t.add :email
+    t.add :recent_ids
+    t.add :favorite_ids
+    t.add :contact_id
+  end
+
+  def update_attributes_from_api(params)
+    keys_with_nested_attributes = ["authentications"]
+    params = api_to_nested_attributes(params, keys_with_nested_attributes)
+    update_attributes(params)
+  end
+  
+  
   def contact_create
     record = Contact.new(:name => self.first_name + " " +self.last_name, :user_id => self._id, :is_user => true)
     record.save
@@ -75,9 +99,9 @@ class User
     self.save
   end
   
-  def as_json(options = nil)
-    super((options || {}).merge(include: { authentications: { only: [:token, :provider] } }))
-  end
+  #def as_json(options = nil)
+    #super((options || {}).merge(include: { authentications: { only: [:token, :provider, :_id] } }))
+  #end
   
   def full_name
     "#{first_name} #{last_name}"

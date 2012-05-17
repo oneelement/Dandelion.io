@@ -32,8 +32,15 @@ $(function() {
             }
             );
             results.push({
+              label: 'Add Group',
+              category: 'Actions',
+              value: request.term
+            }
+            );
+            results.push({
               label: 'Add Task',
-              category: 'Actions'
+              category: 'Actions',
+	      value: request.term
             }
             );
             if (!results.length) {
@@ -66,12 +73,33 @@ $(function() {
                     var url = "/#contacts/show/" + show_id;
                     window.location.href = url;
                 }
-            });	    
+            });    
+        } else if (ui.item.label == "Add Group") {
+            var show_id
+            var addGroup = ui.item.value;
+            $("#search_form").attr('action','/help');
+            console.log(addGroup);
+            console.log(ui);
+            console.log(event);
+            var newGroup = new RippleApp.Models.Group({name: addGroup})
+            newGroup.save({name: addGroup}, {success: 
+              function(model, response) {
+                show_id = response._id;
+                console.log(show_id);
+                var url = "/#groups/show/" + show_id;
+                window.location.href = url;
+              }
+            });
         } else {
             addName = ui.item.value;
-            var url = "/#contacts/show/" + ui.item.id;
+            if (ui.item.category == "Contact"){
+              var url = "/#contacts/show/" + ui.item.id;              
+            } else if (ui.item.category == "Group"){
+              var url = "/#groups/show/" + ui.item.id;
+            }           
             window.location.href = url;
-        } 	
+            console.log(ui.item.category)
+        }
         return false;
     }
     })
@@ -84,8 +112,8 @@ $(function() {
 });
 
 $.widget( "custom.catcomplete", $.ui.autocomplete, {
-	_renderMenu: function( ul, items ) {
-		var self = this,
+        _renderMenu: function( ul, items ) {
+                var self = this,
 			currentCategory = "";
 		$.each( items, function( index, item ) {
 			if ( item.category != currentCategory ) {
@@ -93,7 +121,7 @@ $.widget( "custom.catcomplete", $.ui.autocomplete, {
 				currentCategory = item.category;
 			}
 			self._renderItem( ul, item );
-		});
-	}
+                });
+        }
 });
 

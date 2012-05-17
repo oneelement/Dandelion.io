@@ -15,5 +15,11 @@ class Social
     t.add :_type
     t.add :social_id
   end
+  
+  api_accessible :group do |t|
+    t.add :_id
+    t.add :_type
+    t.add :social_id
+  end
 
 end

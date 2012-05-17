@@ -16,22 +16,24 @@ class RippleApp.Views.HomePage extends Backbone.View
   getSocials: =>
     $('#tweets-loading').addClass('disabled')
     auths = @model.get('authentications')
-    twitter = auths.filter (auth) =>
-      auth.provider == 'twitter'
+    console.log(auths.models)
+    twitter = auths.filter (auth) =>      
+      auth.get('provider') == 'twitter'
+      
     if twitter[0]?
       @getTwitter()
     else
       this.$('#tweets-loading').addClass('disabled')
       this.$('#tweets').append('<li class="tweet">Please authorise Twitter in user profile to view tweets.</li>')
     facebook = auths.filter (auth) =>
-      auth.provider == 'facebook'
+      auth.get('provider') == 'facebook'
     if facebook[0]?
       @getFacebook()
     else
       this.$('#faces-loading').addClass('disabled')
       this.$('#faces').append('<li class="face">Please authorise Facebook in user profile to view feed.</li>')
     linkedin = auths.filter (auth) =>
-      auth.provider == 'linkedin'
+      auth.get('provider') == 'linkedin'
     if linkedin[0]?        
       #@getLinkedin()
       return
@@ -49,7 +51,7 @@ class RippleApp.Views.HomePage extends Backbone.View
   getTwitter: =>
     #social_id = @getSocialId('facebook')
     #console.log(social_id)
-    social_id = "chestermano"
+    #social_id = "chestermano"
     #url = "https://search.twitter.com/search.json?q=" + social_id + "&callback=?"
     call = "hometimeline"
     @tweets = new RippleApp.Collections.Tweets([], { call : call })

@@ -1,6 +1,8 @@
 class RippleApp.Views.ContactsList extends Backbone.View
   template: JST['contact_manager/contact_list']
-  className: 'contact-list-items'  
+  className: 'contact-list-items' 
+  
+  #THIS VIEW IS NOT BEING USED AT THE MOMENT, OC
   
   initialize: ->
     @model.on('change', @render, this)

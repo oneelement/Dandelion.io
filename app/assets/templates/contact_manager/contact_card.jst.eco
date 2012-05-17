@@ -1,6 +1,10 @@
 <div id="contact-card-map">
-    <img src="http://placehold.it/380x216"/>
-    <!--img src="http://maps.google.com/maps/api/staticmap?size=330x200&sensor=false&maptype=hybrid&zoom=16&markers=address.get('coordinates')[1]%2Caddress.get('coordinates')[0]"/-->
+    <% if @contact.map.toString() != "" : %>
+      <!-- I would have liked to have a query for an empty array, OC -->
+      <img src="http://maps.google.com/maps/api/staticmap?size=380x220&sensor=false&maptype=hybrid&zoom=16&markers=<%= @contact.map[1] %>%2C<%= @contact.map[0] %>"/>
+    <% else: %>
+      <img src="http://placehold.it/380x216"/>
+    <% end %>
 </div>
 <div id="contact-card-actions-wrapper">
     <a id="contact-card-toggle-actions"><i class="icon-chevron-left"></i></a>
