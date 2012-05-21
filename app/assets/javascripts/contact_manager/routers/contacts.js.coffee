@@ -14,46 +14,41 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     return @
     
   home: ->
-    after = (contact) =>
-      @setContextContact(contact)   
+    #after = (contact) =>
+      #@setContextContact(contact) 
     
-    #im thinking this could be incorporated into the logic below, i dont get the isNew bit as I though
-    #the user model will always have been saved to the server. DA to clarify. OC
-    @currentUser.fetchCurrent(success: (model) =>
-      id = model.get("contact_id")
-      contact = @contacts.get(id)      
-      contact = new RippleApp.Models.Contact({_id: id})
-      contact.fetch(success: (contact) =>
-        view = new RippleApp.Views.HomePage(model: model, contact: contact)
-        RippleApp.layout.setMainView(view)        
-      )      
-    )    
-
-    if @currentUser.isNew()
+    after = (contact) =>
+      viewHome = new RippleApp.Views.HomePage(model: @currentUser, contact: contact)
+      RippleApp.layout.setMainView(viewHome)
+      @setContextContact(contact)
+    
+    user = @currentUser.get("_id")   
+    if not user?   
       @currentUser.fetchCurrent(success: (model) =>
-        @getContact(model.get("contact_id"), after)
-      )
-    else
-      @getContact(@currentUser.id, after)
+        id = model.get("contact_id")
+        @getContact(id, after)
+      )    
+    else     
+      id = @currentUser.get("contact_id")
+      @getContact(id, after) 
+    
+#    OC trying to reduce server calls
+#    if @currentUser.isNew()
+#      @currentUser.fetchCurrent(success: (model) =>
+#        @getContact(model.get("contact_id"), after)
+#      )
+#      
+#    else
+#      @getContact(@currentUser.id, after)
 
   index: ->
-    #@contacts.fetch(
-      #success: =>        
-        #view = new RippleApp.Views.ContactsIndex(collection: @contacts)
-        #RippleApp.layout.setMainView(view)
-    #)
-    #OC was taking way too long to load the screen as was fetching each time, with 250 contacts
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     RippleApp.layout.setMainView(view)
-  
-  new: ->
-    view = new RippleApp.Views.ContactNew()
-    $('#contact-modal', @el).html(view.render().el)
   
   #Display the contact, and full detail in the main view
   show: (id) ->
     after = (contact) =>
-      @recentContacts.add(contact)
+      #@recentContacts.add(contact)
       #if @recentContacts.length > @recentContacts.maxSize
         #first = @recentContacts.at(0)
         #@recentContacts.remove(first)
@@ -72,6 +67,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
     @getContact(id, after)
 
+  #get the contact
   getContact: (id, after) ->
     contact = @contacts.get(id)
 
@@ -81,6 +77,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     else
       after(contact)
 
+
   contextContact: ->
     if @_contextContact?
       return @_contextContact
@@ -89,13 +86,23 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   setContextContact: (contact) ->
     @_contextContact = contact
-    @currentUser.fetchCurrent(success: (model) =>
-      view = new RippleApp.Views.ContactCard(model: @_contextContact, user: model)
+    user = @currentUser.get("_id")
+    if not user?
+      @currentUser.fetchCurrent(success: (model) =>
+        view = new RippleApp.Views.ContactCard(model: @_contextContact, user: model)
+        RippleApp.layout.setContextView(view)
+      )
+    else
+      view = new RippleApp.Views.ContactCard(model: @_contextContact, user: @currentUser)
       RippleApp.layout.setContextView(view)
-    )
 
   showContact: (contact) ->
-    @currentUser.fetchCurrent(success: (model) =>
-      showView = new RippleApp.Views.ContactShow(model: contact, user: model)
-      RippleApp.layout.setMainView(showView)
-    )
+    user = @currentUser.get("_id")
+    if not user?
+      @currentUser.fetchCurrent(success: (model) =>
+        view = new RippleApp.Views.ContactShow(model: contact, user: model)
+        RippleApp.layout.setMainView(view)
+      )
+    else
+      view = new RippleApp.Views.ContactShow(model: contact, user: @currentUser)
+      RippleApp.layout.setMainView(view)
