@@ -13,7 +13,7 @@
             <ul>
                 <li>Favourite</li>
                 <li>Refresh</li>
-                <li>Delete</li>
+                <li id="subject-delete">Delete</li>
                 <li>Edit</li>
                 <li>Send</li>
                 <li>Add to Group</li>

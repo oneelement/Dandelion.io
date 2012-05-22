@@ -69,7 +69,9 @@ class UserController < ApplicationController
 	end
       end
       @facefriends = FacebookFriend.where(:user_id => current_user.id).asc(:name)
-      @facefriends = @facefriends.where(:contact_id.exists => false)
+      #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
+      @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
+      
     end
     #@friends.sort_by{|e| e["name"]}
     

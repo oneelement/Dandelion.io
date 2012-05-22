@@ -4,6 +4,8 @@ class Contact
   include Mongoid::Document
   include BackboneHelpers::Model
   
+  before_destroy :clean_contact_delete
+  
   belongs_to :user
   has_many :addresses, :autosave => true, :dependent => :destroy
   embeds_many :phones
@@ -42,6 +44,14 @@ class Contact
     t.add :avatar
     t.add :map
     t.add :facebook_id
+  end
+  
+  def clean_contact_delete
+    face = FacebookFriend.where(:user_id => self.user_id, :contact_id => self._id).first
+    if face
+      face.contact_id = ""
+      face.save
+    end
   end
 
   def update_attributes_from_api(params)

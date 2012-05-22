@@ -11,6 +11,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'dblclick span.contact-detail-value': 'editValue'    
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
+    'click #subject-delete': 'destroySubject'
     
   initialize: ->
     @model.on('change', @render, this)
@@ -85,6 +86,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
   closeEdit: ->
     $(this.el).removeClass('editing')
     @model.save()
+    
+  destroySubject: ->
+    getrid = confirm "Are you sure you want to delete this record?"
+    if getrid == true
+      this.model.destroy()
+      Backbone.history.navigate('#contacts', true)
+      #need to remove subject from recent contacts collection, OC
 
   toggleActionsBar: ->
     if @actionsBarDisplayed
