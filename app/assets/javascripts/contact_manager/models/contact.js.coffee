@@ -28,6 +28,13 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
       includeInJSON: true
       createModels: true
     },
+    {
+      type: 'Backbone.HasMany'
+      key: 'emails'
+      relatedModel: 'RippleApp.Models.ContactEmailDetail'
+      includeInJSON: true
+      createModels: true
+    },
   ]
   idAttribute: '_id'
   urlRoot: -> '/contacts/'

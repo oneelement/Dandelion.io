@@ -8,16 +8,18 @@ class Group
   embeds_many :notes
   embeds_many :phones
   embeds_many :socials
+  embeds_many :emails
   has_many :addresses, :autosave => true, :dependent => :destroy
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true
   accepts_nested_attributes_for :notes, :allow_destroy => true
   accepts_nested_attributes_for :phones, :allow_destroy => true
   accepts_nested_attributes_for :socials, :allow_destroy => true
+  accepts_nested_attributes_for :emails, :allow_destroy => true
   
   field :name, :type => String
   field :web, :type => String
-  field :email, :type => String
+  #field :email, :type => String
   field :avatar, :type => String, :default => "http://placehold.it/80x80"
   field :map, :type => Array, :default => []
   field :contact_ids, :type => Array, :default => []
@@ -30,6 +32,7 @@ class Group
     t.add :phones
     t.add :socials
     t.add :notes
+    t.add :emails
     t.add :name
     t.add :email
     t.add :avatar
@@ -38,7 +41,7 @@ class Group
   end
 
   def update_attributes_from_api(params)
-    keys_with_nested_attributes = ["addresses", "notes", "phones", "socials"]
+    keys_with_nested_attributes = ["addresses", "notes", "phones", "socials", "emails"]
     params = api_to_nested_attributes(params, keys_with_nested_attributes)
     update_attributes(params)
   end

@@ -25,4 +25,16 @@ class FacebookFeedsController < ApplicationController
       format.json { render json: face }
     end
   end
+  
+  def search
+    query = params[:q]
+    #query = "Bubba G"
+    @user = User.find(current_user.id)
+    face = @user.facebook.search(query, {:type => "user"})
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: face }
+    end
+  end  
 end

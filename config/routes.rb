@@ -8,6 +8,7 @@ Onelement::Application.routes.draw do
 
   resources :facebook_feeds do
     get 'feed', :on => :collection
+    get 'search', :on => :collection
   end
 
   resources :twitter_feeds do

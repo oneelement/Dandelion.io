@@ -24,14 +24,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if favouriteIds
       if @model.get("_id") in favouriteIds
         $('#isFavourite', @el).attr('checked','checked')
-        
-    if @model.get('email')
-      email = new RippleApp.Views.ContactCardDetailSingle(
-        icon: 'envelope'
-        value: 'email'
-        model: @model
-      )
-      $('#contact-card-body-list', @el).append(email.render().el)
+
+#changed to multiple emails, OC
+#    if @model.get('email')
+#      email = new RippleApp.Views.ContactCardDetailSingle(
+#        icon: 'envelope'
+#        value: 'email'
+#        model: @model
+#      )
+#      $('#contact-card-body-list', @el).append(email.render().el)
       
     if @model.get('dob')
       dob = new RippleApp.Views.ContactCardDetailSingle(
@@ -40,6 +41,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
         model: @model
       )
       $('#contact-card-body-list', @el).append(dob.render().el)
+      
+    emailsSection = new RippleApp.Views.ContactCardSection(
+      title: 'Emails'
+      collection: @model.get("emails")
+    )
+    $('#contact-card-body', @el).append(emailsSection.render().el)
     
     phonesSection = new RippleApp.Views.ContactCardSection(
       title: 'Phone Numbers'
@@ -115,11 +122,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @user.set('favorite_ids', favouriteIds)
         @user.save()
     
+  #this function is now obsolete, OC
   handleSuccess: (currentuser, response) =>
     id = response._id
     @model.get('favorite_ids').push(id)
     @model.save()
-    
+  
+  #this function is now obsolete, OC
   handleDelete: (currentuser, response) =>
     id = response._id
     included = "test" in this.model.get('favorite_ids')
@@ -258,7 +267,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c.add(m)
       
       if _.include(['Email'], @match)
-        @model.set('email', val)
+        m = new RippleApp.Models.ContactEmailDetail(
+          email: val
+          _type: 'EmailPersonal'
+        )
+        
+        c = @model.get("emails")
+        c.add(m)
       
       if _.include(['D.O.B'], @match)
         @model.set('dob', val)

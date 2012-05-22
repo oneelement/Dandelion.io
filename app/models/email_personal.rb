@@ -1,0 +1,2 @@
+class EmailPersonal < Email
+end

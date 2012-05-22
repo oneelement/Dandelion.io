@@ -68,6 +68,7 @@ class RippleApp.Views.HomePage extends Backbone.View
   getFacebook: =>
     #social_id = @getSocialId('facebook')
     social_id = "chestermano"
+    #call = "search/?q=" + social_id
     call = ""
     @faces = new RippleApp.Collections.Faces([], { call : call })
     @faces.fetch(success: (collection) =>

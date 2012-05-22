@@ -9,14 +9,16 @@ class Contact
   embeds_many :phones
   embeds_many :socials
   embeds_many :notes
+  embeds_many :emails
   accepts_nested_attributes_for :phones, :allow_destroy => true
   accepts_nested_attributes_for :addresses, :allow_destroy => true
   accepts_nested_attributes_for :notes, :allow_destroy => true
   accepts_nested_attributes_for :socials, :allow_destroy => true
+  accepts_nested_attributes_for :emails, :allow_destroy => true
 
   field :name, :type => String
   field :position, :type => String
-  field :email, :type => String
+  #field :email, :type => String
   field :dob, :type => Date
   field :is_user, :type => Boolean, :default => false
   field :favorite_ids, :type => Array, :default => []
@@ -33,6 +35,7 @@ class Contact
     t.add :phones
     t.add :socials
     t.add :notes
+    t.add :emails
     t.add :name
     t.add :email
     t.add :dob
@@ -42,7 +45,7 @@ class Contact
   end
 
   def update_attributes_from_api(params)
-    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes"]
+    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes", "emails"]
     params = api_to_nested_attributes(params, keys_with_nested_attributes)
     update_attributes(params)
   end

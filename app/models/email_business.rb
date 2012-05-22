@@ -1,0 +1,2 @@
+class EmailBusiness < Email
+end
