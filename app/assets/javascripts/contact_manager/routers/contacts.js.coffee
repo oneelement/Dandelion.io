@@ -48,12 +48,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   #Display the contact, and full detail in the main view
   show: (id) ->
     after = (contact) =>
-      #@recentContacts.add(contact)
-      #if @recentContacts.length > @recentContacts.maxSize
-        #first = @recentContacts.at(0)
-        #@recentContacts.remove(first)
-        #@recentContacts.reset(@recentContacts.models)
-        #console.log(first)
+      @recentContacts.add(contact)
       @setContextContact(contact)
       @showContact(contact)
       @contacts.add(contact) #OC added so new contacts are added to the collection and we dont have to fetch from the server
