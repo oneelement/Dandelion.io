@@ -5,12 +5,16 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "contacts/show/:id": "show"
     "contacts/preview/:id": "preview"
     "contacts/new": "new"
+    "groups": "groupindex"
+    "groups/show/:id": "groupShow"
 
   initialize: ->
     @currentUser = new RippleApp.Models.User()
     @recentContacts = new RippleApp.Collections.RecentContacts()
     @contacts = new RippleApp.Collections.Contacts()
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
+    @groups = new RippleApp.Collections.Groups()
+    @groups.fetch()
     return @
     
   home: ->
@@ -44,6 +48,18 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   index: ->
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     RippleApp.layout.setMainView(view)
+    
+  groupindex: ->
+    view = new RippleApp.Views.GroupsIndex(collection: @groups)
+    RippleApp.layout.setMainView(view)
+    
+  groupShow: (id) ->
+    after = (group) =>
+      @setContextContact(group)
+      @showGroup(group)
+      @groups.add(group) #OC added so new contacts are added to the collection and we dont have to fetch from the server
+
+    @getGroup(id, after)
   
   #Display the contact, and full detail in the main view
   show: (id) ->
@@ -71,6 +87,15 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       contact.fetch(success: after)
     else
       after(contact)
+      
+  getGroup: (id, after) ->
+    group = @groups.get(id)
+
+    if not group?
+      group = new RippleApp.Models.Group({_id: id})
+      group.fetch(success: after)
+    else
+      after(group)
 
 
   contextContact: ->
@@ -100,4 +125,15 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       )
     else
       view = new RippleApp.Views.ContactShow(model: contact, user: @currentUser)
+      RippleApp.layout.setMainView(view)
+      
+  showGroup: (group) ->
+    user = @currentUser.get("_id")
+    if not user?
+      @currentUser.fetchCurrent(success: (model) =>
+        view = new RippleApp.Views.GroupShow(model: group, user: model)
+        RippleApp.layout.setMainView(view)
+      )
+    else
+      view = new RippleApp.Views.GroupShow(model: group, user: @currentUser)
       RippleApp.layout.setMainView(view)
