@@ -15,7 +15,7 @@ class RippleApp.Lib.DetailsMatcher
       ]
     "Email":
       exprs: [
-        /^[^:tw].+@.*$/,
+        /^[^:].+@.*$/,
       ]
     "Address":
       exprs: [
