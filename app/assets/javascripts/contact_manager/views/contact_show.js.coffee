@@ -2,6 +2,9 @@ class RippleApp.Views.ContactShow extends Backbone.View
   template: JST['contact_manager/contact_show']
   className: 'contact-show'
   
+  events:
+    'click #twitter-feed, #facebook-feed': 'toggleTab'
+  
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
@@ -14,6 +17,19 @@ class RippleApp.Views.ContactShow extends Backbone.View
     @getSocials()
 
     return this
+    
+  toggleTab: (event) ->
+    console.log(event.target.id)
+    target = event.target
+    targetId = event.target.id
+    this.$('li').removeClass('active')
+    $(target, @el).addClass('active')
+    if targetId == "facebook-feed"
+      this.$('#twitter-wrapper').addClass('disabled')
+      this.$('#facebook-wrapper').removeClass('disabled')
+    if targetId == "twitter-feed"
+      this.$('#facebook-wrapper').addClass('disabled')
+      this.$('#twitter-wrapper').removeClass('disabled')
     
   getSocials: ->
     auths = @user.get('authentications')

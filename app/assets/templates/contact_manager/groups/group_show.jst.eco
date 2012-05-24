@@ -15,7 +15,18 @@
 </div>
 
 <div>
-  <input id="groups-add-contact">
+  <input id="groups"></input>
 </div>
 
+<table id="contacts-table">
+<thead>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+<th></th>
+</thead>
+<tbody id="contacts-table-body">
+</tbody>
+</table>
 

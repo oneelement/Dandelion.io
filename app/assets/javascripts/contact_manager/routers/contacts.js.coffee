@@ -15,6 +15,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
     @groups = new RippleApp.Collections.Groups()
     @groups.fetch()
+    @groupContacts = new RippleApp.Collections.Contacts()
     return @
     
   home: ->

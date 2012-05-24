@@ -11,7 +11,7 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     $(@el).html(@template())
     @collection.each(@appendContact)
     this.$('#contacts-table').dataTable("bPaginate": false, "oLanguage": {sSearch: ""}, "bInfo": false, "aaSorting": [ [1,'asc'] ])
-    @
+    return this
   
   contactSearch: ->
     view = new RippleApp.Views.ContactsSearch(model: @model)

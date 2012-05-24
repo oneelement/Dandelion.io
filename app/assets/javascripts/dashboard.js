@@ -24,7 +24,7 @@ $(function() {
   
   $('#autocomplete').catcomplete({ 
     source: function (request, response) {
-        $.getJSON("../contacts/autocomplete", {"term": request.term}, function(results){
+        $.getJSON("../autocomplete/wonderbar", {"term": request.term}, function(results){
             results.push({
               label: 'Add Contact',
               category: 'Actions',

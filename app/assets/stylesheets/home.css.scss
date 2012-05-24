@@ -1,7 +1,3 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 /*********************************************************************************
 * TOP NAVIGATION MENU
 **********************************************************************************/
@@ -164,8 +160,16 @@
   cursor: pointer;
 }
 
+/*********************************************************************************
+* SOCIAL FEEDS HOMEPAGE
+**********************************************************************************/
 
-
+#social-feeds {
+  border: 1px solid #CCC;
+  margin: 0px;
+  padding: 0px;
+  @include border-radius(8px); 
+}
 
 
 /*********************************************************************************
@@ -174,6 +178,36 @@
 
 .disabled {
   display: none !important;
+}
+
+.rip-tabs {
+  margin: 0px;
+  padding: 0px;
+  li {
+    float: left;
+    padding: 9px 12px 9px 12px;
+    border-right: 1px solid #CCC;
+  }
+  li.active {
+    background: #fcc;
+  }
+  li.active:hover {
+    background: #fcc;
+  }
+  li:hover {
+    background: #ccc;
+  }  
+}
+
+/*********************************************************************************
+* BORDERS
+**********************************************************************************/
+
+.border {
+  border: 1px solid #CCC;
+  margin: 0px;
+  padding: 0px;
+  @include border-radius(8px); 
 }
 
 /*********************************************************************************

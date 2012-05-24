@@ -34,7 +34,7 @@ class Group
     t.add :notes
     t.add :emails
     t.add :name
-    t.add :email
+    #t.add :email
     t.add :avatar
     t.add :map
     t.add :contact_ids
