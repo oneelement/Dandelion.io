@@ -12,11 +12,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
+    'show #socialModal': 'socialModalShow'
     
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
-
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -43,6 +43,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
       )
       $('#contact-card-body-list', @el).append(dob.render().el)
       
+    $('#socialModal').modal()
+          
     emailsSection = new RippleApp.Views.ContactCardSection(
       title: 'Emails'
       collection: @model.get("emails")
@@ -54,6 +56,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
       collection: @model.get("phones")
     )
     $('#contact-card-body', @el).append(phonesSection.render().el)
+    
+    urlsSection = new RippleApp.Views.ContactCardSection(
+      title: 'Urls'
+      collection: @model.get("urls")
+    )
+    $('#contact-card-body', @el).append(urlsSection.render().el)
 
     addressesSection = new RippleApp.Views.ContactCardSection(
       title: 'Addresses'
@@ -282,6 +290,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
         
         c = @model.get("emails")
         c.add(m)
+        
+      if _.include(['Url'], @match)
+        m = new RippleApp.Models.ContactUrlDetail(
+          url: val
+          _type: 'UrlPersonal'
+        )
+        
+        c = @model.get("urls")
+        c.add(m)
       
       if _.include(['D.O.B'], @match)
         @model.set('dob', val)
@@ -303,3 +320,17 @@ class RippleApp.Views.ContactCard extends Backbone.View
     w = $ruler.width()
     $ruler.remove()
     return w
+
+  socialModalShow: (e) =>
+    $('#socialModal input.socialSearch').typeahead(
+      source: (typeahead, query) ->
+        @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+query })
+        @faces.fetch(success: (collection) =>
+          data = []
+          _.each collection.models, (value, index) ->
+            data.push({name:value.attributes.name, id:value.attributes.id})
+          typeahead.process(data)
+        )
+      property: "name"
+      items: 20
+    )

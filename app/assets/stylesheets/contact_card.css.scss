@@ -127,11 +127,22 @@
           }
         }
       }
+      
+      #social-network-links{
+        position: absolute;
+        top: 130px;
+        left: 36px;
+        right: 0;
+      }
+      
+      #social-network-links .social-image-link{
+        padding: 0 36px 0 0;
+      }
     }
 
     #contact-card-body {
       position: absolute;
-      top: 130px;
+      top: 168px;
       left: 0;
       width: 360px;
 
