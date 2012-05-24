@@ -1,5 +1,10 @@
 Onelement::Application.routes.draw do
   
+  resources :autocomplete do
+    get 'wonderbar', :on => :collection
+    get 'contacts', :on => :collection
+  end
+  
   resources :imports do
     get 'facebook', :on => :collection
   end
@@ -53,9 +58,7 @@ Onelement::Application.routes.draw do
   
   resources :organisations
 
-  resources :contacts do
-    get 'autocomplete', :on => :collection
-  end
+  resources :contacts
 
   resources :dashboard
 

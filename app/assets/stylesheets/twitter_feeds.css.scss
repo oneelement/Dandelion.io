@@ -3,10 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #tweets {
-  border: 1px solid #CCC;
   margin: 0px;
   padding: 0px;
-  @include border-radius(8px);
 }
 
 #tweets-loading img{

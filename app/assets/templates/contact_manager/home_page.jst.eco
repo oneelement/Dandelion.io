@@ -1,21 +1,27 @@
-<div id="twitter-wrapper">  
-  <ul id="tweets">
-    <li class="tweets-header">Twitter Feed</li>
-    <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
+<h1>Social Feeds</h1>
+
+<div id="social-feeds">
+  <ul class="rip-tabs" id="social-feeds-header">
+    <li id="twitter-feed" class="active">Twitter</li>
+    <li id="facebook-feed" class="">Facebook</li>
   </ul>
+  <div class="clear"/>
+  <div id="twitter-wrapper">  
+    <ul id="tweets">
+      <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
+    </ul>
+  </div>
+  <div id="facebook-wrapper" class="disabled">
+    <ul id="faces">
+      <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
+    </ul>
+  </div>
+  <div id="linkedin-wrapper">
+    <ul id="linkedins">
+    </ul>
+  </div>
 </div>
 
-<div id="facebook-wrapper">
-  <ul id="faces">
-    <li class="faces-header">Facebook Feed</li>
-    <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
-  </ul>
-</div>
-
-<div id="linkedin-wrapper">
-  <ul id="linkedins">
-  </ul>
-</div>
 
 
 

@@ -120,7 +120,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     favouriteIds  = @user.get('favorite_ids') ? []    
     if e.target.checked
       favouriteIds.push(@model.get('_id'))
-      _.uniq(favouriteIds)
+      _.uniq(favouriteIds) #does this actually work? OC, I think you might have to assign a variable
       @user.set('favorite_ids', favouriteIds)
       @user.save()
     else       
