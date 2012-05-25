@@ -41,7 +41,7 @@ class Contact
     t.add :notes
     t.add :emails
     t.add :name
-    t.add :email
+    #t.add :email
     t.add :dob
     t.add :avatar
     t.add :map
