@@ -14,19 +14,31 @@
   </ul>
 </div>
 
-<div>
-  <input id="groups"></input>
+<div id="group-info" class="border">
+  <ul class="rip-tabs" id="group-header">
+    <li id="group-contacts" class="active">Contacts</li>
+    <li id="group-blank">Blank</li>
+  </ul>
+  <div class="clear"/>
+  <div id="group-contacts-wrapper">  
+    <div>
+      <input id="groups"></input>
+    </div>
+    <table id="contacts-table">
+      <thead>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody id="contacts-table-body">
+      </tbody>
+    </table>
+  </div>
+  <div id="group-blank-wrapper" class="disabled">
+  </div>
 </div>
 
-<table id="contacts-table">
-<thead>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-<th></th>
-</thead>
-<tbody id="contacts-table-body">
-</tbody>
-</table>
+
 

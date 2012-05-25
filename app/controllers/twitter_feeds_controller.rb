@@ -39,4 +39,15 @@ class TwitterFeedsController < ApplicationController
       format.json { render json: tweets }
     end
   end
+  
+  def tweet
+    text = params[:text]
+    @user = User.find(current_user.id)
+    tweets = @user.tweeting.update(text)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: tweets }
+    end
+  end
 end

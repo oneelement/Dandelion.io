@@ -27,6 +27,8 @@ class Contact
   field :avatar, :type => String, :default => "http://placehold.it/80x80"
   field :map, :type => Array, :default => []
   field :facebook_id, :type => String
+  field :linkedin_id, :type => String
+  
   #field :favorite_users, :type => Array
   
   acts_as_api
@@ -44,6 +46,7 @@ class Contact
     t.add :avatar
     t.add :map
     t.add :facebook_id
+    t.add :linkedin_id
   end
   
   def clean_contact_delete

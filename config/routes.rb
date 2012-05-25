@@ -14,11 +14,13 @@ Onelement::Application.routes.draw do
   resources :facebook_feeds do
     get 'feed', :on => :collection
     get 'search', :on => :collection
+    get 'wallpost', :on => :collection
   end
 
   resources :twitter_feeds do
     get 'hometimeline', :on => :collection
     get 'contacttimeline', :on => :collection
+    get 'tweet', :on => :collection
   end
   
   resources :groups

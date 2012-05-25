@@ -59,21 +59,38 @@ class UserController < ApplicationController
     @user = User.find(params[:id])
     if @user.facebook
       @friends = @user.facebook.get_connections("me", "friends")
-      @friends.each do |face|
-	name = face["name"]
-	id = face["id"]
-	if FacebookFriend.where(:facebook_id => id, :user_id => current_user.id).exists?
-	else
-	  friend = FacebookFriend.new(:name => name, :facebook_id => id, :user_id => current_user.id)
-	  friend.save
-	end
+      @friends.each do |face|        
+        id = face["id"]
+        if FacebookFriend.where(:facebook_id => id, :user_id => current_user.id).exists?
+        else
+          name = face["name"]
+          friend = FacebookFriend.new(:name => name, :facebook_id => id, :user_id => current_user.id)
+          friend.save
+        end
       end
       @facefriends = FacebookFriend.where(:user_id => current_user.id).asc(:name)
       #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
-      @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
-      
+      @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })      
     end
     #@friends.sort_by{|e| e["name"]}
+    
+    if @user.linkedin
+      @connections = @user.linkedin.connections
+      @connections = @connections.all
+      @connections.each do |connection|
+	id = connection.id
+        if LinkedinConnection.where(:linkedin_id => id, :user_id => current_user.id).exists?
+        else
+          name = connection.first_name + " " + connection.last_name
+          if connection.id != "private"
+            connection = LinkedinConnection.new(:name => name, :linkedin_id => id, :user_id => current_user.id)
+            connection.save
+          end
+        end
+      end
+      @linkedin = LinkedinConnection.where(:user_id => current_user.id).asc(:name)
+      @linkedin = @linkedin.any_of({ :contact_id.exists => false }, { :contact_id => "" })    
+    end
     
     
     respond_to do |format|

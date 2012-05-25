@@ -1,4 +1,5 @@
 <%= @link.first_name %>
 <%= @link.last_name %>
 <%= @link.headline %>
+<%= @link.all %>
 
