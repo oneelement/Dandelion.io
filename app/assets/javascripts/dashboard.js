@@ -12,6 +12,7 @@ $(document).ready(function(){
         });
   });
   $("#facebook_import_submit").click(function() { $("#facebook_import").submit(); });
+  $("#linkedin_import_submit").click(function() { $("#linkedin_import").submit(); });
 });
 
 $(function() {

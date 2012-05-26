@@ -3,6 +3,8 @@ class RippleApp.Views.HomePage extends Backbone.View
   
   events:
     'click #twitter-feed, #facebook-feed': 'toggleTab'
+    'keypress #twitter-post': 'postTwitter'
+    'keypress #facebook-post': 'postFacebook'
   
   initialize: ->
     @model.on('change', @render, this)
@@ -15,6 +17,28 @@ class RippleApp.Views.HomePage extends Backbone.View
     @getSocials()
     
     return this
+    
+  postTwitter: (event) ->
+    if (event.keyCode == 13) 
+      text = this.$('#twitter-post').val()
+      call = "tweet/?text=" + text
+      console.log(text)
+      @tweets = new RippleApp.Collections.Tweets([], { call : call })
+      @tweets.fetch(success: (collection) =>
+        console.log(collection)        
+      )      
+      this.$('#twitter-post').val("")      
+    
+  postFacebook: (event) ->
+    if (event.keyCode == 13) 
+      text = this.$('#facebook-post').val()
+      call = "wallpost/?text=" + text
+      console.log(text)
+      @faces = new RippleApp.Collections.Faces([], { call : call })
+      @faces.fetch(success: (collection) =>
+        console.log(collection)      
+      )     
+      this.$('#facebook-post').val("")
     
   toggleTab: (event) ->
     console.log(event.target.id)
@@ -51,7 +75,7 @@ class RippleApp.Views.HomePage extends Backbone.View
     linkedin = auths.filter (auth) =>
       auth.get('provider') == 'linkedin'
     if linkedin[0]?        
-      #@getLinkedin()
+      @getLinkedin()
       return
     
   getSocialId: (socialnetwork) ->

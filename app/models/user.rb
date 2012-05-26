@@ -20,9 +20,10 @@ class User
   has_many :tasks
   has_many :favorites
   has_many :facebook_friends
+  has_many :linkedin_connections
   has_many :authentications, :autosave => true, :dependent => :destroy
   
-  accepts_nested_attributes_for :organisation, :contacts, :groups, :tasks, :favorites, :facebook_friends
+  accepts_nested_attributes_for :organisation, :contacts, :groups, :tasks, :favorites, :facebook_friends, :linkedin_connections
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
   ## Database authenticatable

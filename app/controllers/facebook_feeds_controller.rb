@@ -36,5 +36,16 @@ class FacebookFeedsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: face }
     end
-  end  
+  end 
+  
+  def wallpost
+    text = params[:text]
+    @user = User.find(current_user.id)
+    face = @user.facebook.put_wall_post(text)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: face }
+    end
+  end
 end

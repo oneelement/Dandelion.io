@@ -2,6 +2,9 @@ class RippleApp.Views.GroupShow extends Backbone.View
   template: JST['contact_manager/groups/group_show']
   className: 'group-show'
   
+  events:
+    'click #group-contacts, #group-blank': 'toggleTab'
+  
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
@@ -24,6 +27,18 @@ class RippleApp.Views.GroupShow extends Backbone.View
       @collection.add(contact)
     )
     
+  toggleTab: (event) ->
+    target = event.target
+    targetId = event.target.id
+    this.$('li').removeClass('active')
+    $(target, @el).addClass('active')
+    if targetId == "group-contacts"
+      this.$('#group-blank-wrapper').addClass('disabled')
+      this.$('#group-contacts-wrapper').removeClass('disabled')
+    if targetId == "group-blank"
+      this.$('#group-contacts-wrapper').addClass('disabled')
+      this.$('#group-blank-wrapper').removeClass('disabled')
+    
   autocomplete: =>
     this.$('#groups').autocomplete
       source: "autocomplete/contacts"
@@ -39,10 +54,7 @@ class RippleApp.Views.GroupShow extends Backbone.View
     @model.save()
     #contacts = RippleApp.contactsRouter.contacts
     contact = @contacts.get(ui.item.id)
-    console.log(@contacts)
-    console.log(contact)
     @collection.add(contact)
-    console.log(@collection)
     this.$('#groups').val("")
     
   appendContact: (contact) =>

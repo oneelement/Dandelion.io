@@ -50,13 +50,14 @@
     </div>
       <div id="contacts-import">
 	<h3>Import Contacts</h3>
-	<a class="btn" data-toggle="modal" href="#myModal" >Get Facebook Contacts</a>
+	<a class="btn" data-toggle="modal" href="#importFacebook">Get Facebook Contacts</a>
+        <a class="btn" data-toggle="modal" href="#importLinkedin">Get Linked In Contacts</a>
 	
       </div>
   </div>
 
   <div style="clear: both"></div>
-  <div class="modal hide" id="myModal">
+  <div class="modal hide" id="importFacebook">
     <div class="modal-header">
       <button class="close" data-dismiss="modal">×</button>
       <h3>Facebook Contacts</h3>
@@ -92,4 +93,41 @@
       <a id="facebook_import_submit" href="#" class="btn btn-primary">Import from Facebook</a>
     </div>
   </div>
+
+  <div class="modal hide" id="importLinkedin">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">×</button>
+      <h3>Linked In Contacts</h3>
+    </div>
+    <div class="modal-body">
+    <% if @linkedin %>
+	<%= form_tag '/imports', :id => "linkedin_import" do %>
+	    <% i = 0 %>
+	    <a id="select_all" class="btn">Select All</a>
+	    <a id="deselect_all" class="btn">Deselect All</a>
+	    <% @linkedin.each do |connection| %>
+                <% s = i.to_s %>
+                <% id = "connections_" + s + "_name" %>
+                <% name = "connections[" + s + "][name]" %>
+                <% connection_id = "connections[" + s + "][connection_id]" %>
+                <% check_name = "connections[" + s + "][check]" %>
+                <%= label_tag name, connection["name"], :id => id %>
+                <%= hidden_field_tag name, connection["name"], :id => id %>
+                <%= hidden_field_tag connection_id, connection["linkedin_id"], :id => id %>
+                <%= check_box_tag check_name %>
+                <% i = i + 1 %>
+	    <% end %>
+	<% end %>
+    <% else %>
+        Please connect linked in account to import contacts.  Thanks!
+    <% end %>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+      <a id="linkedin_import_submit" href="#" class="btn btn-primary">Import from Linked In</a>
+    </div>
+  </div>
+
+
+
 </div>

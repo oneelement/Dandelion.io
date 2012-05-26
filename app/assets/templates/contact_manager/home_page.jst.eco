@@ -7,11 +7,13 @@
   </ul>
   <div class="clear"/>
   <div id="twitter-wrapper">  
+    Tweet here: <input id="twitter-post"></input>
     <ul id="tweets">
       <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
     </ul>
   </div>
   <div id="facebook-wrapper" class="disabled">
+    Post on your wall here: <input id="facebook-post"></input>
     <ul id="faces">
       <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
     </ul>
