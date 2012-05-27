@@ -1,0 +1,8 @@
+<a>
+  <div class="face-image">
+    <img src="https://graph.facebook.com/<%= @face.id %>/picture" alt=""/>
+  </div>
+  <div class="result-text">
+    <%= @face.name %>
+  </div>
+</a>

@@ -1,0 +1,2 @@
+class UrlPersonal < Email
+end
