@@ -49,8 +49,8 @@ class User
   field :last_name, :type => String
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
-  field :favorite_ids, :type => Array, :default => []
-  field :recent_ids, :type => Array, :default => []
+  field :favorite_contacts, :type => String
+  field :recent_contacts, :type => String
   #field :adminorg, :type => Boolean, :default => false
   #field :adminent, :type => Boolean, :default => false
   #field :adminone, :type => Boolean, :default => false
@@ -82,8 +82,8 @@ class User
     t.add :last_name
     t.add :email
     t.add :recent_ids
-    t.add :favorite_ids
-    t.add :contact_id
+    t.add :favorite_contacts
+    t.add :recent_contacts
   end
 
   def update_attributes_from_api(params)
@@ -177,10 +177,10 @@ class User
   end
   
   def linkedin
-    provider = self.authentications.where(:provider => 'linkedin').first
-    client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
-    client.authorize_from_access(provider.token, provider.secret)
-    @linkedin = client
+    #provider = self.authentications.where(:provider => 'linkedin').first
+    #client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
+    #client.authorize_from_access(provider.token, provider.secret)
+   @linkedin = client
   end
   
 end

@@ -14,7 +14,6 @@ class RippleApp.Views.RecentContactsEntry extends Backbone.View
     else
       if @$el.hasClass('active')
         @$el.removeClass('active')
-
     $(@el).html(@template(model: @model.toJSON(), isSelected: isContextContact))
     @
 

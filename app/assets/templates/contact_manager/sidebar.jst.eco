@@ -15,3 +15,6 @@
 <div class="separator"></div>
 <div id="recent-contacts">
 </div>
+<ul id="favourite-menu">
+  <li id="favourite-item"><div id="favourites"></div></li>
+</ul>

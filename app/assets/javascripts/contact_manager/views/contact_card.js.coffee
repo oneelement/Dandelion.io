@@ -1,5 +1,6 @@
 class RippleApp.Views.ContactCard extends Backbone.View
   template: JST['contact_manager/contact_card']
+  searchModel: JST['contact_manager/search_modal']
   id: 'contact-card'
     
   events:
@@ -12,19 +13,19 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
-    'show #socialModal': 'socialModalShow'
+    'show #social-modal': 'socialModal'
     
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
+    @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favorite_contacts')))
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
-    
-    favouriteIds = @user.get('favorite_ids')
-    if favouriteIds
-      if @model.get("_id") in favouriteIds
-        $('#isFavourite', @el).attr('checked','checked')
+    $(@el).append(@searchModel())
+    $('#social-modal', @el).modal(show: false)
+    if @favouriteContacts.get(@model.get("_id"))
+      $('#isFavourite', @el).attr('checked', 'checked')
 
 #changed to multiple emails, OC
 #    if @model.get('email')
@@ -42,8 +43,6 @@ class RippleApp.Views.ContactCard extends Backbone.View
         model: @model
       )
       $('#contact-card-body-list', @el).append(dob.render().el)
-      
-    $('#socialModal').modal()
           
     emailsSection = new RippleApp.Views.ContactCardSection(
       title: 'Emails'
@@ -122,21 +121,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
         .addClass('icon-chevron-right')
         @actionsBarDisplayed = true
   
-  toggleFavourite: (e) ->
-    #want to set favourite_ids default to [] but neither contact or user model seem to work. ew
-    #I have set this in the rails model, OC
-    favouriteIds  = @user.get('favorite_ids') ? []    
+  toggleFavourite: (e) ->   
     if e.target.checked
-      favouriteIds.push(@model.get('_id'))
-      _.uniq(favouriteIds) #does this actually work? OC, I think you might have to assign a variable
-      @user.set('favorite_ids', favouriteIds)
+      @favouriteContacts.add(@model.getBadge())
+      @user.set('favorite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
-    else       
-      index = favouriteIds.indexOf(@model.get('_id'))
-      if index >= 0
-        favouriteIds.splice(index, 1)
-        @user.set('favorite_ids', favouriteIds)
-        @user.save()
+    else
+      @favouriteContacts.remove(@model.getBadge())
+      @user.set('favorite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
+      @user.save()
     
   #this function is now obsolete, OC
   handleSuccess: (currentuser, response) =>
@@ -320,17 +313,24 @@ class RippleApp.Views.ContactCard extends Backbone.View
     w = $ruler.width()
     $ruler.remove()
     return w
-
-  socialModalShow: (e) =>
-    $('#socialModal input.socialSearch').typeahead(
-      source: (typeahead, query) ->
-        @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+query })
-        @faces.fetch(success: (collection) =>
-          data = []
-          _.each collection.models, (value, index) ->
-            data.push({name:value.attributes.name, id:value.attributes.id})
-          typeahead.process(data)
-        )
-      property: "name"
-      items: 20
+    
+  socialSearch: (e)=>
+    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+e.target.value })
+    @faces.fetch(success: (collection) ->
+      $('#social-modal ul').empty()
+      collection.each((face)=>
+        view = new RippleApp.Views.FaceSearch(model: face)
+        $('#social-modal ul').append(view.render().el)
+      )
     )
+
+  socialModal: (e)=>
+    $('#social-search').val(@model.get('name'));
+    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
+    @faces.fetch(success: (collection) ->
+      collection.each((face)=>
+        view = new RippleApp.Views.FaceSearch(model: face)
+        $('#social-modal ul').append(view.render().el)
+      )
+    )
+    $('#social-search').on('keyup', @.socialSearch)

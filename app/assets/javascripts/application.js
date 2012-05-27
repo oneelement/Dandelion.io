@@ -13,5 +13,4 @@
 //= require dashboard
 //= require dataTables/jquery.dataTables
 //= require user
-//= require bootstrap-typeahead2
 //= require autocomplete
