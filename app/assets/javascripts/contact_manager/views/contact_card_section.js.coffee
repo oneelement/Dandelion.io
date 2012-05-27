@@ -44,8 +44,6 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     if animate
       $detailEl.css('display', 'none')
 
-    #console.log($detailEl)
-
     $detailsList.append($detailEl)
     @makeTitleActive()
 

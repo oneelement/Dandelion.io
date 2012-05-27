@@ -69,16 +69,14 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   
   #Display the contact, and full detail in the main view
   show: (id) ->
-    after = (contact) =>
-      @recentContacts.add(contact.getBadge())
-      console.log(@recentContacts)      
+    @getContact(id, (contact) =>
+      @recentContacts.add(contact.getBadge())  
       @currentUser.set('recent_contacts', JSON.stringify(@recentContacts.getTop5()))
+      @currentUser.save()
       @setContextContact(contact)
       @showContact(contact)
       @contacts.add(contact) #OC added so new contacts are added to the collection and we dont have to fetch from the server
-
-    @getContact(id, after)
-
+    )
   #Display the contact card, without full detail
   preview: (id) ->
     after = (contact) =>

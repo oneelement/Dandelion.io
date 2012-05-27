@@ -14,28 +14,20 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
     'show #social-modal': 'socialModal'
+    'click .socialLinkButton': 'socialLink'
     
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
-    @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favorite_contacts')))
+    @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favourite_contacts')))
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
-    $(@el).append(@searchModel())
+    $(@el).append(@searchModel(options: {title: "Facebook Search"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
 
-#changed to multiple emails, OC
-#    if @model.get('email')
-#      email = new RippleApp.Views.ContactCardDetailSingle(
-#        icon: 'envelope'
-#        value: 'email'
-#        model: @model
-#      )
-#      $('#contact-card-body-list', @el).append(email.render().el)
-      
     if @model.get('dob')
       dob = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'contact'
@@ -124,25 +116,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
   toggleFavourite: (e) ->   
     if e.target.checked
       @favouriteContacts.add(@model.getBadge())
-      @user.set('favorite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
+      @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
     else
       @favouriteContacts.remove(@model.getBadge())
-      @user.set('favorite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
+      @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
-    
-  #this function is now obsolete, OC
-  handleSuccess: (currentuser, response) =>
-    id = response._id
-    @model.get('favorite_ids').push(id)
-    @model.save()
-  
-  #this function is now obsolete, OC
-  handleDelete: (currentuser, response) =>
-    id = response._id
-    included = "test" in this.model.get('favorite_ids')
-    @model.get('favorite_ids').pop(id)
-    @model.save()
 
   matchInputDetails: ->
     #Display our guess of what the input text relates to, 
@@ -298,6 +277,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
     $input.val('')
     @model.save()
+    console.log(@model.get("urls"))
 
   calculateMatchLabelWidth: (text, $addon) ->
     textWidth = @measureTextWidth(text)
@@ -319,6 +299,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @faces.fetch(success: (collection) ->
       $('#social-modal ul').empty()
       collection.each((face)=>
+        face.set('socialType', 'facebook_id')
         view = new RippleApp.Views.FaceSearch(model: face)
         $('#social-modal ul').append(view.render().el)
       )
@@ -329,8 +310,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
     @faces.fetch(success: (collection) ->
       collection.each((face)=>
+        face.set('socialType', 'facebook_id')
         view = new RippleApp.Views.FaceSearch(model: face)
         $('#social-modal ul').append(view.render().el)
       )
     )
     $('#social-search').on('keyup', @.socialSearch)
+    
+  socialLink: (e)=>
+    socialType = $(e.target).attr('data-socialtype')
+    @model.set(socialType,$(e.target).attr('data-socialid'))

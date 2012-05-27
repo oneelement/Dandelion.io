@@ -1,7 +1,7 @@
 class RippleApp.Collections.ContactBadges extends Backbone.Collection
   model: RippleApp.Models.ContactBadge
   
-  initialize: (options)-> 
+  initialize: (options = {})-> 
     @maxSize = options.maxSize ? 0
   
   getTop5: =>

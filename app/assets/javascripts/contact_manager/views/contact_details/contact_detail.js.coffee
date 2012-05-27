@@ -10,8 +10,6 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'focusout input#edit_value': 'closeEdit'
 
   initialize: ->
-    #console.log(@options)
-    #console.log(@model)
     @icon = @options.icon
     @value = @options.value
     @model.on('change', @renderEdit, this)
