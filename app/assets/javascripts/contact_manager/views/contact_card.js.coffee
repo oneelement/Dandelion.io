@@ -28,8 +28,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
-      
-      
+
     @updateSocialLinks()
     @outputCard()
     
@@ -95,8 +94,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
     if getrid == true
-      this.model.destroy()
-      Backbone.history.navigate('#contacts', true)
+      RippleApp.contactsRouter.favouriteContacts.remove(@model)
+      RippleApp.contactsRouter.recentContacts.remove(@model)
+      @model.destroy()
+      gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
+      Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
       #need to remove subject from recent contacts collection, OC
 
   toggleActionsBar: ->

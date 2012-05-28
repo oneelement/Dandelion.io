@@ -9,10 +9,6 @@ class RippleApp.Views.ContactListSection extends Backbone.View
 
   render: ->
     $(@el).html(@template())
-    console.log(@collection)
-    _.each(@collection.models, (model) =>
-      console.log(model.default)
-    )
     return this
     
  
