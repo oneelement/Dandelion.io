@@ -12,9 +12,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
+    'click #default-phone, #default-address, #default-email': 'closeEdit'
     
   initialize: ->
-    @model.on('change', @render, this)
+    @model.on('change', @outputCard, this)
     @user = @options.user
 
     
@@ -25,6 +26,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if favouriteIds
       if @model.get("_id") in favouriteIds
         $('#isFavourite', @el).attr('checked','checked')
+        
+    @outputCard()
 
 #changed to multiple emails, OC
 #    if @model.get('email')
@@ -34,7 +37,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
 #        model: @model
 #      )
 #      $('#contact-card-body-list', @el).append(email.render().el)
-      
+
+  outputCard: ->      
     if @model.get('dob')
       dob = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'contact'
@@ -85,7 +89,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
   closeEdit: ->
     $(this.el).removeClass('editing')
-    @model.save()
+    @model.save(null, {wait: true})
     
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
@@ -130,19 +134,6 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @user.set('favorite_ids', favouriteIds)
         @user.save()
     
-  #this function is now obsolete, OC
-  handleSuccess: (currentuser, response) =>
-    id = response._id
-    @model.get('favorite_ids').push(id)
-    @model.save()
-  
-  #this function is now obsolete, OC
-  handleDelete: (currentuser, response) =>
-    id = response._id
-    included = "test" in this.model.get('favorite_ids')
-    @model.get('favorite_ids').pop(id)
-    @model.save()
-
   matchInputDetails: ->
     #Display our guess of what the input text relates to, 
     #on the label alongside the input itself
@@ -194,7 +185,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("phones")
 
         if @match == 'Mobile'
-          m.set('_type', 'PhoneMobile')
+          m.set('_type', 'PhoneMobile', {silent: true})
         else if @match == 'Home Phone'
           m.set('_type', 'PhoneHome')
 
@@ -287,7 +278,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @model.set('dob', val)
 
     $input.val('')
-    @model.save()
+    @model.save(null, { silent: true })
 
   calculateMatchLabelWidth: (text, $addon) ->
     textWidth = @measureTextWidth(text)

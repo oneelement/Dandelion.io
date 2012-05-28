@@ -10,13 +10,13 @@
   </div>
 </td>
 <td>
-  <div class="details">
+  <div id="phone-details">
       <span><i class="icon-envelope"></i></span>
       <span>phone number</span>
   </div>
 </td>
 <td>
-  <div class="details">
+  <div class="email-details">
       <span><i class="icon-envelope"></i></span>
       <span>phone number</span>
   </div>
@@ -24,8 +24,10 @@
 <td>
   <div class="actions">
       <ul>
-	  <li id="open-action">Open Contact</li>
+          <li id="open-action">Open Contact</li>
       </ul>
   </div>
 </td>
+
+
 

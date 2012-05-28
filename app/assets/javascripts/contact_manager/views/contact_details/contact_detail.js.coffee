@@ -8,23 +8,46 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'keypress #edit_value': 'checkEnter'
     'click span.edit-icon': 'editValue'
     'focusout input#edit_value': 'closeEdit'
+    'click #default-phone, #default-address, #default-email': 'toggleDefault'
 
   initialize: ->
     #console.log(@options)
-    #console.log(@model)
     @icon = @options.icon
     @value = @options.value
     @model.on('change', @renderEdit, this)
+    @modelType = @model.getModelType()
 
   render: ->
-    $(@el).html(@template(icon: @icon, value: @value))
-    @
+    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType))
+    
+    defaultInd = @model.get('default')
+    if defaultInd == true
+      id = "#default-" + @modelType
+      $(id, @el).attr('checked','checked')
+    
+    return this
     
   renderEdit: ->
     @value = @model.getViewValue()
-    $(@el).html(@template(icon: @icon, value: @value))
-    @
+    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType))
+    defaultInd = @model.get('default')
+    id = "#default-" + @modelType
+    if defaultInd == true
+      $(id, @el).attr('checked', true)
+    else
+      $(id, @el).attr('checked', false)
+      
+    return this
     
+ 
+  toggleDefault: (e) ->
+    _.each(@collection.models, (model) ->
+      model.set('default', false)
+    )
+    if e.target.checked == true
+      @model.set('default', true)
+    else  
+      @model.set('default', false)
   
   editValue: ->
     $(this.el).addClass('editing')

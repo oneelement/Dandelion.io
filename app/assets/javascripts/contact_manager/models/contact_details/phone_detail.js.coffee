@@ -19,3 +19,6 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
     
   getFieldName: ->
     return "number"
+    
+  getModelType: ->
+    return "phone"
