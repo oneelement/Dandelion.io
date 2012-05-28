@@ -36,10 +36,12 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     if not user?   
       @currentUser.fetchCurrent(success: (model) =>
         id = model.get("contact_id")
+        console.log(id)
         @getContact(id, after)
       )    
     else     
       id = @currentUser.get("contact_id")
+      console.log(id)
       @getContact(id, after) 
    
 #    OC trying to reduce server calls

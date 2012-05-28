@@ -1,5 +1,9 @@
 class RippleApp.Views.FavouriteContacts extends Backbone.View
 
+  initialize: ->
+    #added to re-render when a new favorite is added to the collection. OC 28/05
+    @collection.on('add remove reset', @render, @)
+
   render: ->
     $(@el).append(
         icon = new RippleApp.Models.ContactBadge()
@@ -14,8 +18,10 @@ class RippleApp.Views.FavouriteContacts extends Backbone.View
     )
     @
 
-  events:
-    "click": "clicked"
+  #events:
+    #this will not work as there is no model.  I presume this is a mistake OC 28/05
+    #"click": "clicked"
 
-  clicked: ->
-    Backbone.history.navigate('contacts/show/' + @model.id, true)
+  #clicked: ->
+    #this will not work as there is no model.  I presume this is a mistake OC 28/05
+    #Backbone.history.navigate('contacts/show/' + @model.id, true)

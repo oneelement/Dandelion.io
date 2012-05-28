@@ -18,7 +18,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click .socialLinkButton': 'socialLink'
     
   initialize: ->
-    @model.on('change', @outputCard, this)
+    #@model.on('change', @outputCard, this)
     @user = @options.user
     @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favourite_contacts')))
     
@@ -348,4 +348,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
   socialLink: (e)=>
     socialType = $(e.target).attr('data-socialtype')
-    @model.set(socialType,$(e.target).attr('data-socialid'))
+    social_id = $(e.target).attr('data-socialid')
+    console.log(socialType)
+    console.log($(e.target).attr('data-socialid'))
+    @model.set(socialType, social_id)
