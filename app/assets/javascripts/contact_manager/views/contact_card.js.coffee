@@ -29,9 +29,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
       
-    $('#social-network-links a.facebook', @el).attr('style', 'background-color:#CFCFCF;')
-    $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
-    $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
+      
+    @updateSocialLinks()
     @outputCard()
     
     return @
@@ -329,5 +328,23 @@ class RippleApp.Views.ContactCard extends Backbone.View
     socialType = $(e.target).attr('data-socialtype')
     social_id = $(e.target).attr('data-socialid')
     @model.set(socialType, social_id)
-    $('#social-network-links a.facebook', @el).attr('style', '')
+    @model.save()
+    @updateSocialLinks()
     $('#social-modal').modal('hide')
+    
+  updateSocialLinks: ()=>
+    facebook_id = @model.get('facebook_id')
+    if facebook_id
+      $('#social-network-links a.facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
+    else
+      $('#social-network-links a.facebook', @el).attr('data-toggle', 'modal').attr('style', 'background-color:#CFCFCF;')
+      
+    if @model.get('twitter_id')
+      $('#social-network-links a.twitter', @el).attr('style', '')
+    else
+      $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
+      
+    if @model.get('linkedin_id')
+      $('#social-network-links a.linkedin', @el).attr('style', '')
+    else
+      $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
