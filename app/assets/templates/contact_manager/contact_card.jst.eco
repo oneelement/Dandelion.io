@@ -41,11 +41,9 @@
             </div>
         </form>
         <div id="social-network-links">
-            <ul>
-                <a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a>
-                <a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a>
-                <a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a>
-            </ul>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
         </div>
     </div>
     <div id="contact-card-body">
