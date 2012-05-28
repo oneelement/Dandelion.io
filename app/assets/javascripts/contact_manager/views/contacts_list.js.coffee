@@ -13,10 +13,15 @@ class RippleApp.Views.ContactsList extends Backbone.View
     
 
   render: ->
-    this.model.addresses = new RippleApp.Collections.Contacts(this.model.get('addresses'))
-    this.model.phones = new RippleApp.Collections.Contacts(this.model.get('phones'))
-    $(@el).html(@template(contact: @model.toJSON()))
+    $(@el).html(@template(contact: @model.toJSON()))    
+    @getSections()    
     return this
+    
+  getSections: =>
+    view = new RippleApp.Views.ContactListSection(collection: @model.get('phones'))
+    this.$('#phone-details').append(view.render().el)
+    this.$('#phone-details').append('<h1>test</h1>')
+    this.$('#phone-details').addClass('test')
   
   previewContact: (event) ->
     Backbone.history.navigate('#contacts/preview/' + @model.id, true)

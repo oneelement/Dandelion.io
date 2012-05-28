@@ -81,6 +81,7 @@ class User
     t.add :first_name
     t.add :last_name
     t.add :email
+    t.add :contact_id
     t.add :recent_ids
     t.add :favourite_contacts
     t.add :recent_contacts

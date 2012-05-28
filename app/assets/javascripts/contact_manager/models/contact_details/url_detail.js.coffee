@@ -18,3 +18,6 @@ class RippleApp.Models.ContactUrlDetail extends Backbone.RelationalModel
     
   getFieldName: ->
     return "url"
+    
+  getModelType: ->
+    return "url"

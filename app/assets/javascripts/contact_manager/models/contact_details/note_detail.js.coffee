@@ -9,3 +9,6 @@ class RippleApp.Models.ContactNoteDetail extends Backbone.RelationalModel
 
   getFieldName: ->
     return "text"
+    
+  getModelType: ->
+    return "note"

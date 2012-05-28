@@ -1,3 +1,6 @@
+<% if @modeltype != "note": %>
+  <span><input id="default-<%= @modeltype %>" type="checkbox" name="default"/></span>
+<% end %>
 <span class="contact-detail-icon c-sm-icon c-sm-icon-<%= @icon %>"></span>
 <span class="contact-detail-value"><%= @value %></span>
 <span class="contact-detail-edit"><input type="text" name="value" id="edit_value" class="input-text" value="<%= @value %>"></input></span>

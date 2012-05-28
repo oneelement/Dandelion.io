@@ -1,2 +1,2 @@
-class UrlPersonal < Email
+class UrlPersonal < Url
 end

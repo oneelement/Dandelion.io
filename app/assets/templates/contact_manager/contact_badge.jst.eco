@@ -1,5 +1,5 @@
 <div class="face-image">
-  <a href="#" rel="tooltip" title="<%= @model.name %>">
+  <a rel="tooltip" title="<%= @model.name %>">
     <img src="<%= @model.avatar %>"/>
   </a>
 <div>

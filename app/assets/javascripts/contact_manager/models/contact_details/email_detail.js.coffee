@@ -17,3 +17,6 @@ class RippleApp.Models.ContactEmailDetail extends Backbone.RelationalModel
     
   getFieldName: ->
     return "email"
+    
+  getModelType: ->
+    return "email"

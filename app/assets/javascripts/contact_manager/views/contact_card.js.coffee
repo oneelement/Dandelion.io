@@ -13,21 +13,42 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
+    'click #default-phone, #default-address, #default-email': 'closeEdit'
     'show #social-modal': 'socialModal'
     'click .socialLinkButton': 'socialLink'
     
   initialize: ->
-    @model.on('change', @render, this)
+    #@model.on('change', @outputCard, this)
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
+    
+    #favouriteIds = @user.get('favorite_ids')
+    #if favouriteIds
+    #  if @model.get("_id") in favouriteIds
+    #    $('#isFavourite', @el).attr('checked','checked')
+    
     $(@el).append(@searchModel(options: {title: "Facebook Search"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
+        
+    @outputCard()
+    
+    return @
 
+#changed to multiple emails, OC
+#    if @model.get('email')
+#      email = new RippleApp.Views.ContactCardDetailSingle(
+#        icon: 'envelope'
+#        value: 'email'
+#        model: @model
+#      )
+#      $('#contact-card-body-list', @el).append(email.render().el)
+
+  outputCard: ->      
     if @model.get('dob')
       dob = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'contact'
@@ -72,7 +93,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(notesSection.render().el)
     
-    return @
+    
 
   editValue: ->
     $(this.el).addClass('editing')
@@ -84,7 +105,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
   closeEdit: ->
     $(this.el).removeClass('editing')
-    @model.save()
+    @model.save(null, {wait: true})
     
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
@@ -122,6 +143,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
       @favouriteContacts.remove(@model.getBadge())
       @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
+      
+    #else       
+    #  index = favouriteIds.indexOf(@model.get('_id'))
+    #  if index >= 0
+    #    favouriteIds.splice(index, 1)
+    #    @user.set('favorite_ids', favouriteIds)
+    #    @user.save()
 
   matchInputDetails: ->
     #Display our guess of what the input text relates to, 
@@ -174,7 +202,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("phones")
 
         if @match == 'Mobile'
-          m.set('_type', 'PhoneMobile')
+          m.set('_type', 'PhoneMobile', {silent: true})
         else if @match == 'Home Phone'
           m.set('_type', 'PhoneHome')
 
@@ -276,8 +304,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @model.set('dob', val)
 
     $input.val('')
-    @model.save()
+    @model.save(null, { silent: true })
     console.log(@model.get("urls"))
+
 
   calculateMatchLabelWidth: (text, $addon) ->
     textWidth = @measureTextWidth(text)
@@ -319,4 +348,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
   socialLink: (e)=>
     socialType = $(e.target).attr('data-socialtype')
-    @model.set(socialType,$(e.target).attr('data-socialid'))
+    social_id = $(e.target).attr('data-socialid')
+    console.log(socialType)
+    console.log($(e.target).attr('data-socialid'))
+    @model.set(socialType, social_id)

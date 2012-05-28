@@ -20,6 +20,7 @@ class Address
   field :city, :type => String
   field :country, :type => String
   field :postcode, :type => String
+  field :default, :type => Boolean, :default => false
   
   field :coordinates, :type => Array
   
@@ -54,6 +55,7 @@ class Address
     t.add :_type
     t.add :full_address
     t.add :coordinates
+    t.add :default
   end
   
   api_accessible :group do |t|
@@ -61,6 +63,7 @@ class Address
     t.add :_type
     t.add :full_address
     t.add :coordinates
+    t.add :default
   end
 
 end

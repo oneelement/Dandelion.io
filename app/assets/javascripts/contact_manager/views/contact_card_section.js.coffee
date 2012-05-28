@@ -17,7 +17,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
       _.each(@collection.models, (model) =>
         @addDetail(model, false))
     @
-
+    
   makeTitleActive: () ->
     if not @sectionIsActive
       $('.contact-card-section-title', @el)
@@ -32,6 +32,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
       model: model
       icon: model.getViewIcon()
       value: model.getViewValue()
+      collection: @collection
     ).render().el)
 
   clearDetails: =>
