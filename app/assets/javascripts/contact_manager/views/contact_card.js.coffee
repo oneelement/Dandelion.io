@@ -19,7 +19,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
-    @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favourite_contacts')))
+    @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -306,7 +306,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     )
 
   socialModal: (e)=>
-    $('#social-search').val(@model.get('name'));
+    $('#social-search').val(@model.get('name'))
     @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
     @faces.fetch(success: (collection) ->
       collection.each((face)=>
