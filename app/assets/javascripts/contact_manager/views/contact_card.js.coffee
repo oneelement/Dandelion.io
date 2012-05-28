@@ -303,24 +303,34 @@ class RippleApp.Views.ContactCard extends Backbone.View
   socialSearch: (e)=>
     if e.keyCode == 13
       @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+e.target.value })
-      @faces.fetch(success: (collection) ->
+      $('#social-modal ul').empty()
+      $('#social-modal ul').append("<li>Fetching...</li>")
+      @faces.fetch(success: (collection) ->  
+        if collection.length > 0
+          $('#social-modal ul').empty()
+          collection.each((face)=>
+            face.set('socialType', 'facebook_id')
+            view = new RippleApp.Views.FaceSearch(model: face)
+            $('#social-modal ul').append(view.render().el)
+          )
+        else
+          $('#social-modal ul').empty().append("<li>No results to display</li>")
+      )
+
+  socialModal: (e)=>
+    $('#social-search').val(@model.get('name'))
+    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
+    $('#social-modal ul').append("<li>Fetching...</li>")
+    @faces.fetch(success: (collection) ->
+      if collection.length > 0
         $('#social-modal ul').empty()
         collection.each((face)=>
           face.set('socialType', 'facebook_id')
           view = new RippleApp.Views.FaceSearch(model: face)
           $('#social-modal ul').append(view.render().el)
         )
-      )
-
-  socialModal: (e)=>
-    $('#social-search').val(@model.get('name'))
-    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
-    @faces.fetch(success: (collection) ->
-      collection.each((face)=>
-        face.set('socialType', 'facebook_id')
-        view = new RippleApp.Views.FaceSearch(model: face)
-        $('#social-modal ul').append(view.render().el)
-      )
+      else
+        $('#social-modal ul').empty().append("<li>No results to display</li>")
     )
     $('#social-search').on('keyup', @.socialSearch)
     
