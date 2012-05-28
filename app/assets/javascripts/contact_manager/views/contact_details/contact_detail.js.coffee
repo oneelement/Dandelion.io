@@ -11,7 +11,6 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'click #default-phone, #default-address, #default-email': 'toggleDefault'
 
   initialize: ->
-    #console.log(@options)
     @icon = @options.icon
     @value = @options.value
     @model.on('change', @renderEdit, this)

@@ -8,7 +8,6 @@ class RippleApp.Views.ContactShow extends Backbone.View
   initialize: ->
     @model.on('change', @render, this)
     @user = @options.user
-    console.log(@user)
 
   render: ->
     $(@el).html(@template(contact: @model.toJSON())) 
@@ -19,7 +18,6 @@ class RippleApp.Views.ContactShow extends Backbone.View
     return this
     
   toggleTab: (event) ->
-    console.log(event.target.id)
     target = event.target
     targetId = event.target.id
     this.$('li').removeClass('active')
@@ -33,7 +31,6 @@ class RippleApp.Views.ContactShow extends Backbone.View
     
   getSocials: ->
     auths = @user.get('authentications')
-    console.log(auths)
     socials = @model.get('socials')
     
     twitter = auths.filter (auth) =>
@@ -99,7 +96,6 @@ class RippleApp.Views.ContactShow extends Backbone.View
     call = "feed?id=" + social_id
     @faces = new RippleApp.Collections.Faces([], { call : call })
     @faces.fetch(success: (collection) =>
-      #console.log(collection)
       view = new RippleApp.Views.Facebook(collection: collection)
       $('#facebook-wrapper').append(view.render().el)
       $('#faces-loading').addClass('disabled')

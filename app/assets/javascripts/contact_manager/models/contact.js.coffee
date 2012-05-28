@@ -16,6 +16,13 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
     },
     {
       type: 'Backbone.HasMany'
+      key: 'urls'
+      relatedModel: 'RippleApp.Models.ContactUrlDetail'
+      includeInJSON: true
+      createModels: true
+    },
+    {
+      type: 'Backbone.HasMany'
       key: 'addresses'
       relatedModel: 'RippleApp.Models.ContactAddressDetail'
       includeInJSON: true
@@ -41,6 +48,13 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
 
   isUser: ->
     return this.get('is_user') == true
+    
+  getBadge: =>
+    contactBadge = new RippleApp.Models.ContactBadge()
+    contactBadge.set('id', @id)
+    contactBadge.set('name', @.get('name'))
+    contactBadge.set('avatar', @.get('avatar'))
+    contactBadge
   
   #  Perhaps not needed anymore? Commenting out to see
   #  setAddresses: (addresses) ->

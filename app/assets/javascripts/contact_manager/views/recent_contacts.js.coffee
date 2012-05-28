@@ -3,14 +3,15 @@ class RippleApp.Views.RecentContacts extends Backbone.View
   
   initialize: ->
     @collection.on('add remove reset', @render, @)
-    console.log(@collection)
   
   render: ->
     $(@el).html(@template())
-    _.each(@collection.models, (model) ->
-      $('#recent-contacts-list', @el).prepend(
-        new RippleApp.Views.RecentContactsEntry(model: model).render().el
+    $('#recent-contacts-list', @el).empty()
+    models = @collection.getTop5()
+    models.reverse()
+    _.each(models, (model) =>
+      $('#recent-contacts-list', @el).append(
+        new RippleApp.Views.ContactBadge(model: model).render().el
       )
     )
-    console.log(@collection)
     @

@@ -15,28 +15,36 @@ class RippleApp.Lib.DetailsMatcher
       ]
     "Email":
       exprs: [
-        /^[^:tw].+@.*$/,
+        /^[^:].+@.*$/,
       ]
     "Address":
       exprs: [
         /^.+,.+$/,
       ]
-    "LinkedIn":
+    "Url":
       exprs: [
-        /^:in/,
-      ]
-    "Twitter":
-      exprs: [
-        /^:tw/,
-      ]
-    "Facebook":
-      exprs: [
-        /^:fb/,
+        /^(www.)|(http).+$/,
       ]
     "Note":
       exprs: [
-        /^[^:].+$/,
+        /^.+$/,
       ]
+   # "LinkedIn":
+   #   exprs: [
+   #     /^:in/,
+   #   ]
+   # "Twitter":
+   #   exprs: [
+   #     /^:tw/,
+   #   ]
+   # "Facebook":
+   #   exprs: [
+   #     /^:fb/,
+   #   ]
+   # "Note":
+   #   exprs: [
+   #     /^[^:].+$/,
+   #   ]
 
   constructor: (@matchText) ->
     @match()
