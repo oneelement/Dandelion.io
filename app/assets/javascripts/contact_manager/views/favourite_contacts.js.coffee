@@ -12,8 +12,9 @@ class RippleApp.Views.FavouriteContacts extends Backbone.View
       new RippleApp.Views.ContactBadge(model: icon).render().el
     )
     _.each(@collection.models, (model) =>
-      $(@el).append(
-        new RippleApp.Views.ContactBadge(model: model).render().el
-      )
+      if model.id
+        $(@el).append(
+          new RippleApp.Views.ContactBadge(model: model).render().el
+        )
     )
     @
