@@ -3,6 +3,7 @@ Onelement::Application.routes.draw do
   resources :autocomplete do
     get 'wonderbar', :on => :collection
     get 'contacts', :on => :collection
+    get 'hashtags', :on => :collection
   end
   
   resources :imports do
@@ -22,6 +23,8 @@ Onelement::Application.routes.draw do
     get 'contacttimeline', :on => :collection
     get 'tweet', :on => :collection
   end
+  
+  resources :hashtags
   
   resources :groups
 

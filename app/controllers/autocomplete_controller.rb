@@ -24,4 +24,11 @@ class AutocompleteController < ApplicationController
     list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, category: "Contact", icon: "icon-avatar"]}
     render :json => list.to_json
   end
+  
+  def hashtags
+    hashtags = Hashtag.where(:user_id => current_user.id)
+    hashtags = hashtags.where(:text => /#{params[:term]}/i)
+    list = hashtags.map {|u| Hash[ id: u.id, label: u.text, name: u.text, category: "Hashtag", icon: "icon-avatar"]}
+    render :json => list.to_json
+  end
 end

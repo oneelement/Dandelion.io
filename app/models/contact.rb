@@ -8,6 +8,7 @@ class Contact
   
   belongs_to :user
   has_many :addresses, :autosave => true, :dependent => :destroy
+  #has_many :hashtags, :autosave => true
   embeds_many :phones
   embeds_many :socials
   embeds_many :notes
@@ -19,6 +20,7 @@ class Contact
   accepts_nested_attributes_for :socials, :allow_destroy => true
   accepts_nested_attributes_for :emails, :allow_destroy => true
   accepts_nested_attributes_for :urls, :allow_destroy => true
+  #accepts_nested_attributes_for :hashtags
 
   field :name, :type => String
   field :position, :type => String
