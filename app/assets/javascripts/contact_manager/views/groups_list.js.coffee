@@ -14,7 +14,15 @@ class RippleApp.Views.GroupsList extends Backbone.View
 
   render: ->
     $(@el).html(@template(group: @model.toJSON()))
+    @getSections()
+    
     return this
+    
+  getSections: =>
+    viewPhone = new RippleApp.Views.ContactListSection(collection: @model.get('phones'))
+    this.$('.phone-details').append(viewPhone.render().el)    
+    viewEmail = new RippleApp.Views.ContactListSection(collection: @model.get('emails'))
+    this.$('.email-details').append(viewEmail.render().el)
   
   previewGroup: (event) ->
     Backbone.history.navigate('#groups/preview/' + @model.id, true)

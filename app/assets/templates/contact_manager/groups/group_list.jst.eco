@@ -10,15 +10,11 @@
   </div>
 </td>
 <td>
-  <div class="details">
-      <span><i class="icon-envelope"></i></span>
-      <span>phone number</span>
+  <div class="phone-details">
   </div>
 </td>
 <td>
-  <div class="details">
-      <span><i class="icon-envelope"></i></span>
-      <span>phone number</span>
+  <div class="email-details">
   </div>
 </td>
 <td>

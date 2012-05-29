@@ -1,27 +1,23 @@
-<td>
+<td class="contact-list-detail">
   <div class="avatar">
       <img src="<%= @contact.avatar %>"/>
   </div>
 </td>
-<td>
+<td class="contact-list-detail">
   <div class="name">
       <h3><%= @contact.name %></h3>
       <p>Contact position at Contact Company</p>
   </div>
 </td>
-<td>
-  <div id="phone-details">
-      <span><i class="icon-envelope"></i></span>
-      <span>phone number</span>
+<td class="contact-list-detail">
+  <div class="phone-details">
   </div>
 </td>
-<td>
+<td class="contact-list-detail">
   <div class="email-details">
-      <span><i class="icon-envelope"></i></span>
-      <span>phone number</span>
   </div>
 </td>
-<td>
+<td class="contact-list-actions">
   <div class="actions">
       <ul>
           <li id="open-action">Open Contact</li>

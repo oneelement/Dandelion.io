@@ -7,7 +7,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     @model.on('change', @render, this)
   
   events:
-    'click': 'previewContact'
+    'click .contact-list-detail': 'previewContact'
     'click .close': 'destroyContact'
     'click #open-action': 'openContact'
     
@@ -18,10 +18,10 @@ class RippleApp.Views.ContactsList extends Backbone.View
     return this
     
   getSections: =>
-    view = new RippleApp.Views.ContactListSection(collection: @model.get('phones'))
-    this.$('#phone-details').append(view.render().el)
-    this.$('#phone-details').append('<h1>test</h1>')
-    this.$('#phone-details').addClass('test')
+    viewPhone = new RippleApp.Views.ContactListSection(collection: @model.get('phones'))
+    this.$('.phone-details').append(viewPhone.render().el)    
+    viewEmail = new RippleApp.Views.ContactListSection(collection: @model.get('emails'))
+    this.$('.email-details').append(viewEmail.render().el)
   
   previewContact: (event) ->
     Backbone.history.navigate('#contacts/preview/' + @model.id, true)
