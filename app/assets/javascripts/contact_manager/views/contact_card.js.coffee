@@ -18,35 +18,21 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click .socialLinkButton': 'socialLink'
     
   initialize: ->
-    #@model.on('change', @outputCard, this)
     @user = @options.user
-    @favouriteContacts = new RippleApp.Collections.ContactBadges(JSON.parse(@user.get('favourite_contacts')))
+    @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
-    
-    #favouriteIds = @user.get('favorite_ids')
-    #if favouriteIds
-    #  if @model.get("_id") in favouriteIds
-    #    $('#isFavourite', @el).attr('checked','checked')
-    
+
     $(@el).append(@searchModel(options: {title: "Facebook Search"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
-        
+
+    @updateSocialLinks()
     @outputCard()
     
     return @
-
-#changed to multiple emails, OC
-#    if @model.get('email')
-#      email = new RippleApp.Views.ContactCardDetailSingle(
-#        icon: 'envelope'
-#        value: 'email'
-#        model: @model
-#      )
-#      $('#contact-card-body-list', @el).append(email.render().el)
 
   outputCard: ->      
     if @model.get('dob')
@@ -91,9 +77,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       title: 'Notes'
       collection: @model.get("notes")
     )
-    $('#contact-card-body', @el).append(notesSection.render().el)
-    
-    
+    $('#contact-card-body', @el).append(notesSection.render().el)   
 
   editValue: ->
     $(this.el).addClass('editing')
@@ -110,8 +94,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
     if getrid == true
-      this.model.destroy()
-      Backbone.history.navigate('#contacts', true)
+      RippleApp.contactsRouter.favouriteContacts.remove(@model)
+      RippleApp.contactsRouter.recentContacts.remove(@model)
+      @model.destroy()
+      gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
+      Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
       #need to remove subject from recent contacts collection, OC
 
   toggleActionsBar: ->
@@ -143,13 +130,6 @@ class RippleApp.Views.ContactCard extends Backbone.View
       @favouriteContacts.remove(@model.getBadge())
       @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
-      
-    #else       
-    #  index = favouriteIds.indexOf(@model.get('_id'))
-    #  if index >= 0
-    #    favouriteIds.splice(index, 1)
-    #    @user.set('favorite_ids', favouriteIds)
-    #    @user.save()
 
   matchInputDetails: ->
     #Display our guess of what the input text relates to, 
@@ -305,7 +285,6 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
     $input.val('')
     @model.save(null, { silent: true })
-    console.log(@model.get("urls"))
 
 
   calculateMatchLabelWidth: (text, $addon) ->
@@ -324,31 +303,60 @@ class RippleApp.Views.ContactCard extends Backbone.View
     return w
     
   socialSearch: (e)=>
-    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+e.target.value })
-    @faces.fetch(success: (collection) ->
+    if e.keyCode == 13
+      @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+e.target.value })
       $('#social-modal ul').empty()
-      collection.each((face)=>
-        face.set('socialType', 'facebook_id')
-        view = new RippleApp.Views.FaceSearch(model: face)
-        $('#social-modal ul').append(view.render().el)
+      $('#social-modal ul').append("<li>Fetching...</li>")
+      @faces.fetch(success: (collection) ->  
+        if collection.length > 0
+          $('#social-modal ul').empty()
+          collection.each((face)=>
+            face.set('socialType', 'facebook_id')
+            view = new RippleApp.Views.FaceSearch(model: face)
+            $('#social-modal ul').append(view.render().el)
+          )
+        else
+          $('#social-modal ul').empty().append("<li>No results to display</li>")
       )
-    )
 
   socialModal: (e)=>
-    $('#social-search').val(@model.get('name'));
+    $('#social-search').val(@model.get('name'))
     @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
+    $('#social-modal ul').append("<li>Fetching...</li>")
     @faces.fetch(success: (collection) ->
-      collection.each((face)=>
-        face.set('socialType', 'facebook_id')
-        view = new RippleApp.Views.FaceSearch(model: face)
-        $('#social-modal ul').append(view.render().el)
-      )
+      if collection.length > 0
+        $('#social-modal ul').empty()
+        collection.each((face)=>
+          face.set('socialType', 'facebook_id')
+          view = new RippleApp.Views.FaceSearch(model: face)
+          $('#social-modal ul').append(view.render().el)
+        )
+      else
+        $('#social-modal ul').empty().append("<li>No results to display</li>")
     )
     $('#social-search').on('keyup', @.socialSearch)
     
   socialLink: (e)=>
     socialType = $(e.target).attr('data-socialtype')
     social_id = $(e.target).attr('data-socialid')
-    console.log(socialType)
-    console.log($(e.target).attr('data-socialid'))
     @model.set(socialType, social_id)
+    @model.save()
+    @updateSocialLinks()
+    $('#social-modal').modal('hide')
+    
+  updateSocialLinks: ()=>
+    facebook_id = @model.get('facebook_id')
+    if facebook_id
+      $('#social-network-links a.facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
+    else
+      $('#social-network-links a.facebook', @el).attr('data-toggle', 'modal').attr('style', 'background-color:#CFCFCF;')
+      
+    if @model.get('twitter_id')
+      $('#social-network-links a.twitter', @el).attr('style', '')
+    else
+      $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
+      
+    if @model.get('linkedin_id')
+      $('#social-network-links a.linkedin', @el).attr('style', '')
+    else
+      $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')

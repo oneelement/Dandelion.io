@@ -41,11 +41,9 @@
             </div>
         </form>
         <div id="social-network-links">
-            <ul>
-                <a class="social-image-link" data-toggle="modal" href="#social-modal"><img src="http://www.iconspedia.com/dload.php?up_id=16171" alt="facebook"/></a>
-                <a class="social-image-link" data-toggle="modal" href="#social-modal"><img src="http://www.iconspedia.com/dload.php?up_id=16261" alt="twitter"/></a>
-                <a class="social-image-link" data-toggle="modal" href="#social-modal"><img src="http://www.iconspedia.com/dload.php?up_id=16201" alt="linkedin"/></a>
-            </ul>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
+            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
         </div>
     </div>
     <div id="contact-card-body">

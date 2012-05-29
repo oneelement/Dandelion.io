@@ -16,7 +16,7 @@ class RippleApp.Views.Sidebar extends Backbone.View
     @currentUser = new RippleApp.Models.User()
     @currentUser = @currentUser.fetchCurrent(success: (model) =>
       @favouriteContactsView = new RippleApp.Views.FavouriteContacts(
-        collection: new RippleApp.Collections.ContactBadges(JSON.parse(model.get('favourite_contacts')))
+        collection: RippleApp.contactsRouter.favouriteContacts
       )
       $('ul#favourite-menu div#favourites', @el).html(@favouriteContactsView.render().el)
       @.redrawMenu()
