@@ -1,0 +1,3 @@
+<li class="granny-number">
+  <span class="web-font"><%= @model.icon %></span><span class="granny-number"> <%= @model.number %></span>
+</li>

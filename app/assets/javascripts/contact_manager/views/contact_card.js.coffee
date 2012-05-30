@@ -9,6 +9,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click #isFavourite': 'toggleFavourite'
     'submit #contact-card-details-input-form': 'submitDetails'
     'render': 'matchInputDetails'
+    'click .PhoneHome span.contact-detail-icon, .PhoneMobile span.contact-detail-icon': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'    
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
@@ -360,3 +361,14 @@ class RippleApp.Views.ContactCard extends Backbone.View
       $('#social-network-links a.linkedin', @el).attr('style', '')
     else
       $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
+      
+  showPhoneModal: (e)=>
+    grannyView = new RippleApp.Views.GrannyPhoneCard(
+      collection: @model.get('phones')
+    )
+    $('#granny-phone-card').remove()
+    $('body').append(grannyView.render().el)
+    modalWidth = $(window).width()*0.8
+    $('#granny-phone-card').attr('style','width:'+modalWidth+'px; margin-left:-'+(modalWidth/2)+'px;')
+    $('#granny-phone-card').reveal()
+   
