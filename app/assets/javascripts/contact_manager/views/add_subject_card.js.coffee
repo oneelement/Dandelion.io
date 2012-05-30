@@ -1,5 +1,5 @@
-class RippleApp.Views.ContactCard extends Backbone.View
-  template: JST['contact_manager/contact_card']
+class RippleApp.Views.AddContactCard extends Backbone.View
+  template: JST['contact_manager/add_subject_card']
   searchModel: JST['contact_manager/search_modal']
   id: 'contact-card'
     
@@ -15,12 +15,19 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
     'click #default-phone, #default-address, #default-email': 'closeEdit'
+    
     'show #social-modal': 'socialModal'
     'click .socialLinkButton': 'socialLink'
+    
+    'keypress #subject_name_input': 'checkEnter'
+    'dblclick #subject_name': 'editName'
+    'focusout input#subject_name_input': 'closeEdit'
+    
     
   initialize: ->
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
+    @model.on('change', @render, this)
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -80,8 +87,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(notesSection.render().el)   
 
+  editName: ->
+    $(this.el).addClass('editing')
+    this.$('#subject_name').css('display', 'none')
+    this.$('#subject_name_input').css('display', 'block')
+    this.$('input#subject_name_input').focus()
+    
   editValue: ->
     $(this.el).addClass('editing')
+
     
   checkEnter: (event) ->
     if (event.keyCode == 13) 
@@ -90,7 +104,22 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
   closeEdit: ->
     $(this.el).removeClass('editing')
-    @model.save(null, {wait: true})
+    this.model.set('name', this.$('input#subject_name_input').val())
+    if @model.isNew() 
+      modelname = @model.getModelName()
+      if modelname == "contact"
+        @model.save(null, success: (model) => RippleApp.contactsRouter.contacts.add(model))
+      else if modelname == "group"
+        @model.save(null, success: (model) => RippleApp.contactsRouter.groups.add(model))
+    else
+      @model.save(null, {wait: true})
+    this.$('#subject_name').css('display', 'block')
+    this.$('#subject_name_input').css('display', 'none')
+    
+  addContactCollection: ->
+    collection = RippleApp.contactsRouter.contacts
+    collection.add(@model)
+    console.log(@model)
     
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
@@ -98,10 +127,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
       RippleApp.contactsRouter.favouriteContacts.remove(@model)
       RippleApp.contactsRouter.recentContacts.remove(@model)
       @model.destroy()
-      #gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
-      #Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
-      Backbone.history.navigate('#contacts', true)
-      #I think after a delete its best to redirect to contacts, OC
+      gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
+      Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
+      #need to remove subject from recent contacts collection, OC
 
   toggleActionsBar: ->
     if @actionsBarDisplayed
