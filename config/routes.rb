@@ -10,7 +10,9 @@ Onelement::Application.routes.draw do
     get 'facebook', :on => :collection
   end
 
-  resources :linkedin_feeds
+  resources :linkedin_feeds do
+    get 'search', :on => :collection
+  end
 
   resources :facebook_feeds do
     get 'feed', :on => :collection
@@ -22,6 +24,7 @@ Onelement::Application.routes.draw do
     get 'hometimeline', :on => :collection
     get 'contacttimeline', :on => :collection
     get 'tweet', :on => :collection
+    get 'search', :on => :collection
   end
   
   resources :hashtags

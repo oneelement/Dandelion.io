@@ -11,4 +11,16 @@ class LinkedinFeedsController < ApplicationController
       format.json { render json: linkedin }
     end
   end
+  
+  def search
+    query = params[:q]
+    #query = "Bubba G"
+    @user = User.find(current_user.id)
+    #search = @user.linkedin.search(query, {:type => "user"})
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: search }
+    end
+  end
 end

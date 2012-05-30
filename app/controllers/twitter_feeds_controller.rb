@@ -21,11 +21,23 @@ class TwitterFeedsController < ApplicationController
   
   def hometimeline
     @user = User.find(current_user.id)
-    tweets = @user.tweeting.user_timeline(count: '10', exclude_replies: 1)
+    tweets = @user.tweeting.user_timeline(count: '10', exclude_replies: 1)    
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: tweets }
+    end
+  end
+  
+  def search
+    query = params[:q]
+    #query = "chestermano"
+    @user = User.find(current_user.id)
+    search = @user.tweeting.user_search(query)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: search }
     end
   end
   
