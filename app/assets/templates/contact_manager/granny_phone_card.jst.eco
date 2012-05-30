@@ -1,0 +1,4 @@
+<div id="<%= @model.id %>" class="reveal-modal percentXLarge">
+        <h1>Granny Phone Card</h1>
+        <a class="close-reveal-modal">&#215;</a>
+</div>

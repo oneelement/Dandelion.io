@@ -39,7 +39,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     $detailsList = $('.contact-details-list', @el).empty()
 
   addDetail: (model, animate) =>
-    $detailsList = $('.contact-details-list', @el)
+    $detailsList = $('.contact-details-list', @el).addClass(model.get('_type'))
     $detailEl = @buildDetailEl(model)
 
     if animate

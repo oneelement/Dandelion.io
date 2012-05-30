@@ -20,6 +20,8 @@
 @import "twitter_feeds";
 @import "facebook_feeds";
 @import "type_face_css/zocial.css";
+@import "type_face_css/entypo.css";
+@import "reveal.css";
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0px 0px 10px 0px;
@@ -67,4 +69,26 @@ body.main-application {
 
 #container {
   height: 100%;
+}
+
+span.granny-number{
+  font-size: 80px;
+  line-height: 80px;
+}
+
+li.granny-number{
+  padding: 0 20px 14px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 50px; 
+  -moz-border-radius: 50px; 
+  -webkit-border-radius: 50px; 
+  border: 1px solid #3665FF;
+}
+
+.web-font {
+  color: #50D14B;
+  font-family: EntypoRegular;
+  font-size: 120px;
+  line-height: 80px;
 }

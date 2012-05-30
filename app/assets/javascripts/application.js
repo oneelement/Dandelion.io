@@ -14,3 +14,4 @@
 //= require dataTables/jquery.dataTables
 //= require user
 //= require autocomplete
+//= require jquery.reveal
