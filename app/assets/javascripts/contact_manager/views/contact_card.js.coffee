@@ -21,6 +21,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   initialize: ->
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
+    @hashtags = RippleApp.contactsRouter.hashtags
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -78,8 +79,14 @@ class RippleApp.Views.ContactCard extends Backbone.View
       title: 'Notes'
       collection: @model.get("notes")
     )
-    $('#contact-card-body', @el).append(notesSection.render().el)   
-
+    $('#contact-card-body', @el).append(notesSection.render().el)  
+    
+    hashtagSection = new RippleApp.Views.ContactCardSection(
+      title: 'Hashtags'
+      collection: new RippleApp.Collections.Hashtags(@model.get("hashtags"))
+    )
+    $('#contact-card-body', @el).append(hashtagSection.render().el)  
+    
   editValue: ->
     $(this.el).addClass('editing')
     
@@ -281,12 +288,26 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("urls")
         c.add(m)
       
+      if _.include(['Hashtag'], @match) 
+      
+        c = new RippleApp.Collections.Hashtags(@model.get("hashtags"))      
+        
+        isDuplicate = false
+        _.each(c.models, (hashtag) =>
+            if hashtag.get('text') is val
+              isDuplicate = true
+          )
+        
+        if not isDuplicate
+          @hashtags.fetchCreate(val, @model.get('_id'))
+        else
+          console.log('duplicate')
+      
       if _.include(['D.O.B'], @match)
         @model.set('dob', val)
 
     $input.val('')
     @model.save(null, { silent: true })
-
 
   calculateMatchLabelWidth: (text, $addon) ->
     textWidth = @measureTextWidth(text)

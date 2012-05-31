@@ -11,7 +11,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   initialize: ->
     @currentUser = new RippleApp.Models.User()
     @recentContacts = new RippleApp.Collections.ContactBadges(maxSize: 5)
-    @favouriteContacts = new RippleApp.Collections.ContactBadges()
+    @favouriteContacts = new RippleApp.Collections.ContactBadges()    
     @currentUser.fetchCurrent(success: (user) =>
       @currentUser = user
       @recentContacts.add(JSON.parse(user.get('recent_contacts')))
@@ -22,13 +22,11 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @groups = new RippleApp.Collections.Groups()
     @groups.fetch()
     @groupContacts = new RippleApp.Collections.Contacts()
-    return @
-    
+    @hashtags = new RippleApp.Collections.Hashtags()
+    @hashtags.fetch()
+    @
     
   home: ->
-    #after = (contact) =>
-      #@setContextContact(contact) 
-    
     after = (contact) =>
       viewHome = new RippleApp.Views.HomePage(model: @currentUser, contact: contact)
       RippleApp.layout.setMainView(viewHome)
@@ -43,17 +41,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       )    
     else     
       id = @currentUser.get("contact_id")
-      console.log(id)
       @getContact(id, after) 
-   
-#    OC trying to reduce server calls
-#    if @currentUser.isNew()
-#      @currentUser.fetchCurrent(success: (model) =>
-#        @getContact(model.get("contact_id"), after)
-#      )
-#      
-#    else
-#      @getContact(@currentUser.id, after)
 
   index: ->
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
