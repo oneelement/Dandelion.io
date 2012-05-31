@@ -22,6 +22,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
+    @contactsHashtags = new RippleApp.Collections.Hashtags()
+    
+    
     
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -81,9 +84,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(notesSection.render().el)  
     
+    @contactsHashtags.add(@model.get("hashtags"))
     hashtagSection = new RippleApp.Views.ContactCardSection(
       title: 'Hashtags'
-      collection: new RippleApp.Collections.Hashtags(@model.get("hashtags"))
+      collection: @contactsHashtags
     )
     $('#contact-card-body', @el).append(hashtagSection.render().el)  
     
@@ -300,7 +304,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
           )
         
         if not isDuplicate
-          @hashtags.fetchCreate(val, @model.get('_id'))
+          @contactsHashtags.add(@hashtags.addTagToContact(val, @model.get('_id')))
         else
           console.log('duplicate')
       

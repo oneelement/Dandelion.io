@@ -3,7 +3,7 @@ class RippleApp.Collections.Hashtags extends Backbone.Collection
     url: '/hashtags'
     
     #Will create tag if doesnt exist
-    fetchCreate: (name, contact_id)=>
+    addTagToContact: (name, contact_id)=>
       if contact_id
         exists = false
         _.each(@models, (hashtag) =>
@@ -15,6 +15,7 @@ class RippleApp.Collections.Hashtags extends Backbone.Collection
           #we create it!
           @add(hashtag = new RippleApp.Models.Hashtag(text: name, contact_ids: [contact_id] ))
           hashtag.save()
+          return hashtag
         else
           _.each(@models, (hashtag) =>
             if hashtag.get('text') is name
@@ -22,5 +23,6 @@ class RippleApp.Collections.Hashtags extends Backbone.Collection
               contact_ids.push(contact_id)
               hashtag.set('contact_ids', contact_ids)
               hashtag.save()
+              return hashtag
           )
         
