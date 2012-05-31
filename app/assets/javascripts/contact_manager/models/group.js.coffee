@@ -45,3 +45,6 @@ class RippleApp.Models.Group extends Backbone.RelationalModel
   ]
   idAttribute: '_id'
   urlRoot: -> '/groups/'
+  
+  getModelName: ->
+    return "group"

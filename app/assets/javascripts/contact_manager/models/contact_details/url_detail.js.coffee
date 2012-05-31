@@ -13,7 +13,6 @@ class RippleApp.Models.ContactUrlDetail extends Backbone.RelationalModel
     
 
   getViewValue: ->
-    console.log('in the model : '+@get("url"))
     return @get("url")
     
   getFieldName: ->

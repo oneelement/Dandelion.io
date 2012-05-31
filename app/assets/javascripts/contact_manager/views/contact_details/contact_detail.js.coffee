@@ -61,6 +61,5 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
   closeEdit: ->
     value = @model.getFieldName()
     this.model.set(value, this.$('input#edit_value').val())
-    console.log(@model)
     $(this.el).removeClass('editing')
     this.$('span.edit-icon').css('display', 'none')

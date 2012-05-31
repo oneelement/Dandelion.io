@@ -46,10 +46,14 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   index: ->
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
     RippleApp.layout.setMainView(view)
+    viewContext = new RippleApp.Views.AddContactCard(model: new RippleApp.Models.Contact())
+    RippleApp.layout.setContextView(viewContext)
     
   groupindex: ->
     view = new RippleApp.Views.GroupsIndex(collection: @groups)
     RippleApp.layout.setMainView(view)
+    viewContext = new RippleApp.Views.AddContactCard(model: new RippleApp.Models.Group())
+    RippleApp.layout.setContextView(viewContext)
     
   groupShow: (id) ->
     after = (group) =>

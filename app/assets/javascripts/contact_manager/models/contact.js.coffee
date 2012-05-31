@@ -62,3 +62,6 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
   #    
   #  setPhones: (phones) ->
   #    this.phones = phones
+  
+  getModelName: ->
+    return "contact"
