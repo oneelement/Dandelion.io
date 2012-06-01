@@ -15,6 +15,10 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @favouriteContacts = new RippleApp.Collections.ContactBadges()    
     @currentUser.fetchCurrent(success: (user) =>
       @currentUser = user
+      #This will clear down your fav and recent contacts, if you're having problems due to favourite bug
+      #@currentUser.set('favourite_contacts', '[]')
+      #@currentUser.set('favourite_contacts', '[]')
+      #@currentUser.save()
       @recentContacts.add(JSON.parse(user.get('recent_contacts')))
       @favouriteContacts.add(JSON.parse(user.get('favourite_contacts')))
     )

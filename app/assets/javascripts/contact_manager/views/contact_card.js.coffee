@@ -9,7 +9,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click #isFavourite': 'toggleFavourite'
     'submit #contact-card-details-input-form': 'submitDetails'
     'render': 'matchInputDetails'
-    'click .Phone span.contact-detail-icon': 'showPhoneModal'  
+    'click .Phone span.c-sm-icon-house, .Phone span.c-sm-icon-mobile': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'    
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
@@ -109,8 +109,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
   destroySubject: ->
     getrid = confirm "Are you sure you want to delete this record?"
     if getrid == true
-      RippleApp.contactsRouter.favouriteContacts.remove(@model)
+      @favouriteContacts.remove(@model)
       RippleApp.contactsRouter.recentContacts.remove(@model)
+      @user.set('favourite_contacts', JSON.stringify(@favouriteContacts))
+      @user.set('recent_contacts', JSON.stringify(RippleApp.contactsRouter.recentContacts))
+      @user.save()
       @model.destroy()
       #gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
       #Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
@@ -168,6 +171,16 @@ class RippleApp.Views.ContactCard extends Backbone.View
       if not matchText?
         matchText = @inputTypeDefaultLabel
 
+      if matchText is 'Hashtag'
+        $input.attr('style', "z-index: 9000;")   
+        hashtags = []
+        _.each(@hashtags.toJSON(), (hashtag)=>
+          hashtags.push(hashtag.text)
+        )
+        $input.autocomplete(source: hashtags)
+      else
+        $input.autocomplete('destroy')  
+      
       formWidth = $form.width()
       #console.log(formWidth)
       labelWidth = @calculateMatchLabelWidth(matchText, $addon)
@@ -312,7 +325,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
           newmodel = @hashtags.addTagToContact(val, contact_id)
           @contactsHashtags.add(newmodel)
         else
-          console.log('duplicate')
+          alert('duplicate')
       
       if _.include(['D.O.B'], @match)
         @model.set('dob', val)
