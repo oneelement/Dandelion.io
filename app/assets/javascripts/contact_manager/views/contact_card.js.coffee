@@ -9,7 +9,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click #isFavourite': 'toggleFavourite'
     'submit #contact-card-details-input-form': 'submitDetails'
     'render': 'matchInputDetails'
-    'click .PhoneHome span.contact-detail-icon, .PhoneMobile span.contact-detail-icon': 'showPhoneModal'  
+    'click .Phone span.contact-detail-icon': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'    
     'keypress #edit_value': 'checkEnter'
     'focusout input#edit_value': 'closeEdit'
@@ -17,15 +17,14 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click #default-phone, #default-address, #default-email': 'closeEdit'
     'show #social-modal': 'socialModal'
     'click .socialLinkButton': 'socialLink'
+    "click .Hashtags span.contact-detail-value": "clickHashtag"
     
   initialize: ->
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
     @contactsHashtags = new RippleApp.Collections.Hashtags()
-    
-    
-    
+  
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
 
@@ -38,6 +37,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputCard()
     
     return @
+    
+  clickHashtag: (e)->
+    id = @hashtags.getIdFromName(e.target.innerText)
+    Backbone.history.navigate('#hashtags/show/'+id, true)
 
   outputCard: ->      
     if @model.get('dob')
@@ -304,7 +307,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
           )
         
         if not isDuplicate
-          @contactsHashtags.add(@hashtags.addTagToContact(val, @model.get('_id')))
+          @contactsHashtags.remove(@contactsHashtags.models)
+          contact_id = @model.get('_id')
+          newmodel = @hashtags.addTagToContact(val, contact_id)
+          @contactsHashtags.add(newmodel)
         else
           console.log('duplicate')
       
