@@ -8,7 +8,7 @@ class Contact
   
   belongs_to :user
   has_many :addresses, :autosave => true, :dependent => :destroy
-  #has_many :hashtags, :autosave => true
+  has_and_belongs_to_many :hashtags, :autosave => true
   embeds_many :phones
   embeds_many :socials
   embeds_many :notes
@@ -20,7 +20,7 @@ class Contact
   accepts_nested_attributes_for :socials, :allow_destroy => true
   accepts_nested_attributes_for :emails, :allow_destroy => true
   accepts_nested_attributes_for :urls, :allow_destroy => true
-  #accepts_nested_attributes_for :hashtags
+  accepts_nested_attributes_for :hashtags, :allow_destroy => true
 
   field :name, :type => String
   field :position, :type => String
@@ -52,6 +52,7 @@ class Contact
     t.add :map
     t.add :facebook_id
     t.add :linkedin_id
+    t.add :hashtags
   end
   
   def clean_contact_delete
@@ -63,7 +64,7 @@ class Contact
   end
 
   def update_attributes_from_api(params)
-    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes", "emails", "urls"]
+    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes", "emails", "urls", "hashtags"]
     params = api_to_nested_attributes(params, keys_with_nested_attributes)
     update_attributes(params)
   end

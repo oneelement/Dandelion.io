@@ -6,7 +6,6 @@ class RippleApp.Views.ContactListSection extends Backbone.View
     @collection.on('add', @render, this)
     @collection.on('reset', @render, this)
 
-
   render: ->
     $(@el).html(@template())
     length = @collection.length

@@ -7,13 +7,18 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "contacts/new": "new"
     "groups": "groupindex"
     "groups/show/:id": "groupShow"
+    "hashtags/show/:id": "hashtagShow"
 
   initialize: ->
     @currentUser = new RippleApp.Models.User()
     @recentContacts = new RippleApp.Collections.ContactBadges(maxSize: 5)
-    @favouriteContacts = new RippleApp.Collections.ContactBadges()
+    @favouriteContacts = new RippleApp.Collections.ContactBadges()    
     @currentUser.fetchCurrent(success: (user) =>
       @currentUser = user
+      #This will clear down your fav and recent contacts, if you're having problems due to favourite bug
+      #@currentUser.set('favourite_contacts', '[]')
+      #@currentUser.set('favourite_contacts', '[]')
+      #@currentUser.save()
       @recentContacts.add(JSON.parse(user.get('recent_contacts')))
       @favouriteContacts.add(JSON.parse(user.get('favourite_contacts')))
     )
@@ -22,13 +27,11 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @groups = new RippleApp.Collections.Groups()
     @groups.fetch()
     @groupContacts = new RippleApp.Collections.Contacts()
-    return @
-    
+    @hashtags = new RippleApp.Collections.Hashtags()
+    @hashtags.fetch()
+    @
     
   home: ->
-    #after = (contact) =>
-      #@setContextContact(contact) 
-    
     after = (contact) =>
       viewHome = new RippleApp.Views.HomePage(model: @currentUser, contact: contact)
       RippleApp.layout.setMainView(viewHome)
@@ -43,17 +46,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       )    
     else     
       id = @currentUser.get("contact_id")
-      console.log(id)
       @getContact(id, after) 
-   
-#    OC trying to reduce server calls
-#    if @currentUser.isNew()
-#      @currentUser.fetchCurrent(success: (model) =>
-#        @getContact(model.get("contact_id"), after)
-#      )
-#      
-#    else
-#      @getContact(@currentUser.id, after)
 
   index: ->
     view = new RippleApp.Views.ContactsIndex(collection: @contacts)
@@ -74,7 +67,20 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @groups.add(group) #OC added so new contacts are added to the collection and we dont have to fetch from the server
 
     @getGroup(id, after)
-  
+
+  hashtagShow: (id) ->
+    hashtag = @hashtags.get(id)
+    view = new RippleApp.Views.HashtagCard(model: hashtag)
+    RippleApp.layout.setContextView(view)
+    
+    tagContacts = new RippleApp.Collections.Contacts()
+    _.each(hashtag.get('contact_ids'), (contact_id)=>
+      tagContacts.add(@contacts.get(contact_id))
+    )
+    
+    view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
+    RippleApp.layout.setMainView(view)
+
   #Display the contact, and full detail in the main view
   show: (id) ->
     @getContact(id, (contact) =>

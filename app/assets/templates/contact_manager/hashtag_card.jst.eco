@@ -1,0 +1,7 @@
+<div id="hashtag-title">
+  <h3><%= @hashtag.text %></h3>
+</div>
+<div id="hashtag-body">
+</div>
+<div id="hashtag-footer">
+</div>

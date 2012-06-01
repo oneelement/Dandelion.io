@@ -15,15 +15,19 @@ class RippleApp.Lib.DetailsMatcher
       ]
     "Email":
       exprs: [
-        /^[^:].+@.*$/,
+        /^[^(:|#)].+@.*$/,
       ]
     "Address":
       exprs: [
-        /^.+,.+$/,
+        /^[^(:|#)].+,.+$/,
       ]
     "Url":
       exprs: [
         /^(www.)|(http).+$/,
+      ]
+    "Hashtag":
+      exprs: [
+        /^#.+$/,
       ]
     "Note":
       exprs: [
