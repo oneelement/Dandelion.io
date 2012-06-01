@@ -181,10 +181,12 @@ class User
   end
   
   def linkedin
-    provider = self.authentications.where(:provider => 'linkedin').first
-    client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
-    client.authorize_from_access(provider.token, provider.secret)
-    @linkedin = client
+    provider = self.authentications.where(:provider => 'linkedin').first    
+    if provider
+      client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
+      client.authorize_from_access(provider.token, provider.secret)
+      @linkedin = client
+    end
   end
   
 end

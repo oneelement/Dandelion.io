@@ -32,9 +32,9 @@ class RippleApp.Views.ContactShow extends Backbone.View
   getSocials: ->
     auths = @user.get('authentications')
     socials = @model.get('socials')
-    
+    console.log(socials)
     twitter = auths.filter (auth) =>
-      auth.provider == 'twitter'
+      auth.get('provider') == 'twitter'
     if twitter[0]?
       twitter_social = socials.filter (social) => 
         social.get("type") == 'twitter'
@@ -45,18 +45,24 @@ class RippleApp.Views.ContactShow extends Backbone.View
       this.$('#tweets').append('<li class="tweet">Please authorise Twitter in user profile to view tweets.</li>')
     
     facebook = auths.filter (auth) =>
-      auth.provider == 'facebook'
+      auth.get('provider') == 'facebook'
     if facebook[0]?
-      facebook_social = socials.filter (social) => 
-        social.get("type") == 'facebook'
-      if facebook_social[0]?
-        @getFacebook()
+      #facebook_social = socials.filter (social) => 
+        #social.get("type") == 'facebook'
+      facebook = @model.get('facebook_id')
+      #console.log(facebook)
+      if facebook?
+        console.log(facebook)
+        @getFacebook(facebook)
+      else
+        this.$('#faces-loading').addClass('disabled')
+        this.$('#faces').append('<li class="face">Please connect contact to Facebook.</li>')
     else
       this.$('#faces-loading').addClass('disabled')
       this.$('#faces').append('<li class="face">Please authorise Facebook in user profile to view feed.</li>')
     
     linkedin = auths.filter (auth) =>
-      auth.provider == 'linkedin'
+      auth.get('provider') == 'linkedin'
     if linkedin[0]?        
       linkedin_social = socials.filter (social) => 
         social.get("type") == 'linkedin'
@@ -90,10 +96,10 @@ class RippleApp.Views.ContactShow extends Backbone.View
       $('#tweets-loading').addClass('disabled')
     )
     
-  getFacebook: =>
-    social_id = @getSocialId('facebook')
-    social_id = "515112480"
-    call = "feed?id=" + social_id
+  getFacebook: (id) =>
+    #social_id = @getSocialId('facebook')
+    #social_id = "515112480"
+    call = "feed?id=" + id
     @faces = new RippleApp.Collections.Faces([], { call : call })
     @faces.fetch(success: (collection) =>
       view = new RippleApp.Views.Facebook(collection: collection)

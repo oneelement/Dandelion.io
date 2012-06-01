@@ -7,7 +7,7 @@ class Address
   geocoded_by :full_address
   after_validation :geocode
   
-  after_create :check_subject_map
+  #after_create :check_subject_map
 
   belongs_to :contact
   belongs_to :group
