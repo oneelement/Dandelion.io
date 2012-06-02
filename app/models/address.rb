@@ -25,13 +25,13 @@ class Address
   field :coordinates, :type => Array
   
   def check_subject_map
-#     if self.contact_id
-#       id = self.contact_id
-#       contact = Contact.find(id)
-#       contact.map << self.coordinates[0]
-#       contact.map << self.coordinates[1]
-#       contact.save
-#     end
+    if self.contact_id
+      id = self.contact_id
+      contact = Contact.find(id)
+      #contact.map << self.coordinates[0]
+      #contact.map << self.coordinates[1]
+      contact.save
+    end
   end
 
   def full_address=(address_string)
