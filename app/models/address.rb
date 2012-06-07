@@ -28,8 +28,8 @@ class Address
     if self.contact_id
       id = self.contact_id
       contact = Contact.find(id)
-      contact.map << self.coordinates[0]
-      contact.map << self.coordinates[1]
+      #contact.map << self.coordinates[0]
+      #contact.map << self.coordinates[1]
       contact.save
     end
   end
