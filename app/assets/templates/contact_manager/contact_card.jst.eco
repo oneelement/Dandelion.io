@@ -24,7 +24,9 @@
 <div id="contact-card-details">
     <div id="contact-card-head">
         <div id="contact-card-avatar">
-          <img src="<%= @contact.avatar %>"/>
+          <a href="#avatar-modal" data-toggle="modal">
+            <img src="<%= @contact.avatar %>"/>
+          </a>
         </div>
         <div id="contact-card-name">
           <h3><%= @contact.name %></h3>

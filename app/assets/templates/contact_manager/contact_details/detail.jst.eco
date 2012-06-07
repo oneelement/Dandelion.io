@@ -5,4 +5,5 @@
 <span class="contact-detail-value"><%= @value %></span>
 <span class="contact-detail-edit"><input type="text" name="value" id="edit_value" class="input-text" value="<%= @value %>"></input></span>
 <span class="contact-detail-icon c-sm-icon c-sm-icon-pencil-dark edit-icon"></span>
+<span class="contact-detail-icon c-sm-icon c-sm-icon-bin-dark delete-icon"></span>
 <div style="clear:both;"></div>

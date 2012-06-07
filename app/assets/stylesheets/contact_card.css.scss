@@ -154,6 +154,7 @@
         font-size: 11pt;
         font-style: italic;
         color: #BBB;
+        display: none;
       }
 
       .contact-detail {
@@ -167,7 +168,7 @@
         .contact-detail-value {
           float: left;
           margin-left: 1em;
-          width: 85%;
+          width: 75%;
           
           font-weight: bold;
           font-size: 12px;
@@ -191,7 +192,7 @@
         .contact-detail-edit {
           display: block;
           input {
-            width: 85%;
+            width: 75%;
             font-weight: bold;
             font-size: 12px;
             border: none;

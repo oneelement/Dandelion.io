@@ -7,6 +7,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'dblclick span.contact-detail-value': 'editValue'
     'keypress #edit_value': 'checkEnter'
     'click span.edit-icon': 'editValue'
+    'click span.delete-icon': 'deleteValue'
     'focusout input#edit_value': 'closeEdit'
     'click #default-phone, #default-address, #default-email': 'toggleDefault'
 
@@ -15,6 +16,8 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     @value = @options.value
     @model.on('change', @renderEdit, this)
     @modelType = @model.getModelType()
+    @subject = @options.subject
+    #console.log(@subject)
 
   render: ->
     $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType))
@@ -52,6 +55,23 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     $(this.el).addClass('editing')
     this.$('input#edit_value').focus()
     this.$('span.edit-icon').css('display', 'block')
+    
+  deleteValue: ->
+    coll = @model.getModelType()
+    coll = coll + 's'
+    @subject.phones.destroy()
+    #@collection.remove(@model)
+    #coll = @model.getModelType()
+    #coll = coll + 's'
+    #console.log(coll)
+    #collection = @subject.get(coll)
+    #collection.remove(@model)
+    #console.log(collection)
+    #console.log(@subject)
+    #@subject
+    #RippleApp.Views.ContactCard.saveModel
+    #@subject.unset('hashtags', { silent: true })
+    #@subject.save()
   
   checkEnter: (event) ->
     if (event.keyCode == 13) 

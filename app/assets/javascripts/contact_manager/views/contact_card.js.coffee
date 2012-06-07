@@ -1,6 +1,7 @@
 class RippleApp.Views.ContactCard extends Backbone.View
   template: JST['contact_manager/contact_card']
   searchModel: JST['contact_manager/search_modal']
+  pictureModel: JST['contact_manager/picture_modal']
   id: 'contact-card'
     
   events:
@@ -18,17 +19,21 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'show #social-modal': 'socialModal'
     'click .socialLinkButton': 'socialLink'
     "click .Hashtags span.contact-detail-value": "clickHashtag"
+    'show #avatar-modal': 'avatarModal'
+    #'click span.delete-icon': 'saveModel'
     
   initialize: ->
     @user = @options.user
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
     @contactsHashtags = new RippleApp.Collections.Hashtags()
+    @model.on('change', @render, this)
   
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
 
     $(@el).append(@searchModel(options: {title: "Facebook Search"}))
+    $(@el).append(@pictureModel(subject: @model.toJSON(), options: {title: "Select Avatar"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       $('#isFavourite', @el).attr('checked', 'checked')
@@ -38,8 +43,24 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
     return @
     
+  avatarModal: ->
+    console.log(@model.get('avatar'))
+    $('#avatar-select-container', @el).html('')
+    if @model.get('linkedin_id')
+      console.log(@model.get('linkedin_id'))
+      url = ''      
+      view = new RippleApp.Views.AvatarSelect(url: url, model: @model)
+      $('#avatar-select-container', @el).append(view.render().el)
+    if @model.get('facebook_id')
+      facebook_id = @model.get('facebook_id')
+      url = 'https://graph.facebook.com/' + facebook_id + '/picture'
+      view = new RippleApp.Views.AvatarSelect(url: url, model: @model)
+      $('#avatar-select-container', @el).append(view.render().el)
+    
   clickHashtag: (e)->
     id = @hashtags.getIdFromName(e.target.innerText)
+    console.log(id)
+    console.log(e.target)
     Backbone.history.navigate('#hashtags/show/'+id, true)
 
   outputCard: ->      
@@ -54,36 +75,42 @@ class RippleApp.Views.ContactCard extends Backbone.View
     emailsSection = new RippleApp.Views.ContactCardSection(
       title: 'Emails'
       collection: @model.get("emails")
+      subject: @model
     )
     $('#contact-card-body', @el).append(emailsSection.render().el)
     
     phonesSection = new RippleApp.Views.ContactCardSection(
       title: 'Phone Numbers'
       collection: @model.get("phones")
+      subject: @model
     )
     $('#contact-card-body', @el).append(phonesSection.render().el)
     
     urlsSection = new RippleApp.Views.ContactCardSection(
       title: 'Urls'
       collection: @model.get("urls")
+      subject: @model
     )
     $('#contact-card-body', @el).append(urlsSection.render().el)
 
     addressesSection = new RippleApp.Views.ContactCardSection(
       title: 'Addresses'
       collection: @model.get("addresses")
+      subject: @model
     )
     $('#contact-card-body', @el).append(addressesSection.render().el)
     
     socialsSection = new RippleApp.Views.ContactCardSection(
       title: 'Profile Links'
       collection: @model.get("socials")
+      subject: @model
     )
     $('#contact-card-body', @el).append(socialsSection.render().el)
     
     notesSection = new RippleApp.Views.ContactCardSection(
       title: 'Notes'
       collection: @model.get("notes")
+      subject: @model
     )
     $('#contact-card-body', @el).append(notesSection.render().el)  
     
@@ -91,6 +118,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     hashtagSection = new RippleApp.Views.ContactCardSection(
       title: 'Hashtags'
       collection: @contactsHashtags
+      subject: @model
     )
     $('#contact-card-body', @el).append(hashtagSection.render().el)  
     
@@ -331,6 +359,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @model.set('dob', val)
 
     $input.val('')
+    @model.unset('hashtags', { silent: true })
     @model.save(null, { silent: true })
 
   calculateMatchLabelWidth: (text, $addon) ->
@@ -416,4 +445,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     modalWidth = $(window).width()*0.8
     $('#granny-phone-card').attr('style','width:'+modalWidth+'px; margin-left:-'+(modalWidth/2)+'px;')
     $('#granny-phone-card').reveal()
+    
+  saveModel: =>
+    @model.unset('hashtags', { silent: true })
+    @model.save()
    

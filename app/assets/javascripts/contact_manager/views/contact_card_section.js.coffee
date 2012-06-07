@@ -4,9 +4,11 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
 
   initialize: ->
     @collection.on('add', @addDetail)
+    @collection.on('remove', @render, this)
     @collection.on('reset', @clearDetails)
     @title = @options.title
     @sectionIsActive = false
+    @subject = @options.subject
 
   render: ->
     $(@el).html(@template(title: @title))
@@ -24,6 +26,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
         .css('color', '#000')
         .css('font-weight', 'bold')
         .css('font-style', 'normal')
+        .css('display', 'block')
 
       @sectionIsActive = true
 
@@ -33,6 +36,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
       icon: model.getViewIcon()
       value: model.getViewValue()
       collection: @collection
+      subject: @subject
     ).render().el)
 
   clearDetails: =>

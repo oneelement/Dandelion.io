@@ -1,5 +1,6 @@
 class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
   idAttribute: '_id'
+  urlRoot: '/phones'
 
   getViewIcon: ->
     type = @get("_type")

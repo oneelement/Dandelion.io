@@ -20,7 +20,7 @@ class Contact
   accepts_nested_attributes_for :socials, :allow_destroy => true
   accepts_nested_attributes_for :emails, :allow_destroy => true
   accepts_nested_attributes_for :urls, :allow_destroy => true
-  accepts_nested_attributes_for :hashtags, :allow_destroy => true
+  accepts_nested_attributes_for :hashtags, :allow_destroy => true #this this will delte
 
   field :name, :type => String
   field :position, :type => String

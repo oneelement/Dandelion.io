@@ -14,7 +14,7 @@ class RippleApp.Views.HomePage extends Backbone.View
   render: ->
     $(@el).html(@template(user: @model.toJSON(), contact: @contact.toJSON()))
     #@getTweets()  
-    @getSocials()
+    #@getSocials()
     
     return this
     

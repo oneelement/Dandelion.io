@@ -13,7 +13,7 @@ class RippleApp.Views.ContactShow extends Backbone.View
     $(@el).html(@template(contact: @model.toJSON())) 
     #@getTwitter()
     #@getFacebook()
-    @getSocials()
+    #@getSocials()
 
     return this
     
