@@ -9,6 +9,10 @@ class RippleApp.Models.ContactSocialDetail extends Backbone.RelationalModel
       return 'facebook'
     else if type == 'SocialLinkedin'
       return 'linkedin'
+      
+  getTypes: ->
+    types = []
+    return types   
 
   getViewValue: ->
     return @get("social_id")

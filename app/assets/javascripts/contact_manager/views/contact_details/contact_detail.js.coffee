@@ -18,9 +18,10 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     @modelType = @model.getModelType()
     @subject = @options.subject
     #console.log(@subject)
+    $(@el).addClass(@modelType)
 
   render: ->
-    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType))
+    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType, detail: @model.toJSON()))
     
     defaultInd = @model.get('default')
     if defaultInd == true
@@ -31,7 +32,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     
   renderEdit: ->
     @value = @model.getViewValue()
-    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType))
+    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType, detail: @model.toJSON()))
     defaultInd = @model.get('default')
     id = "#default-" + @modelType
     if defaultInd == true
@@ -52,14 +53,25 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       @model.set('default', false)
   
   editValue: ->
-    $(this.el).addClass('editing')
-    this.$('input#edit_value').focus()
-    this.$('span.edit-icon').css('display', 'block')
+    if @modelType != "hashtag"
+      $(this.el).addClass('editing')
+      this.$('input#edit_value').focus()
+      this.$('span.edit-icon').css('display', 'block')
     
   deleteValue: ->
-    coll = @model.getModelType()
-    coll = coll + 's'
-    @subject.phones.destroy()
+    if @modelType == 'hashtag'
+      #coll = @model.getModelType()
+      #coll = coll + 's'
+      console.log('delete hashtag')
+      console.log(@model)
+      @collection.remove(@model)
+      c = new RippleApp.Collections.Hashtags(@subject.get("hashtags"))
+      c.remove(@model)
+      console.log(@collection)
+      @model.removeContact(@subject.get('_id'))
+    else 
+      console.log('model')
+      @model.destroy()
     #@collection.remove(@model)
     #coll = @model.getModelType()
     #coll = coll + 's'

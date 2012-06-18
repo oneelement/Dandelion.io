@@ -35,13 +35,13 @@ class ImportsController < ApplicationController
 	name = connection[1]['name']
 	connection_id = connection[1]['connection_id']	
 	if check
-	  avatar = @user.linkedin.profile(:id => connection_id, :fields => [:picture_url])
-	  if avatar.picture_url != nil
-	    picture = avatar.picture_url
+	  person = @user.linkedin.profile(:id => connection_id, :fields => [:picture_url, :public_profile_url])
+	  if person.picture_url != nil
+	    picture = person.picture_url
 	  else
 	    picture = "http://placehold.it/80x80"
 	  end
-	  contact = Contact.new(:name => name, :user_id => id, :linkedin_id => connection_id, :avatar => picture)
+	  contact = Contact.new(:name => name, :user_id => id, :linkedin_id => person.public_profile_url, :avatar => picture)
           contact.save
 	  connection = LinkedinConnection.where(:linkedin_id => connection_id, :user_id => id).first
 	  connection.contact_id = contact._id

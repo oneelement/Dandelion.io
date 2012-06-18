@@ -7,7 +7,7 @@ class RippleApp.Collections.Linkedins extends Backbone.Collection
     this.call = options.call
     
   url: ->
-    '/linkedin_feeds' # + this.call
+    '/linkedin_feeds/' + this.call
     
   #parse: (data) ->
     #data.results

@@ -10,6 +10,8 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "hashtags/show/:id": "hashtagShow"
 
   initialize: ->
+    @globalTweets = new RippleApp.Collections.GlobalTweets()
+    @globalFaces = new RippleApp.Collections.GlobalFaces()
     @currentUser = new RippleApp.Models.User()
     @recentContacts = new RippleApp.Collections.ContactBadges(maxSize: 5)
     @favouriteContacts = new RippleApp.Collections.ContactBadges()    
@@ -33,7 +35,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
   home: ->
     after = (contact) =>
-      viewHome = new RippleApp.Views.HomePage(model: @currentUser, contact: contact)
+      tweets = @globalTweets.get(@currentUser.get('_id'))
+      faces = @globalFaces.get(@currentUser.get('_id'))
+      viewHome = new RippleApp.Views.HomePage(model: @currentUser, contact: contact, globalTweets: @globalTweets, globalFaces: @globalFaces, tweets: tweets, faces: faces)
       RippleApp.layout.setMainView(viewHome)
       @setContextContact(contact)
     
@@ -139,12 +143,12 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   showContact: (contact) ->
     user = @currentUser.get("_id")
     if not user?
-      @currentUser.fetchCurrent(success: (model) =>
-        view = new RippleApp.Views.ContactShow(model: contact, user: model)
+      @currentUser.fetchCurrent(success: (model) =>        
+        view = new RippleApp.Views.ContactShow(model: contact, user: model, globalTweets: @globalTweets, globalFaces: @globalFaces)
         RippleApp.layout.setMainView(view)
       )
     else
-      view = new RippleApp.Views.ContactShow(model: contact, user: @currentUser)
+      view = new RippleApp.Views.ContactShow(model: contact, user: @currentUser, globalTweets: @globalTweets, globalFaces: @globalFaces)
       RippleApp.layout.setMainView(view)
       
   showGroup: (group) ->

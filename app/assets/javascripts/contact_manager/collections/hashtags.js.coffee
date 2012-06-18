@@ -28,6 +28,31 @@ class RippleApp.Collections.Hashtags extends Backbone.Collection
         )
       hashtagResult
       
+  addTagToGroup: (name, group_id)=>
+    hashtagResult = new RippleApp.Models.Hashtag()
+    if group_id
+      exists = false
+      _.each(@models, (hashtag) =>
+        if hashtag.get('text') is name
+          exists = true
+      )
+      
+      if not exists
+        #we create it!
+        @add(hashtag = new RippleApp.Models.Hashtag(text: name, group_ids: [group_id] ))
+        hashtag.save()
+        hashtagResult = hashtag
+      else
+        _.each(@models, (hashtag) =>
+          if hashtag.get('text') is name
+            group_ids = hashtag.get('group_ids')
+            group_ids.push(group_id)
+            hashtag.set('group_ids', group_ids)
+            hashtag.save()
+            hashtagResult = hashtag
+        )
+      hashtagResult
+      
   getIdFromName: (name)=>
     id = ''
     _.each(@models, (hashtag) =>

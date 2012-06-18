@@ -1,6 +1,9 @@
 class RippleApp.Views.RecentContactsEntry extends Backbone.View
   template: JST['contact_manager/contact_badge']
   tagName: 'li'
+  
+  initialize: ->
+    @model.on('change', @render, @)
 
   render: ->
     isContextContact = false

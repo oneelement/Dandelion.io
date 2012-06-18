@@ -108,7 +108,8 @@
         right: 0;
 
         #contact-card-details-input {
-
+          height: 28px;
+          margin: 0px;
           input {
             position: absolute;
             top: 0;
@@ -128,6 +129,25 @@
 
             width: auto;
           }
+        }
+          
+        #override-match-wrapper {
+          ul {
+            margin: 0px 0px 0px 220px;
+            padding: 0px;
+            background-color: #F5F5F5;
+            @include opacity(0.95);
+            border: 1px solid #CCCCCC;
+            border-radius: 3px 0 0 3px;
+            color: #999999;
+            z-index: 9000;
+            position: relative;
+            #left: 100px;
+            li {
+              margin: 0px 0px 0px 10px;
+              padding: 2px;
+            }
+          } 
         }
       }
       
@@ -155,6 +175,13 @@
         font-style: italic;
         color: #BBB;
         display: none;
+      }
+        
+      .active {
+        color: #000;
+        font-weight: bold;
+        font-style: normal;
+        display: block;
       }
 
       .contact-detail {

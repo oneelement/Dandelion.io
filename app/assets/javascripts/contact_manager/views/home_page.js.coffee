@@ -9,12 +9,15 @@ class RippleApp.Views.HomePage extends Backbone.View
   initialize: ->
     @model.on('change', @render, this)
     @contact = @options.contact
-    console.log(@contact)
+    @globalTweets = @options.globalTweets
+    @tweets = @options.tweets
+    @globalFaces = @options.globalFaces
+    @faces = @options.faces
   
   render: ->
     $(@el).html(@template(user: @model.toJSON(), contact: @contact.toJSON()))
     #@getTweets()  
-    #@getSocials()
+    @getSocials()
     
     return this
     
@@ -41,7 +44,7 @@ class RippleApp.Views.HomePage extends Backbone.View
       this.$('#facebook-post').val("")
     
   toggleTab: (event) ->
-    console.log(event.target.id)
+    #console.log(event.target.id)
     target = event.target
     targetId = event.target.id
     this.$('li').removeClass('active')
@@ -56,7 +59,7 @@ class RippleApp.Views.HomePage extends Backbone.View
   getSocials: =>
     $('#tweets-loading').addClass('disabled')
     auths = @model.get('authentications')
-    console.log(auths.models)
+    #console.log(auths.models)
     twitter = auths.filter (auth) =>      
       auth.get('provider') == 'twitter'
       
@@ -74,9 +77,9 @@ class RippleApp.Views.HomePage extends Backbone.View
       this.$('#faces').append('<li class="face">Please authorise Facebook in user profile to view feed.</li>')
     linkedin = auths.filter (auth) =>
       auth.get('provider') == 'linkedin'
-    if linkedin[0]?        
-      @getLinkedin()
-      return
+    #if linkedin[0]?        
+      #@getLinkedin()
+      #return
     
   getSocialId: (socialnetwork) ->
     socials = @contact.get('socials')
@@ -93,30 +96,43 @@ class RippleApp.Views.HomePage extends Backbone.View
     #console.log(social_id)
     #social_id = "chestermano"
     #url = "https://search.twitter.com/search.json?q=" + social_id + "&callback=?"
-    call = "hometimeline"
-    @tweets = new RippleApp.Collections.Tweets([], { call : call })
-    #@collection.each(@appendTweet)
-    @tweets.fetch(success: (collection) =>
-      console.log(collection)
+    if @tweets
+      collection = @tweets.get('tweets')
       view = new RippleApp.Views.Twitter(collection: collection)
-      $('#twitter-wrapper').append(view.render().el)
-      $('#tweets-loading').addClass('disabled')
-      #@getTweets()
-      #collection.each(@appendTweet)
-    )
+      this.$('#twitter-wrapper').append(view.render().el)
+      this.$('#tweets-loading').addClass('disabled')
+    else
+      call = "hometimeline"
+      @tweets = new RippleApp.Collections.Tweets([], { call : call })
+      @tweets.fetch(success: (collection) =>
+        myTweets = new RippleApp.Models.GlobalTweet()
+        myTweets.set('tweets', collection)
+        myTweets.set('id', @model.get('_id'))
+        @globalTweets.add(myTweets)
+        view = new RippleApp.Views.Twitter(collection: collection)
+        $('#twitter-wrapper').append(view.render().el)
+        $('#tweets-loading').addClass('disabled')
+      )
     
   getFacebook: =>
-    #social_id = @getSocialId('facebook')
-    social_id = "chestermano"
-    #call = "search/?q=" + social_id
-    call = ""
-    @faces = new RippleApp.Collections.Faces([], { call : call })
-    @faces.fetch(success: (collection) =>
-      console.log(collection)
+    if @faces
+      collection = @faces.get('faces')
       view = new RippleApp.Views.Facebook(collection: collection)
-      $('#facebook-wrapper').append(view.render().el)
-      $('#faces-loading').addClass('disabled')
-    )
+      this.$('#facebook-wrapper').append(view.render().el)
+      this.$('#faces-loading').addClass('disabled')
+    else
+      call = ""
+      @faces = new RippleApp.Collections.Faces([], { call : call })
+      @faces.fetch(success: (collection) =>
+        myFaces = new RippleApp.Models.GlobalFace()
+        myFaces.set('faces', collection)
+        myFaces.set('id', @model.get('_id'))
+        @globalFaces.add(myFaces)
+        #console.log(collection)
+        view = new RippleApp.Views.Facebook(collection: collection)
+        $('#facebook-wrapper').append(view.render().el)
+        $('#faces-loading').addClass('disabled')
+      )
     
   getLinkedin: =>
     #social_id = @getSocialId('facebook')
@@ -124,22 +140,7 @@ class RippleApp.Views.HomePage extends Backbone.View
     call = "/show"
     @linkedins = new RippleApp.Collections.Linkedins([], { call : call })
     @linkedins.fetch(success: (collection) =>
-      console.log(collection)
+      #console.log(collection)
       view = new RippleApp.Views.Linkedin(collection: collection)
       $('#linkedin-wrapper').append(view.render().el)
     )
-    
-    
-  #redundant function, dont delete. OC  
-  appendTweet: (tweet) ->
-    view = new RippleApp.Views.Tweet(model: tweet)
-    $('#tweets').append(view.render().el)
-  
-  #redundant function, dont delete. OC
-  getTweets: ->
-    view = new RippleApp.Views.Twitter(collection: @tweets)
-    $('#twitter-wrapper').append(view.render().el)
-    
-
-
-

@@ -2,13 +2,9 @@ class RippleApp.Views.Linkedin extends Backbone.View
   template: JST['contact_manager/linkedin']
     
   render: =>    
-    $(@el).html(@template)
-    @collection.each(@appendLinkedin) 
+    $(@el).html(@template(linkedin: @model.toJSON()))
     this    
   
-  appendLinkedin: (link) ->
-    view = new RippleApp.Views.Linked(model: link)
-    $('#linkedins').append(view.render().el)  
 
 
 

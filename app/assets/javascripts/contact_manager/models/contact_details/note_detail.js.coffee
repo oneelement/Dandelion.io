@@ -6,6 +6,10 @@ class RippleApp.Models.ContactNoteDetail extends Backbone.RelationalModel
 
   getViewValue: ->
     return @get("text")
+    
+  getTypes: ->
+    types = []
+    return types   
 
   getFieldName: ->
     return "text"

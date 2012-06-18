@@ -10,6 +10,9 @@ class Phone
   field :number, :type => String
   field :default, :type => Boolean, :default => false
   field :icon, :type => String
+  field :facebook_id, :type => String
+  field :linkedin_id, :type => String
+  field :twitter_id, :type => String
 
   acts_as_api
 

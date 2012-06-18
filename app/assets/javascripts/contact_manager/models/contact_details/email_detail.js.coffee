@@ -10,7 +10,11 @@ class RippleApp.Models.ContactEmailDetail extends Backbone.RelationalModel
       return 'building-dark'
     else
       return 'phone'
-    
+      
+  getTypes: ->
+    types = [{icon: 'EP', type: 'EmailPersonal'}, {icon: 'EB', type: 'EmailBusiness'}, {icon: 'EM', type: 'Email'}]
+    #types = ['EmailPersonal', 'EmailBusiness', 'Email']
+    return types    
 
   getViewValue: ->
     return @get("email")

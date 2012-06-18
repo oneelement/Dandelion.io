@@ -1,0 +1,10 @@
+<h1><%= @linkedin.first_name %> <%= @linkedin.last_name %></h1>
+<p><%= @linkedin.headline %></p>
+<p>Positions</p>
+<% for pos in @linkedin.positions.all: %>
+  <%= pos.title %> at <%= pos.company.name %>
+<% end %>
+<p>Education</p>
+<% for ed in @linkedin.educations.all: %>
+  <%= ed.school_name %>
+<% end %>

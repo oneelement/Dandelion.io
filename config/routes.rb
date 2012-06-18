@@ -12,6 +12,7 @@ Onelement::Application.routes.draw do
 
   resources :linkedin_feeds do
     get 'search', :on => :collection
+    get 'profile', :on => :collection
   end
 
   resources :facebook_feeds do

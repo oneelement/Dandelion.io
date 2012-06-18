@@ -32,7 +32,10 @@ class Contact
   field :map, :type => Array, :default => []
   field :facebook_id, :type => String
   field :linkedin_id, :type => String
-  
+  field :twitter_id, :type => String
+  field :facebook_picture, :type => String
+  field :twitter_picture, :type => String
+  field :linkedin_picture, :type => String
   #field :favorite_users, :type => Array
   
   acts_as_api
@@ -52,6 +55,10 @@ class Contact
     t.add :map
     t.add :facebook_id
     t.add :linkedin_id
+    t.add :twitter_id
+    t.add :facebook_picture
+    t.add :twitter_picture
+    t.add :linkedin_picture
     t.add :hashtags
   end
   

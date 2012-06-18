@@ -1,0 +1,11 @@
+<% console.log(@linkedin) %>
+<a>
+  <div class="linkedin-image">
+    <img src="<%= @linkedin.picture_url %>" alt=""/>
+  </div>
+  <div class="result-text">
+    <%= @linkedin.first_name %> <%= @linkedin.last_name %>
+    </br>
+    <button class="btn socialLinkButton" data-dismiss="modal" data-pictureurl="<%= @linkedin.picture_url %>" data-socialid="<%= @linkedin.public_profile_url %>" data-socialtype="<%= @linkedin.socialType %>">Link</button>  
+  </div>
+</a>

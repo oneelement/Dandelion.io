@@ -10,7 +10,11 @@ class RippleApp.Models.ContactUrlDetail extends Backbone.RelationalModel
       return 'company url'
     else
       return 'url'
-    
+      
+  getTypes: ->
+    #types = ['UrlPersonal', 'UrlCompany', 'Url']
+    types = [{icon: 'UP', type: 'UrlPersonal'}, {icon: 'UC', type: 'UrlCompany'}, {icon: 'UL', type: 'Url'}]
+    return types       
 
   getViewValue: ->
     return @get("url")

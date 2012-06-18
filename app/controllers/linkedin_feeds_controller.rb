@@ -17,11 +17,22 @@ class LinkedinFeedsController < ApplicationController
     query = params[:q]
     #query = "Bubba G"
     @user = User.find(current_user.id)
-    search = @user.linkedin.search(query)
-
+    fields = [{:people => [:id, :first_name, :last_name, :public_profile_url, :picture_url]}]
+    search = @user.linkedin.search(:keywords => query, :fields => fields)
+    #search = @user.linkedin.profile(:fields => [:headline, :first_name, :last_name, :summary, :educations, :positions])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: search }
+      format.json { render json: search.people.all }
+    end
+  end
+  
+  def profile
+    id = params[:id]
+    @user = User.find(current_user.id)
+    profile = @user.linkedin.profile(:id => id, :fields => [:headline, :first_name, :last_name, :public_profile_url, :picture_url, :summary, :educations, :positions])
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: profile }
     end
   end
 end

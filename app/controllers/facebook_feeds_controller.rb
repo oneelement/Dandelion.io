@@ -40,12 +40,12 @@ class FacebookFeedsController < ApplicationController
   
   def wallpost
     text = params[:text]
-    id = 586481549
+    id = params[:id]
     @user = User.find(current_user.id)
     #face = @user.facebook.put_wall_post(text
-    #face = @user.facebook.put_connections(id, 'feed', :message => text)
+    face = @user.facebook.put_connections(id, 'feed', :message => text)
     #face = @user.facebook.get_connection('me', 'friends',  "fields" => "name, gender, email, address")
-    face = @user.facebook.get_object(id, "fields" => "name, gender, email, address")
+    #face = @user.facebook.get_object(id, "fields" => "name, gender, email, address")
 
     respond_to do |format|
       format.html # index.html.erb

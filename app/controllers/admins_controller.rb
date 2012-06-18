@@ -72,7 +72,8 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @admin = Admin.find(params[:id])
+    @contact = Contact.find('4fbe608ea9cd85577e000005')
+    @admin = @contact.phones.find(params[:id])
     @admin.destroy
 
     respond_to do |format|

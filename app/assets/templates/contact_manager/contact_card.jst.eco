@@ -14,7 +14,7 @@
                 <li>Favourite</li>
                 <li>Refresh</li>
                 <li id="subject-delete">Delete</li>
-                <li>Edit</li>
+                <li id="subject-edit">Edit</li>
                 <li>Send</li>
                 <li>Add to Group</li>
             </ul>
@@ -30,6 +30,7 @@
         </div>
         <div id="contact-card-name">
           <h3><%= @contact.name %></h3>
+          <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
         </div>
         <div id="contact-card-favourite">
           <input id="isFavourite" type="checkbox" name="isFavourite"/>
@@ -41,11 +42,12 @@
                     <span id="contact-card-details-input-type">...</span>
                 <span>                
             </div>
+            <div id="override-match-wrapper"></div>
         </form>
         <div id="social-network-links">
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
+            <div class="searchIcon facebookSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
+            <div class="searchIcon twitterSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
+            <div class="searchIcon linkedinSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
         </div>
     </div>
     <div id="contact-card-body">

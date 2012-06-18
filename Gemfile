@@ -18,7 +18,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'twitter' #api for twitter
 gem 'koala' #api for facebook
-gem 'linkedin' #api for linkedin
+gem 'linkedin' 
+#gem 'linkedin', :git => 'http://github.com/pengwynn/linkedin.git', :branch => '2-0-stable'
+#api for linkedin
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -4,20 +4,18 @@
   <ul class="rip-tabs" id="social-feeds-header">
     <li id="twitter-feed" class="active">Twitter</li>
     <li id="facebook-feed" class="">Facebook</li>
+    <li id="linkedin-feed" class="">Linked In</li>
   </ul>
   <div class="clear"/>
-  <div id="twitter-wrapper">  
-    <ul id="tweets">
-      <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
-    </ul>
+  <div id="twitter-wrapper">
+    Tweet here: <input id="twitter-post" value="@<%= @contact.twitter_id %>"></input>  
+    <div id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></div>
   </div>
   <div id="facebook-wrapper" class="disabled">
-    <ul id="faces">
-      <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
-    </ul>
+    Post on your contacts wall here: <input id="facebook-post"></input>
+    <div id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></div>
   </div>
-  <div id="linkedin-wrapper">
-    <ul id="linkedins">
-    </ul>
+  <div id="linkedin-wrapper" class="disabled">
+    <div id="social-loading"><img src="/assets/loading80x12.gif"></img></div>
   </div>
 </div>
