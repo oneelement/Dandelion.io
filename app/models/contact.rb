@@ -7,13 +7,17 @@ class Contact
   before_destroy :clean_contact_delete
   
   belongs_to :user
+  
   has_many :addresses, :autosave => true, :dependent => :destroy
+  has_many :phones, :autosave => true, :dependent => :destroy
+  has_many :notes, :autosave => true, :dependent => :destroy
+  has_many :emails, :autosave => true, :dependent => :destroy
+  has_many :urls, :autosave => true, :dependent => :destroy
+  
   has_and_belongs_to_many :hashtags, :autosave => true
-  embeds_many :phones
+  
   embeds_many :socials
-  embeds_many :notes
-  embeds_many :emails
-  embeds_many :urls
+  
   accepts_nested_attributes_for :phones, :allow_destroy => true
   accepts_nested_attributes_for :addresses, :allow_destroy => true
   accepts_nested_attributes_for :notes, :allow_destroy => true

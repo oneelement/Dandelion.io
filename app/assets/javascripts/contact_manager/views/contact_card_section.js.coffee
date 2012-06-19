@@ -22,7 +22,7 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
   render: ->
     $(@el).html(@template(title: @title, types: @types, modelType: @modelType))
     
-    console.log(@collection.models.length)
+    #console.log(@collection.models.length)
 
     if @collection.models.length > 0
       @makeTitleActive()

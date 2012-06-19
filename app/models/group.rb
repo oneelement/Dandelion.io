@@ -5,13 +5,16 @@ class Group
   include BackboneHelpers::Model
   
   belongs_to :user
-  embeds_many :notes
-  embeds_many :phones
-  embeds_many :socials
-  embeds_many :emails
-  embeds_many :urls
+  
+  has_many :notes, :autosave => true, :dependent => :destroy
+  has_many :phones, :autosave => true, :dependent => :destroy
+  has_many :emails, :autosave => true, :dependent => :destroy
+  has_many :urls, :autosave => true, :dependent => :destroy
   has_many :addresses, :autosave => true, :dependent => :destroy
+  
   has_and_belongs_to_many :hashtags, :autosave => true
+  
+  embeds_many :socials
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true
   accepts_nested_attributes_for :notes, :allow_destroy => true

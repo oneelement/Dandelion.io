@@ -3,16 +3,13 @@ require 'backbone_helpers'
 class Phone
   include Mongoid::Document
 
-  embedded_in :contact
-  embedded_in :group
+  belongs_to :contact
+  belongs_to :group
   
   #to do Add country code to phone -- think skype icons etc
   field :number, :type => String
   field :default, :type => Boolean, :default => false
   field :icon, :type => String
-  field :facebook_id, :type => String
-  field :linkedin_id, :type => String
-  field :twitter_id, :type => String
 
   acts_as_api
 

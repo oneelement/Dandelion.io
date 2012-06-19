@@ -3,8 +3,8 @@ require 'backbone_helpers'
 class Email
   include Mongoid::Document
   
-  embedded_in :contact
-  embedded_in :group
+  belongs_to :contact
+  belongs_to :group
   
   field :email, :type => String
   field :default, :type => Boolean, :default => false

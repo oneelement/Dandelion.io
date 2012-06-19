@@ -1,8 +1,8 @@
 class Note
   include Mongoid::Document
 
-  embedded_in :contact
-  embedded_in :group
+  belongs_to :contact
+  belongs_to :group
 
   field :text, :type => String
 end

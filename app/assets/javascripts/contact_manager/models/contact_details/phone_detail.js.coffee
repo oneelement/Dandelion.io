@@ -1,6 +1,6 @@
 class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
   idAttribute: '_id'
-  urlRoot: '/admins'
+  urlRoot: '/phones'
 
   getViewIcon: ->
     type = @get("_type")
@@ -27,3 +27,8 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
     
   getModelType: ->
     return "phone"
+    
+  destroyModel: (id, contact_id) ->
+    url = '/admins/tester/?id=' + id + '&contact_id=' + contact_id
+    $.get(url)
+    

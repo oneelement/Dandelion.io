@@ -81,4 +81,17 @@ class AdminsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def tester
+    id = params[:id]
+    contact_id = params[:contact_id]
+    @contact = Contact.find(contact_id)
+    @admin = @contact.phones.find(id)
+    @admin.destroy
+
+    respond_to do |format|
+      format.html { render json: @admin }
+      format.json { render json: @admin }
+    end
+  end
 end

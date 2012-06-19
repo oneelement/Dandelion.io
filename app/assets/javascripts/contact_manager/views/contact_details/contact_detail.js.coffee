@@ -72,6 +72,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     else 
       console.log('model')
       @model.destroy()
+      #@model.destroyModel(@model.get('_id'), @subject.get('_id'))
     #@collection.remove(@model)
     #coll = @model.getModelType()
     #coll = coll + 's'

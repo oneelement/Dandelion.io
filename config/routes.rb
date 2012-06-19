@@ -37,6 +37,14 @@ Onelement::Application.routes.draw do
   resources :favorites
 
   resources :addresses
+  
+  resources :notes
+  
+  resources :phones
+  
+  resources :emails
+  
+  resources :urls
 
   resources :tasks
 
@@ -59,7 +67,9 @@ Onelement::Application.routes.draw do
   resources :sections, :defaults => {:format => 'json'}
   resources :questions, :defaults => {:format => 'json'}
 
-  resources :admins
+  resources :admins do
+    get 'tester', :on => :collection
+  end
 
   resources :entities
 

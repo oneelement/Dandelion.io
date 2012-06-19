@@ -1,5 +1,6 @@
 class RippleApp.Models.ContactNoteDetail extends Backbone.RelationalModel
   idAttribute: '_id'
+  urlRoot: '/notes'
 
   getViewIcon: ->
     return 'pencil-dark'

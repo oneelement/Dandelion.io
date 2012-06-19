@@ -1,5 +1,6 @@
 class RippleApp.Models.ContactEmailDetail extends Backbone.RelationalModel
   idAttribute: '_id'
+  urlRoot: '/emails'
 
   getViewIcon: ->
     type = @get("_type")
