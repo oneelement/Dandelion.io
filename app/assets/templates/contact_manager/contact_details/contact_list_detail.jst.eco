@@ -1,2 +1,3 @@
-<span class="contact-detail-icon c-sm-icon c-sm-icon-<%= @icon %>"></span>
+<span class="dicon-<%= @icon %>"></span>
 <span class="contact-detail-value"><%= @value %></span>
+

@@ -1,4 +1,4 @@
-<p class="contact-card-section-title"><%= @title %></p>
+<p class="contact-card-section-title"><span class="dicon-<%= @icon %>"/> <%= @title %></p>
 <ul class="contact-details-list"></ul>
 <% if @types.length != 0: %>
   <select class="item-type" style="display: none;">
@@ -7,11 +7,9 @@
   <% end %>
   </select>
 <% end %>
-<% if @title == "Hashtags": %>
-  <% @value = "#" %>
-<% else: %>
-  <% @value = "" %>
-<% end %>
+
+<% @value = "" %>
+
 <div>
   <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="Enter new <%= @title %>" style="display: none;"></input>          
 </div>

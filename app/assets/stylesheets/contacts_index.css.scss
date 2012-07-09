@@ -1,3 +1,96 @@
+// Place all the styles related to the TwitterFeeds controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#contacts-table_filter {
+  height: 32px;
+  //border-bottom: 1px solid #CCC;
+  padding: 10px;
+  //background: #b5b1ae;
+  //background: #bbdd46;
+  @include background-image(linear-gradient(#DDD, #CCC));
+}
+
+#contacts-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1px;
+  thead {
+    th {
+      //height: 40px;
+      //background: #b5b1ae;
+      //background: #bbdd46;
+      background: #CCC;
+      color: #FFF;
+      text-shadow: 0px 1px 1px #999;
+      text-align: left;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 4px 0px 8px 0px;
+    }
+    .table-heading-icon {
+      text-shadow: 0 -1px 0px #999, 0 1px 0px white;
+      margin: 0px 4px 0px 0px;
+    }
+  }
+  tbody {
+    background-repeat: no-repeat;
+    //background-image: url('/assets/contacts.png');
+    background-color: rgba(#F9F9F9, 0.95);
+    //@include opacity(0.2);
+    background-attachment:fixed;
+    background-position: 90% 150px;
+    tr {
+      background: rgba(#F9F9F9, 0.95);
+      border-top: 2px solid #FFF;
+      border-bottom: 1px solid #CCC;
+      padding: 1px;
+      margin: 1px;
+      td {
+        padding: 5px; 
+        border-bottom: 1px solid #CCC;
+        border-top: 1px solid #FFF;
+        #select-contact {
+        }  
+      }
+      .select {
+        text-align: center;
+        width: 5%;
+      }
+      .favorite {width: 5%;
+        .contact-list-favorite {
+          color: #f0f0f0;
+          font-size: 24px;
+          text-shadow: 0px -1px 0px #CCC, 0px 1px 0px #FFF;
+          .dicon-star {}
+          .isFavorite {color: #FFDF00;}
+        }
+      }
+   
+      .avatar-cell {width: 5%;}
+      .name-cell {width: 25%;}
+      .socials {width: 10%;
+        .contact-list-socials {
+          font-size: 18px;
+          color: #f0f0f0;
+          text-shadow: 0px -1px 0px #CCC, 0px 1px 0px #FFF;
+          //.dicon-facebook {display: none;}
+          //.dicon-twitter {display: none;}
+          //.dicon-linkedin {display: none;}
+          .facebook-active {color: #3B5998; display: inline-block;}
+          .twitter-active {color: #33CCFF; display: inline-block;}
+          .linkedin-active {color: #4875B4; display: inline-block;}
+        }
+      }
+      .details-cell {width: 20%;}
+      .tags {width: 25%;}
+    }
+  }
+  .contact-list-detail {
+    padding: 5px;
+  }
+}
+
 #contacts-index {
 
   .contact-list-item {
@@ -5,7 +98,6 @@
     padding: 1em;
 
     .avatar {
-      float: left;
       img {
         width: 48px;
         height: 48px;
@@ -14,16 +106,17 @@
     }
 
     .name {
-      float: left;
-
       h3 {
         margin: 0;
-        padding: 0;
+        padding: 6px 0px 0px;
+        color: #F76A02;
       }
     }
 
     .details {
-      float: right;
     }
+  }
+  .selected {
+    background: rgba(#bbdd46, 0.2);
   }
 }

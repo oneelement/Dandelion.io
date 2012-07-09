@@ -39,6 +39,7 @@ class RippleApp.Views.AddContactCard extends Backbone.View
     @model.on('change', @render, this)
     @editViewOn = false
     @overrideMatch = false
+    @contacts = RippleApp.contactsRouter.contacts
   
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))
@@ -118,13 +119,13 @@ class RippleApp.Views.AddContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(addressesSection.render().el)
     
-    socialsSection = new RippleApp.Views.ContactCardSection(
-      title: 'Profile Links'
-      collection: @model.get("socials")
-      subject: @model
-      modelName: RippleApp.Models.ContactSocialDetail
-    )
-    $('#contact-card-body', @el).append(socialsSection.render().el)
+#    socialsSection = new RippleApp.Views.ContactCardSection(
+#      title: 'Profile Links'
+#      collection: @model.get("socials")
+#      subject: @model
+#      modelName: RippleApp.Models.ContactSocialDetail
+#    )
+#    $('#contact-card-body', @el).append(socialsSection.render().el)
     
     notesSection = new RippleApp.Views.ContactCardSection(
       title: 'Notes'
@@ -134,16 +135,7 @@ class RippleApp.Views.AddContactCard extends Backbone.View
     )
     $('#contact-card-body', @el).append(notesSection.render().el)  
     
-    console.log(@model)
-    #@contactsHashtags.add(@model.get("hashtags"))
-    hashtagSection = new RippleApp.Views.ContactCardSection(
-      title: 'Hashtags'
-      collection: @contactsHashtags
-      subject: @model
-      modelName: RippleApp.Models.Hashtag
-      hashes: @hashtags
-    )
-    $('#contact-card-body', @el).append(hashtagSection.render().el)  
+ 
     
   editName: ->
     $(this.el).addClass('editing')
@@ -157,8 +149,20 @@ class RippleApp.Views.AddContactCard extends Backbone.View
       @closeNameEdit()
       
   closeNameEdit: ->
-    @model.unset('hashtags', { silent: true })
-    @model.save('name', this.$('input#subject_name_input').val())
+    this.model.set('name', this.$('input#subject_name_input').val())
+    if @model.isNew() 
+      modelname = @model.getModelName()
+      if modelname == "contact"
+        @model.unset('hashtags', { silent: true })
+        @model.save(null, success: (model) => 
+          @contacts.add(model)
+        )
+      else if modelname == "group"
+        @model.unset('hashtags', { silent: true })
+        @model.save(null, success: (model) => RippleApp.contactsRouter.groups.add(model))
+    else
+      @model.unset('hashtags', { silent: true })
+      @model.save(null, {wait: true})
     this.$('#contact-card-name h3').css('display', 'block')
     this.$('#subject_name_input').css('display', 'none')
   
@@ -172,8 +176,19 @@ class RippleApp.Views.AddContactCard extends Backbone.View
       
   closeEdit: ->
     $(this.el).removeClass('editing')
-    @model.unset('hashtags', { silent: true })
-    @model.save(null, {wait: true})
+    if @model.isNew() 
+      modelname = @model.getModelName()
+      if modelname == "contact"
+        @model.unset('hashtags', { silent: true })
+        @model.save(null, success: (model) => 
+          @contacts.add(model)
+        )
+      else if modelname == "group"
+        @model.unset('hashtags', { silent: true })
+        @model.save(null, success: (model) => RippleApp.contactsRouter.groups.add(model))
+    else
+      @model.unset('hashtags', { silent: true })
+      @model.save(null, {wait: true})
     
   editView: ->
     console.log('Edit View')

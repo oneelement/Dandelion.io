@@ -1,27 +1,39 @@
-<td class="contact-list-detail">
+<td class="contact-list-detail select">
+  <div class="">
+      <input id="select-contact" type="checkbox" name="select-contact"/>
+  </div>
+</td>
+<td class="contact-list-detail favorite">
+  <div class="contact-list-favorite">
+    <span class="dicon-star"></span>
+  </div>
+</td>
+<td class="contact-list-detail avatar-cell">
   <div class="avatar">
       <img src="<%= @contact.avatar %>"/>
   </div>
 </td>
-<td class="contact-list-detail">
+<td class="contact-list-detail name-cell">
   <div class="name">
       <h3><%= @contact.name %></h3>
       <p>Contact position at Contact Company</p>
   </div>
 </td>
-<td class="contact-list-detail">
-  <div class="phone-details">
+<td class="contact-list-detail socials">
+  <div class="contact-list-socials">
+    <span class="dicon-facebook"></span>
+    <span class="dicon-twitter"></span>
+    <span class="dicon-linkedin"></span>
   </div>
 </td>
-<td class="contact-list-detail">
-  <div class="email-details">
-  </div>
+<td class="contact-list-detail details-cell">
+    <div class="phone-details">
+    </div>
+    <div class="email-details">
+    </div>
 </td>
-<td class="contact-list-actions">
-  <div class="actions">
-      <ul>
-          <li id="open-action">Open Contact</li>
-      </ul>
+<td class="contact-list-detail tags">
+  <div class="hashtag-details">
   </div>
 </td>
 

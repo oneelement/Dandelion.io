@@ -19,10 +19,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'keypress #subject_name_input': 'checkNameEnter'
     'focusout input#subject_name_input': 'closeNameEdit'
     'keypress #edit_value': 'checkEnter'
-    'focusout input#edit_value': 'closeEdit'
+    #'focusout input#edit_value': 'closeEdit'
     'click #subject-delete': 'destroySubject'
     'click #subject-edit': 'editView'
-    'click #default-phone, #default-address, #default-email': 'closeEdit'
+    'click #default-phone, #default-address, #default-email, .contact-detail-favorite': 'closeEdit'
     'click .facebookSearch': 'facebookModal'
     'click .twitterSearch': 'twitterModal'
     'click .linkedinSearch': 'linkedinModal'
@@ -36,18 +36,21 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
     @contactsHashtags = new RippleApp.Collections.Hashtags()
-    @model.on('change', @render, this)
+    #@model.on('change', @render, this)
     @editViewOn = false
     @overrideMatch = false
   
   render: ->
+    this.$('#minibar').focus()
+    console.log('contact card rendering')
     $(@el).html(@template(contact: @model.toJSON()))
 
     $(@el).append(@searchModel(options: {title: "Facebook Search"}))
     $(@el).append(@pictureModel(subject: @model.toJSON(), options: {title: "Select Avatar"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
-      $('#isFavourite', @el).attr('checked', 'checked')
+      #$('#isFavourite', @el).attr('checked', 'checked')
+      this.$('#isFavourite').addClass('isFavorite')
 
     @updateSocialLinks()
     @outputCard()
@@ -88,6 +91,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
           
     emailsSection = new RippleApp.Views.ContactCardSection(
       title: 'Emails'
+      icon: 'mail'
       collection: @model.get("emails")
       subject: @model
       modelName: RippleApp.Models.ContactEmailDetail
@@ -96,6 +100,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
     phonesSection = new RippleApp.Views.ContactCardSection(
       title: 'Phone Numbers'
+      icon: 'phone'
       collection: @model.get("phones")
       subject: @model
       modelName: RippleApp.Models.ContactPhoneDetail
@@ -104,6 +109,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
     urlsSection = new RippleApp.Views.ContactCardSection(
       title: 'Urls'
+      icon: 'globe'
       collection: @model.get("urls")
       subject: @model
       modelName: RippleApp.Models.ContactUrlDetail
@@ -112,31 +118,36 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
     addressesSection = new RippleApp.Views.ContactCardSection(
       title: 'Addresses'
+      icon: 'book'
       collection: @model.get("addresses")
       subject: @model
       modelName: RippleApp.Models.ContactAddressDetail
     )
     $('#contact-card-body', @el).append(addressesSection.render().el)
     
-    socialsSection = new RippleApp.Views.ContactCardSection(
-      title: 'Profile Links'
-      collection: @model.get("socials")
-      subject: @model
-      modelName: RippleApp.Models.ContactSocialDetail
-    )
-    $('#contact-card-body', @el).append(socialsSection.render().el)
+#    socialsSection = new RippleApp.Views.ContactCardSection(
+#      title: 'Profile Links'
+#      collection: @model.get("socials")
+#      subject: @model
+#      modelName: RippleApp.Models.ContactSocialDetail
+#    )
+#    $('#contact-card-body', @el).append(socialsSection.render().el)
     
     notesSection = new RippleApp.Views.ContactCardSection(
       title: 'Notes'
+      icon: 'flag'
       collection: @model.get("notes")
       subject: @model
       modelName: RippleApp.Models.ContactNoteDetail
     )
     $('#contact-card-body', @el).append(notesSection.render().el)  
     
-    @contactsHashtags.add(@model.get("hashtags"))
-    hashtagSection = new RippleApp.Views.ContactCardSection(
-      title: 'Hashtags'
+    if @model.get("hashtags")
+      @contactsHashtags.reset()
+      @contactsHashtags.add(@model.get("hashtags"))
+    hashtagSection = new RippleApp.Views.ContactCardHashtagSection(
+      title: 'Tags'
+      icon: 'tag'
       collection: @contactsHashtags
       subject: @model
       modelName: RippleApp.Models.Hashtag
@@ -223,12 +234,14 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @actionsBarDisplayed = true
   
   toggleFavourite: (e) ->   
-    if e.target.checked
-      @favouriteContacts.add(@model.getBadge())
+    if @favouriteContacts.get(@model.get("_id"))
+      @favouriteContacts.remove(@model.getBadge())
+      this.$('#isFavourite').removeClass('isFavorite')
       @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
     else
-      @favouriteContacts.remove(@model.getBadge())
+      @favouriteContacts.add(@model.getBadge())
+      this.$('#isFavourite').addClass('isFavorite')
       @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
 
@@ -430,7 +443,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
       if _.include(['Email'], @match)
         m = new RippleApp.Models.ContactEmailDetail(
-          email: val
+          text: val
           _type: 'EmailPersonal'
         )
         
@@ -439,7 +452,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
         
       if _.include(['Url'], @match)
         m = new RippleApp.Models.ContactUrlDetail(
-          url: val
+          text: val
           _type: 'UrlPersonal'
         )
         
@@ -448,7 +461,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
       if _.include(['Hashtag'], @match) 
       
-        c = new RippleApp.Collections.Hashtags(@model.get("hashtags"))      
+        c = new RippleApp.Collections.Hashtags(@model.get("hashtags"))   
+        #c = @model.get("hashtags")
         
         isDuplicate = false
         _.each(c.models, (hashtag) =>
@@ -457,7 +471,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
           )
         
         if not isDuplicate
-          @contactsHashtags.remove(@contactsHashtags.models)
+          #@contactsHashtags.remove(@contactsHashtags.models) #OC not sure what this is for?
           subject = @model.getModelName()
           subject_id = @model.get('_id')
           if subject == 'contact'
@@ -465,6 +479,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
           if subject == 'group'
             newmodel = @hashtags.addTagToGroup(val, subject_id)
           @contactsHashtags.add(newmodel)
+          #@hashtags.add(newmodel)
+          @model.set('hashtags', @contactsHashtags.models)
+
         else
           alert('duplicate')
       
@@ -620,20 +637,26 @@ class RippleApp.Views.ContactCard extends Backbone.View
   updateSocialLinks: ()=>
     facebook_id = @model.get('facebook_id')
     if facebook_id
-      $('#social-network-links a.facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
+      $('#social-network-links a.dicon-facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('facebookSearch')
+      this.$('.dicon-facebook').removeClass('social-grey')
+      this.$('.dicon-facebook').addClass('social-facebook')
     else
       $('#social-network-links a.facebook', @el).attr('data-toggle', 'modal').attr('style', 'background-color:#CFCFCF;')
       
     if @model.get('twitter_id')
-      $('#social-network-links a.twitter', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.twitter.com/'+@model.get('twitter_id')).attr('target', '_blank')
+      $('#social-network-links a.dicon-twitter', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.twitter.com/'+@model.get('twitter_id')).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('twitterSearch')
+      this.$('.dicon-twitter').removeClass('social-grey')
+      this.$('.dicon-twitter').addClass('social-twitter')
     else
       $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
       
     if @model.get('linkedin_id')
-      $('#social-network-links a.linkedin', @el).removeAttr('style').removeAttr('data-toggle').attr('href', @model.get('linkedin_id')).attr('target', '_blank')
+      $('#social-network-links a.dicon-linkedin', @el).removeAttr('style').removeAttr('data-toggle').attr('href', @model.get('linkedin_id')).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('linkedinSearch')
+      this.$('.dicon-linkedin').removeClass('social-grey')
+      this.$('.dicon-linkedin').addClass('social-linkedin')
     else
       $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
       

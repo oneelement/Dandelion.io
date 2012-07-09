@@ -1,0 +1,141 @@
+/*********************************************************************************
+* TOP NAVIGATION MENU
+**********************************************************************************/
+
+.navbar-fixed-top {
+  height: 60px;
+  //background: #000;
+  //border-bottom: solid 1px #000;
+  //background: -moz-linear-gradient(center top , #414149 0%, #2A2A30 100%) repeat scroll 0 0 transparent !important;
+  //border-bottom: 1px solid #1D1E21;
+  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#logo-placeholder {
+  width: 400px;
+  height: 60px;
+  margin: 0px 0px 0px 72px;
+  float: left;
+  a.brand {
+    color: #999999;
+    display: block;
+    float: left;
+    font-size: 32px;
+    font-weight: 200;
+    line-height: 1;
+    margin-left: 0;
+    padding: 12px 20px 12px 0px;
+  }
+}
+
+#sitewide-search {
+  margin: 0px -50px 0px 20px;
+  float: left;
+}
+
+#autocomplete {
+  width: 500px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+}
+
+#autocomplete:focus {
+  border: 1px solid #f25f1d;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
+  //@include box-shadow(rgba(#000, 0.075) 0px 1px 1px inset);
+
+}
+
+.search-query {
+  @include border-radius(4px);
+  padding: 12px !important;
+  font-size: 18px !important;
+}
+
+#mailbox {
+  float: right;
+  height: 40px;
+  margin: 20px 0px 0px 0px;
+  a {
+    .dicon-download {
+      color: #DDD;
+      font-size: 32px;
+      text-shadow: 0px -1px 0 #999, 0px 1px 0 #FFF;
+    }
+  }
+}
+
+#account-info {
+  margin: 0px 20px 0px 0px;
+  float: right;
+  height: 60px;
+  ul {
+    li {
+      a {
+	font-size: 24px;
+	h2 {
+	  font-weight: normal;
+	  margin: 0px;
+	  padding: 0px;
+	  display: inline-block;
+	}
+	img {
+	  height: 45px;
+	  width: 45px;
+	  margin: 0px 0px 0px 10px;
+	  padding:0px;
+	  border: 1px solid #CCC;
+	  @include border-radius(4px);
+	}
+	span.dicon-arrow-down {
+	  padding: 0px;
+	  margin: 0px;
+	  display: inline-block;
+	  position: relative;
+	  top:5px;
+	}
+      }
+    }
+  }
+}
+
+#account-info ul .dropdown-menu{
+  top: 35px;
+}
+
+.view .menu-caret {
+  display: block;
+}
+
+.menu-caret {
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;	
+  border-bottom: 10px solid white;
+  position: absolute;
+  top: 51px;
+  right: 55px;
+  display: none;
+  z-index: 100000;
+}
+
+.view #user-menu {
+  display: block;
+}
+
+#user-menu {
+  background: #FFF;
+  width: 300px;
+  height: 100px;
+  border: 1px solid #CCC;
+  @include border-radius(4px);
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
+  display: none;
+}
+

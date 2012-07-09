@@ -1,0 +1,3 @@
+<span class="contact-detail-value"><a href="#hashtags/show/<%= @detail._id%>"><%= @value %></a></span>
+<span class="contact-detail-remove-hashtag">x</span>
+<div style="clear:both;"></div>

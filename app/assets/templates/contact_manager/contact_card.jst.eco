@@ -33,11 +33,11 @@
           <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
         </div>
         <div id="contact-card-favourite">
-          <input id="isFavourite" type="checkbox" name="isFavourite"/>
+          <span id="isFavourite" class="dicon-star"></span>
         </div>
         <form id="contact-card-details-input-form">
             <div class="input-append" id="contact-card-details-input">
-                <input type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
+                <input id="minibar" type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
                 <span class="add-on">
                     <span id="contact-card-details-input-type">...</span>
                 <span>                
@@ -45,9 +45,9 @@
             <div id="override-match-wrapper"></div>
         </form>
         <div id="social-network-links">
-            <div class="searchIcon facebookSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
-            <div class="searchIcon twitterSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
-            <div class="searchIcon linkedinSearch"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
+            <div class="searchIcon facebookSearch"><a href="#social-modal" data-toggle="modal" class="dicon-facebook social-grey"></a></div>
+            <div class="searchIcon twitterSearch"><a href="#social-modal" data-toggle="modal" class="dicon-twitter social-grey"></a></div>
+            <div class="searchIcon linkedinSearch"><a href="#social-modal" data-toggle="modal" class="dicon-linkedin social-grey"></a></div>
         </div>
     </div>
     <div id="contact-card-body">

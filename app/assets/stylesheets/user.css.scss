@@ -6,54 +6,138 @@
 * USER SIGN IN
 **********************************************************************************/
 
-#sign-container {
-  margin: 40px auto;
-  width: 600px;  
-}
+$total-columns: 14;
+$column-width: 40px;
+$gutter-width: 20px;
+$grid-padding: $gutter-width;
 
-#sign-logo {
-  margin: 0px 0px 20px 0px;
-  /*background: url(/assets/logo-here.png) no-repeat;*/
-  h1 {
-    text-align: center;
-    color: #FFF;
+body.landing-page {
+  @include container; 
+  @include background(image-url("/assets/ripple-background.jpg"));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left top;
+  
+  #sign-header {
+    height: 3 * $column-width;
   }
-}
 
-.sign-types {
-  float: left;
-  width: 280px;
-}
 
-.sign-socials {
-  float: left;
-}
-
-#sign-content {
-  padding: 20px;
-  @include background(radial-gradient(top left, circle cover, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 70%));
-  @include box-shadow(0px 0px 10px rgba(255,255,255, 0.5));
-  @include border-radius(5px);
-  color: #FFF;
-  h1, h1 {
-    color: #0088CC;
-    text-shadow:-1px -1px #CCC;
+  #sign-container {
+    width: $column-width * 16 + $gutter-width * 10;
   }
+  
+  #sign-content {
+    //@include background(radial-gradient(top left, circle cover, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 70%));
+    //@include box-shadow(0px 0px 10px rgba(255,255,255, 0.5));
+    //@include border-radius(5px);      
+    //@include background(rgba(#FFF,0.8));
+    color: #CCC;
+    h1, h2 {
+      color: #FFF;
+      font-size: 30px;
+      margin-bottom: 20px;
+      //text-shadow:-1px -1px #CCC;
+    }
+  }
+
+  #sign-description {
+    padding: $column-width;
+    background: #000;
+    width: $column-width * 6 + $gutter-width * 5;
+    height: 300px;    
+    float: left;
+    input {
+      padding: 8px;
+      width: 100%;
+      @include box-sizing(border-box);
+      height: 40px;
+    }
+  }
+
+  #sign-signup {
+    padding: $column-width;
+    @include background(rgba(#000,0.8));
+    width: $column-width * 6 + $gutter-width * 5;
+    height: 300px;
+    float: left;
+    input {
+      padding: 8px;
+      width: 100%;
+      @include box-sizing(border-box);
+      height: 40px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  #sign-logo {
+    margin: 0px 0px 20px 0px;
+    /*background: url(/assets/logo-here.png) no-repeat;*/
+    h1 {
+      text-align: center;
+      color: #FFF;
+    }
+  }
+  
+  .button-wide-bold {
+    padding: 8px;
+    width: 100%;
+    @include box-sizing(border-box);
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    span {
+        position: relative;
+        top: 1px;
+    }
+  }
+  
+  .link-forgot-password {
+    position: relative;
+    top: 10px;
+  }
+
+
+
+  #remember-me {
+    margin: 10px 0px;
+  }
+
+  input.remember-me {
+    margin-right: 5px;
+    display: inline;
+  }
+
+  label.remember-me {
+    width: 100px;
+    display: inline;
+  }  
+  
+  
+  
+} /* end body */
+
+@media only screen and (max-width: 480px){
+  body.landing-page {
+  @include container;
+   #sign-container {
+    @include span-columns(12 omega,12);
+  }
+
+  #sign-description {
+    @include span-columns(12,12);
+  }
+
+  #sign-signup {
+    @include span-columns(12,12);
+  }
+  }	
 }
 
-#remember-me {
-  margin: 10px 0px;
-}
 
-input.remember-me {
-  margin-right: 5px;
-  display: inline;
-}
 
-label.remember-me {
-  width: 100px;
-  display: inline;
-}
 
 /*********************************************************************************
 * USER PROFILE

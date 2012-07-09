@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Onelement</title>
+  <title>Ripple</title>
   <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
+
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
-<body class="main-application">
+<body class="landing-page">
+
+<div id="sign-header"></div>
 
 <div id="sign-container">
-  <div id="sign-logo">
-    <h1>Logo Will go Here</h1>
-  </div>
   <div id="sign-content">
     <%= yield %>
   </div>

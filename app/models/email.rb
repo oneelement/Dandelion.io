@@ -6,7 +6,7 @@ class Email
   belongs_to :contact
   belongs_to :group
   
-  field :email, :type => String
+  field :text, :type => String
   field :default, :type => Boolean, :default => false
 
   acts_as_api
@@ -14,14 +14,14 @@ class Email
   api_accessible :contact do |t|
     t.add :_id
     t.add :_type
-    t.add :email
+    t.add :text
     t.add :default
   end
   
   api_accessible :group do |t|
     t.add :_id
     t.add :_type
-    t.add :email
+    t.add :text
     t.add :default
   end
 end

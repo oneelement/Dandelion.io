@@ -1,0 +1,10 @@
+<p class="contact-card-section-title"><span class="dicon-<%= @icon %>"/> <%= @title %></p>
+<div class="contact-details-list"></ul>
+<% if @title == "Tags": %>
+  <% @value = "#" %>
+<% else: %>
+  <% @value = "" %>
+<% end %>
+<div>
+  <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="Enter new <%= @title %>" style="display: none;"></input>          
+</div>

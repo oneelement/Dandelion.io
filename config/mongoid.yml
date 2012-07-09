@@ -1,5 +1,6 @@
 defaults: &defaults
   allow_dynamic_fields: false
+  raise_not_found_error: false
 
 development:
   <<: *defaults

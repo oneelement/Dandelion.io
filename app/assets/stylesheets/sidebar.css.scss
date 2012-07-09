@@ -1,14 +1,23 @@
+// Place all the styles related to the User controller here.
+// They will automatically be included in application.css.scss.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********************************************************************************
+* SIDEBAR
+**********************************************************************************/
+
+
 $sidebarBorder: #ccc;
 
 #view-sidebar {
 
-  background-image: url('http://subtlepatterns.com/patterns/tasky_pattern.png');
-  border-right: 1px $sidebarBorder solid;
+  //background-image: url('http://subtlepatterns.com/patterns/tasky_pattern.png');
+  //border-right: 1px $sidebarBorder solid;
 
   .separator {
-    @include background-image(linear-gradient(#555, #444));
-    height: 6px;
-    margin: 0;
+    //@include background-image(linear-gradient(#555, #444));
+    //height: 6px;
+    //margin: 0;
   }
 
   ul {
@@ -20,18 +29,49 @@ $sidebarBorder: #ccc;
   li:not(#favourite-item) {
     margin: 0;
     padding: 12px;
-    border-bottom: 1px $sidebarBorder solid;
+    //border-bottom: 1px $sidebarBorder solid;
+  }
+  
+  .sidebar-buttons {
+    
   }
 
   .sidebar-icon {
-      width: 48px;
-      height: 48px;
-      display: block;
-      background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+    display: block;
+    background-repeat: no-repeat;
+    font-size: 48px;
+    line-height: 48px;
+    
+    text-shadow: 0 -1px 0px #999, 0 1px 0px white;
+    cursor: pointer;
+  }
+  
+  #sidebar-home, #sidebar-contacts, #sidebar-groups {
+    color: #DDD;
+
+  }
+  
+  #sidebar-home.active {
+    color: #feb326;  
+    
+  }
+  
+  #sidebar-contacts.active {
+    color: #bbdd46;
+  }
+  
+  #sidebar-groups.active {
+    color: #12cef1;
   }
   
   .face-image{
-    margin: 0 10px;
+    margin: 4px 11px;
+    img {
+      border: 1px solid #EEE;
+      @include box-shadow(#777 0px 0px 4px);
+    }
   }
 
   ul#favourite-menu {
@@ -78,5 +118,48 @@ $sidebarBorder: #ccc;
   
   ul#favourite-menu .home a{
       background-image: url(../images/home.png);
+  }
+  #favorite-menu {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    bottom: 10px;
+    left: 0px;
+    z-index: 99997;
+    .dicon-star {
+      margin: 0px 12px 0px 12px;
+      font-size: 48px;
+      line-height: 48px;
+      text-shadow: 0 -1px 0px #999, 0 1px 0px white;
+      color: #FFDF00;
+      cursor: pointer;
+    }
+  }
+  #favorite-container {
+    position: fixed;
+    height: 60px;
+    width: 800px;
+    background: #FFF;
+    z-index: 9998;
+    margin: 0px;
+    padding: 10px;
+    bottom: 5px;
+    left: 70px;
+    display: none;
+    border: 1px solid #CCC;
+    @include border-radius(4px);
+    @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
+  }
+  #favorite-caret {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-right: 10px solid white;	
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    bottom: 16px;
+    left: 61px;
+    display: none;
+    z-index: 100000;
   }
 }

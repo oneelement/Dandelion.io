@@ -99,6 +99,15 @@
         position: absolute;
         top: 2em;
         left: 335px;
+        .dicon-star {
+          font-size: 24px;
+          color: #f0f0f0;
+          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+          cursor: pointer;
+        }
+        .isFavorite {
+          color: #FFDF00;
+        }
       }
 
       #contact-card-details-input-form {
@@ -154,13 +163,33 @@
       #social-network-links{
         position: absolute;
         top: 130px;
-        left: 65px;
+        left: 0px;
         right: 0;
       }
       
       #social-network-links .searchIcon{
-        padding: 0 52px 0 0;
+        padding: 0 12px 0 0;
         float: left;
+        .social-grey {
+          font-size: 24px;
+          color: #DDD;
+          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+        }
+        .social-facebook {
+          font-size: 24px;
+          color: #3B5998;
+          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+        }
+        .social-twitter {
+          font-size: 24px;
+          color: #33CCFF;
+          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+        }
+        .social-linkedin {
+          font-size: 24px;
+          color: #4875B4;
+          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+        }
       }
     }
 
@@ -170,6 +199,10 @@
       left: 0;
       width: 360px;
 
+      .contact-details-list {
+        margin: 0px;
+      }
+
       .contact-card-section-title {
         font-size: 11pt;
         font-style: italic;
@@ -178,40 +211,72 @@
       }
         
       .active {
-        color: #000;
-        font-weight: bold;
+        color: #DDD;
+        text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
         font-style: normal;
-        display: block;
+        display: none;
+        font-size: 16px;
       }
 
+  
+
+
       .contact-detail {
-        margin-top: 1em;
+        margin: 0px 0px 0px 0px;
+        padding: 2px 0px 0px 0px;
         width: 100%;
+        border-top: 1px solid #FFF;
+        border-bottom: 1px solid #CCC;
+        min-height: 22px;
+ 
+        
 
         .contact-detail-icon {
           float: left;
+          font-size: 16px;
+          color: #12CEF1;
         }
+  
+        .contact-detail-delete {
+          color: #FFF;
+          @include opacity(0.8);
+          cursor: pointer;
+        }
+        
+        .contact-detail-favorite {
+          color: #FFF;
+          @include opacity(0.8);
+          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+          float: right;
+          cursor: pointer;
+        }
+
+        .favorite-active {color: #FF7243;}
+        
 
         .contact-detail-value {
           float: left;
-          margin-left: 1em;
+          margin-left: 8px;
           width: 75%;
           
-          font-weight: bold;
-          font-size: 12px;
+          font-weight: normal;
+          font-size: 16px;
           color: #BBB;
         }
         .contact-detail-edit {
           display: none;
         }
-        .edit-icon {
-          display: none; 
-        }
       }
-      li:hover span.edit-icon {
-        display: block;
-        @include opacity(0.2);
-      } 
+      .contact-detail:hover {
+        .contact-detail-delete {
+          color: #FFF;
+          @include opacity(0.8);
+        }
+        .contact-detail-favorite {
+          color: #EEE;
+        }
+        .favorite-active {color: #FF7243 !important;}
+      }
       .contact-detail.editing {
         .contact-detail-value {
           display: none;
@@ -220,8 +285,7 @@
           display: block;
           input {
             width: 75%;
-            font-weight: bold;
-            font-size: 12px;
+            font-size: 16px;
             border: none;
             box-shadow: none;
             padding: 0px;
@@ -230,7 +294,7 @@
             vertical-align: baseline;
             background-color: transparent;
             float: left;
-            color: #333;
+            color: #999;
           }
         }
       }

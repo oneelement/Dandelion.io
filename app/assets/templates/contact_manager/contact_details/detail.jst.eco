@@ -1,13 +1,15 @@
 <% if @modeltype != "note": %>
-  <span><input id="default-<%= @modeltype %>" type="checkbox" name="default"/></span>
+  <span style="display: none;"><input id="default-<%= @modeltype %>" type="checkbox" name="default"/></span>
 <% end %>
-<span class="contact-detail-icon c-sm-icon c-sm-icon-<%= @icon %>"></span>
+<span class="contact-detail-icon dicon-<%= @icon %>"></span>
 <% if @modeltype == "hashtag": %>
   <span class="contact-detail-value"><a href="#hashtags/show/<%= @detail._id%>"><%= @value %></a></span>
 <% else: %>
   <span class="contact-detail-value"><%= @value %></span>
 <% end %>
 <span class="contact-detail-edit"><input type="text" name="value" id="edit_value" class="input-text" value="<%= @value %>"></input></span>
-<span class="contact-detail-icon c-sm-icon c-sm-icon-pencil-dark edit-icon"></span>
-<span class="contact-detail-icon c-sm-icon c-sm-icon-bin-dark delete-icon"></span>
+<span class="contact-detail-icon contact-detail-delete dicon-minus" style="float: right;"></span>
+<% if @modeltype != "note": %>
+  <span class="contact-detail-icon contact-detail-favorite dicon-flag-2"></span>
+<% end %>
 <div style="clear:both;"></div>

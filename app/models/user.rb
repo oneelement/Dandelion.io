@@ -10,6 +10,8 @@ class User
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  validates_presence_of :email
 
   belongs_to :organisation, :autosave => true
   belongs_to :entity
@@ -50,6 +52,7 @@ class User
   ## Fields added after defaults
   field :first_name, :type => String
   field :last_name, :type => String
+  field :full_name, :type => String
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favourite_contacts, :type => String
@@ -83,9 +86,9 @@ class User
     t.add :authentications
     t.add :first_name
     t.add :last_name
+    t.add :full_name
     t.add :email
     t.add :contact_id
-    t.add :recent_ids
     t.add :favourite_contacts
     t.add :recent_contacts
   end
@@ -101,6 +104,7 @@ class User
     record = Contact.new(:name => self.first_name + " " +self.last_name, :user_id => self._id, :is_user => true)
     record.save
     self.contact_id = record._id
+    self.full_name = self.first_name + ' ' + self.last_name
     self.save
   end
   

@@ -8,6 +8,22 @@ class UrlsController < ApplicationController
     end
   end
   
+  # PUT /urls/1
+  # PUT /urls/1.json
+  def update
+    @url = Url.find(params[:id])
+
+    respond_to do |format|
+      if @url.update_attributes(params[:url])
+        format.html { redirect_to @url, notice: 'Contact was successfully updated.' }
+        format.json { render json: @url }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @url.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def destroy
     @url = Url.find(params[:id])
     @url.destroy

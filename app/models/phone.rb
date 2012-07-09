@@ -15,6 +15,7 @@ class Phone
 
   api_accessible :contact do |t|
     t.add :_id
+    t.add :contact_id
     t.add :_type
     t.add :number
     t.add :default
@@ -23,6 +24,7 @@ class Phone
   
   api_accessible :group do |t|
     t.add :_id
+    t.add :group_id
     t.add :_type
     t.add :number
     t.add :default

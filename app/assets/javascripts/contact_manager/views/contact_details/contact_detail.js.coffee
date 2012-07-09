@@ -4,12 +4,13 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
   tagName: 'li'
   
   events:
-    'dblclick span.contact-detail-value': 'editValue'
+    'click span.contact-detail-value': 'editValue'
     'keypress #edit_value': 'checkEnter'
     'click span.edit-icon': 'editValue'
     'click span.delete-icon': 'deleteValue'
     'focusout input#edit_value': 'closeEdit'
     'click #default-phone, #default-address, #default-email': 'toggleDefault'
+    'click .contact-detail-favorite': 'toggleNew'
 
   initialize: ->
     @icon = @options.icon
@@ -27,6 +28,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     if defaultInd == true
       id = "#default-" + @modelType
       $(id, @el).attr('checked','checked')
+      this.$('.contact-detail-favorite').addClass('favorite-active')
     
     return this
     
@@ -37,10 +39,29 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     id = "#default-" + @modelType
     if defaultInd == true
       $(id, @el).attr('checked', true)
+      this.$('.contact-detail-favorite').addClass('favorite-active')
     else
       $(id, @el).attr('checked', false)
       
     return this
+    
+  toggleNew: ->
+    console.log('toggle new')
+    if @model.get('default') == true
+      _.each(@collection.models, (model) ->
+        model.set('default', false)
+        #model.save(null, { silent: true })
+      )
+      this.$('.contact-detail-favorite').removeClass('favorite-active')
+    else  
+      _.each(@collection.models, (model) ->
+        model.set('default', false)
+        #model.save(null, { silent: true })
+      )
+      @model.set('default', true)
+      this.$('.contact-detail-favorite').addClass('favorite-active')
+    console.log(@model.get('default'))
+    #@model.save(null, { silent: true })
     
  
   toggleDefault: (e) ->
@@ -57,6 +78,9 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       $(this.el).addClass('editing')
       this.$('input#edit_value').focus()
       this.$('span.edit-icon').css('display', 'block')
+      this.$('.contact-detail-delete').css('color', '#DDD')
+      this.$('.contact-detail-favorite').css('display', 'none')
+      this.$('.contact-detail-delete').addClass('delete-icon')
     
   deleteValue: ->
     if @modelType == 'hashtag'
@@ -96,3 +120,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     this.model.set(value, this.$('input#edit_value').val())
     $(this.el).removeClass('editing')
     this.$('span.edit-icon').css('display', 'none')
+    this.$('.contact-detail-delete').removeClass('delete-icon')
+    this.$('.contact-detail-favorite').css('display', 'block')
+    this.$('.contact-detail-delete').css('color', '#FFF')
+    @model.save()

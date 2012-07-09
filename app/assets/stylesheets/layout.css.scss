@@ -1,3 +1,11 @@
+// Place all the styles related to the User controller here.
+// They will automatically be included in application.css.scss.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********************************************************************************
+* LAYOUT
+**********************************************************************************/
+
 #view-layout {
   position: absolute;
   top: 40px;
@@ -8,7 +16,7 @@
 
 #view-sidebar {
   position: absolute;
-  top: 0;
+  top: 20px;
   bottom: 0;
   left: 0;
 
@@ -19,25 +27,36 @@
 }
 
 #view-context {
+  background: #FFF;
+  background: rgba(#FFF, 0.80);
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 20px;
+  bottom: 10px;
   left: 72px;
 
   width: 400px;
 
   overflow-x: hidden;
   overflow-y: auto;
+  
+  @include border-radius(8px);
+  border: 1px solid #CCC;
+  
 }
 
 #view-main {
+  background: #FFF;
+  background: rgba(#FFF, 0.80);
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 472px;
-  right: 0;
+  top: 20px;
+  bottom: 10px;
+  left: 492px;
+  right: 20px;
 
-  padding: 10px;
+  padding: 0px;
   overflow-x: hidden;
   overflow-y: auto;
+  
+  @include border-radius(8px);
+  border: 1px solid #CCC;
 }

@@ -1,20 +1,23 @@
 <ul id="sidebar-buttons">
     <li id="sidebar-home">
-        <span class="c-lg-icon c-lg-icon-home"></span>
+        <span class="sidebar-icon dicon-home"></span>
     </li>
     <li id="sidebar-contacts">
-        <span class="c-lg-icon c-lg-icon-address-book"></span>
+        <span class="sidebar-icon dicon-users"></span>
     </li>
     <li id="sidebar-groups">
-        <span class="c-lg-icon c-lg-icon-rocket"></span>
-    </li>
-    <li id="sidebar-tasks">
-        <span class="c-lg-icon c-lg-icon-tick"></span>
+        <span class="sidebar-icon dicon-circles"></span>
     </li>
 </ul>
-<div class="separator"></div>
+
 <div id="recent-contacts">
 </div>
-<ul id="favourite-menu">
-  <li id="favourite-item"><div id="favourites"></div></li>
-</ul>
+
+<div id="favorite-menu">
+  <span class="dicon-star"></span>
+  <span id="favorite-caret"></span>
+</div>
+
+<div id="favorite-container">
+
+</div>

@@ -8,6 +8,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "groups": "groupindex"
     "groups/show/:id": "groupShow"
     "hashtags/show/:id": "hashtagShow"
+    "users/preview/:id": "userPreview"
 
   initialize: ->
     @globalTweets = new RippleApp.Collections.GlobalTweets()
@@ -53,7 +54,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @getContact(id, after) 
 
   index: ->
-    view = new RippleApp.Views.ContactsIndex(collection: @contacts)
+    view = new RippleApp.Views.ContactsIndex(collection: @contacts, favorites: @favouriteContacts)
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddContactCard(model: new RippleApp.Models.Contact())
     RippleApp.layout.setContextView(viewContext)
@@ -84,6 +85,14 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
     view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
     RippleApp.layout.setMainView(view)
+    
+  userPreview: (id) ->
+    viewContext = new RippleApp.Views.HashtagCard()
+    RippleApp.layout.setContextView(viewContext)
+    
+    viewMain = new RippleApp.Views.ContactsIndex()
+    RippleApp.layout.setMainView(viewMain)
+    
 
   #Display the contact, and full detail in the main view
   show: (id) ->

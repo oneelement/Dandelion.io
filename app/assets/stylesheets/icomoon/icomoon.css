@@ -1,0 +1,168 @@
+@font-face {
+	font-family: 'IcoMoon2';
+	src: url('IcoMoon.eot');
+	src: url('IcoMoon.eot?#iefix') format('embedded-opentype'),
+		url('IcoMoon.svg#IcoMoon') format('svg'),
+		url('IcoMoon.woff') format('woff'),
+		url('IcoMoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'IcoMoon2';
+	content: attr(data-icon);
+	speak: none;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="dicon-"]:before, [class*=" dicon-"]:before {
+	font-family: 'IcoMoon2';
+	font-style: normal;
+	speak: none;
+}
+.dicon-home:before {
+	content: "\25a0";
+}
+.dicon-mail:before {
+	content: "\25a1";
+}
+.dicon-phone:before {
+	content: "\25a2";
+}
+.dicon-mobile:before {
+	content: "\25a4";
+}
+.dicon-twitter:before {
+	content: "\25a7";
+}
+.dicon-facebook:before {
+	content: "\25ab";
+}
+.dicon-linkedin:before {
+	content: "\25ae";
+}
+.dicon-pencil:before {
+	content: "\25b1";
+}
+.dicon-pencil-2:before {
+	content: "\25b2";
+}
+.dicon-tag:before {
+	content: "\25b4";
+}
+.dicon-remove:before {
+	content: "\25b6";
+}
+.dicon-remove-2:before {
+	content: "\25ba";
+}
+.dicon-remove-3:before {
+	content: "\25bc";
+}
+.dicon-star:before {
+	content: "\25bf";
+}
+.dicon-flag:before {
+	content: "\25c1";
+}
+.dicon-link:before {
+	content: "\25f5";
+}
+.dicon-user:before {
+	content: "\25f6";
+}
+.dicon-users:before {
+	content: "\25f7";
+}
+.dicon-contact:before {
+	content: "\25f8";
+}
+.dicon-globe:before {
+	content: "\25f9";
+}
+.dicon-network:before {
+	content: "\25fa";
+}
+.dicon-circles:before {
+	content: "\25fc";
+}
+.dicon-copy:before {
+	content: "\2190";
+}
+.dicon-comments:before {
+	content: "\25e6";
+}
+.dicon-card:before {
+	content: "\25e7";
+}
+.dicon-chat:before {
+	content: "\25eb";
+}
+.dicon-price:before {
+	content: "\25ef";
+}
+.dicon-write:before {
+	content: "\25f3";
+}
+.dicon-book:before {
+	content: "\25c4";
+}
+.dicon-cog:before {
+	content: "\25d8";
+}
+.dicon-equalizer:before {
+	content: "\25ec";
+}
+.dicon-download:before {
+	content: "\25ee";
+}
+.dicon-exit:before {
+	content: "\25df";
+}
+.dicon-arrow-up:before {
+	content: "\25f1";
+}
+.dicon-arrow-right:before {
+	content: "\25d1";
+}
+.dicon-arrow-down:before {
+	content: "\25f4";
+}
+.dicon-arrow-left:before {
+	content: "\25fb";
+}
+.dicon-info:before {
+	content: "\25c8";
+}
+.dicon-briefcase:before {
+	content: "\25d7";
+}
+.dicon-search:before {
+	content: "\25fe";
+}
+.dicon-search-2:before {
+	content: "\25ff";
+}
+.dicon-minus:before {
+	content: "\25a9";
+}
+.dicon-help:before {
+	content: "\25ca";
+}
+.dicon-cancel:before {
+	content: "\25cf";
+}
+.dicon-briefcase-2:before {
+	content: "\21";
+}
+.dicon-bookmark:before {
+	content: "\22";
+}
+.dicon-bookmark-2:before {
+	content: "\23";
+}
+.dicon-flag-2:before {
+	content: "\25dc";
+}

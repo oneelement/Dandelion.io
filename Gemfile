@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.4'
 
 
 gem "rake"
@@ -28,7 +28,10 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
-  gem 'compass', '~> 0.11.0'
+  #gem 'compass', '~> 0.11.0'
+  #gem 'compass'
+  gem 'compass-rails', '>= 1.0.0.rc.4'
+  gem 'susy'
   gem 'bootstrap-sass', '~> 2.0.1'
   gem 'jquery-datatables-rails'
 end

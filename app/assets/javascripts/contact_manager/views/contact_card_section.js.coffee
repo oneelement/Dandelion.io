@@ -10,8 +10,10 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     @collection.on('remove', @render, this)
     @collection.on('reset', @clearDetails)
     @title = @options.title
+    @icon = @options.icon
     @sectionIsActive = false
     @subject = @options.subject
+    #@subject.on('change', @render, this)  #re-renders on subject change to fetch extra values form server
     @modelName = @options.modelName
     @dummyModel = new @modelName
     @types = @dummyModel.getTypes()
@@ -20,7 +22,8 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
       @hashtags = @options.hashes
 
   render: ->
-    $(@el).html(@template(title: @title, types: @types, modelType: @modelType))
+    console.log('contact card section render')
+    $(@el).html(@template(title: @title, icon: @icon, types: @types, modelType: @modelType))
     
     #console.log(@collection.models.length)
 

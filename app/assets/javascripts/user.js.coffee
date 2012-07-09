@@ -6,4 +6,8 @@ jQuery ->
   $('#select-all').click (event) -> 
     if(this.checked)
       $(':checkbox').each ->
-        this.checked = true                     
+        this.checked = true   
+        
+$(document).ready ->
+  $('#account-info').click ->
+    $('#account-info').toggleClass('view')

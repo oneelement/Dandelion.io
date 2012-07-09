@@ -6,11 +6,11 @@ class RippleApp.Models.ContactAddressDetail extends Backbone.RelationalModel
     type = @get("_type")
 
     if type == 'AddressHome'
-      return 'house'
+      return 'book'
     else if type == 'AddressBusiness'
-      return 'building-dark'
+      return 'book'
     else
-      return 'contact'
+      return 'book'
       
   getTypes: ->
     #types = ['AddressHome', 'AddressBusiness', 'Address']

@@ -6,7 +6,7 @@ window.RippleApp =
   Lib: {}
   init: ->
     @contactsRouter = new RippleApp.Routers.Contacts()
-    @tasksRouter = new RippleApp.Routers.Tasks()
+    #@tasksRouter = new RippleApp.Routers.Tasks()
 
     @layout = new RippleApp.Views.Layout()
     $('#container').html(@layout.render().el)

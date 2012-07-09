@@ -3,6 +3,7 @@ class RippleApp.Views.Sidebar extends Backbone.View
   
   initialize: ->
     $(window).resize(@.redrawMenu)
+    
 
   render: ->
     $(@el).html(@template())
@@ -18,28 +19,48 @@ class RippleApp.Views.Sidebar extends Backbone.View
       @favouriteContactsView = new RippleApp.Views.FavouriteContacts(
         collection: RippleApp.contactsRouter.favouriteContacts
       )
-      $('ul#favourite-menu div#favourites', @el).html(@favouriteContactsView.render().el)
-      @.redrawMenu()
+      $('#favorite-container', @el).html(@favouriteContactsView.render().el)
+      #@.redrawMenu()
     )
+    @isVisible = false
+        
     @
 
   events:
     "click #sidebar-home": "clickHome"
     "click #sidebar-contacts": "clickContacts"
     "click #sidebar-groups": "clickGroups"
-    "click #sidebar-tasks": "clickTasks"
+    "click #favorite-menu": "showFavorites"
 
   clickHome: ->
+    this.$('#sidebar-contacts').removeClass('active')
+    this.$('#sidebar-groups').removeClass('active')
+    this.$('#sidebar-home').addClass('active')
     Backbone.history.navigate('#', true)
 
   clickContacts: ->
+    this.$('#sidebar-contacts').addClass('active')
+    this.$('#sidebar-groups').removeClass('active')
+    this.$('#sidebar-home').removeClass('active')
     Backbone.history.navigate('#contacts', true)
 
-  clickTasks: ->
-    Backbone.history.navigate('#tasks', true)
     
   clickGroups: ->
+    this.$('#sidebar-contacts').removeClass('active')
+    this.$('#sidebar-groups').addClass('active')
+    this.$('#sidebar-home').removeClass('active')
     Backbone.history.navigate('#groups', true)
+    
+  showFavorites: ->
+    console.log('log')
+    if @isVisible == false
+      @isVisible = true
+      this.$('#favorite-container').css('display','block')
+      this.$('#favorite-caret').css('display','block')
+    else
+      this.$('#favorite-container').css('display','none')
+      this.$('#favorite-caret').css('display','none')
+      @isVisible = false
 
   redrawMenu: =>
     windowWidth = $(window).width()

@@ -9,6 +9,22 @@ class AddressesController < ApplicationController
     end
   end
   
+  # PUT /addresses/1
+  # PUT /addresses/1.json
+  def update
+    @address = Address.find(params[:id])
+
+    respond_to do |format|
+      if @address.update_attributes(params[:address])
+        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+        format.json { render json: @address }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @address.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def destroy
     @address = Address.find(params[:id])
     @address.destroy

@@ -9,6 +9,22 @@ class PhonesController < ApplicationController
     end
   end
   
+  # PUT /phones/1
+  # PUT /phones/1.json
+  def update
+    @phone = Phone.find(params[:id])
+
+    respond_to do |format|
+      if @phone.update_attributes(params[:phone])
+        format.html { redirect_to @phone, notice: 'Contact was successfully updated.' }
+        format.json { render json: @phone }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @phone.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def destroy
     @phone = Phone.find(params[:id])
     @phone.destroy

@@ -13,7 +13,7 @@
   <div id="logo-placeholder">
     <a class="brand" href="/">
       <% if current_user.user_type.name == "Consumer" %>
-	<%= current_user.full_name %>
+	Ripple
       <% else %>
 	<%= current_user.organisation.name %>
       <% end %>      
@@ -21,10 +21,8 @@
   </div>
   <div id="sitewide-search">
     <%= form_tag contacts_path, :method => 'get', :id => 'search_form', :class => 'navbar-search' do %>
-        <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', value: "", placeholder: "Search..." %>
+        <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', value: "", placeholder: "What would you like to see today?" %>
         <%# submit_tag "", :name => nil , :id => 'searchbutton' %>
-	<i class="icon-search icon-white"></i>
-	<i class="icon-plus icon-white disabled"></i>
     <% end %>
   </div>
   <div id="top-navigation">
@@ -49,20 +47,27 @@
       </li>
     </ul>
   </div>
+
   <div id="account-info">
     <ul class="nav pull-right">
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <%= current_user.first_name %> <%= current_user.last_name %>
-      <b class="caret"></b>
+        <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
+        <img src="http://graph.facebook.com/586481549/picture?size=square"></img>
+        <span class="menu-caret"></span>
+        <span class="dicon-arrow-down"></span>
       </a>
-      <ul class="dropdown-menu">
-	<li><%= link_to 'Profile', user_path(current_user.id) %></li>
-	<li class="divider"></li>
-	<li><%= link_to('Log out', destroy_user_session_path, :method => :delete) %></li>
-      </ul>
     </li>
     </ul>
+    <div id="user-menu">
+      <%= link_to 'Profile', user_path(current_user.id) %>
+      <%= link_to('Log out', destroy_user_session_path, :method => :delete) %>
+    </div>
+  </div>
+  <div id="mailbox">
+    <a href="/">
+      <span class="dicon-download"></span>
+    </a>
   </div>
 </div>
 

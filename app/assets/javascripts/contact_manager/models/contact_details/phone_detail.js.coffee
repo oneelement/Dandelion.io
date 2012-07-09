@@ -6,9 +6,9 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
     type = @get("_type")
 
     if type == 'PhoneHome'
-      return 'house'
+      return 'phone'
     else if type == 'PhoneBusiness'
-      return 'building-dark'
+      return 'phone'
     else if type == 'PhoneMobile'
       return 'mobile'
     else

@@ -7,13 +7,15 @@ class AutocompleteController < ApplicationController
     #
     # in this case we grab all movies that begin with the typed term and
     # rename the name attribute to value for convenience
+    users = User.all
+    users = User.where(:full_name => /#{params[:term]}/i)
     groups = Group.where(:user_id => current_user.id)
     groups = groups.where(:name => /#{params[:term]}/i)
     tasks = Task.where(:user_id => current_user.id)
     tasks = tasks.where(:title => /#{params[:term]}/i)
     contacts = Contact.where(:user_id => current_user.id)
     contacts = contacts.where(:name => /#{params[:term]}/i)
-    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, category: "Contact", icon: "icon-avatar"]} + tasks.map {|u| Hash[ id: u.id, label: u.title, name: u.title, category: "Task", icon: "icon-group"]} + groups.map {|u| Hash[ id: u.id, label: u.name, name: u.name, category: "Group", icon: "icon-group"]}
+    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, category: "Contact", icon: "icon-avatar"]} + tasks.map {|u| Hash[ id: u.id, label: u.title, name: u.title, category: "Task", icon: "icon-group"]} + groups.map {|u| Hash[ id: u.id, label: u.name, name: u.name, category: "Group", icon: "icon-group"]} + users.map {|u| Hash[ id: u.id, label: u.full_name, name: u.full_name, category: "User", icon: "icon-avatar"]}
     #render json: list
     render :json => list.to_json
   end

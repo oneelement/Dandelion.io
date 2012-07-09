@@ -3,7 +3,7 @@ class RippleApp.Models.ContactNoteDetail extends Backbone.RelationalModel
   urlRoot: '/notes'
 
   getViewIcon: ->
-    return 'pencil-dark'
+    return 'flag'
 
   getViewValue: ->
     return @get("text")
