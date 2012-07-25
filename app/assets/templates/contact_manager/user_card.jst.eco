@@ -1,0 +1,28 @@
+<div id="contact-card-map">
+</div>
+
+<div id="contact-card-details">
+    <div id="contact-card-head">
+        <div id="contact-card-avatar">
+          <a>
+            <img src="<%= @contact.avatar %>"/>
+          </a>
+        </div>
+        <div id="contact-card-name">
+          <h3><%= @contact.name %></h3>          
+        </div>
+        <div id="contact-card-favourite">
+          
+        </div>
+    </div>
+    <div id="contact-card-body">
+        <ul id="contact-card-body-list"></ul>
+    </div>
+    <div id="contact-user-actions">
+      <a id="contact-user-ripple" class="btn btn-primary">Ripple</a>
+      <a id="contact-user-add" class="btn btn-primary">Add contact</a>
+      <a id="contact-user-message" class="btn btn-primary">Message</a>
+    </div>
+</div>
+
+

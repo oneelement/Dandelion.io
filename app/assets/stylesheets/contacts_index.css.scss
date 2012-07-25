@@ -106,10 +106,16 @@
     }
 
     .name {
+      a:hover {
+	h3 {
+	  text-decoration: underline;
+	}	
+      }
       h3 {
         margin: 0;
         padding: 6px 0px 0px;
         color: #F76A02;
+	display: inline-block;
       }
     }
 

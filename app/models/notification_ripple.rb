@@ -1,0 +1,2 @@
+class NotificationRipple < Notification
+end

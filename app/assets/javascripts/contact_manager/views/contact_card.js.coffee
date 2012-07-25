@@ -2,6 +2,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   template: JST['contact_manager/contact_card']
   searchModel: JST['contact_manager/search_modal']
   pictureModel: JST['contact_manager/picture_modal']
+  lightbox: JST['contact_manager/lightbox']
   matchOverrideList: JST['contact_manager/match_override_list']
   id: 'contact-card'
     
@@ -30,6 +31,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     #"click .Hashtags span.contact-detail-value": "clickHashtag"
     'show #avatar-modal': 'avatarModal'
     #'click span.delete-icon': 'saveModel'
+    'click #contact-card-map': 'showMapLightbox'
     
   initialize: ->
     @user = @options.user
@@ -44,18 +46,30 @@ class RippleApp.Views.ContactCard extends Backbone.View
     this.$('#minibar').focus()
     console.log('contact card rendering')
     $(@el).html(@template(contact: @model.toJSON()))
-
+    $(@el).append(@lightbox())
     $(@el).append(@searchModel(options: {title: "Facebook Search"}))
     $(@el).append(@pictureModel(subject: @model.toJSON(), options: {title: "Select Avatar"}))
     $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       #$('#isFavourite', @el).attr('checked', 'checked')
       this.$('#isFavourite').addClass('isFavorite')
+      
+    @outputMap()
 
     @updateSocialLinks()
     @outputCard()
     
     return @
+    
+  showMapLightbox: ->
+    this.$('.lightbox').addClass('show').addClass('map')
+    this.$('.lightbox').css('display', 'block')
+    $('.lightbox-backdrop').css('display', 'block')
+    map = new RippleApp.Views.LightboxMap(
+      collection: @model.get("addresses")
+    )
+    $('.lightbox', @el).append(map.render().el)
+    
     
   avatarModal: ->
     $('#avatar-select-container', @el).html('')
@@ -79,6 +93,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
   #  console.log(id)
   #  console.log(e.target)
   #  Backbone.history.navigate('#hashtags/show/'+id, true)
+  
+  outputMap: ->
+    map = new RippleApp.Views.ContactCardMap(
+      collection: @model.get("addresses")
+    )
+    $('#contact-card-map', @el).append(map.render().el)
 
   outputCard: ->      
     if @model.get('dob')

@@ -68,9 +68,10 @@ $sidebarBorder: #ccc;
   
   .face-image{
     margin: 4px 11px;
+    cursor: pointer;
     img {
       border: 1px solid #EEE;
-      @include box-shadow(#777 0px 0px 4px);
+      @include box-shadow(#777 0px 0px 1px);
     }
   }
 
@@ -137,9 +138,8 @@ $sidebarBorder: #ccc;
   }
   #favorite-container {
     position: fixed;
-    height: 60px;
-    width: 800px;
-    background: #FFF;
+    width: 560px;
+    background: #F9F9F9;
     z-index: 9998;
     margin: 0px;
     padding: 10px;

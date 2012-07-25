@@ -166,3 +166,15 @@
 .dicon-flag-2:before {
 	content: "\25dc";
 }
+.dicon-drawer:before {
+	content: "\21";
+}
+.dicon-drawer-2:before {
+	content: "\24";
+}
+.dicon-map:before {
+	content: "\25";
+}
+.dicon-book-2:before {
+	content: "\26";
+}

@@ -97,7 +97,9 @@ $(function() {
               var url = "/#contacts/show/" + ui.item.id;              
             } else if (ui.item.category == "Group"){
               var url = "/#groups/show/" + ui.item.id;
-            }           
+            } else if (ui.item.category == "User"){
+              var url = "/#users/preview/" + ui.item.id;
+            }          
             window.location.href = url;
             console.log(ui.item.category)
         }

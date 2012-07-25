@@ -11,6 +11,7 @@
 //= require vendor
 //= require bootstrap
 //= require dashboard
+//= require lightbox
 //= require dataTables/jquery.dataTables
 //= require user
 //= require autocomplete

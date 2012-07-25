@@ -58,11 +58,111 @@
   float: right;
   height: 40px;
   margin: 20px 0px 0px 0px;
-  a {
-    .dicon-download {
+  cursor: pointer;
+  #mail {
+    position: relative;
+    .unread-count {
+      background: none repeat scroll 0 0 #f07746;
+      color: #FFFFFF;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 12px;
+      padding: 3px 6px;
+      position: absolute;
+      right: -6px;
+      top: -12px;
+      @include border-radius(50%);
+      @include opacity(0);
+    } 
+    .unread-count.new-mail {
+      @include opacity(1);
+    }
+    .dicon-drawer-2 {
       color: #DDD;
       font-size: 32px;
       text-shadow: 0px -1px 0 #999, 0px 1px 0 #FFF;
+    }
+    .dicon-drawer {
+      color: #DDD;
+      font-size: 32px;
+      text-shadow: 0px -1px 0 #999, 0px 1px 0 #FFF;
+    }
+    .inbox-caret {
+      right: 6px;
+      top: 31px;
+    }
+    #inbox {
+      background: #FFF;
+      width: 300px;
+      border: 1px solid #CCC;
+      @include border-radius(4px);
+      position: absolute;
+      top: 40px;
+      right: -135px;
+      @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
+      display: none;
+      overflow: auto;
+      max-height: 600px;
+      #inbox-header {
+        border-bottom: 1px solid #CCC;
+        padding: 4px 4px 4px 8px;
+        h3 {
+          padding: 0px;
+          margin: 0px;
+        }
+      }
+      #notifications {
+        padding: 0px;
+	margin: 0px;
+	.un-read {
+	  background: #EFF2E6;
+	}
+	.empty {
+	  text-align: center;
+	  padding: 16px;
+	  
+	}
+	.notification {
+	  padding: 8px;
+	  margin: 0px;
+	  border-bottom: 1px solid #CCC;
+	  .inbox-avatar {
+	    float: left;
+	    width: 20%;
+	  }
+	  .inbox-avatar img {
+	    width: 48px;
+            height: 48px;
+            @include border-radius(4px);
+	    border: 1px solid #EEEEEE;
+            box-shadow: 0 0 1px #777777;
+	  }
+	  .message-details {
+	    float: left;
+	    width: 80%;
+	    .sent-name {
+	      h3 {
+		padding: 0px;
+		margin: 0px;
+	      }
+	      a {
+		color: #999;
+		font-weight: bold;
+	      }
+	    }
+	    .message-body {
+	      
+	    }
+	    .message-actions {
+	      a {
+		width: 40%;
+	      }
+	      
+	    }
+	  }
+	}
+      } //end of #notifications
     }
   }
 }
@@ -105,11 +205,7 @@
   top: 35px;
 }
 
-.view .menu-caret {
-  display: block;
-}
-
-.menu-caret {
+.menu-caret, .inbox-caret {
   width: 0; 
   height: 0; 
   border-left: 10px solid transparent;
@@ -122,8 +218,10 @@
   z-index: 100000;
 }
 
-.view #user-menu {
-  display: block;
+
+
+.view #user-menu, .view .menu-caret, .view #inbox, .view .inbox-caret {
+  display: block !important;
 }
 
 #user-menu {

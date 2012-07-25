@@ -4,6 +4,7 @@
   <title>Onelement</title>
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
@@ -65,15 +66,15 @@
     </div>
   </div>
   <div id="mailbox">
-    <a href="/">
-      <span class="dicon-download"></span>
-    </a>
+
   </div>
 </div>
 
 <div id="container">
   <%= yield %>
 </div>
+
+<div class="lightbox-backdrop"></div>
 
 </body>
 </html>

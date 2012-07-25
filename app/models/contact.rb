@@ -66,6 +66,12 @@ class Contact
     t.add :hashtags
   end
   
+  api_accessible :public_contact do |t|
+    t.add :_id
+    t.add :name
+    t.add :avatar
+  end
+  
   def clean_contact_delete
     face = FacebookFriend.where(:user_id => self.user_id, :contact_id => self._id).first
     if face

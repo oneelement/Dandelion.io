@@ -35,6 +35,7 @@ class Ability
       can :manage, User, :id => user.id
       can :manage, Contact, :user_id => user.id
       can :manage, Group, :user_id => user.id
+      can :manage, Notification, :user_id => user.id
       #can :read, User, :id => user.id
       cannot :manage, Entity
       cannot :manage, Organisation

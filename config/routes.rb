@@ -28,6 +28,12 @@ Onelement::Application.routes.draw do
     get 'search', :on => :collection
   end
   
+  resources :notifications
+  
+  resources :public_users
+  
+  resources :public_contacts
+  
   resources :hashtags
   
   resources :groups
@@ -73,7 +79,7 @@ Onelement::Application.routes.draw do
 
   resources :entities
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}
+  devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions'}
   
   resources :organisations
 

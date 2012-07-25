@@ -3,18 +3,26 @@
   top: 0;
   left: 0;
 
-  width: 380px;
+  width: 400px;
   height: 100%;
 
   #contact-card-map {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     
     width: auto;
-    height: 219px;
 
     z-index: 0;
+    #map-placeholder {
+      width: 400px;
+      border-bottom: 1px solid #CCC;
+      img {
+        padding: 0px;
+        margin: 0px;
+      }
+
+    }
   }
   
   .face-search{
@@ -66,8 +74,8 @@
 
     $detailsPadding: 10px;
 
-    position: absolute;
-    top: 225px;
+    position: relative;
+    top: -10px;
     left: $detailsPadding;
     right: $detailsPadding;
 
@@ -85,6 +93,8 @@
         img {
           width: 80px;
           height: 80px;
+          border: 1px solid #EEEEEE;
+          box-shadow: 0 0 1px #777777;
           @include border-radius(4px);
         }
       }
@@ -191,6 +201,12 @@
           text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
         }
       }
+    }
+
+    #contact-user-actions {
+      position: absolute;
+      width: 360px;
+      top: 100px;
     }
 
     #contact-card-body {

@@ -1,0 +1,9 @@
+<span id="mail-icon" class="dicon-drawer-2"></span>
+
+<span class="inbox-caret"></span>
+<div id="inbox">
+  <div id="inbox-header">
+    <h3>Inbox</h3>
+  </div>
+  <ul id="notifications"></ul>
+</div>

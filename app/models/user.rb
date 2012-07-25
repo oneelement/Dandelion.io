@@ -53,6 +53,7 @@ class User
   field :first_name, :type => String
   field :last_name, :type => String
   field :full_name, :type => String
+  field :avatar, :type => String, :default => "http://placehold.it/80x80"
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favourite_contacts, :type => String
@@ -87,10 +88,20 @@ class User
     t.add :first_name
     t.add :last_name
     t.add :full_name
+    t.add :avatar
     t.add :email
     t.add :contact_id
     t.add :favourite_contacts
     t.add :recent_contacts
+  end
+  
+  api_accessible :public_user do |t|
+    t.add :_id
+    t.add :first_name
+    t.add :last_name
+    t.add :full_name
+    t.add :avatar
+    t.add :contact_id
   end
 
   def update_attributes_from_api(params)

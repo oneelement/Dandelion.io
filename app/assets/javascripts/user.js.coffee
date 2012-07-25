@@ -11,3 +11,4 @@ jQuery ->
 $(document).ready ->
   $('#account-info').click ->
     $('#account-info').toggleClass('view')
+    $('#mail').removeClass('view')

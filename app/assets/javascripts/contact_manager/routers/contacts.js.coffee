@@ -32,6 +32,10 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @groupContacts = new RippleApp.Collections.Contacts()
     @hashtags = new RippleApp.Collections.Hashtags()
     @hashtags.fetch()
+    
+    @notifications = new RippleApp.Collections.Notifications()
+    @notifications.fetch()
+    
     @
     
   home: ->
@@ -86,12 +90,20 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
     RippleApp.layout.setMainView(view)
     
-  userPreview: (id) ->
-    viewContext = new RippleApp.Views.HashtagCard()
-    RippleApp.layout.setContextView(viewContext)
-    
-    viewMain = new RippleApp.Views.ContactsIndex()
-    RippleApp.layout.setMainView(viewMain)
+  userPreview: (id) ->        
+    #insert loading view here
+
+    current_user = @currentUser
+    user = new RippleApp.Models.PublicUser({_id: id})
+    user.fetch(success: (user) ->
+      user_contact_id = user.get('contact_id')
+      
+      contact = new RippleApp.Models.PublicContact({_id: user_contact_id})
+      contact.fetch(success: (contact) ->
+        viewContext = new RippleApp.Views.UserCard(model: contact, current_user: current_user, target_user: user)
+        RippleApp.layout.setContextView(viewContext)
+      )
+    )
     
 
   #Display the contact, and full detail in the main view

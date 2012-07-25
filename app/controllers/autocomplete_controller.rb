@@ -7,8 +7,8 @@ class AutocompleteController < ApplicationController
     #
     # in this case we grab all movies that begin with the typed term and
     # rename the name attribute to value for convenience
-    users = User.all
-    users = User.where(:full_name => /#{params[:term]}/i)
+    users = User.excludes(:id => current_user.id)
+    users = users.where(:full_name => /#{params[:term]}/i)
     groups = Group.where(:user_id => current_user.id)
     groups = groups.where(:name => /#{params[:term]}/i)
     tasks = Task.where(:user_id => current_user.id)

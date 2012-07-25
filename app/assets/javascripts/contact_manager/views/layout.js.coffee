@@ -6,6 +6,13 @@ class RippleApp.Views.Layout extends Backbone.View
     $(@el).html(@template())
     sidebarView = new RippleApp.Views.Sidebar()
     $('#view-sidebar', @el).html(sidebarView.render().el)
+   
+   
+    mailboxView = new RippleApp.Views.Mailbox(
+      collection: RippleApp.contactsRouter.notifications
+    )
+    $('#mailbox').html(mailboxView.render().el)    
+    
     @
 
   setContextView: (view) ->

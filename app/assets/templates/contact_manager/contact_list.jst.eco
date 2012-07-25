@@ -15,7 +15,7 @@
 </td>
 <td class="contact-list-detail name-cell">
   <div class="name">
-      <h3><%= @contact.name %></h3>
+      <a href="#contacts/show/<%= @contact._id %>"><h3><%= @contact.name %></h3></a>
       <p>Contact position at Contact Company</p>
   </div>
 </td>
