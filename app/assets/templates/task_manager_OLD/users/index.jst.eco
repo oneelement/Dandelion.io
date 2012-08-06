@@ -1,4 +1,0 @@
-  <option>Assign user...</option>
-<% for user in @users.models: %>  
-  <option value="<%= user.get('_id') %>"><%= user.get('first_name') %> <%= user.get('last_name') %></option>
-<% end %>

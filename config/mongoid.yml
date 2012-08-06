@@ -15,11 +15,11 @@ test:
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  host: localhost
+  port: 27017
+  username: rippleapp_chestermano
+  password: H0rses4Courses
+  database: rippleapp_production
   # slaves:
   #   - host: slave1.local
   #     port: 27018

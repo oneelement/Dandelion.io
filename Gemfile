@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.4'
 
-
 gem "rake"
 
 # Bundle edge Rails instead:
@@ -22,32 +21,35 @@ gem 'linkedin'
 #gem 'linkedin', :git => 'http://github.com/pengwynn/linkedin.git', :branch => '2-0-stable'
 #api for linkedin
 
+gem "rufus-scheduler", "~> 2.0.17"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
+  #gem 'sass-rails', "  ~> 3.1.0"
+  gem 'sass-rails'
+  gem 'compass-rails'
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
   #gem 'compass', '~> 0.11.0'
   #gem 'compass'
-  gem 'compass-rails', '>= 1.0.0.rc.4'
-  gem 'susy'
+  #gem 'compass-rails', '>= 1.0.0.rc.4'
+  #gem 'susy'
   gem 'bootstrap-sass', '~> 2.0.1'
   gem 'jquery-datatables-rails'
 end
+
+
 
 gem 'jquery-rails'
 gem 'backbone-on-rails'
 
 gem "geocoder"
 
-gem "mongrel", "1.2.0.pre2"
 
-# Use unicorn as the web server
-# gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -57,7 +59,10 @@ group :test do
   gem 'turn', :require => false
 end
 
+gem 'unicorn'
+
 group :development, :test do
+  gem "mongrel", "1.2.0.pre2"
   gem 'jasmine'
   gem 'jasmine-headless-webkit'
   gem 'jasmine-spec-extras'

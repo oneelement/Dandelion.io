@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Group  
   include Mongoid::Document
+  include Mongoid::Paranoia
   include BackboneHelpers::Model
   
   belongs_to :user

@@ -14,14 +14,18 @@
         <div id="contact-card-favourite">
           
         </div>
+        <div id="social-network-links">
+            <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>
+            <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a></div>
+            <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a></div>
+        </div>
     </div>
     <div id="contact-card-body">
         <ul id="contact-card-body-list"></ul>
     </div>
     <div id="contact-user-actions">
-      <a id="contact-user-ripple" class="btn btn-primary">Ripple</a>
-      <a id="contact-user-add" class="btn btn-primary">Add contact</a>
-      <a id="contact-user-message" class="btn btn-primary">Message</a>
+      <a id="contact-user-ripple" class="button button-success">Ripple</a>
+      <a id="contact-user-add" class="button button-notify">Add contact</a>
     </div>
 </div>
 

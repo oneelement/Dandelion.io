@@ -1,5 +1,6 @@
 class Task
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
   
   belongs_to :user

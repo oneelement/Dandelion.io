@@ -9,5 +9,6 @@ $(document).ready ->
   $('.lightbox-backdrop').click ->
     $('.lightbox').removeClass('show')
     $('.lightbox').removeClass('map')
+    $('.lightbox').removeClass('avatar')
     $('.lightbox').css('display', 'none')
     $('.lightbox-backdrop').css('display', 'none')

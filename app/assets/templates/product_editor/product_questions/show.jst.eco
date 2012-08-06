@@ -1,5 +1,0 @@
-<a>
-  <i class="icon-question-sign"></i>
-  <%= @question.name %>
-  <span class="question-type"><%= @question.question_type.display_name %></span>
-</a>

@@ -28,7 +28,11 @@ Onelement::Application.routes.draw do
     get 'search', :on => :collection
   end
   
-  resources :notifications
+  resources :notifications do
+    get :complete_ripple, :on => :collection
+  end
+  
+  resources :user_contacts
   
   resources :public_users
   
@@ -46,7 +50,9 @@ Onelement::Application.routes.draw do
   
   resources :notes
   
-  resources :phones
+  resources :phones do
+    get :ripple, :on => :collection
+  end
   
   resources :emails
   

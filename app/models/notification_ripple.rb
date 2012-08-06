@@ -1,2 +1,3 @@
 class NotificationRipple < Notification
 end
+

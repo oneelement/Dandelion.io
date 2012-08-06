@@ -1,8 +1,0 @@
-<h3>Suggested questions</h3>
-<% if @questions_to_display.length > 0: %>
-    <ul id="suggested-questions-list" class="nav nav-tabs nav-stacked"></ul>
-<% else if @questions.length > 0: %>
-    <p>All suggested questions have been added.</p>
-<% else: %>
-    <p>There are no suggested questions for the selected section.</p>
-<% end %>

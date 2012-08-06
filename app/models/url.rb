@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Url
   include Mongoid::Document
+  include Mongoid::Paranoia
   
   belongs_to :contact
   belongs_to :group
@@ -19,6 +20,13 @@ class Url
   end
   
   api_accessible :group do |t|
+    t.add :_id
+    t.add :_type
+    t.add :text
+    t.add :default
+  end
+  
+  api_accessible :user_contact do |t|
     t.add :_id
     t.add :_type
     t.add :text

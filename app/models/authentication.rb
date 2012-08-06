@@ -2,6 +2,8 @@ require 'backbone_helpers'
 
 class Authentication
   include Mongoid::Document
+  include Mongoid::Paranoia
+  
   belongs_to :user
 
   def self.available_providers 

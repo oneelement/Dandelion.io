@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Social
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   embedded_in :contact
   embedded_in :group

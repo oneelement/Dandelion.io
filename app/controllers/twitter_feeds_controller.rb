@@ -22,7 +22,7 @@ class TwitterFeedsController < ApplicationController
   def hometimeline
     @user = User.find(current_user.id)
     #query = "chestermano"
-    tweets = @user.tweeting.user_timeline(count: '10', exclude_replies: 1)
+    tweets = @user.tweeting.user_timeline(count: '10')
     #tweets = @user.tweeting.user_search(query)
 
     respond_to do |format|
@@ -46,7 +46,7 @@ class TwitterFeedsController < ApplicationController
   def contacttimeline
     social_id = params[:id]
     @user = User.find(current_user.id)
-    tweets = @user.tweeting.user_timeline(screen_name: social_id, count: '10', exclude_replies: 1)
+    tweets = @user.tweeting.user_timeline(screen_name: social_id, count: '10', include_entities: true)
 
     respond_to do |format|
       format.html # index.html.erb

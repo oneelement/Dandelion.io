@@ -1,5 +1,6 @@
 class UserType
   include Mongoid::Document
+  include Mongoid::Paranoia
   
   has_many :users
   

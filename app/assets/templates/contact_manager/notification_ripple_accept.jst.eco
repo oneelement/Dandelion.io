@@ -1,0 +1,12 @@
+<div class="inbox-avatar">
+  <img src="<%= @notification.sent_avatar %>">
+</div>
+<div class="message-details">
+  <div class="sent-name">
+    <a href="/#users/preview/<%= @notification.sent_id %>"><%= @notification.sent_name %></a> has accepted your ripple request.
+  </div>
+  <div class="message-body"></div>
+  <div class="message-actions">
+  </div>
+</div>
+<div class="clear"/>

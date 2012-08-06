@@ -1,7 +1,0 @@
-<h3>Sections</h3>
-<% if @hasVisible: %>
-    <div id="product-sections"></div>
-<% else: %>
-    This product currently has no sections. Add some from the menu on the right.
-<% end %>
-<div class="ui-helper-clearfix"></div>

@@ -1,0 +1,3 @@
+class NotificationContactRipple < Notification
+end
+

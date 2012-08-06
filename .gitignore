@@ -1,3 +1,5 @@
+#ignore bundler config
+
 .bundle
 db/*.sqlite3
 log/*.log
@@ -6,6 +8,12 @@ tmp/
 *.swp
 *.swo
 *.DS_Store
-public/stylesheets/
+
+/config/mongoid.yml
+
+/public/stylesheets/
+
+/public/assets
+
 .jhw-cache/
 *~

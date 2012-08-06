@@ -12,6 +12,9 @@
     left: 0;
     
     width: auto;
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid #CCC;
 
     z-index: 0;
     #map-placeholder {
@@ -23,6 +26,7 @@
       }
 
     }
+
   }
   
   .face-search{
@@ -101,8 +105,27 @@
       #contact-card-name {
         position: absolute;
         top: 2em;
-        left: 100px;
+        left: 90px;
         width: 220px;
+        h3 {
+          display: inline-block;
+        }
+        #isRipple {
+          display: none;
+          font-size: 24px;
+          color: #f0f0f0;
+          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+          cursor: pointer;
+          position: relative;
+          top: 4px;
+        }
+        .visible {
+          display: inline-block !important;
+        }
+        .connected {
+          display: inline-block;
+          color: orange; 
+        }
     
       }
       #contact-card-favourite {
@@ -117,6 +140,21 @@
         }
         .isFavorite {
           color: #FFDF00;
+        }
+      }
+
+      #contact-card-edit {
+        position: absolute;
+        top: 2em;
+        left: 360px;
+        .dicon-pencil {
+          font-size: 24px;
+          color: #f0f0f0;
+          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+          cursor: pointer;
+        }
+        .active {
+          color: #777;
         }
       }
 
@@ -145,6 +183,7 @@
             top: 0;
             right: 0;
             left: 300px;
+            cursor: pointer;
 
             width: auto;
           }
@@ -205,8 +244,14 @@
 
     #contact-user-actions {
       position: absolute;
-      width: 360px;
-      top: 100px;
+      width: 380px;
+      top: 90px;
+      #contact-user-ripple {
+        width: 46%;
+      }
+      #contact-user-add {
+        width: 46%;
+      }
     }
 
     #contact-card-body {
@@ -250,7 +295,8 @@
         .contact-detail-icon {
           float: left;
           font-size: 16px;
-          color: #12CEF1;
+          color: #BBB;
+          cursor: pointer; 
         }
   
         .contact-detail-delete {
@@ -268,6 +314,7 @@
         }
 
         .favorite-active {color: #FF7243;}
+        .default-active {color: #12CEF1;}
         
 
         .contact-detail-value {

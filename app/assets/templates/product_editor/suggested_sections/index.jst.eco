@@ -1,8 +1,0 @@
-<h3>Suggested sections</h3>
-<% if @sections_to_display.length > 0: %>
-    <ul id="suggested-sections-list" class="nav nav-tabs nav-stacked"></ul>
-<% else if @sections.length > 0: %>
-    <p>All suggested sections have been added.</p>
-<% else: %>
-    <p>There are no suggested child sections for the selected section.</p>
-<% end %>

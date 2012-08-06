@@ -34,4 +34,12 @@ class PhonesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def ripple
+    @phones = Phone.where(:contact_id => params[:id])
+    
+    respond_to do |format|
+      format.json { render json: @phones }
+    end
+  end
 end

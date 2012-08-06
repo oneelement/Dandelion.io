@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Contact
   include Mongoid::Document
+  include Mongoid::Paranoia
   include BackboneHelpers::Model
   
   before_destroy :clean_contact_delete
@@ -31,6 +32,9 @@ class Contact
   #field :email, :type => String
   field :dob, :type => Date
   field :is_user, :type => Boolean, :default => false
+  field :is_ripple, :type => Boolean, :default => false
+  field :linked_contact_id, :type => String
+  field :linked_user_ids, :type => Array, :default => []
   field :favorite_ids, :type => Array, :default => []
   field :avatar, :type => String, :default => "http://placehold.it/80x80"
   field :map, :type => Array, :default => []
@@ -53,7 +57,8 @@ class Contact
     t.add :emails
     t.add :urls
     t.add :name
-    #t.add :email
+    t.add :is_ripple
+    t.add :linked_contact_id
     t.add :dob
     t.add :avatar
     t.add :map
@@ -70,6 +75,21 @@ class Contact
     t.add :_id
     t.add :name
     t.add :avatar
+    t.add :facebook_id
+    t.add :linkedin_id
+    t.add :twitter_id
+    t.add :facebook_picture
+    t.add :twitter_picture
+    t.add :linkedin_picture
+  end
+  
+  api_accessible :user_contact do |t|
+    t.add :_id
+    t.add :addresses
+    t.add :phones
+    t.add :emails
+    t.add :urls
+    t.add :name
   end
   
   def clean_contact_delete
@@ -78,6 +98,42 @@ class Contact
       face.contact_id = ""
       face.save
     end
+  end
+  
+  def self.update_user_contacts
+    user_contacts = Contact.where(:is_user => true)
+    
+    contacts = Contact.all
+    
+    contacts.each do |c|
+      if c.linked_contact_id?
+	puts 'true'
+	puts c.name
+	puts c.linked_contact_idlinked_contact_id
+	puts c.facebook_id
+      else
+	#puts 'false'
+	#puts c.name
+	#puts c.facebook_id
+	user_contacts.each do |uc|
+	  #puts 'USER'
+	  #puts uc.name
+	  #puts uc.facebook_id
+	  #puts c.name
+	  if uc.facebook_id? && (uc.facebook_id == c.facebook_id)
+	    #puts 'START'
+	    #puts c.name
+	    #puts c.facebook_id
+	    #puts uc.name
+	    #puts uc.facebook_id
+	    c.linked_contact_id = uc._id
+	    c.save
+	    puts 'FINISH'
+	  end
+	end
+      end
+    end
+        
   end
 
   def update_attributes_from_api(params)

@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Phone
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   belongs_to :contact
   belongs_to :group
@@ -25,6 +26,15 @@ class Phone
   api_accessible :group do |t|
     t.add :_id
     t.add :group_id
+    t.add :_type
+    t.add :number
+    t.add :default
+    t.add :icon
+  end
+  
+  api_accessible :user_contact do |t|
+    t.add :_id
+    t.add :contact_id
     t.add :_type
     t.add :number
     t.add :default

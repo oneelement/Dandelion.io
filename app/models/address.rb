@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class Address
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Geocoder::Model::Mongoid  
 
   geocoded_by :full_address
@@ -59,6 +60,14 @@ class Address
   end
   
   api_accessible :group do |t|
+    t.add :_id
+    t.add :_type
+    t.add :full_address
+    t.add :coordinates
+    t.add :default
+  end
+  
+  api_accessible :user_contact do |t|
     t.add :_id
     t.add :_type
     t.add :full_address

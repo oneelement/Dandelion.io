@@ -16,3 +16,12 @@
 //= require user
 //= require autocomplete
 //= require jquery.reveal
+//= require app
+//= require_tree ../templates/contact_manager
+//= require_tree ./lib
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
+
+

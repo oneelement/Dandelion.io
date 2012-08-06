@@ -1,20 +1,5 @@
 <div id="contact-card-map">
 </div>
-<div id="contact-card-actions-wrapper">
-    <a id="contact-card-toggle-actions"><i class="icon-chevron-left"></i></a>
-    <div id="contact-card-actions-bar">
-        <div id="contact-card-actions" style="opacity: 0; width: 0">
-            <ul>
-                <li>Favourite</li>
-                <li>Refresh</li>
-                <li id="subject-delete">Delete</li>
-                <li id="subject-edit">Edit</li>
-                <li>Send</li>
-                <li>Add to Group</li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div id="contact-card-details">
     <div id="contact-card-head">
         <div id="contact-card-avatar">
@@ -23,12 +8,17 @@
           </a>
         </div>
         <div id="contact-card-name">
+          <span id="isRipple" class="dicon-network"></span>
           <h3><%= @contact.name %></h3>
           <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
         </div>
         <div id="contact-card-favourite">
           <span id="isFavourite" class="dicon-star"></span>
         </div>
+        <div id="contact-card-edit">
+          <span id="subject-edit" class="dicon-pencil"></span>
+        </div>
+
         <form id="contact-card-details-input-form">
             <div class="input-append" id="contact-card-details-input">
                 <input id="minibar" type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">

@@ -1,15 +1,6 @@
-/*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require_self
- *= require vendor
-*/
-
-
 @import "compass/css3";
 
-@import "susy";
+//@import "susy";
 @import "bootstrap";
 
 @import "home";
@@ -24,11 +15,11 @@
 @import "icons";
 @import "twitter_feeds";
 @import "facebook_feeds";
-@import "type_face_css/icon-font.css";
-@import "icomoon/icomoon.css";
-@import "type_face_css/zocial.css";
-@import "type_face_css/entypo.css";
-@import "reveal.css";
+@import "type_face_css/icon-font";
+@import "icomoon/icomoon";
+@import "type_face_css/zocial";
+@import "type_face_css/entypo";
+@import "reveal";
 
 
 ::-webkit-scrollbar {
@@ -130,7 +121,7 @@ li {
   padding: 4px 4px 4px 4px;
   display: inline-block;
   @include opacity(0.9);
-  
+  cursor: pointer;
 }
 
 .button:hover {
@@ -141,6 +132,10 @@ li {
 
 .button-success {
   background: #BBDD46;
+}
+
+.button-notify {
+  background: #12CEF1;
 }
 
 .facebook-f {

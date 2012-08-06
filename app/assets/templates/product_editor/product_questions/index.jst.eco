@@ -1,7 +1,0 @@
-<h3>Questions</h3>
-<% if not @hasVisible: %>
-This section currently has no questions. Add some from the menu on the right.
-<% else: %>
-<ul id="product-questions" class="nav nav-tabs nav-stacked">
-</ul>
-<% end %>

@@ -2,6 +2,7 @@ require 'backbone_helpers'
 
 class User 
   include Mongoid::Document
+  include Mongoid::Paranoia
   include BackboneHelpers::Model
   
   after_create :contact_create
@@ -58,6 +59,7 @@ class User
   field :is_admin, :type => Boolean, :default => false
   field :favourite_contacts, :type => String
   field :recent_contacts, :type => String
+  field :linked_contact_ids, :type => Array, :default => []
   #field :adminorg, :type => Boolean, :default => false
   #field :adminent, :type => Boolean, :default => false
   #field :adminone, :type => Boolean, :default => false
@@ -93,6 +95,7 @@ class User
     t.add :contact_id
     t.add :favourite_contacts
     t.add :recent_contacts
+    t.add :linked_contact_ids
   end
   
   api_accessible :public_user do |t|

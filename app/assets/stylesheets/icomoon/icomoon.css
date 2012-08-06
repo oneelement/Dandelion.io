@@ -1,12 +1,12 @@
 @font-face {
-	font-family: 'IcoMoon2';
-	src: url('IcoMoon.eot');
-	src: url('IcoMoon.eot?#iefix') format('embedded-opentype'),
-		url('IcoMoon.svg#IcoMoon') format('svg'),
-		url('IcoMoon.woff') format('woff'),
-		url('IcoMoon.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
+        font-family: 'IcoMoon2';
+        src: url('/assets/IcoMoon.eot');
+        src: url('/assets/IcoMoon.eot?#iefix') format('embedded-opentype'),
+             url('/assets/IcoMoon.svg#IcoMoon') format('svg'),
+             url('/assets/IcoMoon.woff') format('woff'),
+             url('/assets/IcoMoon.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
 }
 
 /* Use the following CSS code if you want to use data attributes for inserting your icons */

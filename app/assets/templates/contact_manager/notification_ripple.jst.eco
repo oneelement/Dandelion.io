@@ -1,0 +1,14 @@
+<div class="inbox-avatar">
+  <img src="<%= @notification.sent_avatar %>">
+</div>
+<div class="message-details">
+  <div class="sent-name">
+    <a href="/#users/preview/<%= @notification.sent_id %>"><%= @notification.sent_name %></a> would like to access your details?
+  </div>
+  <div class="message-body"></div>
+  <div class="message-actions">
+    <a class="share-contact-user-accept button button-success">Accept</a>
+    <a class="share-contact-reject button">Reject</a>
+  </div>
+</div>
+<div class="clear"/>

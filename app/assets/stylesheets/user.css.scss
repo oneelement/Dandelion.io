@@ -12,7 +12,7 @@ $gutter-width: 20px;
 $grid-padding: $gutter-width;
 
 body.landing-page {
-  @include container; 
+  //@include container; 
   @include background(image-url("/assets/ripple-background.jpg"));
   background-size: cover;
   background-repeat: no-repeat;
@@ -121,17 +121,17 @@ body.landing-page {
 
 @media only screen and (max-width: 480px){
   body.landing-page {
-  @include container;
+  //@include container;
    #sign-container {
-    @include span-columns(12 omega,12);
+    //@include span-columns(12 omega,12);
   }
 
   #sign-description {
-    @include span-columns(12,12);
+    //@include span-columns(12,12);
   }
 
   #sign-signup {
-    @include span-columns(12,12);
+    //@include span-columns(12,12);
   }
   }	
 }

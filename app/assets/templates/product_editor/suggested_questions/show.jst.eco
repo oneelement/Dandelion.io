@@ -1,5 +1,0 @@
-<a href="#">
-  <i class="icon-arrow-left"></i>
-  <%= @name %>
-  <span class="question-type"><%= @question_type.display_name %></span>
-</a>
