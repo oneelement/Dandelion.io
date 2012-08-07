@@ -2,16 +2,6 @@ defaults: &defaults
   allow_dynamic_fields: false
   raise_not_found_error: false
 
-development:
-  <<: *defaults
-  host: localhost
-  database: onelement_development
-
-test:
-  <<: *defaults
-  host: localhost
-  database: onelement_test
-
 # set these environment variables on your prod server
 production:
   <<: *defaults

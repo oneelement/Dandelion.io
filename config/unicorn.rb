@@ -1,5 +1,5 @@
 #root = "/home/oliver/Documents/Rails/One-Element-Mongo"
-root = "/home/deployer/apps/One-Element-Mongo"
+root = "/home/apps/One-Element-Mongo"
 working_directory root
 pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
