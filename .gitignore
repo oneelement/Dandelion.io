@@ -10,6 +10,9 @@ tmp/
 *.DS_Store
 
 /config/mongoid.yml
+/config/unicorn_init.sh
+/config/unicorn.rb
+/config/nginx.conf
 
 /public/stylesheets/
 
