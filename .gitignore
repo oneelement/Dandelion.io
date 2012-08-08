@@ -1,5 +1,4 @@
 #ignore bundler config
-
 .bundle
 db/*.sqlite3
 log/*.log
@@ -8,15 +7,11 @@ tmp/
 *.swp
 *.swo
 *.DS_Store
-
 /config/mongoid.yml
 /config/unicorn_init.sh
 /config/unicorn.rb
 /config/nginx.conf
-
 /public/stylesheets/
-
 /public/assets
-
 .jhw-cache/
 *~
