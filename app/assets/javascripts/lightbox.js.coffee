@@ -10,5 +10,6 @@ $(document).ready ->
     $('.lightbox').removeClass('show')
     $('.lightbox').removeClass('map')
     $('.lightbox').removeClass('avatar')
+    $('.lightbox').removeClass('settings')
     $('.lightbox').css('display', 'none')
     $('.lightbox-backdrop').css('display', 'none')

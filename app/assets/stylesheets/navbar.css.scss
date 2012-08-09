@@ -95,8 +95,8 @@
       text-shadow: 0px -1px 0 #999, 0px 1px 0 #FFF;
     }
     .inbox-caret {
-      right: 6px;
-      top: 31px;
+      right: 33px;
+      top: 51px;
     }
     #inbox {
       background: #FFF;
@@ -104,12 +104,13 @@
       border: 1px solid #CCC;
       @include border-radius(4px);
       position: absolute;
-      top: 40px;
-      right: -135px;
+      top: 60px;
+      right: -106px;
       @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
       display: none;
       overflow: auto;
       max-height: 600px;
+      z-index: 1;
       #inbox-header {
         border-bottom: 1px solid #CCC;
         padding: 4px 4px 4px 8px;
@@ -178,6 +179,7 @@
   float: right;
   height: 60px;
   font-size: 24px;
+  cursor: pointer;
   #account-details {
     position: relative;
     top: 5px;
@@ -216,10 +218,10 @@
   border-right: 10px solid transparent;	
   border-bottom: 10px solid white;
   position: absolute;
-  top: 51px;
-  right: 55px;
+  top: 46px;
+  right: 44px;
   display: none;
-  z-index: 100000;
+  z-index: 2;
 }
 
 
@@ -231,7 +233,6 @@
 #user-menu {
   background: #FFF;
   width: 300px;
-  height: 100px;
   border: 1px solid #CCC;
   @include border-radius(4px);
   position: absolute;
@@ -239,5 +240,19 @@
   right: 20px;
   @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
   display: none;
+  z-index: 1;
+  #profile-list {
+    padding: 0px;
+    margin: 0px;
+    li {
+      padding: 10px;
+      a {
+        font-size: 16px;
+      }
+    }
+    li:hover {
+      background: #f9f9f9;
+    }
+  }
 }
 
