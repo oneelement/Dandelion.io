@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
+<div id="header">
   <div id="logo-placeholder">
     <a class="brand" href="/">
       <% if current_user.user_type.name == "Consumer" %>
@@ -27,40 +27,15 @@
         <%# submit_tag "", :name => nil , :id => 'searchbutton' %>
     <% end %>
   </div>
-  <div id="top-navigation">
-    <ul class="nav">
-      <li>
-	<% if can? :read, Organisation %>
-	  <%= link_to 'Organisations', organisations_path %>
-	<% end %>
-      </li>
-      <li>
-	<% if can? :create, Entity %>
-	  <%= link_to 'Entities', entities_path %>
-	<% end %>
-      </li>
-      <li>
-	<% if current_user.user_type.name == "Consumer" %>
-	<% else %>
-	  <% if can? :read, User %>
-	    <%= link_to 'Manage Users', user_index_path %>
-	  <% end %>
-	<% end %>	
-      </li>
-    </ul>
-  </div>
+  
 
   <div id="account-info">
-    <ul class="nav pull-right">
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
-        <img src="<%= current_user.avatar %>"></img>
-        <span class="menu-caret"></span>
-        <span class="dicon-arrow-down"></span>
-      </a>
-    </li>
-    </ul>
+    <div id="account-details">
+      <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
+      <img src="<%= current_user.avatar %>"></img>
+      <span class="menu-caret"></span>
+      <span class="dicon-arrow-down"></span>
+    </div>
     <div id="user-menu">
       <%= link_to 'Profile', user_path(current_user.id) %>
       <%= link_to('Log out', destroy_user_session_path, :method => :delete) %>
