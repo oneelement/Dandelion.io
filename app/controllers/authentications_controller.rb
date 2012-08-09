@@ -53,7 +53,8 @@ class AuthenticationsController < ApplicationController
     user = User.new
     user.apply_omniauth(omniauth)
     if user.save
-      user
+      user.contact_create(omniauth)
+      return user
     else
       nil
     end

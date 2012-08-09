@@ -106,7 +106,7 @@ Onelement::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
   
-  match '/auth/failure' => 'authentications#create'
+  match '/auth/failure' => 'home#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

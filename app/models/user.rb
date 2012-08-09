@@ -5,7 +5,7 @@ class User
   include Mongoid::Paranoia
   include BackboneHelpers::Model
   
-  after_create :contact_create
+  # after_create :contact_create
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -114,9 +114,25 @@ class User
   end
   
   
-  def contact_create
-    record = Contact.new(:name => self.first_name + " " +self.last_name, :user_id => self._id, :is_user => true)
+  def contact_create(omniauth)
+    # assuming only facebook is used to sign in/up for now
+    if omniauth['provider'] == 'facebook'
+      facebook_id = omniauth['uid']
+    else
+      facebook_id = nil
+    end
+    record = Contact.new(
+      :name => self.first_name + " " +self.last_name, 
+      :user_id => self._id, 
+      :is_user => true,
+      :avatar => self.avatar,
+      :facebook_picture => self.avatar,
+      :facebook_id => facebook_id
+    )
     record.save
+    record.emails.create!(
+      :text => self.email
+    )
     self.contact_id = record._id
     self.full_name = self.first_name + ' ' + self.last_name
     self.save
@@ -175,6 +191,11 @@ class User
 	self.email = "" #user_info['email'] unless user_info['email'].blank?
       end
     end 
+    if self.avatar == "http://placehold.it/80x80"
+      if omniauth['info']['image']
+        self.avatar = omniauth['info']['image'] unless omniauth['info']['image'].blank?
+      end
+    end
     self.password, self.password_confirmation = String::RandomString(16) 
     self.user_type_id = UserType.get_consumer.id
   end
