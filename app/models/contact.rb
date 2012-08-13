@@ -44,6 +44,9 @@ class Contact
   field :facebook_picture, :type => String
   field :twitter_picture, :type => String
   field :linkedin_picture, :type => String
+  field :facebook_handle
+  field :twitter_handle
+  field :linkedin_handle
   #field :favorite_users, :type => Array
   
   acts_as_api
@@ -68,6 +71,9 @@ class Contact
     t.add :facebook_picture
     t.add :twitter_picture
     t.add :linkedin_picture
+    t.add :facebook_handle
+    t.add :twitter_handle
+    t.add :linkedin_handle
     t.add :hashtags
   end
   

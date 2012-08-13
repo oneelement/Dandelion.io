@@ -26,7 +26,30 @@ class AuthenticationsController < ApplicationController
 	:secret => omniauth['credentials']['secret']
       )
       flash[:notice] = "Authentication successful"
-      redirect_to current_user
+      if omniauth['provider'] == 'facebook'
+	contact = Contact.find(current_user.contact_id)
+	contact.facebook_handle = omniauth['extra']['raw_info']['link']
+	contact.facebook_picture = omniauth['info']['image']
+	contact.facebook_id = omniauth['uid']
+	contact.save      
+      end
+      if omniauth['provider'] == 'twitter'
+	contact = Contact.find(current_user.contact_id)
+	contact.twitter_handle = omniauth['info']['urls']['Twitter']
+	contact.twitter_picture = omniauth['info']['image']
+	contact.twitter_id = omniauth['info']['nickname']
+	contact.save      
+      end
+      if omniauth['provider'] == 'linkedin'
+	contact = Contact.find(current_user.contact_id)
+        @user = User.find(current_user.id)
+	person = @user.linkedin.profile(:id => omniauth['uid'], :fields => [:picture_url])
+	contact.linkedin_handle = omniauth['info']['urls']['public_profile']
+	contact.linkedin_picture = person.picture_url
+	contact.linkedin_id = omniauth['uid']
+	contact.save      
+      end
+      redirect_to '/#auth/accept'
     elsif user = create_new_omniauth_user(omniauth)
       user.authentications.create!(
 	:provider => omniauth['provider'], 

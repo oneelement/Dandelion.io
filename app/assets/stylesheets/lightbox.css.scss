@@ -7,7 +7,7 @@
   position: fixed;
   display: none;
   background: #FFF;
-  border: 4px solid rgba(#F76A02, 1);
+  border: 2px solid rgba(#999, 1);
   @include border-radius(16px);
   @include background-clip(padding-box);
   @include opacity(0);
@@ -22,6 +22,13 @@
   z-index: 999991;
 }
 
+#expanded-map {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  @include border-radius(16px);
+}
+
 .lightbox.map {
   position: fixed;
   bottom: 10%;
@@ -30,13 +37,6 @@
   top: 10%;
 }
 
-.lightbox.settings {
-  position: fixed;
-  bottom: 10%;
-  left: 5%;
-  right: 5%;
-  top: 10%;
-}
 
 .lightbox.avatar {
   position: fixed;
@@ -115,12 +115,206 @@
   }
 }
 
+.lightbox.settings {
+  position: fixed;
+  bottom: 5%;
+  left: 15%;
+  right: 15%;
+  top: 5%;
+}
+
+#settings-container {
+  float: left;
+  height: 100%;
+  width: 100%;
+  padding: 20px 20px;
+  @include box-sizing(border-box);
+  #settings-menu {
+    float: left;
+    height: 100%;
+    width: 20%;
+    @include box-sizing(border-box);
+    padding: 0px 0px 0px 0px;
+    ul {
+      padding: 0px;
+      margin: 0px;
+      font-size: 16px;
+      li {
+        margin: 12px 0px 12px 0px;
+        cursor: pointer;
+      }
+      li.active {
+        color: #12CEF1;
+      }
+    }
+  }
+  #settings-content {
+    float: left;
+    height: 100%;
+    width: 80%;
+    @include box-sizing(border-box);
+    padding: 20px;
+    border: 1px solid #CCC;
+    @include border-radius(16px);
+    .settings-info {
+      margin: 20px 0px 0px 0px;
+      float: left;
+      width: 100%;
+      p {
+	text-align: center;
+      }
+    }
+    #settings-profile {
+      float: left;
+      width: 100%;
+      height: 100%;
+      #social-profile-info {
+        float: left;
+	width: 20%;
+	height: 100%;
+        #profile-avatar {
+        }
+      }
+      #social-profile-details {
+	float: left;
+	width: 80%;
+	height: 100%;
+	font-size: 18px;
+	div {
+	  margin: 0px 0px 20px 0px;
+	}
+	span {
+	  width: 30%;
+	  display: inline-block;
+	}
+	input {
+	  margin: 0px;
+	  width: 50%;
+	  padding: 12px;
+	  margin: 10px 0px 10px 0px;
+	  font-size: 18px;
+	  height: 24px;
+	}
+      }
+    }
+    #settings-social-facebook.connected, #settings-social-twitter.connected, #settings-social-linkedin.connected {
+      .settings-social-import-all, .settings-social-sync-all {
+	cursor: pointer;
+	@include border-radius(4px);
+	@include box-shadow(0px 1px 2px rgba(0,0,0, 0.15));
+      }
+      .settings-social-import-all:hover, .settings-social-sync-all:hover {
+	background: #f9f9f9;
+        @include box-shadow(0px 1px 1px rgba(0,0,0, 0.15));
+      }
+      .settings-social-connected {
+	color: #BBDD46;
+      }
+      .dicon-network {
+	color: #FEB326;
+      }
+      .dicon-arrow-right-2, .dicon-refresh {
+	color: #999;
+      }
+    }
+    #settings-social-facebook.connected {
+      .settings-social-icon, .settings-social-avatar, .settings-social-import-all, .settings-social-sync-all {
+	color: #3B5998;
+      }      
+    }
+    #settings-social-twitter.connected {
+      .settings-social-icon, .settings-social-avatar, .settings-social-import-all, .settings-social-sync-all {
+	color: #33CCFF;
+      }     
+    }
+    #settings-social-linkedin.connected {
+      .settings-social-icon, .settings-social-avatar, .settings-social-import-all, .settings-social-sync-all {
+	color: #4875B4;
+      }        
+    }
+    #settings-social-facebook, #settings-social-twitter, #settings-social-linkedin {
+      margin: 10px 0px 10px 0px;
+      padding: 10px 0px 10px 0px;
+      float: left;
+      width: 100%;
+      font-size: 48px;
+      line-height: 48px;
+      text-align: center;
+      color: #eee;
+      .settings-social-icon {        
+        width: 15%;
+        float: left;
+      }
+      .settings-social-avatar {
+        width: 15%;
+        float: left;
+	img {
+	  width: 48px;
+          height: 48px;
+          position: relative;
+	  top: -3px;
+          @include border-radius(4px);
+	}
+      }
+      .settings-social-name {
+	width: 30%;
+        float: left;
+	p, a {
+	  margin: 0px;
+	  padding: 0px;
+	  color: #eee;
+	  font-size: 24px;
+	}
+	a {
+	  color: #B5B1AE;
+	}
+
+      }
+      .settings-social-import-all {
+        width: 14%;
+        float: left;
+	font-size: 18px;
+	margin-left: 1%;
+      }
+      .settings-social-sync-all {
+        width: 14%;
+        float: left;
+	font-size: 18px;
+	margin-right: 1%;
+      }
+      .settings-social-connected {
+        width: 10%;
+        float: left;
+	font-size: 32px;
+      }
+      
+    }
+    .activatable {
+	cursor: pointer;
+	a {
+	  color: #eee;
+	}
+     }
+    .activatable:hover {
+        a {
+	  color: #ddd !important;
+	}
+	.settings-social-name {
+	  p {
+	    color: #ddd !important;
+	  }
+	}
+    }
+  }  
+}
+
+
 
 
 .lightbox-backdrop {
   //background-color: #F76A02;
   background-color: #000;
-  @include opacity(0.5);
+  @include opacity(0.25);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -130,9 +324,3 @@
   display: none;
 }
 
-#expanded-map {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  @include border-radius(16px);
-}

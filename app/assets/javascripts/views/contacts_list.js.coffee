@@ -25,7 +25,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
   render: ->
     $(@el).html(@template(contact: @model.toJSON()))    
     @getSections()  
-    console.log('contacts list render')
+    #console.log('contacts list render')
     if @favouriteContacts.get(@model.get("_id"))
       this.$('.dicon-star').addClass('isFavorite')
     if @model.get('facebook_id')
@@ -44,7 +44,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     this.$('.email-details').append(viewEmail.render().el)
     if @model.get("hashtags")
       @contactsHashtags.reset()
-      console.log('resetting')
+      #console.log('resetting')
       @contactsHashtags.add(@model.get('hashtags'))
     viewHash = new RippleApp.Views.ContactListSection(
       title: 'Hashtags'
@@ -58,7 +58,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     Backbone.history.navigate('#contacts/preview/' + @model.id, true)
     $('.contact-list-item').removeClass('selected')
     this.$('#merge-action').toggle()
-    console.log(@model)
+    #console.log(@model)
     if $(this.el).hasClass('selected')
       $(this.el).removeClass('selected')
       @mergers.remove(@model)

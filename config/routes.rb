@@ -7,7 +7,9 @@ Onelement::Application.routes.draw do
   end
   
   resources :imports do
-    get 'facebook', :on => :collection
+    get 'import_facebook', :on => :collection
+    get 'import_twitter', :on => :collection
+    get 'import_linkedin', :on => :collection
   end
 
   resources :linkedin_feeds do

@@ -1,0 +1,28 @@
+<h1>Social Profile</h2>
+<div id="social-profile-info">
+  <div id="profile-avatar">
+    <img src="<%= @user.avatar %>" class="image-thumb large"></img>
+  </div>
+</div>
+
+<div id="social-profile-details">
+  <div id="social-profile-first-name">
+    <span>First Name</span>
+    <input type="text" name="value" id="social-profile-first-name-input" class="input-text" value="<%= @user.first_name %>"></input>          
+  </div>
+  <div id="social-profile-last-name">
+    <span>Last Name</span>
+    <input type="text" name="value" id="social-profile-last-name-input" class="input-text" value="<%= @user.last_name %>"></input>          
+  </div>
+  <div id="social-profile-email">
+    <span>Email</span>
+    <input type="text" name="value" id="social-profile-email-input" class="input-text" value="<%= @user.email %>"></input>          
+  </div>
+  <!--<div id="social-profile-password">
+    <span>New Password</span>
+    <input type="text" name="value" id="social-profile-password-input" class="input-text" value="<%= @user.password	 %>"></input>          
+  </div>-->
+  <div id="social-profile-options"></div>
+</div>
+
+

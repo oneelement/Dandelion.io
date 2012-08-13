@@ -1,0 +1,10 @@
+<div id="settings-menu">
+<ul id="">
+  <li id="settings-social-item" class="active">Social</li>
+  <li id="settings-profile-item">Profile</li>
+  <!--<li id="settings-duplicates-item">Contact duplicates</li>
+  <li id="settings-password-item">Password</li>-->
+</ul>
+</div>
+<div id="settings-content"></div>
+

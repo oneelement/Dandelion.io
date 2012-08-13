@@ -18,6 +18,8 @@ class Authentication
   field :uid
   field :token
   field :secret
+  field :url
+  field :image
   
   acts_as_api
 
@@ -25,6 +27,8 @@ class Authentication
     t.add :_id
     t.add :provider
     t.add :token
+    t.add :url
+    t.add :image
   end
   
 end

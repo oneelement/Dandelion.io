@@ -1,6 +1,51 @@
 class ImportsController < ApplicationController
-
   
+  def import_facebook
+    id = current_user.id
+    @user = User.find(id)
+    if @user.facebook
+      @friends = @user.facebook.get_connections("me", "friends")
+      @friends.each do |face|        
+        id = face["id"]
+        if FacebookFriend.where(:facebook_id => id, :user_id => current_user.id).exists?
+        else
+          name = face["name"]
+          friend = FacebookFriend.new(:name => name, :facebook_id => id, :user_id => current_user.id)
+          friend.save
+        end
+      end
+      @facefriends = FacebookFriend.where(:user_id => current_user.id).asc(:name)
+      #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
+      @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })      
+    end
+    id = current_user.id
+    #@friends = FacebookFriend.where(:user_id => id)
+    #@friends = @friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
+    @facefriends.each do |friend|
+      avatar = 'https://graph.facebook.com/' + friend.facebook_id + '/picture?size=square'
+      contact = Contact.new(
+        :name => friend.name, 
+        :user_id => id, 
+        :facebook_id => friend.facebook_id, 
+        :avatar => avatar,
+        :facebook_picture => avatar
+      )
+      contact.save
+      friend.contact_id = contact._id
+      friend.save
+    end
+
+    respond_to do |format|
+      format.json { render json: @facefriends }
+    end
+
+  end
+  
+  def import_twitter
+  end
+  
+  def import_linkedin
+  end
   
   def create
     if params[:faces]

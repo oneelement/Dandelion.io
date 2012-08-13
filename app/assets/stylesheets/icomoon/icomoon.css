@@ -1,10 +1,10 @@
 @font-face {
         font-family: 'IcoMoon2';
-        src: url('/assets/IcoMoon.eot');
-        src: url('/assets/IcoMoon.eot?#iefix') format('embedded-opentype'),
-             url('/assets/IcoMoon.svg#IcoMoon') format('svg'),
-             url('/assets/IcoMoon.woff') format('woff'),
-             url('/assets/IcoMoon.ttf') format('truetype');
+        src: url('/assets/icomoon.eot');
+        src: url('/assets/icomoon.eot?#iefix') format('embedded-opentype'),
+             url('/assets/icomoon.svg#IcoMoon') format('svg'),
+             url('/assets/icomoon.woff') format('woff'),
+             url('/assets/icomoon.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
 }
@@ -177,4 +177,19 @@
 }
 .dicon-book-2:before {
 	content: "\26";
+}
+.dicon-facebook-2:before {
+	content: "\27";
+}
+.dicon-cancel-2:before {
+	content: "\28";
+}
+.dicon-checkmark:before {
+	content: "\29";
+}
+.dicon-arrow-right-2:before {
+	content: "\2a";
+}
+.dicon-refresh:before {
+	content: "\2b";
 }

@@ -9,6 +9,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "groups/show/:id": "groupShow"
     "hashtags/show/:id": "hashtagShow"
     "users/preview/:id": "userPreview"
+    "auth/accept": "acceptAuth"
 
   initialize: ->
     @globalTweets = new RippleApp.Collections.GlobalTweets()
@@ -69,6 +70,16 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddContactCard(model: new RippleApp.Models.Contact())
     RippleApp.layout.setContextView(viewContext)
+    
+  acceptAuth: ->
+    Backbone.history.navigate('#', true)
+    $('#settings-lightbox').addClass('show').addClass('settings')
+    $('#settings-lightbox').css('display', 'block')
+    $('.lightbox-backdrop').css('display', 'block')
+    settingsView = new RippleApp.Views.Settings(
+    )
+    $('#settings-lightbox').html(settingsView.render().el) 
+    
     
   groupindex: ->
     view = new RippleApp.Views.GroupsIndex(collection: @groups)

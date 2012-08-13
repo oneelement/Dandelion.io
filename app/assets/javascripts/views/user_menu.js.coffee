@@ -4,8 +4,8 @@ class RippleApp.Views.UserMenu extends Backbone.View
   id: 'profile-list'
   
   events:
-    'click #user-settings': 'openSettings'    
-
+    'click #user-settings': 'openSettings' 
+    
   render: ->
     $(@el).html(@template())
     
@@ -16,5 +16,9 @@ class RippleApp.Views.UserMenu extends Backbone.View
     $('#settings-lightbox').addClass('show').addClass('settings')
     $('#settings-lightbox').css('display', 'block')
     $('.lightbox-backdrop').css('display', 'block')
+    settingsView = new RippleApp.Views.Settings(
+    )
+    $('#settings-lightbox').html(settingsView.render().el) 
+
 
 

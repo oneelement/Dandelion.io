@@ -110,11 +110,24 @@ li {
   text-align: center;
 }
 
+.image-thumb {
+  border: 1px solid #EEEEEE;
+  box-shadow: 0 0 1px #777777;
+  @include border-radius(4px);
+}
+.image-thumb.large  {
+  width: 80px;
+  height: 80px;
+}
+.image-thumb.medium  {
+  width: 48px;
+  height: 48px;
+}
+
+
 .button {
   border: 1px solid #FFF;
-  background: #CCC;
   @include border-radius(4px);
-  color: #FFF;
   font-weight: bold;
   text-align: center;
   margin: 2px 0px 2px 0px;
@@ -131,10 +144,12 @@ li {
 }
 
 .button-success {
+  color: #FFF;
   background: #BBDD46;
 }
 
 .button-notify {
+  color: #FFF;
   background: #12CEF1;
 }
 

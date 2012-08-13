@@ -6,6 +6,7 @@ class User
   include BackboneHelpers::Model
   
   # after_create :contact_create
+  before_save :full_name
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -118,8 +119,10 @@ class User
     # assuming only facebook is used to sign in/up for now
     if omniauth['provider'] == 'facebook'
       facebook_id = omniauth['uid']
+      facebook_handle = omniauth['extra']['raw_info']['link']
     else
       facebook_id = nil
+      facebook_handle = nil
     end
     record = Contact.new(
       :name => self.first_name + " " +self.last_name, 
@@ -127,7 +130,8 @@ class User
       :is_user => true,
       :avatar => self.avatar,
       :facebook_picture => self.avatar,
-      :facebook_id => facebook_id
+      :facebook_id => facebook_id,
+      :facebook_handle => facebook_handle
     )
     record.save
     record.emails.create!(
@@ -143,7 +147,8 @@ class User
   #end
   
   def full_name
-    "#{first_name} #{last_name}"
+    #"#{first_name} #{last_name}"
+    self.full_name = self.first_name + ' ' + self.last_name
   end
 
   def authenticated_with?(auth)
