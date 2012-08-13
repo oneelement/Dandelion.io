@@ -394,7 +394,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $matchLabel = $('#contact-card-details-input-type', $form)
     formWidth = $form.width()
     console.log(formWidth)
-    inputWidth = formWidth - 158
+    inputWidth = formWidth - 118
     console.log(inputWidth)
     #matchtypes = ['Mobile', 'Home Phone', 'Email', 'Address', 'Url']
     if @overrideMatch == false

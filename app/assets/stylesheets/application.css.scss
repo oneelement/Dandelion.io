@@ -87,6 +87,12 @@ li {
 .remove {
   background: rgba(#DDD, 0.1) !important;
   border: 1px #CCC dashed !important;
+  .contact-detail-value a {
+    color: #BBB !important;
+  }
+  .contact-detail-remove-hashtag {
+    color: #BBB !important;
+  }
 }
 
 .red {
@@ -176,19 +182,19 @@ li {
   margin: 2px;
   padding: 2px 8px 2px 8px;
   border: 1px solid #CCC;    
-  background: #c2e8f3;
-  //color: #FFF !important;
+  background: #FEB326;
+  color: #FFF !important;
   @include border-radius(4px);
   .contact-detail-remove-hashtag{
     cursor: pointer;
   }
   a {
-    //color: #999 !important;
+    color: #FFF !important;
   }
 
 }
 .contact-hashtag-detail:hover{
-  background: #b5e5f3;
+  background: #FEB326;
 }
 
 

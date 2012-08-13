@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
 
-  width: 400px;
+  width: 320px;
   height: 100%;
 
   #contact-card-map {
@@ -18,11 +18,12 @@
 
     z-index: 0;
     #map-placeholder {
-      width: 400px;
+      width: auto;
       border-bottom: 1px solid #CCC;
       img {
         padding: 0px;
         margin: 0px;
+        width: 100%;
       }
 
     }
@@ -93,10 +94,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 80px;
         img {
-          width: 80px;
-          height: 80px;
+          width: 60px;
+          height: 60px;
           border: 1px solid #EEEEEE;
           box-shadow: 0 0 1px #777777;
           @include border-radius(4px);
@@ -104,10 +104,11 @@
       }
       #contact-card-name {
         position: absolute;
-        top: 2em;
-        left: 90px;
+        top: 22px;
+        left: 70px;
         width: 220px;
         h3 {
+          font-size: 16px;
           display: inline-block;
         }
         #isRipple {
@@ -131,7 +132,7 @@
       #contact-card-favourite {
         position: absolute;
         top: 2em;
-        left: 335px;
+        left: 255px;
         .dicon-star {
           font-size: 24px;
           color: #f0f0f0;
@@ -146,7 +147,7 @@
       #contact-card-edit {
         position: absolute;
         top: 2em;
-        left: 360px;
+        left: 280px;
         .dicon-pencil {
           font-size: 24px;
           color: #f0f0f0;
@@ -160,7 +161,7 @@
 
       #contact-card-details-input-form {
         position: absolute;
-        top: 90px;
+        top: 75px;
         left: 0;
         right: 0;
 
@@ -172,7 +173,7 @@
             top: 0;
             left: 0;
             right: 40px;
-            width: 290px;
+            width: 250px;
           }
           input:focus {
             @include box-shadow(none);
@@ -182,7 +183,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            left: 300px;
+            left: 260px;
             cursor: pointer;
 
             width: auto;
@@ -191,7 +192,7 @@
           
         #override-match-wrapper {
           ul {
-            margin: 0px 0px 0px 220px;
+            margin: 0px 0px 0px 180px;
             padding: 0px;
             background-color: #F5F5F5;
             @include opacity(0.95);
@@ -204,6 +205,7 @@
             li {
               margin: 0px 0px 0px 10px;
               padding: 2px;
+              font-size: 11px;
             }
           } 
         }
@@ -211,7 +213,7 @@
       
       #social-network-links{
         position: absolute;
-        top: 130px;
+        top: 115px;
         left: 0px;
         right: 0;
       }
@@ -256,9 +258,13 @@
 
     #contact-card-body {
       position: absolute;
-      top: 168px;
+      top: 138px;
       left: 0;
-      width: 360px;
+      width: 300px;
+
+      .contact-card-hashtag-section {
+        margin: 6px 0px 0px 0px;
+      }
 
       .contact-details-list {
         margin: 0px;

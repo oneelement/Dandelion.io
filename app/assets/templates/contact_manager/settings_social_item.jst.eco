@@ -13,11 +13,13 @@
     <span class="dicon-refresh"></span>
     <span class="dicon-<%= @social %>"></span>
   </div>
-  <div class="settings-social-import-all">
+
+  <div class="settings-social-import-all" title="Import all contacts from <%= @social %>" rel="tooltip">
     <span class="dicon-<%= @social %>"></span>
     <span class="dicon-arrow-right-2"></span>
     <span class="dicon-network"></span>
   </div>
+  
   <div class="settings-social-connected">
     <span class="dicon-cancel-2"></span>
   </div>
