@@ -15,7 +15,7 @@ gem 'omniauth'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'twitter' #api for twitter
+gem "twitter" #api for twitter
 gem 'koala' #api for facebook
 gem 'linkedin' 
 #gem 'linkedin', :git => 'http://github.com/pengwynn/linkedin.git', :branch => '2-0-stable'

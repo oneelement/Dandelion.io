@@ -34,11 +34,10 @@
       <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
       <img src="<%= current_user.avatar %>"></img>
       <span class="menu-caret"></span>
+      <span class="menu-caret outline"></span>
       <span class="dicon-arrow-down"></span>
     </div>
     <div id="user-menu">
-      <%= link_to 'Profile', user_path(current_user.id) %>
-      <%= link_to('Log out', destroy_user_session_path, :method => :delete) %>
     </div>
   </div>
   <div id="mailbox">

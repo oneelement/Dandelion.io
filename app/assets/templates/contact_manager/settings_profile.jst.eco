@@ -1,4 +1,4 @@
-<h1>Social Profile</h2>
+<h2>Social Profile</h2>
 <div id="social-profile-info">
   <div id="profile-avatar">
     <img src="<%= @user.avatar %>" class="image-thumb large"></img>

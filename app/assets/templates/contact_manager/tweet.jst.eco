@@ -1,11 +1,11 @@
 <div class="tweet-header">
   <span class="tweet-time"></span>
-    <img src="<%= @tweet.user.profile_image_url %>" alt="">
-    <span class="tweet-name"><%= @tweet.user.name %></span>
-    <span class="tweet-screem-name">@<%= @tweet.user.screen_name %></span>
+    <a target="_blank" href="http://www.twitter.com/<%= @tweet.screen_name %>"><img src="<%= @tweet.user_image_url %>" alt=""></a>
+    <span class="tweet-name"><a target="_blank" href="http://www.twitter.com/<%= @tweet.screen_name %>"><%= @tweet.name %></a></span>
+    <span class="tweet-screen-name"><a target="_blank" href="http://www.twitter.com/<%= @tweet.screen_name %>">@<%= @tweet.screen_name %></a></span>
 </div>
 <div class="tweet-content">
-    <p><%= @tweet.text %></p>
+    <p></p>
 </div>
 
 

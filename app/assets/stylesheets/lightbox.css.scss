@@ -153,7 +153,7 @@
     height: 100%;
     width: 80%;
     @include box-sizing(border-box);
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border: 1px solid #CCC;
     @include border-radius(16px);
     .settings-info {

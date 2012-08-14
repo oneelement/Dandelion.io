@@ -8,6 +8,8 @@ class RippleApp.Views.Tweet extends Backbone.View
 
   render: ->    
     $(@el).html(@template(tweet: @model.toJSON()))
+    text = @model.get('parsed_text')
+    this.$('.tweet-content p').html(text)
     this
 
 
