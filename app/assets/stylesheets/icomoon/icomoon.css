@@ -193,3 +193,21 @@
 .dicon-refresh:before {
 	content: "\2b";
 }
+.dicon-comments-2:before {
+	content: "\2c";
+}
+.dicon-thumbs-up:before {
+	content: "\2d";
+}
+.dicon-thumbs-up-2:before {
+	content: "\2e";
+}
+.dicon-comment:before {
+	content: "\2f";
+}
+.dicon-loop:before {
+	content: "\30";
+}
+.dicon-undo:before {
+	content: "\31";
+}

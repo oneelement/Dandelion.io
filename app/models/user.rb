@@ -208,13 +208,15 @@ class User
   
   def tweeting
     provider = self.authentications.where(:provider => 'twitter').first
-    Twitter.configure do |config|
-      config.consumer_key = 'ABP2ZruFX54U9FpM3HOzNg'
-      config.consumer_secret = '7sk9KK4mraEdpv9vvJfgeySnLsukauxOwQeK88WuhA'
-      config.oauth_token = provider.token
-      config.oauth_token_secret = provider.secret
+    if provider
+      Twitter.configure do |config|
+        config.consumer_key = 'ABP2ZruFX54U9FpM3HOzNg'
+        config.consumer_secret = '7sk9KK4mraEdpv9vvJfgeySnLsukauxOwQeK88WuhA'
+        config.oauth_token = provider.token
+        config.oauth_token_secret = provider.secret
+      end
+      @tweeting ||= Twitter::Client.new
     end
-    @tweeting ||= Twitter::Client.new
   end
   
   def facebook

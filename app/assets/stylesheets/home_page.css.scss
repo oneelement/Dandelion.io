@@ -1,0 +1,239 @@
+/*********************************************************************************
+* HOME PAGE
+**********************************************************************************/
+
+#social-wrapper {
+  #social-media-wrapper {
+    
+  }
+  #social-post-wrapper {
+    
+  }
+  #timeline-wrapper {
+    #social-loading img{
+      margin: 0px auto;
+      text-align: center;
+      display: block;
+    }  
+    #timeline {
+      margin: 0px;
+      padding: 0px;  
+      .timeline-entry.twitter {
+	a:hover {
+	  color: #0084B4;
+	}
+	.timeline-entry-content {
+	  a {
+	    color: #0084B4;
+	  }
+	  a:hover {
+	    color: #0084B4;
+	    text-decoration: underline;
+	  }
+	}
+      }
+      .timeline-entry {
+        padding: 0px;
+	margin: 5px 0px 5px 0px;
+        float: left;
+	width: 100%;
+	.timeline-entry-source {
+	  width: 5%;
+	  float: left;
+	  margin-top: 22px;
+	  .social-source {
+	    font-size: 24px;
+	    text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+	  }
+	  .dicon-facebook {
+            color: #3B5998;          
+          }
+          .dicon-twitter {
+            color: #33CCFF;
+          }
+          .dicon-linkedin {
+            color: #4875B4;
+          }
+	}
+	.timeline-entry-wrapper {
+	  margin: 0% 2% 0% 2%;
+	  padding: 1%;
+	  width: 88%;
+	  float: left;
+	  border: 1px solid #CCC;
+	  @include border-radius(4px);
+	  .timeline-entry-image {
+	    width: 10%;
+	    float: left;
+	    height: 100%;
+	    img {
+              @include border-radius(5px);
+	    }
+	  }
+	  .timeline-entry-header {
+	    width: 90%;
+            font-weight: bold;
+            font-size: 13px;
+	    float: left;
+	    .timeline-entry-name {
+              font-weight: bold;
+	      margin: 0px 0px 0px 0px;
+	    }
+	    .timeline-entry-screen-name {
+	      margin: 0px 0px 0px 0px;
+	    }
+	    .timeline-entry-time {
+	      font-size: 11px;
+	      float: right;
+	    }
+	    .timeline-entry-title { /* Facebook version*/
+	      width: 90%;
+	      float: left;
+              font-weight: normal;
+              font-size: 13px;
+            }
+	  }
+	  .timeline-entry-content { /* Twitter version*/
+	    width: 80%;
+	    float: left;
+	    p {
+	      margin: 0px;
+	    }
+	    .dicon-loop {
+	      color: #FFF;
+	      background: #999;
+	      margin-right: 4px;
+	      @include border-radius(4px);
+	      padding: 0px 2px 0px 2px;
+	    }
+	    .timeline-entry-media {
+	      margin: 10px 0px 0px 0px;
+	      display: inline-block;
+	      .timeline-entry-picture {
+                width: 120px;
+                height: 120px;
+                background-position: center;
+                background-size: cover;
+		@include border-radius(5px);
+	      }
+	    }	    
+          }
+          .action-box {
+	    float: right;
+	    width: 90%;
+	    display: none;
+	    .action-box-header {
+	      float: left;
+	      width: 100%;
+	      font-size: 11px;
+	      margin-bottom: 1px;
+	      background: #EDEFF4;
+	      color: #3B5998;
+	      .dicon-thumbs-up-2 {
+                padding-left: 4px;
+	      }
+	    }
+	    .comments-list {
+	      margin: 0px;
+	      float: left;
+	      width: 100%;
+	      .extra-comments {
+		color: #3B5998;
+		font-size: 11px;
+		.dicon-comment {
+		  padding: 0px 3px 0px 4px;
+		  position: relative;
+		  top: 2px;
+		}
+		a {
+		  color: #3B5998;
+		  cursor: pointer;
+		}
+		a:hover {
+		  text-decoration: underline;
+		}
+	      }
+	      .comment-item {
+		background: #EDEFF4;
+		float: left;
+		width: 100%;
+		border-bottom: 1px solid #FFF;
+		.comment-picture {
+                  float: left;
+		  padding: 1%;
+		  width: 6%;
+		  img {
+		    width: 32px;
+		    height: 32px;
+		  }
+		}
+		.comment-item-content {
+		  padding: 1% 1% 0px 1%;
+		  font-size: 11px;
+		  float: left;
+		  width: 90%;
+		  .comment-item-text {
+		    padding: 0px;
+		    .item-name {
+		      color: #3B5998;
+		      font-weight: bold;
+		    }
+		  }
+		  .comment-item-time {
+		    padding: 0px;
+		  }
+		}
+
+		.comment-new-input {
+		  float: left;
+                  padding: 1%;
+		  width: 90%;
+		  input {
+		    width: 100%;
+		    margin: 2px 0px 0px 0px;
+		    padding: 0px 0px 0px 4px;
+		    height: 26px;
+		    @include box-sizing(border-box);
+		  }
+		}
+	      }
+	    }
+	  }
+          .timeline-entry-actions {
+	    color: #3B5998;
+	    float: right;
+	    width: 90%;
+	    margin: 10px 0px 0px 0px;
+	    .like, .unlike {
+	      float: left;
+	      cursor: pointer;
+	      margin-right: 5px;
+	    }	    
+	    .comment {
+	      float: left;	
+	      cursor: pointer;
+	    }
+	    .like-count {
+	      float: right;
+              margin-right: 5px;
+	      cursor: pointer;
+	      .dicon-thumbs-up-2 {
+		position: relative;
+		margin-right: 5px;
+	      }
+	    }
+	    .comment-count {
+	      float: right;
+	      cursor: pointer;
+	      .dicon-comment {
+		position: relative;
+		top: 2px;
+		margin-right: 5px;
+	      }
+	    }
+	  }
+	}
+      }
+    }
+  }
+}

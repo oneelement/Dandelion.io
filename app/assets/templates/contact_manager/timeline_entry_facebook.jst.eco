@@ -1,0 +1,32 @@
+<div class="timeline-entry-wrapper">
+  <div class="timeline-entry-image">
+    <a target="_blank" href="http://www.facebook.com/<%= @entry.user_id %>"><img src="<%= @entry.user_image_url %>" alt=""></a>
+  </div>
+  <div class="timeline-entry-header">  
+    <span class="timeline-entry-title"></span> 
+    <span class="timeline-entry-time"></span>
+  </div>
+  <div class="timeline-entry-content">
+    <div class="timeline-entry-media">
+    </div>
+  </div> 
+  <div class="timeline-entry-actions">
+    <span class="like">Like</span>
+    <span class="comment">Comment</span>    
+    <span class="comment-count"><span class="dicon-comment"></span><%= @entry.comment_count %></span>
+    <span class="like-count"><span class="dicon-thumbs-up-2"></span><%= @entry.like_count %></span>
+  </div>  
+  <div class="action-box">
+    <div class="action-box-header">
+      <span class="dicon-thumbs-up-2"></span>
+      <span class="action-box-likes"></span>
+    </div>
+    <ul class="comments-list">
+
+
+    </ul>
+  </div>
+</div>
+<div class="timeline-entry-source">
+  <span class="social-source"></span>
+</div>

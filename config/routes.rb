@@ -21,6 +21,10 @@ Onelement::Application.routes.draw do
     get 'feed', :on => :collection
     get 'search', :on => :collection
     get 'wallpost', :on => :collection
+    get 'like', :on => :collection
+    get 'unlike', :on => :collection
+    get 'comment', :on => :collection
+    get 'get_object', :on => :collection
   end
 
   resources :twitter_feeds do
@@ -32,6 +36,11 @@ Onelement::Application.routes.draw do
   
   resources :notifications do
     get :complete_ripple, :on => :collection
+  end
+  
+  resources :timelines do
+    get :home, :on => :collection
+    get :contact, :on => :collection
   end
   
   resources :user_contacts

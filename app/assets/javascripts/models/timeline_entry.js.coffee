@@ -1,0 +1,1 @@
+class RippleApp.Models.TimelineEntry extends Backbone.RelationalModel

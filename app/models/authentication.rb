@@ -26,6 +26,7 @@ class Authentication
   api_accessible :user do |t|
     t.add :_id
     t.add :provider
+    t.add :uid
     t.add :token
     t.add :url
     t.add :image

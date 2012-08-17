@@ -1,7 +1,7 @@
 class RippleApp.Views.Layout extends Backbone.View
   id: 'view-layout'
   template: JST['contact_manager/layout']
-  settingsLightbox: JST['contact_manager/settings_lightbox']
+  settingsLightbox: JST['contact_manager/settings/settings_lightbox']
 
   render: ->
     $(@el).html(@template())

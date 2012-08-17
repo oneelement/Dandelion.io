@@ -1,5 +1,5 @@
 class RippleApp.Views.SettingsSocial extends Backbone.View
-  template: JST['contact_manager/settings_social']
+  template: JST['contact_manager/settings/settings_social']
   id: 'settings-social'
   
   

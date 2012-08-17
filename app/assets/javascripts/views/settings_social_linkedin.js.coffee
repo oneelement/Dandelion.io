@@ -1,5 +1,5 @@
 class RippleApp.Views.SettingsSocialLinkedin extends Backbone.View
-  template: JST['contact_manager/settings_social_item']
+  template: JST['contact_manager/settings/settings_social_item']
   id: 'settings-social-linkedin'
   className: 'activatable'
   

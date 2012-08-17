@@ -1,0 +1,14 @@
+<div class="extra-comments">
+</div>
+<div class="all-comments">
+</div>
+<div class="">
+  <li class="comment-item comment-new">
+    <div class="comment-picture">
+      <img src="<%= @entry.my_image_url %>"></img>
+    </div>
+    <div class="comment-new-input">
+      <input type="text" name="value" id="comment-input" class="input-text" value="" placeholder="Write a comment..."></input>          
+    </div>
+  </li>
+</div>

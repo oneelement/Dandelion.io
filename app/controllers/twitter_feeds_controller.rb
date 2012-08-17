@@ -26,7 +26,7 @@ class TwitterFeedsController < ApplicationController
     @user = User.find(current_user.id)
     #@user = User.find(current_user.id)
     #query = "chestermano"
-    tweets = @user.tweeting.user_timeline(count: '10', include_entities: true)
+    tweets = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
     #tweets = @user.tweeting.user_search(query)
     
     parsed_tweets = []
@@ -59,11 +59,25 @@ class TwitterFeedsController < ApplicationController
         output = output.gsub(ind_place.to_s, string.to_s)
       end     
       
+      
+      time = Time.now.localtime
+      
+      tw_time = tweet.created_at.localtime
+      
+      seconds_ago = time.to_i - tw_time.to_i
+      
       internal_hash = Hash.new      
       
+      internal_hash['seconds_ago'] = seconds_ago
       internal_hash['parsed_text'] = output
+      internal_hash['time'] = tw_time.to_i
       internal_hash['id'] = tweet.id
       internal_hash['raw_text'] = tweet.text
+      
+      if tweet.retweeted_status
+        tweet = tweet.retweeted_status
+      end      
+      
       internal_hash['name'] = tweet.user.name
       internal_hash['screen_name'] = tweet.user.screen_name
       internal_hash['user_id'] = tweet.user.id

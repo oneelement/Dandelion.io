@@ -1,0 +1,16 @@
+<div class="timeline-entry-wrapper">
+  <div class="timeline-entry-image">
+    <a target="_blank" href="http://www.twitter.com/<%= @entry.screen_name %>"><img src="<%= @entry.user_image_url %>" alt=""></a>
+  </div>
+  <div class="timeline-entry-header">
+    <span class="timeline-entry-name"><a target="_blank" href="http://www.twitter.com/<%= @entry.screen_name %>"><%= @entry.name %></a></span>
+    <span class="timeline-entry-screen-name"><a target="_blank" href="http://www.twitter.com/<%= @entry.screen_name %>">@<%= @entry.screen_name %></a></span>
+    <span class="timeline-entry-time"></span>
+  </div>
+  <div class="timeline-entry-content">
+      <p></p>
+  </div>
+</div>
+<div class="timeline-entry-source">
+  <span class="social-source"></span>
+</div>

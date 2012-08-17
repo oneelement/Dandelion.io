@@ -7,7 +7,7 @@
 @import "layout";
 @import "sidebar";
 @import "navbar";
-
+@import "home_page";
 @import "contact_card";
 @import "contacts_index";
 @import "user";
@@ -15,10 +15,7 @@
 @import "icons";
 @import "twitter_feeds";
 @import "facebook_feeds";
-@import "type_face_css/icon-font";
 @import "icomoon/icomoon";
-@import "type_face_css/zocial";
-@import "type_face_css/entypo";
 @import "reveal";
 
 
@@ -37,13 +34,15 @@
 }
 
 p {
-  color: #b5b1ae;
+  /*color: #b5b1ae;*/
+  color: #777;
 }
 
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0px 0px 10px 0px;
-  color: #b5b1ae;
+  /*color: #b5b1ae;*/
+  color: #BBB;
 }
 
 a {
@@ -65,7 +64,8 @@ html, body, p {
 html, body {
   height: 100%;
   min-height: 100%;
-  color: #b5b1ae;
+  /*color: #b5b1ae;*/
+  color: #777;
   //background: #d3bdad;
   //background: #fafafa;
   //background-image: url('http://subtlepatterns.com/patterns/bright_squares.png');

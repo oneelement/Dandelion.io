@@ -1,0 +1,16 @@
+<li class='comment-item'>
+  <div class='comment-picture'>
+    <img src='http://graph.facebook.com/<%= @comment.user_id %>/picture?type=square'></img>
+  </div>
+  <div class='comment-item-content'>
+    <div class='comment-item-text'>
+      <a target='_blank' href='http://www.facebook.com/<%= @comment.user_id %>'>
+	<span class='item-name'><%= @comment.user %></span>
+      </a>
+      <span class='item-message'><%= @comment.message %></span>                        
+    </div>
+    <div class='comment-item-time'>
+      <span><%= @comment.time %></span>
+    </div>
+  </div>
+</li>

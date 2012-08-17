@@ -1,8 +1,8 @@
 class RippleApp.Views.HomePage extends Backbone.View
   template: JST['contact_manager/home_page']
+  id: 'social-wrapper'
   
   events:
-    'click #twitter-feed, #facebook-feed': 'toggleTab'
     'keypress #twitter-post': 'postTwitter'
     'keypress #facebook-post': 'postFacebook'
   
@@ -15,12 +15,28 @@ class RippleApp.Views.HomePage extends Backbone.View
     @faces = @options.faces
   
   render: ->
-    $(@el).html(@template(user: @model.toJSON(), contact: @contact.toJSON()))
-    #@getTweets() 
+    $(@el).html(@template())
     $('#sidebar-home').addClass('active')
-    @getSocials()
+    #@getSocials()
+    
+    auths = @model.get('authentications')
+    twitter = auths.where(provider: "twitter")
+    facebook = auths.where(provider: "facebook")
+    if facebook.length > 0
+      @getTimeline()
+    else if twitter.length > 0
+      @getTimeline()
     
     return this
+    
+  getTimeline: ->
+    call = "home"
+    @timelines = new RippleApp.Collections.Timelines([], { call : call })
+    @timelines.fetch(success: (collection) =>
+      view = new RippleApp.Views.Timeline(collection: collection)
+      $('#timeline-wrapper').append(view.render().el)
+      $('#social-loading').addClass('disabled')        
+    )  
     
   postTwitter: (event) ->
     if (event.keyCode == 13) 
@@ -43,19 +59,6 @@ class RippleApp.Views.HomePage extends Backbone.View
         console.log(collection)      
       )     
       this.$('#facebook-post').val("")
-    
-  toggleTab: (event) ->
-    #console.log(event.target.id)
-    target = event.target
-    targetId = event.target.id
-    this.$('li').removeClass('active')
-    $(target, @el).addClass('active')
-    if targetId == "facebook-feed"
-      this.$('#twitter-wrapper').addClass('disabled')
-      this.$('#facebook-wrapper').removeClass('disabled')
-    if targetId == "twitter-feed"
-      this.$('#facebook-wrapper').addClass('disabled')
-      this.$('#twitter-wrapper').removeClass('disabled')
     
   getSocials: =>
     $('#tweets-loading').addClass('disabled')

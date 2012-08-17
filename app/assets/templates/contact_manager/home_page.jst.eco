@@ -1,31 +1,11 @@
-<h1>Social Feeds</h1>
-
-<div id="social-feeds">
-  <ul class="rip-tabs" id="social-feeds-header">
-    <li id="twitter-feed" class="active">Twitter</li>
-    <li id="facebook-feed" class="">Facebook</li>
-  </ul>
-  <div class="clear"/>
-  <div id="twitter-wrapper">  
-    Tweet here: <input id="twitter-post"></input>
-    <ul id="tweets">
-      <li id="tweets-loading" class="tweet"><img src="/assets/loading80x12.gif"></img></li>
-    </ul>
-  </div>
-  <div id="facebook-wrapper" class="disabled">
-    Post on your wall here: <input id="facebook-post"></input>
-    <ul id="faces">
-      <li id="faces-loading" class="face"><img src="/assets/loading80x12.gif"></img></li>
-    </ul>
-  </div>
-  <div id="linkedin-wrapper">
-    <ul id="linkedins">
-    </ul>
-  </div>
+<div id="social-media-wrapper">
 </div>
+<div id="social-post-wrapper">
+  Tweet here: <input id="twitter-post"></input>
+  Post on your wall here: <input id="facebook-post"></input>
+</div>
+<div id="timeline-wrapper">
 
+  <div id="social-loading"><img src="/assets/timeline-loading.gif"></img></div>
 
-
-
-
-
+</div>

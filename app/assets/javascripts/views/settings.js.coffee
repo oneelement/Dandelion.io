@@ -1,5 +1,5 @@
 class RippleApp.Views.Settings extends Backbone.View
-  template: JST['contact_manager/settings']
+  template: JST['contact_manager/settings/settings']
   id: 'settings-container'
   
   events:
