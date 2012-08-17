@@ -11,9 +11,11 @@
   }
   #timeline-wrapper {
     #social-loading img{
-      margin: 0px auto;
-      text-align: center;
-      display: block;
+      position: absolute;
+      display: block;      
+      left: 50%;         
+      top: 50%;
+      margin: -64px -64px;
     }  
     #timeline {
       margin: 0px;
