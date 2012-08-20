@@ -222,6 +222,84 @@ class TimelinesController < ApplicationController
     end
   end
   
+  def picture_timeline
+    @user = User.find(current_user.id)
+    
+    #fetch the users tweets
+    if @user.tweeting
+      twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+    end
+    
+    #fetch the users facebook feed
+    if @user.facebook
+      facebook = @user.facebook.get_connections('me', 'photos')
+    end
+    
+    time = Time.now.localtime
+    
+    #set the timeline array
+    timeline = []
+    
+    if twitter
+      twitter.each do |tweet| 
+        if tweet.media
+	  tweet.media.each do |pic|
+
+	      tw_time = tweet.created_at.localtime
+	    
+	      seconds_ago = time.to_i - tw_time.to_i
+	      
+	      internal_hash = Hash.new      
+	      
+	      internal_hash['source'] = 'twitter'
+	      internal_hash['seconds_ago'] = seconds_ago
+	      internal_hash['time'] = tw_time.to_i
+	      internal_hash['date'] = tw_time.strftime("%d %b")
+	      internal_hash['date_y'] = tw_time.strftime("%d %b %y")
+	      internal_hash['link'] = pic.url
+	      internal_hash['image_source'] = pic.media_url
+	      internal_hash['id'] = pic.id
+	      
+	      timeline << internal_hash
+
+	  end
+	end
+      end
+    end
+    
+    if facebook
+      facebook.each do |face|         
+	
+	face_time = face['created_time']
+	
+	parsed_time = Time.parse(face_time)
+	
+	seconds_ago = time.to_i - parsed_time.to_i
+
+	internal_hash = Hash.new      
+	
+	internal_hash['source'] = 'facebook'
+	internal_hash['seconds_ago'] = seconds_ago
+	internal_hash['time'] = parsed_time.to_i
+	internal_hash['date'] = parsed_time.strftime("%d %b")
+	internal_hash['date_y'] = parsed_time.strftime("%d %b %y")
+	internal_hash['id'] = face['id']
+	internal_hash['user_id'] = face['from']['id']
+	internal_hash['link'] = face['link']
+	internal_hash['image_source'] = face['source']
+	
+	timeline << internal_hash
+      end
+    end
+    
+    timeline.sort! { |a, b|  b['time'] <=> a['time'] }
+    
+    
+    respond_to do |format|
+      format.json { render json: timeline }
+    end    
+  end
+  
   def contact
   end
 end

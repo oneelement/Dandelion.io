@@ -3,8 +3,9 @@ class RippleApp.Views.HomePage extends Backbone.View
   id: 'social-wrapper'
   
   events:
-    'keypress #twitter-post': 'postTwitter'
-    'keypress #facebook-post': 'postFacebook'
+    'keypress #social-post': 'postsocial'
+    'click .dicon-facebook.post-source': 'selectPostFacebook'
+    'click .dicon-twitter.post-source': 'selectPostTwitter'
   
   initialize: ->
     @model.on('change', @render, this)
@@ -17,17 +18,50 @@ class RippleApp.Views.HomePage extends Backbone.View
   render: ->
     $(@el).html(@template())
     $('#sidebar-home').addClass('active')
-    #@getSocials()
+    #@getTwitter()
+    
+    #@getPictureTimeline()
+    
+    this.$('#social-post-select').html('')
     
     auths = @model.get('authentications')
     twitter = auths.where(provider: "twitter")
     facebook = auths.where(provider: "facebook")
     if facebook.length > 0
       @getTimeline()
+      @getPictureTimeline()
     else if twitter.length > 0
       @getTimeline()
-    
+      @getPictureTimeline()
+      
+    if auths
+      @getPosting(auths)
+      
     return this
+    
+  getPosting: (auths) ->
+    twitter = auths.where(provider: "twitter")
+    facebook = auths.where(provider: "facebook")
+    if facebook.length > 0
+      html = "<span class='dicon-facebook post-source'></span>"
+      this.$('#social-post-select').append(html)
+      @selectPostFacebook()
+    if twitter.length > 0
+      html = "<span class='dicon-twitter post-source'></span>"
+      this.$('#social-post-select').append(html)
+      @selectPostTwitter()
+    html = "<span id='social-post-text'>select media</span>"
+    this.$('#social-post-select').append(html)
+    
+  getPictureTimeline: ->
+    console.log('Picture Timeline')
+    call = "picture_timeline"
+    @timelines = new RippleApp.Collections.Timelines([], { call : call })
+    @timelines.fetch(success: (collection) =>
+      view = new RippleApp.Views.PictureTimeline(collection: collection)
+      this.$('#picture-timeline-wrapper').append(view.render().el)  
+      this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
+    )
     
   getTimeline: ->
     call = "home"
@@ -38,27 +72,49 @@ class RippleApp.Views.HomePage extends Backbone.View
       $('#social-loading').addClass('disabled')        
     )  
     
-  postTwitter: (event) ->
-    if (event.keyCode == 13) 
-      text = this.$('#twitter-post').val()
-      call = "tweet/?text=" + text
-      console.log(text)
-      @tweets = new RippleApp.Collections.Tweets([], { call : call })
-      @tweets.fetch(success: (collection) =>
-        console.log(collection)        
-      )      
-      this.$('#twitter-post').val("")      
+  selectPostFacebook: ->
+    this.$('.post-source').removeClass('active')
+    this.$('.dicon-facebook.post-source').addClass('active')
+    html = "<span class='dicon-facebook active'></span>"
+    this.$('#social-post-source').html(html)
+    this.$('#social-post').attr('placeholder', 'post something...')
+    @currentSocial = 'facebook'
     
-  postFacebook: (event) ->
+  selectPostTwitter: ->
+    this.$('.post-source').removeClass('active')
+    this.$('.dicon-twitter.post-source').addClass('active')
+    html = "<span class='dicon-twitter active'></span>"
+    this.$('#social-post-source').html(html)
+    this.$('#social-post').attr('placeholder', 'tweet something...')
+    @currentSocial = 'twitter'
+    
+  postsocial: (event) ->
     if (event.keyCode == 13) 
-      text = this.$('#facebook-post').val()
-      call = "wallpost/?text=" + text
-      console.log(text)
-      @faces = new RippleApp.Collections.Faces([], { call : call })
-      @faces.fetch(success: (collection) =>
-        console.log(collection)      
-      )     
-      this.$('#facebook-post').val("")
+      if @currentSocial == 'facebook'
+        @postFacebook()
+      if @currentSocial == 'twitter'
+        @postTwitter()
+      
+    
+  postTwitter: ->
+    text = this.$('#social-post').val()
+    call = "tweet/?text=" + text
+    console.log(text)
+    @tweets = new RippleApp.Collections.Tweets([], { call : call })
+    @tweets.fetch(success: (collection) =>
+      console.log(collection)        
+    )      
+    this.$('#social-post').val('')      
+    
+  postFacebook: ->
+    text = this.$('#social-post').val()
+    call = "wallpost/?text=" + text
+    console.log(text)
+    @faces = new RippleApp.Collections.Faces([], { call : call })
+    @faces.fetch(success: (collection) =>
+      console.log(collection)      
+    )     
+    this.$('#social-post').val('')
     
   getSocials: =>
     $('#tweets-loading').addClass('disabled')

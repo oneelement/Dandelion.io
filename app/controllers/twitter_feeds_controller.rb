@@ -86,7 +86,7 @@ class TwitterFeedsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: parsed_tweets }
+      format.json { render json: tweets }
     end
   end
   

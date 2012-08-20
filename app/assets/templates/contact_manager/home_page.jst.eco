@@ -1,8 +1,13 @@
-<div id="social-media-wrapper">
+<div id="picture-timeline-wrapper">
 </div>
 <div id="social-post-wrapper">
-  Tweet here: <input id="twitter-post"></input>
-  Post on your wall here: <input id="facebook-post"></input>
+  <div id="social-post-input">
+    <input id="social-post" placeholder="say something..."></input>
+    <span id="social-post-source"></span>
+  </div> 
+  <div id="social-post-select">
+  </div>
+
 </div>
 <div id="timeline-wrapper">
 

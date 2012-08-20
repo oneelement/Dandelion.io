@@ -1,0 +1,5 @@
+<a id="image-link" target="_blank" href="<%= @entry.link %>">
+<div class="image">
+  <div class="image-source"></div>
+</div>
+</a>

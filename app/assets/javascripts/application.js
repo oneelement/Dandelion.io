@@ -12,6 +12,7 @@
 //= require bootstrap
 //= require dashboard
 //= require lightbox
+//= require box_slider
 //= require dataTables/jquery.dataTables
 //= require user
 //= require autocomplete
