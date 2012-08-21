@@ -16,6 +16,9 @@ class AuthenticationsController < ApplicationController
     authentication = Authentication.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
     #current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
     if authentication
+      authentication.token = omniauth['credentials']['token']
+      authentication.secret = omniauth['credentials']['secret']
+      authentication.save
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user     
       current_user.authentications.where(:provider => omniauth['provider']).delete_all
