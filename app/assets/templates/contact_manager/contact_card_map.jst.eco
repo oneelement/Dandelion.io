@@ -1,3 +1,3 @@
 <!--<img src="http://ojw.dev.openstreetmap.org/StaticMap/?lat=<%= @lat %>&amp;lon=<%= @long %>&amp;z=16&amp;w=<%= @width %>&amp;h=<%= @height %>&amp;filter=lightgrey&amp;mode=Export&amp;att=none&amp;show=1" width="<%= @width %>" height="<%= @height %>" alt="OpenStreetMap (mapnik) map of the area around 51.52147, -0.13312" />-->
-<img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= @lat %>,<%= @long %>&zoom=16&format=png&sensor=false&size=<%= @width %>x<%= @height %>&maptype=roadmap&style=hue:0xff6e00" />
+<img src="http://maps.googleapis.com/maps/api/staticmap?center=<%= @lat %>,<%= @long %>&zoom=15&format=png&sensor=false&size=<%= @width %>x<%= @height %>&maptype=roadmap" />
 

@@ -14,7 +14,7 @@
   <div id="logo-placeholder">
     <a class="brand" href="/">
       <% if current_user.user_type.name == "Consumer" %>
-	Ripple
+	<img src="/assets/dandelion-logo.png"></img>
       <% else %>
 	<%= current_user.organisation.name %>
       <% end %>      

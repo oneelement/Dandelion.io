@@ -51,7 +51,7 @@
 	.image {
 	  @include border-radius(4px);
 	  @include box-shadow(rgba(black, 0.4) 2px 2px 4px);
-          background-position: center top;
+          background-position: center 25%;
           background-size: cover;
 	  width: 96%;
 	  height: 96%;
@@ -82,7 +82,7 @@
       position: relative;
       margin: 0px;
       padding: 0px 4px 0px 4px;
-      border-bottom: 1px solid #CCC;
+      border-top: 1px solid #CCC;
       background: #EEE;
       .post-source {
 	color: #DDD;
@@ -90,6 +90,7 @@
 	cursor: pointer;
 	padding: 8px 4px 8px 4px;
 	display: inline-block;
+	text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
       }
       .dicon-facebook.active {
 	color: #3B5998;
@@ -102,8 +103,8 @@
 	right: 5px;
 	top: 20%;
 	font-size: 16px;
-	font-weight: bold;
 	color: #DDD;
+	text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
       }
     }
     #social-post-input {

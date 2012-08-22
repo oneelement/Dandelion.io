@@ -4,6 +4,15 @@
 </div>
 <div id="upload-container">
   <h3>...or upload your own.</h3>
+<div id="avatar-droppable">
+  <p>Drop file here.</p>
+</div>
+<p style="text-align: center; margin: 10px 0px 10px 0px;">OR</p>
+<form id="avatar-upload-form" action="/avatars.json" method="post" enctype="multipart/form-data"> 
+    <input type="hidden" name="avatar[contact_id]" value="<%= @contact._id %>">
+    <input type="file" name="avatar[photo]"></input>
+    <input class="button button-success avatar-upload" type="submit" value="Upload Avatar" /> 
+</form>
 </div>
 
 

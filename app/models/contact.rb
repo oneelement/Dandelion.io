@@ -61,6 +61,7 @@ class Contact
     t.add :urls
     t.add :name
     t.add :is_ripple
+    t.add :is_user
     t.add :linked_contact_id
     t.add :dob
     t.add :avatar

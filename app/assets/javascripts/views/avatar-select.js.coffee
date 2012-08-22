@@ -4,7 +4,7 @@ class RippleApp.Views.AvatarSelect extends Backbone.View
   className: 'avatar'
   
   events:
-    'click img': 'setAvatar'
+    'click': 'setAvatar'
     
   initialize: ->
     #@model.on('change', @render, this)
@@ -20,17 +20,14 @@ class RippleApp.Views.AvatarSelect extends Backbone.View
       this.$('.social-icon').addClass('dicon-facebook')
     else if @social == 'twitter'
       this.$('.social-icon').addClass('dicon-twitter')
-    
-    
+        
     return this
     
-  setAvatar: (e) =>
-    console.log(e.target)
-    console.log(e)
+  setAvatar: =>
+    $('.lightbox-backdrop').css('display', 'none')
     @model.set('avatar', @url)
     @model.unset('hashtags', { silent: true })
     @model.save()
-    $('#avatar-modal').modal('hide')
     
     
     

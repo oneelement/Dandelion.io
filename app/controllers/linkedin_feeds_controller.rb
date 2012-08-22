@@ -17,7 +17,7 @@ class LinkedinFeedsController < ApplicationController
     query = params[:q]
     #query = "Bubba G"
     @user = User.find(current_user.id)
-    fields = [{:people => [:id, :first_name, :last_name, :public_profile_url, :picture_url]}]
+    fields = [{:people => [:id, :first_name, :last_name, :headline, :public_profile_url, :picture_url]}]
     search = @user.linkedin.search(:keywords => query, :fields => fields)
     #search = @user.linkedin.profile(:fields => [:headline, :first_name, :last_name, :summary, :educations, :positions])
     respond_to do |format|

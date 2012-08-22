@@ -1,25 +1,9 @@
-<div id="contact-card-map">
-    <% if @contact.map && @contact.map.toString() != "" : %>
-      <!-- I would have liked to have a query for an empty array, OC -->
-      <img src="http://maps.google.com/maps/api/staticmap?size=380x220&sensor=false&maptype=hybrid&zoom=16&markers=<%= @contact.map[1] %>%2C<%= @contact.map[0] %>"/>
-    <% else: %>
-      <img src="http://placehold.it/380x216"/>
-    <% end %>
+<div id="contact-card-top">
+  <div id="contact-card-name" class="add">
+    <input type="text" name="value" id="subject_name_input" class="input-text" value="" placeholder="Enter name for quick add..."></input>
+  </div>
 </div>
-<div id="contact-card-actions-wrapper">
-    <a id="contact-card-toggle-actions"><i class="icon-chevron-left"></i></a>
-    <div id="contact-card-actions-bar">
-        <div id="contact-card-actions" style="opacity: 0; width: 0">
-            <ul>
-                <li>Favourite</li>
-                <li>Refresh</li>
-                <li id="subject-delete">Delete</li>
-                <li>Edit</li>
-                <li>Send</li>
-                <li>Add to Group</li>
-            </ul>
-        </div>
-    </div>
+<div id="contact-card-map">
 </div>
 <div id="contact-card-details">
     <div id="contact-card-head">
@@ -27,19 +11,8 @@
           <% if @contact.avatar?: %>
             <img src="<%= @contact.avatar %>"/>
           <% else: %>
-            <img src="http://placehold.it/80x80"/>
+            <span class="subject-avatar dicon-user"></span>
           <% end %>
-        </div>
-        <div id="contact-card-name">
-          <% if @contact.name?: %>
-             <h3 id="subject_name"><%= @contact.name %></h3> 
-             <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
-          <% else: %>
-            <input type="text" name="value" id="subject_name_input" class="input-text" value="" placeholder="Enter contact name..."></input>
-          <% end %>
-        </div>
-        <div id="contact-card-favourite">
-          <input id="isFavourite" type="checkbox" name="isFavourite"/>
         </div>
         <form id="contact-card-details-input-form">
             <div class="input-append" id="contact-card-details-input">
@@ -50,9 +23,9 @@
             </div>
         </form>
         <div id="social-network-links">
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon facebook"></a></div>
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon twitter"></a></div>
-            <div class="searchIcon"><a href="#social-modal" data-toggle="modal" class="zocial icon linkedin"></a></div>
+            <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>
+            <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a></div>
+            <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a></div>
         </div>
     </div>
     <div id="contact-card-body">

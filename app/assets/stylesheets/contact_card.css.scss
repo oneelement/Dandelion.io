@@ -1,21 +1,103 @@
 #contact-card {
   position: absolute;
-  top: 0;
+  top: 0px;
   left: 0;
-
   width: 320px;
   height: 100%;
+  #contact-card-top {
+    position: absolute;
+    top: 0px;
+    height: 35px;
+    width: 100%;
+    border-bottom: 1px solid #CCC;
+    z-index: 1;
+    #contact-card-name {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 90%;
+      h3 {
+        margin: 0px;
+        padding: 0px;
+        position: absolute;
+        top: 8px;
+        right: 0px;
+        width: 90%;
+        text-align: center;
+	font-size: 16px;
+        line-height: 16px;
+        font-weight: bold;
+	display: inline-block;
+      }
+      input {
+        margin: 0px;
+        padding: 0px 0px 4px 0px;
+        position: absolute;
+        top: 4px;
+        right: 0px;
+        width: 90%;
+        font-size: 16px;
+        border: none;  
+        color: #BBB;
+        line-height: 16px;
+        font-weight: bold;
+        height: 24px;
+        background: transparent;      
+        @include box-shadow(none);
+        text-align: center;
+      }
+      #isRipple {
+        display: none;
+	font-size: 24px;
+	color: #f0f0f0;
+	text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+	cursor: pointer;
+	position: relative;
+	top: 8px;
+        width: 10%;
+        left: 4px;
+      }
+      .visible {
+	display: inline-block !important;
+      }
+      .connected {
+	display: inline-block !important;
+	color: #FEB326 !important; 
+      }
+
+    }
+    #contact-card-name.add {
+      width: 100% !important;
+      input {
+        width: 100% !important;
+      }
+    }
+
+    #contact-card-edit {
+      position: absolute;
+      top: 8px;
+      right: 0px;
+      width: 10%;
+      .dicon-pencil {
+	font-size: 24px;
+	color: #f0f0f0;
+	text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+	cursor: pointer;
+      }
+      .active {
+	color: #777;
+      }
+    }
+  }
 
   #contact-card-map {
     position: relative;
-    top: 0;
-    left: 0;
-    
+    top: 35px;
+    left: 0;    
     width: auto;
     height: 150px;
     overflow: hidden;
     border-bottom: 1px solid #CCC;
-
     z-index: 0;
     #map-placeholder {
       width: auto;
@@ -34,53 +116,12 @@
     height:60px;
   }
 
-  #contact-card-actions-wrapper {
-    position: absolute;
-    top: 190px;
-    left: 0;
-
-    width: 100%;
-    height: 20px;
-    z-index: 1;
-
-    #contact-card-toggle-actions {
-      position: absolute;
-      top: 1px;
-      right: 0;
-
-      height: 20px;
-      width: 5%;
-    }
-
-    #contact-card-actions-bar {
-      position: absolute;
-      right: 10%;
-
-      height: 20px;
-      width: 85%;
-      overflow: hidden;
-    }
-
-    #contact-card-actions {
-      float: right;
-
-      background-color: #ddd;
-    }
-
-    ul {
-      list-style-type: none;
-      li {
-        display: inline;
-      }
-    }
-  }
-
   #contact-card-details {
 
     $detailsPadding: 10px;
 
     position: relative;
-    top: -10px;
+    top: 0px;
     left: $detailsPadding;
     right: $detailsPadding;
 
@@ -94,6 +135,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        cursor: pointer;
         img {
           width: 60px;
           height: 60px;
@@ -101,38 +143,24 @@
           box-shadow: 0 0 1px #777777;
           @include border-radius(4px);
         }
-      }
-      #contact-card-name {
-        position: absolute;
-        top: 22px;
-        left: 70px;
-        width: 220px;
-        h3 {
-          font-size: 16px;
+        span.subject-avatar {
+          width: 60px;
+          height: 60px;
           display: inline-block;
+          font-size: 60px;
+          line-height: 60px;
+          background: #FFF;
+          border: 1px solid #EEEEEE;
+          box-shadow: 0 0 1px #777777;
+          @include border-radius(4px);
+
         }
-        #isRipple {
-          display: none;
-          font-size: 24px;
-          color: #f0f0f0;
-          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
-          cursor: pointer;
-          position: relative;
-          top: 4px;
-        }
-        .visible {
-          display: inline-block !important;
-        }
-        .connected {
-          display: inline-block;
-          color: orange; 
-        }
-    
       }
+      
       #contact-card-favourite {
         position: absolute;
-        top: 2em;
-        left: 255px;
+        top: 40px;
+        left: 270px;
         .dicon-star {
           font-size: 24px;
           color: #f0f0f0;
@@ -144,20 +172,7 @@
         }
       }
 
-      #contact-card-edit {
-        position: absolute;
-        top: 2em;
-        left: 280px;
-        .dicon-pencil {
-          font-size: 24px;
-          color: #f0f0f0;
-          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
-          cursor: pointer;
-        }
-        .active {
-          color: #777;
-        }
-      }
+
 
       #contact-card-details-input-form {
         position: absolute;
@@ -221,6 +236,7 @@
       #social-network-links .searchIcon{
         padding: 0 12px 0 0;
         float: left;
+        cursor: pointer;
         .social-grey {
           font-size: 24px;
           color: #DDD;

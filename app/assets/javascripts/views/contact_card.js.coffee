@@ -1,6 +1,5 @@
 class RippleApp.Views.ContactCard extends Backbone.View
   template: JST['contact_manager/contact_card']
-  searchModel: JST['contact_manager/search_modal']
   lightbox: JST['contact_manager/lightbox']
   matchOverrideList: JST['contact_manager/match_override_list']
   id: 'contact-card'
@@ -14,7 +13,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'render': 'matchInputDetails'
     'click .Phone span.c-sm-icon-house, .Phone span.c-sm-icon-mobile': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'  
-    'dblclick #contact-card-name': 'editName'
+    'click #contact-card-name h3': 'editName'
     'keypress #subject_name_input': 'checkNameEnter'
     'focusout input#subject_name_input': 'closeNameEdit'
     'keypress #edit_value': 'checkEnter'
@@ -37,23 +36,19 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
     @contactsHashtags = new RippleApp.Collections.Hashtags()
-    #@model.on('change', @render, this)
+    @model.on('change', @render, this)
     @editViewOn = false
     @overrideMatch = false
+    @auths = @user.get('authentications')
   
   render: ->
     this.$('#minibar').focus()
     console.log('contact card rendering')
     $(@el).html(@template(contact: @model.toJSON()))
     $(@el).append(@lightbox())
-    $(@el).append(@searchModel(options: {title: "Facebook Search"}))
-    $('#social-modal', @el).modal(show: false)
     if @favouriteContacts.get(@model.get("_id"))
       #$('#isFavourite', @el).attr('checked', 'checked')
       this.$('#isFavourite').addClass('isFavorite')
-      
-          
-    
       
     @outputMap()
 
@@ -68,40 +63,51 @@ class RippleApp.Views.ContactCard extends Backbone.View
       @outputWithRippleDetails()
     else
       @outputCard()
-    
-    
+      
+    if @model.get('is_user') == true
+      this.$('#isRipple').addClass('connected')
     
     return @
     
   rippleRequest: ->
-    console.log('Ripple Request')
-    console.log(@model)
-    @notification = new RippleApp.Models.Notification()
-    sent_contact_id = @model.get('_id') #contact_id of this contact
-    ripple_id = @model.get('ripple_id') #contact_id of target user
-    @notification.set(
-      _type: 'NotificationContactRipple'
-      sent_contact_id: sent_contact_id
-      ripple_id: ripple_id
-    )
-    console.log(@notification)
-    @notification.save()
+    if @model.get('is_ripple') == false
+      if @model.get('is_user') == false
+        @notification = new RippleApp.Models.Notification()
+        sent_contact_id = @model.get('_id') #contact_id of this contact
+        ripple_id = @model.get('ripple_id') #contact_id of target user
+        @notification.set(
+          _type: 'NotificationContactRipple'
+          sent_contact_id: sent_contact_id
+          ripple_id: ripple_id
+        )
+        console.log(@notification)
+        @notification.save()
+
     
   showMapLightbox: ->
     $('#expanded-map').css('display','block')
-    this.$('.lightbox').addClass('show').addClass('map')
-    this.$('.lightbox').css('display', 'block')
+    this.$('.lightboxmap').addClass('show').addClass('map')
+    this.$('.lightboxmap').css('display', 'block')
     $('.lightbox-backdrop').css('display', 'block')
     map = new RippleApp.Views.LightboxMap(
       collection: @model.get("addresses")
     )
-    $('.lightbox', @el).append(map.render().el)
+    $('.lightboxmap', @el).append(map.render().el)
     
   showAvatarLightbox: ->
     this.$('.lightbox').addClass('show').addClass('avatar')
     this.$('.lightbox').css('display', 'block')
     $('.lightbox-backdrop').css('display', 'block')
     view = new RippleApp.Views.LightboxAvatar(
+      model: @model
+    )
+    $('.lightbox', @el).html(view.render().el)
+    
+  showSocialLightbox: ->
+    this.$('.lightbox').addClass('show').addClass('social')
+    this.$('.lightbox').css('display', 'block')
+    $('.lightbox-backdrop').css('display', 'block')
+    view = new RippleApp.Views.LightboxSocialSearch(
       model: @model
     )
     $('.lightbox', @el).html(view.render().el)
@@ -264,7 +270,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   editName: ->
     $(this.el).addClass('editing')
     this.$('#contact-card-name h3').css('display', 'none')
-    this.$('#subject_name_input').css('display', 'block')
+    this.$('#subject_name_input').css('display', 'inline-block')
     this.$('input#subject_name_input').focus()
     
   checkNameEnter: (event) ->
@@ -275,7 +281,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   closeNameEdit: ->
     @model.unset('hashtags', { silent: true })
     @model.save('name', this.$('input#subject_name_input').val())
-    this.$('#contact-card-name h3').css('display', 'block')
+    this.$('#contact-card-name h3').css('display', 'inline-block')
     this.$('#subject_name_input').css('display', 'none')
   
   editValue: ->
@@ -625,109 +631,123 @@ class RippleApp.Views.ContactCard extends Backbone.View
   facebookSearch: (e) =>
     if e.keyCode == 13      
       @socials = new RippleApp.Collections.Faces([], { call : "search/?q="+e.target.value })
-      $('#social-modal ul').empty()
-      $('#social-modal ul').append("<li>Fetching...</li>")
+      $('.social-search-body ul').empty()
+      $('.social-search-body ul').append("<li>Fetching...</li>")
       @socials.fetch(success: (collection) =>  
         if collection.length > 0
-          $('#social-modal ul').empty()
+          $('.social-search-body ul').empty()
           collection.each((social)=>
             social.set('socialType', 'facebook_id')
             view = new RippleApp.Views.FaceSearch(model: social)
-            $('#social-modal ul').append(view.render().el)
+            $('.social-search-body ul').append(view.render().el)
           )
         else
-          $('#social-modal ul').empty().append("<li>No results to display</li>")
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
       )
       #$('#social-search').off('keyup')
 
   facebookModal: (e) =>
+    @showSocialLightbox()
+    facebookauth = @auths.where(provider: "facebook")
+    $('.social-search-header h3').html('Facebook Search')
     $('#social-search').val(@model.get('name'))
-    @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
-    $('#social-modal ul').empty().append("<li>Fetching...</li>")
-    @faces.fetch(success: (collection) ->
-      if collection.length > 0
-        $('#social-modal ul').empty()
-        collection.each((face)=>
-          face.set('socialType', 'facebook_id')
-          view = new RippleApp.Views.FaceSearch(model: face)
-          $('#social-modal ul').append(view.render().el)
-        )
-      else
-        $('#social-modal ul').empty().append("<li>No results to display</li>")
-    )
-    $('#social-search').on('keyup', @.facebookSearch)    
+    if facebookauth.length > 0
+      @faces = new RippleApp.Collections.Faces([], { call : "search/?q="+@model.get('name') })
+      $('.social-search-body ul').empty().append("<li>Fetching...</li>")
+      @faces.fetch(success: (collection) ->
+        if collection.length > 0
+          $('.social-search-body ul').empty()
+          collection.each((face)=>
+            face.set('socialType', 'facebook_id')
+            view = new RippleApp.Views.FaceSearch(model: face)
+            $('.social-search-body ul').append(view.render().el)
+          )
+        else
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
+      )
+      $('#social-search').on('keyup', @.facebookSearch)    
+    else
+      $('.social-search-body ul').append("<li><span class='dicon-info' style='color: #12CEF1;'> </span>Please link your Facebook account via the settings menu to search Facebook profiles.</li>")    
     
   twitterModal: (e)=>
-    $('.modal-header h3').html('Twitter Search')
+    @showSocialLightbox()
+    twitterauth = @auths.where(provider: "twitter")
+    $('.social-search-header h3').html('Twitter Search')
     $('#social-search').val(@model.get('name'))
-    @tweets = new RippleApp.Collections.Tweets([], { call : "search/?q="+@model.get('name') })
-    $('#social-modal ul').empty().append("<li>Fetching...</li>")
-    @tweets.fetch(success: (collection) ->
-      if collection.length > 0
-        $('#social-modal ul').empty()
-        collection.each((tweet)=>
-          tweet.set('socialType', 'twitter_id')
-          view = new RippleApp.Views.TwitterSearch(model: tweet)
-          $('#social-modal ul').append(view.render().el)
-        )
-      else
-        $('#social-modal ul').empty().append("<li>No results to display</li>")
-    )
-    $('#social-search').on('keyup', @.twitterSearch)
+    if twitterauth.length > 0
+      @tweets = new RippleApp.Collections.Tweets([], { call : "search/?q="+@model.get('name') })
+      $('.social-search-body ul').empty().append("<li>Fetching...</li>")
+      @tweets.fetch(success: (collection) ->
+        if collection.length > 0
+          $('.social-search-body ul').empty()
+          collection.each((tweet)=>
+            tweet.set('socialType', 'twitter_id')
+            view = new RippleApp.Views.TwitterSearch(model: tweet)
+            $('.social-search-body ul').append(view.render().el)
+          )
+        else
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
+      )
+      $('#social-search').on('keyup', @.twitterSearch)
+    else
+      $('.social-search-body ul').append("<li><span class='dicon-info' style='color: #12CEF1;'> </span>Please link your Twitter account via the settings menu to search Twitter profiles.</li>")
     
   twitterSearch: (e) =>
     if e.keyCode == 13      
       @socials = new RippleApp.Collections.Tweets([], { call : "search/?q="+e.target.value })
-      $('#social-modal ul').empty()
-      $('#social-modal ul').append("<li>Fetching...</li>")
+      $('.social-search-body ul').empty()
+      $('.social-search-body ul').append("<li>Fetching...</li>")
       @socials.fetch(success: (collection) =>  
         if collection.length > 0
-          $('#social-modal ul').empty()
+          $('.social-search-body ul').empty()
           collection.each((social)=>
             social.set('socialType', 'twitter_id')
             view = new RippleApp.Views.TwitterSearch(model: social)
-            $('#social-modal ul').append(view.render().el)
+            $('.social-search-body ul').append(view.render().el)
           )
         else
-          $('#social-modal ul').empty().append("<li>No results to display</li>")
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
       )
       #$('#social-search').off('keyup')
       
   linkedinModal: (e) =>
-    $('.modal-header h3').html('Linkedin Search')
+    @showSocialLightbox()
+    linkedinauth = @auths.where(provider: "linkedin")
+    $('.social-search-header h3').html('Linkedin Search')
     $('#social-search').val(@model.get('name'))
-    @linkedin = new RippleApp.Collections.Linkedins([], { call : "search/?q="+@model.get('name') })
-    $('#social-modal ul').empty().append("<li>Fetching...</li>")
-    @linkedin.fetch(success: (collection) ->
-      if collection.length > 0
-        $('#social-modal ul').empty()
-        console.log(collection)
-        console.log(collection.people)
-        collection.each((link)=>
-          link.set('socialType', 'linkedin_id')
-          view = new RippleApp.Views.LinkedinSearch(model: link)
-          $('#social-modal ul').append(view.render().el)
-        )
-      else
-        $('#social-modal ul').empty().append("<li>No results to display</li>")
-    )
-    $('#social-search').on('keyup', @.linkedinSearch)
+    if linkedinauth.length > 0
+      @linkedin = new RippleApp.Collections.Linkedins([], { call : "search/?q="+@model.get('name') })
+      $('.social-search-body ul').empty().append("<li>Fetching...</li>")
+      @linkedin.fetch(success: (collection) ->
+        if collection.length > 0
+          $('.social-search-body ul').empty()
+          collection.each((link)=>
+            link.set('socialType', 'linkedin_id')
+            view = new RippleApp.Views.LinkedinSearch(model: link)
+            $('.social-search-body ul').append(view.render().el)
+          )
+        else
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
+      )
+      $('#social-search').on('keyup', @.linkedinSearch)
+    else
+      $('.social-search-body ul').append("<li><span class='dicon-info' style='color: #12CEF1;'> </span>Please link your Linkedin account via the settings menu to search Linked In profiles.</li>")
     
   linkedinSearch: (e) =>
     if e.keyCode == 13      
       @socials = new RippleApp.Collections.Linkedins([], { call : "search/?q="+e.target.value })
-      $('#social-modal ul').empty()
-      $('#social-modal ul').append("<li>Fetching...</li>")
+      $('.social-search-body ul').empty()
+      $('.social-search-body ul').append("<li>Fetching...</li>")
       @socials.fetch(success: (collection) =>  
         if collection.length > 0
-          $('#social-modal ul').empty()
+          $('.social-search-body ul').empty()
           collection.each((social)=>
             social.set('socialType', 'linkedin_id')
             view = new RippleApp.Views.LinkedinSearch(model: social)
-            $('#social-modal ul').append(view.render().el)
+            $('.social-search-body ul').append(view.render().el)
           )
         else
-          $('#social-modal ul').empty().append("<li>No results to display</li>")
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
       )
       #$('#social-search').off('keyup')
     
@@ -735,39 +755,48 @@ class RippleApp.Views.ContactCard extends Backbone.View
     socialType = $(e.target).attr('data-socialtype')
     social_id = $(e.target).attr('data-socialid')
     pictureUrl = $(e.target).attr('data-pictureurl')
+    handle = $(e.target).attr('data-handle')
     if socialType == "facebook_id"
       pictureType = "facebook_picture"
+      handleType = "facebook_handle"
     if socialType == "twitter_id"
       pictureType = "twitter_picture"
+      handleType = "twitter_handle"
     if socialType == "linkedin_id"
       pictureType = "linkedin_picture"   
+      handleType = "linkedin_handle"
+    @model.set(handleType, handle, {silent: true})
     @model.set(pictureType, pictureUrl, {silent: true})
     @model.set(socialType, social_id, pictureType, pictureUrl)
     @model.unset('hashtags', { silent: true })
     @model.save()
     @updateSocialLinks()
-    $('#social-modal').modal('hide')
+    $('.lightbox-backdrop').css('display', 'none')
+    $('.lightbox').removeClass('show')
+    $('.lightbox').removeClass('social')
+    $('.lightbox').css('display', 'none')
+    $('.lightbox').html('')
+
     
   updateSocialLinks: ()=>
-    facebook_id = @model.get('facebook_id')
-    if facebook_id
-      $('#social-network-links a.dicon-facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
+    if @model.get('facebook_handle')
+      $('#social-network-links a.dicon-facebook', @el).removeAttr('style').attr('href', @model.get('facebook_handle')).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('facebookSearch')
       this.$('.dicon-facebook').removeClass('social-grey')
       this.$('.dicon-facebook').addClass('social-facebook')
     else
       $('#social-network-links a.facebook', @el).attr('data-toggle', 'modal').attr('style', 'background-color:#CFCFCF;')
       
-    if @model.get('twitter_id')
-      $('#social-network-links a.dicon-twitter', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.twitter.com/'+@model.get('twitter_id')).attr('target', '_blank')
+    if @model.get('twitter_handle')
+      $('#social-network-links a.dicon-twitter', @el).removeAttr('style').attr('href', @model.get('twitter_handle')).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('twitterSearch')
       this.$('.dicon-twitter').removeClass('social-grey')
       this.$('.dicon-twitter').addClass('social-twitter')
     else
       $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
       
-    if @model.get('linkedin_id')
-      $('#social-network-links a.dicon-linkedin', @el).removeAttr('style').removeAttr('data-toggle').attr('href', @model.get('linkedin_id')).attr('target', '_blank')
+    if @model.get('linkedin_handle')
+      $('#social-network-links a.dicon-linkedin', @el).removeAttr('style').attr('href', @model.get('linkedin_handle')).attr('target', '_blank')
       this.$('div.searchIcon').removeClass('linkedinSearch')
       this.$('.dicon-linkedin').removeClass('social-grey')
       this.$('.dicon-linkedin').addClass('social-linkedin')

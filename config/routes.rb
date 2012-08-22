@@ -44,6 +44,8 @@ Onelement::Application.routes.draw do
     get :picture_timeline, :on => :collection
   end
   
+  resources :avatars
+  
   resources :user_contacts
   
   resources :public_users

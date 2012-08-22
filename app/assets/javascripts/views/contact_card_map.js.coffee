@@ -30,8 +30,10 @@ class RippleApp.Views.ContactCardMap extends Backbone.View
         if first        
           @long = first.get('coordinates')[0]
           @lat = first.get('coordinates')[1]
-
-    $(@el).html(@template(width: @width, height: @height, lat: @lat, long: @long))
+      $(@el).html(@template(width: @width, height: @height, lat: @lat, long: @long))
+    else
+      html = "<img src='/assets/light-map.png'></img>"
+      $(@el).html(html)
     
     return this
     

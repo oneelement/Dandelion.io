@@ -1,10 +1,10 @@
-<a>
-  <div class="face-image">
-    <img src="http://graph.facebook.com/<%= @face.id %>/picture" alt=""/>
-  </div>
-  <div class="result-text">
-    <%= @face.name %>
-    </br>
-    <button class="btn socialLinkButton" data-dismiss="modal" data-pictureurl="http://graph.facebook.com/<%= @face.id %>/picture" data-socialid="<%= @face.id %>" data-socialtype="<%= @face.socialType %>">Link</button>  
-  </div>
-</a>
+<div class="social-search-image">    
+    <img class="image-thumb medium" src="http://graph.facebook.com/<%= @face.id %>/picture" alt=""/>   
+</div>
+<div class="result-text">
+  <h3><%= @face.name %></h3>
+  <p></p>    
+</div>
+<div class="link-action">
+  <button class="button socialLinkButton" data-handle="http://www.facebook.com/<%= @face.id %>" data-pictureurl="http://graph.facebook.com/<%= @face.id %>/picture" data-socialid="<%= @face.id %>" data-socialtype="<%= @face.socialType %>">Link</button>  
+</div>

@@ -1,3 +1,7 @@
 <div class="lightbox">
+
+</div>
+
+<div class="lightboxmap">
   <div id="expanded-map"></div>
 </div>

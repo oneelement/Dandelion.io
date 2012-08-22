@@ -1,11 +1,14 @@
-<% console.log(@linkedin) %>
-<a>
-  <div class="linkedin-image">
-    <img src="<%= @linkedin.picture_url %>" alt=""/>
-  </div>
-  <div class="result-text">
-    <%= @linkedin.first_name %> <%= @linkedin.last_name %>
-    </br>
-    <button class="btn socialLinkButton" data-dismiss="modal" data-pictureurl="<%= @linkedin.picture_url %>" data-socialid="<%= @linkedin.public_profile_url %>" data-socialtype="<%= @linkedin.socialType %>">Link</button>  
-  </div>
-</a>
+<div class="social-search-image">
+  <% if @linkedin.picture_url: %>      
+    <img class="image-thumb medium" src="<%= @linkedin.picture_url %>" alt=""/>
+  <% else: %>
+    <span class="dicon-user"></span>
+  <% end %>    
+</div>
+<div class="result-text">
+  <h3><%= @linkedin.first_name %> <%= @linkedin.last_name %></h3>
+  <p><%= @linkedin.headline %></p>    
+</div>
+<div class="link-action">
+  <button class="button socialLinkButton" data-pictureurl="<%= @linkedin.picture_url %>" data-handle="<%= @linkedin.public_profile_url %>" data-socialid="<%= @linkedin.public_profile_url %>" data-socialtype="<%= @linkedin.socialType %>">Link</button>  
+</div>
