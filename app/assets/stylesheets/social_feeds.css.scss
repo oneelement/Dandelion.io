@@ -3,6 +3,13 @@
 **********************************************************************************/
 
 #social-wrapper {
+  #social-none-message {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    right: 20%;
+    font-size: 16px;
+  }
   #picture-timeline-wrapper {
     .bx-wrapper {
       a.bx-prev {

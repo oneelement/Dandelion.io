@@ -11,10 +11,9 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     @mergers = new RippleApp.Collections.Contacts()
 
   render: ->
-    $('#sidebar-contacts').addClass('active')
     $(@el).html(@template())
     @collection.each(@appendContact)
-    this.$('#contacts-table').dataTable("bPaginate": false, "oLanguage": {sSearch: ""}, "bInfo": false, "aaSorting": [ [1,'asc'] ])
+    this.$('#contacts-table').dataTable("bPaginate": false, "oLanguage": {sSearch: ""}, "bInfo": false, "aaSorting": [ [3,'asc'] ])
     return this
     
   appendContact: (contact) =>

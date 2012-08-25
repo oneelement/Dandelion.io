@@ -39,6 +39,9 @@
 #sitewide-search {
   margin: 0px 0px 0px 20px;
   float: left;
+  form {
+    margin-top: 6px;
+  }
 }
 
 #autocomplete {
@@ -266,4 +269,26 @@
     }
   }
 }
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px) {
+/* Styles */
+
+#autocomplete {
+  width: 300px !important;
+}
+
+#account-info {
+  #account-details {
+    h2 {
+      display: none;
+    }
+  }
+}
+}
+
+
 

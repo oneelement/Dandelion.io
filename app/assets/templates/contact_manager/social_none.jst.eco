@@ -1,0 +1,3 @@
+<div id="social-none-message">
+  <span class="dicon-info"> </span><span><%= @message %></span>
+</div>

@@ -17,7 +17,11 @@ class RippleApp.Views.ContactShow extends Backbone.View
     $(@el).html(@template(contact: @model.toJSON()))
     @livetweets = @globalTweets.get(@model.get('twitter_id'))
     @livefaces = @globalFaces.get(@model.get('facebook_id'))
-    @getSocials()      
+    @getSocials()     
+    
+    $('#sidebar-contacts').removeClass('active')
+    $('#sidebar-groups').removeClass('active')
+    $('#sidebar-home').removeClass('active')
 
     return this
     

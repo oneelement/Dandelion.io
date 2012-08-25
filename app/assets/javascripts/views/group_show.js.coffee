@@ -3,7 +3,7 @@ class RippleApp.Views.GroupShow extends Backbone.View
   className: 'group-show'
   
   events:
-    'click #group-contacts, #group-blank': 'toggleTab'
+    'click #group-contacts, #group-social': 'toggleTab'
   
   initialize: ->
     @model.on('change', @render, this)
@@ -18,6 +18,7 @@ class RippleApp.Views.GroupShow extends Backbone.View
     $(@el).html(@template(group: @model.toJSON())) 
     @autocomplete()
     @collection.each(@appendContact)
+    @populateSocial()
     return this
     
   fillCollection: ->
@@ -30,14 +31,25 @@ class RippleApp.Views.GroupShow extends Backbone.View
   toggleTab: (event) ->
     target = event.target
     targetId = event.target.id
-    this.$('li').removeClass('active')
+    this.$('div').removeClass('active')
     $(target, @el).addClass('active')
     if targetId == "group-contacts"
-      this.$('#group-blank-wrapper').addClass('disabled')
+      this.$('#group-social-wrapper').addClass('disabled')
       this.$('#group-contacts-wrapper').removeClass('disabled')
-    if targetId == "group-blank"
+      this.$('#group-header').css('background', '')
+    if targetId == "group-social"
       this.$('#group-contacts-wrapper').addClass('disabled')
-      this.$('#group-blank-wrapper').removeClass('disabled')
+      this.$('#group-social-wrapper').removeClass('disabled')
+      this.$('#group-header').css('background', '#f0f0f0')
+      
+  populateSocial: ->    
+    view = new RippleApp.Views.SocialFeeds(
+      model: @model,
+      user: @user,
+      source: 'group'
+    )
+    this.$('#group-social-wrapper', @el).html(view.render().el)
+
     
   autocomplete: =>
     this.$('#groups').autocomplete

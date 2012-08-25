@@ -1,21 +1,52 @@
 class TimelinesController < ApplicationController
   def home
     #get the current user
+    @subject_id = params[:id]
     @user = User.find(current_user.id)
     
-    #fetch the users tweets
-    if @user.tweeting
-      twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+    
+    if @subject_id
+      @theircontact = Contact.find(@subject_id) 
+      @theirgroup = Group.find(@subject_id)
+      if @theircontact
+	if @theircontact.facebook_id
+	  id = @theircontact.facebook_id
+	  facebook = @user.facebook.get_connections(id, 'feed')
+	  @user_facebook_id = @theircontact.facebook_id
+	end
+	if @theircontact.twitter_id
+	  id = @theircontact.twitter_id
+	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	end
+      end
+      if @theirgroup
+	if @theirgroup.facebook_id
+	  id = @theirgroup.facebook_id
+	  facebook = @user.facebook.get_connections(id, 'feed')
+	  @user_facebook_id = @theirgroup.facebook_id
+	end
+	if @theirgroup.twitter_id
+	  id = @theirgroup.twitter_id
+	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	end
+      end
+    else
+      #fetch the users tweets
+      if @user.tweeting
+	twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+      end      
+      #fetch the users facebook feed
+      if @user.facebook
+	facebook = @user.facebook.get_connections('me', 'feed')
+      end
+      user_contact_id = @user.contact_id
+      @mycontact = Contact.find(user_contact_id)
+      @user_facebook_id = @mycontact.facebook_id
     end
     
-    #fetch the users facebook feed
-    if @user.facebook
-      facebook = @user.facebook.get_connections('me', 'feed')
-    end
+
     
-    user_contact_id = @user.contact_id
-    @contact = Contact.find(user_contact_id)
-    @user_facebook_id = @contact.facebook_id
+    
     
     my_id = @user_facebook_id
     
@@ -223,17 +254,43 @@ class TimelinesController < ApplicationController
   end
   
   def picture_timeline
+    @subject_id = params[:id]
     @user = User.find(current_user.id)
     
-    #fetch the users tweets
-    if @user.tweeting
-      twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+    if @subject_id
+      @theircontact = Contact.find(@subject_id) 
+      @theirgroup = Group.find(@subject_id)
+      if @theircontact
+	if @theircontact.facebook_id
+	  id = @theircontact.facebook_id
+	  facebook = @user.facebook.get_connections(id, 'photos')
+	end
+	if @theircontact.twitter_id
+	  id = @theircontact.twitter_id
+	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	end
+      end
+      if @theirgroup
+	if @theirgroup.facebook_id
+	  id = @theirgroup.facebook_id
+	  facebook = @user.facebook.get_connections(id, 'photos')
+	end
+	if @theirgroup.twitter_id
+	  id = @theirgroup.twitter_id
+	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	end
+      end
+    else
+      #fetch the users tweets
+      if @user.tweeting
+	twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+      end      
+      #fetch the users facebook feed
+      if @user.facebook
+	facebook = @user.facebook.get_connections('me', 'photos')
+      end
     end
     
-    #fetch the users facebook feed
-    if @user.facebook
-      facebook = @user.facebook.get_connections('me', 'photos')
-    end
     
     time = Time.now.localtime
     
@@ -249,8 +306,7 @@ class TimelinesController < ApplicationController
 	    
 	      seconds_ago = time.to_i - tw_time.to_i
 	      
-	      internal_hash = Hash.new      
-	      
+	      internal_hash = Hash.new      	      
 	      internal_hash['source'] = 'twitter'
 	      internal_hash['seconds_ago'] = seconds_ago
 	      internal_hash['time'] = tw_time.to_i

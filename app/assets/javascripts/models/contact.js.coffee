@@ -54,6 +54,7 @@ class RippleApp.Models.Contact extends Backbone.RelationalModel
     contactBadge.set('id', @id)
     contactBadge.set('name', @.get('name'))
     contactBadge.set('avatar', @.get('avatar'))
+    contactBadge.set('type', 'contact')
     contactBadge
   
   #  Perhaps not needed anymore? Commenting out to see

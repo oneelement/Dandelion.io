@@ -13,6 +13,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts    
     @user = RippleApp.contactsRouter.currentUser
     @user.on('change', @render, this)
+    @modelType = @model.getModelName()
     
   
   events:
@@ -23,7 +24,7 @@ class RippleApp.Views.ContactsList extends Backbone.View
     
 
   render: ->
-    $(@el).html(@template(contact: @model.toJSON()))    
+    $(@el).html(@template(contact: @model.toJSON(), modelType: @modelType))    
     @getSections()  
     #console.log('contacts list render')
     if @favouriteContacts.get(@model.get("_id"))
@@ -55,7 +56,10 @@ class RippleApp.Views.ContactsList extends Backbone.View
     this.$('.hashtag-details').append(viewHash.render().el)
   
   previewContact: (event) ->
-    Backbone.history.navigate('#contacts/preview/' + @model.id, true)
+    if @model.getModelName() == 'contact'
+      Backbone.history.navigate('#contacts/preview/' + @model.id, true)
+    else if @model.getModelName() == 'group'
+      Backbone.history.navigate('#groups/preview/' + @model.id, true)
     $('.contact-list-item').removeClass('selected')
     this.$('#merge-action').toggle()
     #console.log(@model)

@@ -23,10 +23,12 @@ class ImportsController < ApplicationController
     #@friends = @friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
     @facefriends.each do |friend|
       avatar = 'https://graph.facebook.com/' + friend.facebook_id + '/picture?size=square'
+      handle = 'https://www.facebook.com/' + friend.facebook_id
       contact = Contact.new(
         :name => friend.name, 
         :user_id => id, 
         :facebook_id => friend.facebook_id, 
+        :facebook_handle => handle,
         :avatar => avatar,
         :facebook_picture => avatar
       )

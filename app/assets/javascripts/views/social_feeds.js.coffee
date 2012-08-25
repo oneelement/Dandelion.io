@@ -1,57 +1,85 @@
-class RippleApp.Views.HomePage extends Backbone.View
-  template: JST['contact_manager/home_page']
+class RippleApp.Views.SocialFeeds extends Backbone.View
+  template: JST['contact_manager/social_feeds']
+  socialNone: JST['contact_manager/social_none']
   id: 'social-wrapper'
   
   events:
     'keypress #social-post': 'postsocial'
     'click .dicon-facebook.post-source': 'selectPostFacebook'
     'click .dicon-twitter.post-source': 'selectPostTwitter'
+    'focus #social-post': 'focusPost'
   
   initialize: ->
     @model.on('change', @render, this)
-    @contact = @options.contact
+    @user = @options.user
     @globalTweets = @options.globalTweets
     @tweets = @options.tweets
     @globalFaces = @options.globalFaces
     @faces = @options.faces
+    @source = @options.source
   
   render: ->
     $(@el).html(@template())
+    @getSocialFeed()   
     
-    this.$('#social-post-select').html('')
-    
-    auths = @model.get('authentications')
-    twitter = auths.where(provider: "twitter")
-    facebook = auths.where(provider: "facebook")
-    if facebook.length > 0
-      @getTimeline()
-      @getPictureTimeline()
-    else if twitter.length > 0
-      @getTimeline()
-      @getPictureTimeline()
-      
-    if auths
-      @getPosting(auths)
+    console.log('render social feeds')
       
     return this
     
-  getPosting: (auths) ->
-    twitter = auths.where(provider: "twitter")
-    facebook = auths.where(provider: "facebook")
-    if facebook.length > 0
-      html = "<span class='dicon-facebook post-source'></span>"
-      this.$('#social-post-select').append(html)
-      @selectPostFacebook()
-    if twitter.length > 0
-      html = "<span class='dicon-twitter post-source'></span>"
-      this.$('#social-post-select').append(html)
-      @selectPostTwitter()
-    html = "<span id='social-post-text'>select media</span>"
-    this.$('#social-post-select').append(html)
+  getSocialFeed: ->
+    this.$('#social-post-select').html('')
+    auths = @user.get('authentications')
+    if auths
+      twitter = auths.where(provider: "twitter")
+      facebook = auths.where(provider: "facebook")
+      if @source == 'home'
+        if facebook.length > 0 || twitter.length > 0
+           #calling timeline
+           call = "home"
+           @callTimeline(call)
+           call = "picture_timeline"
+           @getPictureTimeline(call)
+          if facebook.length > 0
+            html = "<span class='dicon-facebook post-source'></span>"
+            this.$('#social-post-select').append(html)
+            @selectPostFacebook()
+          if twitter.length > 0
+            html = "<span class='dicon-twitter post-source'></span>"
+            this.$('#social-post-select').append(html)
+            @selectPostTwitter()
+          html = "<span id='social-post-text'>select media</span>"
+          this.$('#social-post-select').append(html)
+      if @source == 'contact' || @source == 'group'
+        if @model.get('facebook_id') || @model.get('twitter_id')
+          #calling timeline
+          id = @model.get('_id')
+          call = "home?id=" + id
+          @callTimeline(call)
+          call = "picture_timeline?id=" + id
+          @getPictureTimeline(call)
+          #calling posts
+          if @model.get('facebook_id')
+            html = "<span class='dicon-facebook post-source'></span>"
+            this.$('#social-post-select').append(html)
+            @selectPostFacebook()  
+          if @model.get('twitter_id')
+            html = "<span class='dicon-twitter post-source'></span>"
+            this.$('#social-post-select').append(html)
+            @selectPostTwitter()
+          html = "<span id='social-post-text'>select media</span>"
+          this.$('#social-post-select').append(html)
+        else
+          message = "No social networks are connected, please connect them to view feeds."
+          $(this.el).html(@socialNone(message: message))
+          
+    else
+      message = "Your profile is not connected to any social networks, please go to the settings menu and connect them."
+      $(this.el).html(@socialNone(message: message))
+      console.log('Add message here')
     
-  getPictureTimeline: ->
-    console.log('Picture Timeline')
-    call = "picture_timeline"
+
+    
+  getPictureTimeline: (call) ->
     @timelines = new RippleApp.Collections.Timelines([], { call : call })
     @timelines.fetch(success: (collection) =>
       view = new RippleApp.Views.PictureTimeline(collection: collection)
@@ -59,21 +87,33 @@ class RippleApp.Views.HomePage extends Backbone.View
       this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
     )
     
-  getTimeline: ->
-    call = "home"
+  callTimeline: (call) ->
     @timelines = new RippleApp.Collections.Timelines([], { call : call })
     @timelines.fetch(success: (collection) =>
+      console.log('1')
+      console.log(collection)
+      $('#timeline-wrapper').html('')
       view = new RippleApp.Views.Timeline(collection: collection)
       $('#timeline-wrapper').append(view.render().el)
       $('#social-loading').addClass('disabled')        
-    )  
+    ) 
     
   selectPostFacebook: ->
     this.$('.post-source').removeClass('active')
     this.$('.dicon-facebook.post-source').addClass('active')
     html = "<span class='dicon-facebook active'></span>"
     this.$('#social-post-source').html(html)
-    this.$('#social-post').attr('placeholder', 'post something...')
+    this.$('#social-post').attr('value', '')
+    if @source == 'home'
+      this.$('#social-post').attr('placeholder', 'post something...')
+    else
+      name = @model.get('name')
+      last = name.substr(-1)
+      if last == 's'
+        placeholder = "post something on " + name + "' wall..."
+      else
+        placeholder = "post something on " + name + "'s wall..."
+      this.$('#social-post').attr('placeholder', placeholder)
     @currentSocial = 'facebook'
     
   selectPostTwitter: ->
@@ -81,16 +121,22 @@ class RippleApp.Views.HomePage extends Backbone.View
     this.$('.dicon-twitter.post-source').addClass('active')
     html = "<span class='dicon-twitter active'></span>"
     this.$('#social-post-source').html(html)
-    this.$('#social-post').attr('placeholder', 'tweet something...')
+    this.$('#social-post').attr('value', '')
+    this.$('#social-post').attr('placeholder', 'tweet something...')    
     @currentSocial = 'twitter'
+    
+  focusPost: ->
+    if @source == 'contact' || @source == 'group'
+      if @currentSocial == 'twitter'
+        screen_name = "@" + @model.get('twitter_id') + " "
+        this.$('#social-post').attr('value', screen_name)
     
   postsocial: (event) ->
     if (event.keyCode == 13) 
       if @currentSocial == 'facebook'
         @postFacebook()
       if @currentSocial == 'twitter'
-        @postTwitter()
-      
+        @postTwitter()      
     
   postTwitter: ->
     text = this.$('#social-post').val()
@@ -103,8 +149,9 @@ class RippleApp.Views.HomePage extends Backbone.View
     this.$('#social-post').val('')      
     
   postFacebook: ->
+    id = @model.get('facebook_id')
     text = this.$('#social-post').val()
-    call = "wallpost/?text=" + text
+    call = "wallpost/?text=" + text + "&id=" + id
     console.log(text)
     @faces = new RippleApp.Collections.Faces([], { call : call })
     @faces.fetch(success: (collection) =>
@@ -112,9 +159,14 @@ class RippleApp.Views.HomePage extends Backbone.View
     )     
     this.$('#social-post').val('')
     
+    
+##############################################################
+#Everythng below is currently obsolete
+##############################################################
+    
   getSocials: =>
     $('#tweets-loading').addClass('disabled')
-    auths = @model.get('authentications')
+    auths = @user.get('authentications')
     #console.log(auths.models)
     twitter = auths.filter (auth) =>      
       auth.get('provider') == 'twitter'
@@ -138,7 +190,7 @@ class RippleApp.Views.HomePage extends Backbone.View
       #return
     
   getSocialId: (socialnetwork) ->
-    socials = @contact.get('socials')
+    socials = @model.get('socials')
     #console.log(socials)
     network = socials.filter (social) => 
       social.get("type") == socialnetwork

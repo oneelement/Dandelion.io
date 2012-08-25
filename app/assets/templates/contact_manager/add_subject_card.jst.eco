@@ -11,7 +11,11 @@
           <% if @contact.avatar?: %>
             <img src="<%= @contact.avatar %>"/>
           <% else: %>
-            <span class="subject-avatar dicon-user"></span>
+            <% if @source == 'contact': %>
+              <span class="subject-avatar dicon-user"></span>
+            <% else: %>
+               <span class="subject-avatar dicon-circles"></span>
+            <% end %>
           <% end %>
         </div>
         <form id="contact-card-details-input-form">

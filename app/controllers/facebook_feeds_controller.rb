@@ -28,10 +28,27 @@ class FacebookFeedsController < ApplicationController
     query = params[:q]
     #query = "Bubba G"
     @user = User.find(current_user.id)
-    face = @user.facebook.search(query, {:type => "user"})
-
+    face1 = @user.facebook.get_connections("me", "friends")
+    face2 = @user.facebook.search(query, {:type => "user", :limit => "25"})
+    face3 = @user.facebook.search(query, {:type => "page", :limit => "25"})
+    
+       
+    if face1
+      face1.each do |face| 
+	if face['name'].downcase == query.downcase
+	  @friend = face
+	end
+      end
+    end
+    
+    if @friend
+      face2 = face2.insert(0, @friend)
+    end
+    
+    output = face2 + face3
+      
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render json: output }
     end
   end 
   

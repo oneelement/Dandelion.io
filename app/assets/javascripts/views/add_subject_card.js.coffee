@@ -1,8 +1,5 @@
-class RippleApp.Views.AddContactCard extends Backbone.View
+class RippleApp.Views.AddSubjectCard extends Backbone.View
   template: JST['contact_manager/add_subject_card']
-  searchModel: JST['contact_manager/search_modal']
-  lightbox: JST['contact_manager/lightbox']
-  matchOverrideList: JST['contact_manager/match_override_list']
   id: 'contact-card'
     
   events:
@@ -10,16 +7,14 @@ class RippleApp.Views.AddContactCard extends Backbone.View
 
     
   initialize: ->
-    @user = @options.user
+    @source = @options.source
     @model.on('change', @render, this)
     @contacts = RippleApp.contactsRouter.contacts
   
   render: ->
-    $(@el).html(@template(contact: @model.toJSON()))
-    $(@el).append(@lightbox())
+    $(@el).html(@template(contact: @model.toJSON(), source: @source))
       
     @outputMap()
-    @updateSocialLinks()
     
     return @
     
@@ -50,28 +45,4 @@ class RippleApp.Views.AddContactCard extends Backbone.View
         @model.save(null, success: (model) => 
           RippleApp.contactsRouter.groups.add(model)
           Backbone.history.navigate('#groups/preview/'  + model.id, true)
-        )
-
-      
-  updateSocialLinks: ()=>
-    facebook_id = @model.get('facebook_id')
-    if facebook_id
-      $('#social-network-links a.facebook', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.facebook.com/'+facebook_id).attr('target', '_blank')
-      this.$('div.searchIcon').removeClass('facebookSearch')
-    else
-      $('#social-network-links a.facebook', @el).attr('data-toggle', 'modal').attr('style', 'background-color:#CFCFCF;')
-      
-    if @model.get('twitter_id')
-      $('#social-network-links a.twitter', @el).removeAttr('style').removeAttr('data-toggle').attr('href', 'http://www.twitter.com/'+@model.get('twitter_id')).attr('target', '_blank')
-      this.$('div.searchIcon').removeClass('twitterSearch')
-    else
-      $('#social-network-links a.twitter', @el).attr('style', 'background-color:#CFCFCF;')
-      
-    if @model.get('linkedin_id')
-      $('#social-network-links a.linkedin', @el).removeAttr('style').removeAttr('data-toggle').attr('href', @model.get('linkedin_id')).attr('target', '_blank')
-      this.$('div.searchIcon').removeClass('linkedinSearch')
-    else
-      $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
-      
-
-   
+        ) 

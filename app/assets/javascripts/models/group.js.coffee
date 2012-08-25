@@ -46,5 +46,13 @@ class RippleApp.Models.Group extends Backbone.RelationalModel
   idAttribute: '_id'
   urlRoot: -> '/groups/'
   
+  getBadge: =>
+    contactBadge = new RippleApp.Models.ContactBadge()
+    contactBadge.set('id', @id)
+    contactBadge.set('name', @.get('name'))
+    contactBadge.set('avatar', @.get('avatar'))
+    contactBadge.set('type', 'group')
+    contactBadge
+  
   getModelName: ->
     return "group"

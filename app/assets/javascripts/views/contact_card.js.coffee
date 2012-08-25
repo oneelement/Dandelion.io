@@ -767,9 +767,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
       handleType = "linkedin_handle"
     @model.set(handleType, handle, {silent: true})
     @model.set(pictureType, pictureUrl, {silent: true})
-    @model.set(socialType, social_id, pictureType, pictureUrl)
+    @model.set(socialType, social_id, pictureType, pictureUrl) #let the set fire the render
     @model.unset('hashtags', { silent: true })
-    @model.save()
+    @model.save(null, { silent: true }) #required so social links dont get fired twice
     @updateSocialLinks()
     $('.lightbox-backdrop').css('display', 'none')
     $('.lightbox').removeClass('show')

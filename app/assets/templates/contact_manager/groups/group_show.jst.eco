@@ -1,44 +1,29 @@
-<div id="group-wrapper">  
-  <ul id="groups">
-    <li>Add search bar to add users?</li>
-    <li>display users in group like in contacts screen, no preview?</li>
-    <li>incorporate add contacts into minibar</li>
-    <li>display contacts as small avatars within group card</li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-
-  </ul>
+<div id="group-header">
+  <div id="group-contacts" class="group-section active">Contacts</div>
+  <div id="group-social" class="group-section">Social</div>
+</div>
+<div id="group-contacts-wrapper">  
+  <div id="group-contact-add">
+    <input id="groups" placeholder="Add to group"></input>
+  </div>
+  <table id="contacts-table">
+    <thead>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody id="contacts-table-body">
+    </tbody>
+  </table>
+</div>
+<div id="group-social-wrapper" class="disabled">
+  
 </div>
 
-<div id="group-info" class="border">
-  <ul class="rip-tabs" id="group-header">
-    <li id="group-contacts" class="active">Contacts</li>
-    <li id="group-blank">Blank</li>
-  </ul>
-  <div class="clear"/>
-  <div id="group-contacts-wrapper">  
-    <div>
-      <input id="groups"></input>
-    </div>
-    <table id="contacts-table">
-      <thead>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </thead>
-      <tbody id="contacts-table-body">
-      </tbody>
-    </table>
-  </div>
-  <div id="group-blank-wrapper" class="disabled">
-  </div>
-</div>
 
 
 
