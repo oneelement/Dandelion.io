@@ -8,7 +8,7 @@ class RippleApp.Collections.Contacts extends Backbone.Collection
     byName: ->
       sortedCollection = new RippleApp.Collections.Contacts(this.models)
       sortedCollection.comparator = (contact) ->
-        return contact.get('name')
+        return contact.get('name').toLowerCase()
       sortedCollection.sort()
       return sortedCollection
 

@@ -9,6 +9,7 @@ class RippleApp.Views.ContactCardHashtagDetail extends Backbone.View
     'click span.contact-detail-remove-hashtag': 'deleteValue'
     'focusout input#edit_value': 'closeEdit'
     'hover .contact-detail-remove-hashtag': 'removeHover'
+    'click .contact-detail-value': 'showTag'
 
   initialize: ->
     if @options.value
@@ -31,6 +32,9 @@ class RippleApp.Views.ContactCardHashtagDetail extends Backbone.View
     $(@el).html(@template(value: @value, detail: @model.toJSON()))
       
     return this
+    
+  showTag: ->
+    Backbone.history.navigate('hashtags/show/' + @model.id, true)
     
  
   editValue: ->

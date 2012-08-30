@@ -1,5 +1,6 @@
 class RippleApp.Views.ContactBadge extends Backbone.View
   template: JST['contact_manager/contact_badge']
+  className: 'favorite-item'
 
   render: ->
     isContextContact = false

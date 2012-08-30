@@ -2,6 +2,7 @@ class ContactsController < ApplicationController
   
   load_and_authorize_resource
   
+ 
   # GET /contacts
   # GET /contacts.json
   def index
@@ -114,5 +115,25 @@ class ContactsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def multipledelete
+    ids = params[:sent]
+    array = ids.split(",")
+    @output = []
+    array.each do |id|
+      @contact = Contact.find(id)      
+      if @contact.is_user == false
+	@output << @contact.name
+        @contact.destroy
+      end
+    end
+    #@contacts = Contact.where(:user_id => current_user.id)
+    
+    respond_to do |format|
+      format.json { render json: @output, status: :created, location: @contact }
+    end
+  end
+  
+
 
 end

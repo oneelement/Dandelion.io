@@ -14,7 +14,15 @@
     <div id="contact-card-head">
         <div id="contact-card-avatar">
           <a>
+          <% if @contact.avatar?: %>
             <img src="<%= @contact.avatar %>"/>
+          <% else: %>
+            <% if @source == 'contact': %>
+              <span class="subject-avatar dicon-user"></span>
+            <% else: %>
+               <span class="subject-avatar dicon-circles"></span>
+            <% end %>
+          <% end %>
           </a>
         </div>
         <div id="contact-card-favourite">

@@ -1,5 +1,13 @@
 <div class="face-image">
   <a rel="tooltip" title="<%= @model.name %>">
+  <% if @model.avatar?: %>
     <img src="<%= @model.avatar %>"/>
+  <% else: %>
+    <% if @model.type == 'contact': %>
+      <span class="subject-avatar dicon-user"></span>
+    <% else: %>
+	<span class="subject-avatar dicon-circles"></span>
+    <% end %>
+  <% end %>
   </a>
 <div>

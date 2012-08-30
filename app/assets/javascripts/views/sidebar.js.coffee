@@ -3,7 +3,7 @@ class RippleApp.Views.Sidebar extends Backbone.View
   
   initialize: ->
     $(window).resize(@.redrawMenu)
-    
+    @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
 
   render: ->
     $(@el).html(@template())
@@ -17,12 +17,14 @@ class RippleApp.Views.Sidebar extends Backbone.View
     @currentUser = new RippleApp.Models.User()
     @currentUser = @currentUser.fetchCurrent(success: (model) =>
       @favouriteContactsView = new RippleApp.Views.FavouriteContacts(
-        collection: RippleApp.contactsRouter.favouriteContacts
+        collection: @favouriteContacts
       )
       $('#favorite-container', @el).html(@favouriteContactsView.render().el)
       #@.redrawMenu()
     )
     @isVisible = false
+    
+
         
     @
 
@@ -52,7 +54,6 @@ class RippleApp.Views.Sidebar extends Backbone.View
     Backbone.history.navigate('#groups', true)
     
   showFavorites: ->
-    console.log('log')
     if @isVisible == false
       @isVisible = true
       this.$('#favorite-container').css('display','block')

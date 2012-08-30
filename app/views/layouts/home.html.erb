@@ -31,10 +31,13 @@
   <div id="account-info">
     <div id="account-details">
       <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
-      <img src="<%= current_user.avatar %>"></img>
+      <% if current_user.avatar %>
+        <img src="<%= current_user.avatar %>"></img>
+      <% else %>
+        <span class="dicon-user"></span>
+      <% end %>
       <span class="menu-caret"></span>
       <span class="menu-caret outline"></span>
-      <span class="dicon-arrow-down"></span>
     </div>
     <div id="user-menu">
     </div>

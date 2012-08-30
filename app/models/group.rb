@@ -28,9 +28,10 @@ class Group
   field :name, :type => String
   field :web, :type => String
   #field :email, :type => String
-  field :avatar, :type => String, :default => "http://placehold.it/80x80"
+  field :avatar, :type => String
   field :map, :type => Array, :default => []
   field :contact_ids, :type => Array, :default => []
+  field :group_ids, :type => Array, :default => []
   field :facebook_id, :type => String
   field :linkedin_id, :type => String
   field :twitter_id, :type => String
@@ -57,6 +58,7 @@ class Group
     t.add :avatar
     t.add :map
     t.add :contact_ids
+    t.add :group_ids
     t.add :facebook_id
     t.add :linkedin_id
     t.add :twitter_id
@@ -66,7 +68,7 @@ class Group
     t.add :facebook_handle
     t.add :twitter_handle
     t.add :linkedin_handle
-    t.add :hashtags
+    #t.add :hashtags
   end
 
   def update_attributes_from_api(params)

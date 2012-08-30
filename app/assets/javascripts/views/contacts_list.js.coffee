@@ -5,22 +5,26 @@ class RippleApp.Views.ContactsList extends Backbone.View
   
   initialize: ->
     @model.on('change', @render, this)
-    @mergers = @options.mergers
+    @source = @options.source
+    #@mergers = @options.mergers
+    @selected = @options.selected
     @hashtags = RippleApp.contactsRouter.hashtags
     #console.log(@hashtags)
     #@hashtags.on('reset, add, remove', @render, this)
     @contactsHashtags = new RippleApp.Collections.Hashtags()
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts    
+    @groups = RippleApp.contactsRouter.groups
     @user = RippleApp.contactsRouter.currentUser
     @user.on('change', @render, this)
     @modelType = @model.getModelName()
+    @isSelected = false
     
   
   events:
     'click .contact-list-detail': 'previewContact'
-    'click .close': 'destroyContact'
     'dblclick': 'openContact'
     'click #merge-action': 'mergeSubject'
+    'click .select': 'toggleSelect'
     
 
   render: ->
@@ -36,24 +40,58 @@ class RippleApp.Views.ContactsList extends Backbone.View
     if @model.get('linkedin_id')
       this.$('.dicon-linkedin').addClass('linkedin-active')
       
+    if @source == 'group_show'
+      this.$('.select').html('')
+      
+    #console.log('rendering')
+      
     return this
     
+  toggleSelect: ->
+    console.log(@selected)
+    if @isSelected == false
+      console.log('select')
+      this.$('.dicon-checkmark').addClass('select-item')
+      @selected.add(@model)
+      @isSelected = true
+      console.log(@selected)
+    else 
+      this.$('.dicon-checkmark').removeClass('select-item')
+      @selected.remove(@model)
+      @isSelected = false
+      console.log(@selected)
+    
   getSections: =>
-    viewPhone = new RippleApp.Views.ContactListSection(collection: @model.get('phones'))
+    viewPhone = new RippleApp.Views.ContactListSection(collection: @model.get('phones'), subject: @model)
     this.$('.phone-details').append(viewPhone.render().el)    
-    viewEmail = new RippleApp.Views.ContactListSection(collection: @model.get('emails'))
+    viewEmail = new RippleApp.Views.ContactListSection(collection: @model.get('emails'), subject: @model)
     this.$('.email-details').append(viewEmail.render().el)
-    if @model.get("hashtags")
-      @contactsHashtags.reset()
-      #console.log('resetting')
-      @contactsHashtags.add(@model.get('hashtags'))
-    viewHash = new RippleApp.Views.ContactListSection(
-      title: 'Hashtags'
-      collection: @contactsHashtags
+    #if @model.get("hashtags")
+    #  @contactsHashtags.reset()
+    #  #console.log('resetting')
+    #  @contactsHashtags.add(@model.get('hashtags'))
+    #viewHash = new RippleApp.Views.ContactListSection(
+    #  title: 'Hashtags'
+    #  collection: @contactsHashtags
+    #  subject: @model
+    #  hashes: @hashtags
+    #)
+    #this.$('.hashtag-details').append(viewHash.render().el)
+    @groupCollection = new RippleApp.Collections.Groups()
+    if @model.get('group_ids')
+      group_ids = @model.get('group_ids')
+      _.each(group_ids, (group_id) =>
+        group = @groups.get(group_id)
+        if group
+          @groupCollection.add(group)
+      )
+    viewGroup = new RippleApp.Views.ContactListSection(
+      title: 'Groups'
       subject: @model
-      hashes: @hashtags
+      collection: @model.get('emails')  
+      groups: @groupCollection
     )
-    this.$('.hashtag-details').append(viewHash.render().el)
+    this.$('.hashtag-details').append(viewGroup.render().el)
   
   previewContact: (event) ->
     if @model.getModelName() == 'contact'
@@ -65,10 +103,10 @@ class RippleApp.Views.ContactsList extends Backbone.View
     #console.log(@model)
     if $(this.el).hasClass('selected')
       $(this.el).removeClass('selected')
-      @mergers.remove(@model)
+      #@mergers.remove(@model)
     else
       $(this.el).addClass('selected')
-      @mergers.add(@model)
+      #@mergers.add(@model)
       
   mergeSubject: (event) ->
     console.log(event)
@@ -129,12 +167,5 @@ class RippleApp.Views.ContactsList extends Backbone.View
       @model.save()
       Backbone.history.navigate('#contacts/preview/' + @model.get('_id'), true)
     
-      
-  destroyContact: ->
-    getrid = confirm "Are you sure you want to delete this contact?"
-    if getrid == true
-      this.model.destroy()
-      $("#contact-container").html('')
-
   openContact: ->
     Backbone.history.navigate('#contacts/show/'+ @model.id, true)

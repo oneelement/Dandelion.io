@@ -33,8 +33,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
   initialize: ->
     @user = @options.user
+    @source = @options.source
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts
     @hashtags = RippleApp.contactsRouter.hashtags
+    @groups = RippleApp.contactsRouter.groups
     @contactsHashtags = new RippleApp.Collections.Hashtags()
     @model.on('change', @render, this)
     @editViewOn = false
@@ -44,7 +46,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   render: ->
     this.$('#minibar').focus()
     console.log('contact card rendering')
-    $(@el).html(@template(contact: @model.toJSON()))
+    $(@el).html(@template(contact: @model.toJSON(), source: @source))
     $(@el).append(@lightbox())
     if @favouriteContacts.get(@model.get("_id"))
       #$('#isFavourite', @el).attr('checked', 'checked')
@@ -175,7 +177,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputAdresses()
     
     @outputNotes()
-    @outputHashes()
+    @outputGroups()
+    #@outputHashes()
 
 
   outputCard: ->      
@@ -192,7 +195,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputUrls()
     @outputAdresses()
     @outputNotes()
-    @outputHashes()
+    @outputGroups()
+    #@outputHashes()
           
   outputEmails: ->
     emailsSection = new RippleApp.Views.ContactCardSection(
@@ -252,6 +256,17 @@ class RippleApp.Views.ContactCard extends Backbone.View
       modelName: RippleApp.Models.ContactNoteDetail
     )
     $('#contact-card-body', @el).append(notesSection.render().el) 
+    
+  outputGroups: ->    
+    if @model.get('group_ids')
+      collection = new RippleApp.Collections.Groups()
+      groupSection = new RippleApp.Views.ContactCardGroupSection(
+        title: 'Groups'
+        icon: 'circles'
+        subject: @model
+        collection: collection
+      )
+      $('#contact-card-body', @el).append(groupSection.render().el)  
     
   outputHashes: ->    
     if @model.get("hashtags")
@@ -366,13 +381,24 @@ class RippleApp.Views.ContactCard extends Backbone.View
       if not matchText?
         matchText = @inputTypeDefaultLabel
 
-      if matchText is 'Hashtag'
+      if matchText is 'Group'
         $input.attr('style', "z-index: 9000;")   
         hashtags = []
         _.each(@hashtags.toJSON(), (hashtag)=>
           hashtags.push(hashtag.text)
         )
-        $input.autocomplete(source: hashtags)
+        console.log(hashtags)
+        groups = []
+        _.each(@groups.toJSON(), (group)=>
+          entry = "#" + group.name
+          groups.push(entry)
+        )
+        console.log(groups)
+        $input.autocomplete
+          source: groups
+          select: (event, ui) =>
+            @submitGroup(ui)
+            
       else
         $input.autocomplete('destroy')  
       
@@ -445,6 +471,46 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @match = newMatch
     @overrideMatch = false
     this.$('#minibar').focus()
+    
+  submitGroup: (ui) =>
+    this.$('#contact-card-details-input-type').text('...')
+    test = $('input#minibar').val
+    console.log(test)
+    val = ui.item.value
+    group_ids = @model.get("group_ids")
+    c = new RippleApp.Collections.Groups()
+    _.each(group_ids, (group_id) =>
+      group = @groups.get(group_id)
+      if group
+        c.add(group)
+    )
+    
+    isDuplicate = false
+    _.each(c.models, (group) =>
+      if group.get('name') is val
+        isDuplicate = true
+    )
+    
+    this.$('input#minibar').val('')
+    
+    if not isDuplicate
+      #@contactsHashtags.remove(@contactsHashtags.models) #OC not sure what this is for?
+      subject = @model.getModelName()
+      subject_id = @model.get('_id')
+      console.log('break')
+      if subject == 'contact'
+        newmodel = @groups.addGroupToSubject(val, subject_id, @model)
+      if subject == 'group'
+        newmodel = @groups.addGroupToSubject(val, subject_id, @model)
+      this.$('#minibar').val('')
+
+    else
+      alert('duplicate')
+    
+    
+    console.log(ui)
+    console.log(val)
+    
 
 
   submitDetails: (e) ->
@@ -578,6 +644,35 @@ class RippleApp.Views.ContactCard extends Backbone.View
         
         c = @model.get("urls")
         c.add(m)
+        
+      if _.include(['Group'], @match) 
+      
+        group_ids = @model.get("group_ids")
+        c = new RippleApp.Collections.Groups()
+        _.each(group_ids, (group_id) =>
+          group = @groups.get(group_id)
+          if group
+            c.add(group)
+        )
+        
+        isDuplicate = false
+        _.each(c.models, (group) =>
+            if group.get('name') is val
+              isDuplicate = true
+          )
+        
+        if not isDuplicate
+          #@contactsHashtags.remove(@contactsHashtags.models) #OC not sure what this is for?
+          subject = @model.getModelName()
+          subject_id = @model.get('_id')
+          console.log('break')
+          if subject == 'contact'
+            newmodel = @groups.addGroupToSubject(val, subject_id, @model)
+          if subject == 'group'
+            newmodel = @groups.addGroupToSubject(val, subject_id, @model)
+
+        else
+          alert('duplicate')
       
       if _.include(['Hashtag'], @match) 
       
@@ -599,8 +694,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
           if subject == 'group'
             newmodel = @hashtags.addTagToGroup(val, subject_id)
           @contactsHashtags.add(newmodel)
-          #@hashtags.add(newmodel)
-          @model.set('hashtags', @contactsHashtags.models)
+          @hashModel = new RippleApp.Models.Hashtag()
+          @hashModel.set(newmodel)
+          @hashtags.add(@hashModel)
+          console.log(@hashModel)
+          @model.set('hashtags', @contactsHashtags.models, { silent: true })
 
         else
           alert('duplicate')

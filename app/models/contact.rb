@@ -36,7 +36,8 @@ class Contact
   field :linked_contact_id, :type => String
   field :linked_user_ids, :type => Array, :default => []
   field :favorite_ids, :type => Array, :default => []
-  field :avatar, :type => String, :default => "http://placehold.it/80x80"
+  field :group_ids, :type => Array, :default => []
+  field :avatar, :type => String
   field :map, :type => Array, :default => []
   field :facebook_id, :type => String
   field :linkedin_id, :type => String
@@ -75,7 +76,8 @@ class Contact
     t.add :facebook_handle
     t.add :twitter_handle
     t.add :linkedin_handle
-    t.add :hashtags
+    #t.add :hashtags
+    t.add :group_ids
   end
   
   api_accessible :public_contact do |t|

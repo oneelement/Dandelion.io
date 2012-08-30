@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#scroll {
+  overflow: auto;
+}
+
 #contacts-table_filter {
   height: 32px;
   //border-bottom: 1px solid #CCC;
@@ -10,10 +14,26 @@
   background: #f0f0f0;
   //@include background-image(linear-gradient(#DDD, #CCC));
   border-bottom: 1px solid #CCC;
+  @include border-corner-radius(top, left, 8px);
+  @include border-corner-radius(top, right, 8px);
+  label {
+    margin: 0px;
+  }
   input {
     padding: 4px;
     margin: 0px;
     float: right;
+  }
+  #action-wrapper {
+    #delete-contact {
+      
+    }
+    .button {
+      padding: 1px 4px;
+    }
+    .button:hover {
+
+    }
   }
 }
 
@@ -51,6 +71,7 @@
       margin: 0px 4px 0px 0px;
     }
   }
+
   tbody {
     background-repeat: no-repeat;
     //background-image: url('/assets/contacts.png');
@@ -58,6 +79,11 @@
     //@include opacity(0.2);
     background-attachment:fixed;
     background-position: 90% 150px;
+    position: absolute;
+    top: 58px;
+    bottom: 0px;
+    width: 100%;
+    overflow: auto;
     tr {
       background: rgba(#F9F9F9, 0.95);
       border-top: 2px solid #FFF;
@@ -71,17 +97,72 @@
         #select-contact {
         }  
       }
+      .select-indicator {
+	border-right: 1px solid #CCC;
+        background: #f0f0f0;
+	padding: 3px;
+	width: 1%;
+	cursor: pointer;
+	p {
+	  text-transform: uppercase;
+	  text-shadow: 0px -1px 0px #999, 0px 1px 0px #FFF;
+	  font-size: 8px;
+	  line-height: 8px;
+	  color: #FFF;
+	}
+      }
       .select {
         text-align: center;
-        width: 5%;
+        width: 4%;
+	//background: #f0f0f0;
+	//border-right: 1px solid #CCC;
+	.select-indicator {
+	  padding: 0px;
+	  margin: 0px;
+
+	}
+	.dicon-square {
+	  background: none repeat scroll 0 0 #FFFFFF;
+	  border: 1px solid #CCCCCC;
+	  display: inline-block;
+	  height: 12px;
+	  margin: 0;
+	  padding: 0;
+	  width: 12px;
+	  position: relative;
+	  top: 14px;
+	  z-index: 3;
+	  cursor: pointer;
+	}
+	.dicon-checkmark {
+	  margin: 0;
+	  padding: 0;
+	  font-size: 24px;
+	  color: #BBDD46;
+	  position: relative;
+	  right: -4px;
+          top: -8px;
+	  z-index: 4;
+	  @include opacity(0);
+	  cursor: pointer;
+	}
+	.select-item {
+	  @include opacity(1);
+
+	}
       }
       .favorite {width: 5%;
         .contact-list-favorite {
           color: #ddd;
           font-size: 24px;
           text-shadow: 0px -1px 0px #CCC, 0px 1px 0px #FFF;
-          .dicon-star {}
-          .isFavorite {color: #FFDF00;}
+	  width: 100%;
+	  text-align: center;
+          .dicon-star {
+	    width: 100%;
+	  }
+          .isFavorite {
+	    color: #FFDF00;}
         }
       }
    
@@ -112,6 +193,10 @@
 #contacts-index, #group-contacts-wrapper {
 
   .contact-list-item {
+    
+    .select {
+      
+    }
 
     padding: 1em;
 
@@ -120,6 +205,16 @@
         width: 48px;
         height: 48px;
         @include border-radius(4px);
+      }
+      span.dicon-user, span.dicon-circles {
+	display: inline-block;
+	font-size: 48px;
+	line-height: 48px;
+	background: #FFF;
+	height: 48px;
+	border: 1px solid #EEEEEE;
+	box-shadow: 0 0 1px #777777;
+	@include border-radius(4px);
       }
     }
 
@@ -142,5 +237,13 @@
   }
   .selected {
     background: #f0f0f0;
+  }
+}
+
+#group-contacts-wrapper {
+  #contacts-table {
+    tbody {
+      top: 70px;
+    }    
   }
 }

@@ -73,53 +73,30 @@ $sidebarBorder: #ccc;
       border: 1px solid #EEE;
       @include box-shadow(#777 0px 0px 1px);
     }
+    span.dicon-user {
+      padding: 0px !important;
+      display: inline-block;
+      font-size: 48px;
+      line-height: 48px;
+      background: #FFF;
+      height: 48px;
+      border: 1px solid #EEEEEE;
+      box-shadow: 0 0 1px #777777;
+      @include border-radius(4px);
+    }
+    span.dicon-circles {
+      padding: 0px !important;
+      display: inline-block;
+      font-size: 48px;
+      line-height: 48px;
+      background: #FFF;
+      height: 48px;
+      border: 1px solid #EEEEEE;
+      box-shadow: 0 0 1px #777777;
+      @include border-radius(4px);
+    }
   }
 
-  ul#favourite-menu {
-      position: fixed;
-      margin: 0px;
-      padding: 0px;
-      bottom: 10px;
-      left: 0px;
-      list-style: none;
-      z-index:9997;
-  }
-  
-  ul#favourite-menu li {
-      width: auto;
-  }
-  
-  ul#favourite-menu li {
-      background-color:#CFCFCF;
-      background-repeat:no-repeat;
-      background-position:center center;
-      border:1px solid #AFAFAF;
-      -moz-border-radius:0px 10px 10px 0px;
-      -webkit-border-bottom-right-radius: 10px;
-      -webkit-border-top-right-radius: 10px;
-      -khtml-border-bottom-right-radius: 10px;
-      -khtml-border-top-right-radius: 10px;
-      opacity: 0.9;
-      filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90);
-  }
-  
-  ul#favourite-menu li div#favourites {
-      display: block;
-      margin-left: -726px;
-      width: 800px;
-      height: 50px;      
-      /*-moz-box-shadow: 0px 4px 3px #000;
-      -webkit-box-shadow: 0px 4px 3px #000;
-      */
-  }
-  
-  ul#favourite-menu .face-image{
-    float: right;
-  }
-  
-  ul#favourite-menu .home a{
-      background-image: url(../images/home.png);
-  }
   #favorite-menu {
     position: fixed;
     margin: 0px;
@@ -138,7 +115,8 @@ $sidebarBorder: #ccc;
   }
   #favorite-container {
     position: fixed;
-    width: 560px;
+    min-width: 200px;
+    max-width: 560px;
     background: #F9F9F9;
     z-index: 9998;
     margin: 0px;
@@ -149,6 +127,13 @@ $sidebarBorder: #ccc;
     border: 1px solid #CCC;
     @include border-radius(4px);
     @include box-shadow(0px 2px 5px rgba(0,0,255, 0.25));
+    .favorite-item {
+      float: left;
+    }
+    span {
+      padding: 12px 0px 12px 0px;
+      display: inline-block;
+    }
   }
   #favorite-caret {
     width: 0; 

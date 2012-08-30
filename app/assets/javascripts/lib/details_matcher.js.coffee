@@ -25,7 +25,7 @@ class RippleApp.Lib.DetailsMatcher
       exprs: [
         /^(www.)|(http).+$/,
       ]
-    "Hashtag":
+    "Group":
       exprs: [
         /^#.+$/,
       ]

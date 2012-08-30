@@ -29,7 +29,9 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
   getSocialFeed: ->
     this.$('#social-post-select').html('')
     auths = @user.get('authentications')
-    if auths
+    console.log(auths)
+    if auths.length > 0
+      console.log('if auths')
       twitter = auths.where(provider: "twitter")
       facebook = auths.where(provider: "facebook")
       if @source == 'home'
@@ -70,9 +72,9 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
           this.$('#social-post-select').append(html)
         else
           message = "No social networks are connected, please connect them to view feeds."
-          $(this.el).html(@socialNone(message: message))
-          
+          $(this.el).html(@socialNone(message: message))          
     else
+      console.log('else auths')
       message = "Your profile is not connected to any social networks, please go to the settings menu and connect them."
       $(this.el).html(@socialNone(message: message))
       console.log('Add message here')

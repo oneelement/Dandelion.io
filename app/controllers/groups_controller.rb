@@ -53,7 +53,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update_attributes_from_api(params[:group])
-        format.html { redirect_to root_path, notice: 'Contact was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Group was successfully updated.' }
         format.json { render_for_api :group, :json => @group }
       else
         format.html { redirect_to root_path }
@@ -71,6 +71,21 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path }
       format.json { head :ok }
+    end
+  end
+  
+  def multipledelete
+    ids = params[:sent]
+    array = ids.split(",")
+    @output = []
+    array.each do |id|
+      @group = Group.find(id)      
+      @output << @group.name
+      @group.destroy
+    end
+    
+    respond_to do |format|
+      format.json { render json: @output, status: :created, location: @group }
     end
   end
   

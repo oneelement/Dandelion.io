@@ -5,7 +5,7 @@ class User
   include Mongoid::Paranoia
   include BackboneHelpers::Model
   
-  # after_create :contact_create
+  after_create :contact_create_manual
   before_save :full_name
   
   # Include default devise modules. Others available are:
@@ -55,7 +55,7 @@ class User
   field :first_name, :type => String
   field :last_name, :type => String
   field :full_name, :type => String
-  field :avatar, :type => String, :default => "http://placehold.it/80x80"
+  field :avatar, :type => String
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
   field :favourite_contacts, :type => String
@@ -114,24 +114,12 @@ class User
     update_attributes(params)
   end
   
-  
-  def contact_create(omniauth)
+  def contact_create_manual
     # assuming only facebook is used to sign in/up for now
-    if omniauth['provider'] == 'facebook'
-      facebook_id = omniauth['uid']
-      facebook_handle = omniauth['extra']['raw_info']['link']
-    else
-      facebook_id = nil
-      facebook_handle = nil
-    end
     record = Contact.new(
       :name => self.first_name + " " +self.last_name, 
       :user_id => self._id, 
-      :is_user => true,
-      :avatar => self.avatar,
-      :facebook_picture => self.avatar,
-      :facebook_id => facebook_id,
-      :facebook_handle => facebook_handle
+      :is_user => true
     )
     record.save
     record.emails.create!(
@@ -140,6 +128,24 @@ class User
     self.contact_id = record._id
     self.full_name = self.first_name + ' ' + self.last_name
     self.save
+  end
+  
+  
+  def contact_update(omniauth)
+    # assuming only facebook is used to sign in/up for now    
+    if omniauth['provider'] == 'facebook'
+      facebook_id = omniauth['uid']
+      facebook_handle = omniauth['extra']['raw_info']['link']
+    else
+      facebook_id = nil
+      facebook_handle = nil
+    end
+    record = Contact.find(self.contact_id)
+    record.avatar = self.avatar
+    record.facebook_picture = self.avatar
+    record.facebook_id = facebook_id
+    record.facebook_handle = facebook_handle    
+    record.save
   end
   
   #def as_json(options = nil)
@@ -196,10 +202,8 @@ class User
 	self.email = "" #user_info['email'] unless user_info['email'].blank?
       end
     end 
-    if self.avatar == "http://placehold.it/80x80"
-      if omniauth['info']['image']
-        self.avatar = omniauth['info']['image'] unless omniauth['info']['image'].blank?
-      end
+    if omniauth['info']['image']
+      self.avatar = omniauth['info']['image'] unless omniauth['info']['image'].blank?
     end
     self.password, self.password_confirmation = String::RandomString(16) 
     self.user_type_id = UserType.get_consumer.id

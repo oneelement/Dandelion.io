@@ -86,7 +86,7 @@ class ImportsController < ApplicationController
 	  if person.picture_url != nil
 	    picture = person.picture_url
 	  else
-	    picture = "http://placehold.it/80x80"
+	    picture = ""
 	  end
 	  contact = Contact.new(:name => name, :user_id => id, :linkedin_id => person.public_profile_url, :avatar => picture)
           contact.save

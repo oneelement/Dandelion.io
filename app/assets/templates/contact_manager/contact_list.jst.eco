@@ -1,7 +1,7 @@
+
 <td class="contact-list-detail select">
-  <div class="">
-      <input id="select-contact" type="checkbox" name="select-contact"/>
-  </div>
+  <span class="dicon-square"></span>
+  <span class="dicon-checkmark"></span>
 </td>
 <td class="contact-list-detail favorite">
   <div class="contact-list-favorite">
@@ -10,7 +10,15 @@
 </td>
 <td class="contact-list-detail avatar-cell">
   <div class="avatar">
+    <% if @contact.avatar?: %>
       <img src="<%= @contact.avatar %>"/>
+    <% else: %>
+      <% if @modelType == 'contact': %>
+	<span class="subject-avatar dicon-user"></span>
+      <% else: %>
+	  <span class="subject-avatar dicon-circles"></span>
+      <% end %>
+    <% end %>
   </div>
 </td>
 <td class="contact-list-detail name-cell">

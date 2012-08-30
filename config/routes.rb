@@ -54,7 +54,9 @@ Onelement::Application.routes.draw do
   
   resources :hashtags
   
-  resources :groups
+  resources :groups do
+    get :multipledelete, :on => :collection
+  end
 
   resources :authentications
 
@@ -103,7 +105,9 @@ Onelement::Application.routes.draw do
   
   resources :organisations
 
-  resources :contacts
+  resources :contacts do
+    get :multipledelete, :on => :collection
+  end
 
   resources :dashboard
 

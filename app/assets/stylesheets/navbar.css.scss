@@ -51,7 +51,7 @@
 }
 
 #autocomplete:focus {
-  border: 1px solid #f25f1d;
+  border: 1px solid #FEB326;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
@@ -184,23 +184,36 @@
   margin: 0px 0px 0px 0px;
   float: right;
   height: 60px;
-  font-size: 24px;
   cursor: pointer;
+  line-height: 60px;
   #account-details {
-    position: relative;
-    top: 5px;
     h2 {
       font-weight: normal;
       margin: 0px;
       padding: 0px;
       display: inline-block;
+      font-size: 20px;
+      line-height: 60px;
     }
     img {
-      height: 45px;
-      width: 45px;
-      margin: 0px 0px 0px 10px;
+      height: 32px;
+      width: 32px;
+      margin: -5px 0px 0px 5px;
       padding:0px;
       border: 1px solid #CCC;
+      @include border-radius(4px);
+    }
+    span.dicon-user {
+      margin: 0px 0px 0px 5px;
+      display: inline-block;
+      font-size: 32px;
+      line-height: 32px;
+      background: #FFF;
+      height: 32px;
+      position: relative;
+      top: 6px;
+      border: 1px solid #EEEEEE;
+      box-shadow: 0 0 1px #777777;
       @include border-radius(4px);
     }
     span.dicon-arrow-down {
@@ -224,8 +237,8 @@
   border-right: 10px solid transparent;	
   border-bottom: 10px solid white;
   position: absolute;
-  top: 46px;
-  right: 44px;
+  top: 51px;
+  right: 83px;
   display: none;
   z-index: 3;
 }
@@ -234,7 +247,7 @@
   border-color: transparent transparent #CCC;
   border-style: dashed dashed solid;
   border-width: 0 10px 10px;
-  top: 45px;
+  top: 50px;
   z-index: 2;
 }
 
@@ -266,6 +279,11 @@
     }
     li:hover {
       background: #f9f9f9;
+    }
+    #sign-out {
+      a {
+	width: 100%;
+      }
     }
   }
 }

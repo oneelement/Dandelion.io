@@ -14,9 +14,6 @@ $(document).ready(function(){
   $("#facebook_import_submit").click(function() { $("#facebook_import").submit(); });
   $("#linkedin_import_submit").click(function() { $("#linkedin_import").submit(); });
 
-
-
-
 });
 
 $(function() {
@@ -33,38 +30,23 @@ $(function() {
             results.push({
               label: 'Add Contact',
               category: 'Actions',
+	      icon: 'dicon-contact',
               value: request.term
             }
             );
             results.push({
               label: 'Add Group',
               category: 'Actions',
+	      icon: 'dicon-circles',
               value: request.term
             }
             );
-            results.push({
-              label: 'Add Task',
-              category: 'Actions',
-	      value: request.term
-            }
-            );
-            if (!results.length) {
-                $(".icon-search").addClass('disabled');
-                $(".icon-plus").removeClass('disabled');
-                $("#searchbutton").attr('value','');
-                $("#search_form").attr('action','/');
-            } else {
-                $(".icon-search").removeClass('disabled');
-                $(".icon-plus").addClass('disabled');
-                $("#searchbutton").attr('value','');
-                $("#search_form").attr('action','/');
-            }
             response(results);
             return false;
         });
     },
-    delay: 100,       
-    minLength: 2,  
+    delay: 500,       
+    minLength: 3,  
     select: function (event, ui) {
         $(event.target).val(ui.item.value);
         if (ui.item.label == "Add Contact") {
@@ -107,16 +89,28 @@ $(function() {
             window.location.href = url;
             console.log(ui.item.category)
         }
+        $('#autocomplete').val('')
         return false;
     }
-    })
-    .data( "catcomplete" )._renderItem = function( ul, item ) {
+    }).data( "catcomplete" )._renderItem = function( ul, item ) {
+      if (item.avatar == null) {
+	var avatar = "<span class='" + item.icon + "'></span>"
+      } else {
+	var avatar = "<img src='" + item.avatar + "'></img>"
+      }      
       return $( "<li></li>" )
         .data( "item.autocomplete", item )
-        .append( "<a><span class='rip-search-label'>" + item.label + "</span><span class='ripicon " + item.icon + "'></span></a>" )
+        .append( "<a><span class='search-avatar'>" + avatar + "</span><span class='search-label'>" + item.label + "</span></a>" )
         .appendTo( ul );
     };
 });
+
+
+
+
+
+
+
 
 $.widget( "custom.catcomplete", $.ui.autocomplete, {
         _renderMenu: function( ul, items ) {

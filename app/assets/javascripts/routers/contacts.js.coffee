@@ -8,7 +8,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "groups": "groupindex"
     "groups/show/:id": "groupShow"
     "groups/preview/:id": "groupPreview"
-    "hashtags/show/:id": "hashtagShow"
+    #"hashtags/show/:id": "hashtagShow"
     "users/preview/:id": "userPreview"
     "auth/accept": "acceptAuth"
 
@@ -49,11 +49,12 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
   home: ->
     after = (contact) =>
+      source = 'contact'
       tweets = @globalTweets.get(@currentUser.get('_id'))
       faces = @globalFaces.get(@currentUser.get('_id'))
       view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser, globalTweets: @globalTweets, globalFaces: @globalFaces, tweets: tweets, faces: faces)
       RippleApp.layout.setMainView(view)
-      @setContextContact(contact)
+      @setContextContact(contact, source)
     
     user = @currentUser.get("_id")   
     if not user?   
@@ -67,7 +68,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @getContact(id, after) 
 
   index: ->
-    view = new RippleApp.Views.ContactsIndex(collection: @contacts, favorites: @favouriteContacts)
+    view = new RippleApp.Views.ContactsIndex(collection: @contacts, favorites: @favouriteContacts, source: 'contact')
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddSubjectCard(model: new RippleApp.Models.Contact(), source: 'contact')
     RippleApp.layout.setContextView(viewContext)
@@ -83,34 +84,56 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
     
   groupindex: ->
-    view = new RippleApp.Views.ContactsIndex(collection: @groups, favorites: @favouriteContacts)
+    view = new RippleApp.Views.ContactsIndex(collection: @groups, favorites: @favouriteContacts, source: 'group')
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddSubjectCard(model: new RippleApp.Models.Group(), source: 'group')
     RippleApp.layout.setContextView(viewContext)
     
   groupShow: (id) ->
     after = (group) =>
+      source = 'group'
       @recentContacts.add(group.getBadge())  
       @currentUser.set('recent_contacts', JSON.stringify(@recentContacts.getTop5()))
       @currentUser.save()
-      @setContextContact(group)
+      @setContextContact(group, source)
       @showGroup(group)
       @groups.add(group) #OC added so new contacts are added to the collection and we dont have to fetch from the server
 
     @getGroup(id, after)
 
   hashtagShow: (id) ->
+    console.log(@hashtags)
     hashtag = @hashtags.get(id)
-    view = new RippleApp.Views.HashtagCard(model: hashtag)
-    RippleApp.layout.setContextView(view)
-    
-    tagContacts = new RippleApp.Collections.Contacts()
-    _.each(hashtag.get('contact_ids'), (contact_id)=>
-      tagContacts.add(@contacts.get(contact_id))
-    )
-    
-    view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
-    RippleApp.layout.setMainView(view)
+    console.log(hashtag)
+    if not hashtag?
+      hashtag = new RippleApp.Models.Hashtag({_id: id})
+      hashtag.fetch(success: (model) =>
+        view = new RippleApp.Views.HashtagCard(model: model)
+        RippleApp.layout.setContextView(view)
+        
+        tagContacts = new RippleApp.Collections.Contacts()
+        _.each(model.get('contact_ids'), (contact_id)=>
+          tagContacts.add(@contacts.get(contact_id))
+        )
+        _.each(model.get('group_ids'), (group_id)=>
+          tagContacts.add(@groups.get(group_id))
+        )
+        view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
+        RippleApp.layout.setMainView(view)
+      )
+    else
+      view = new RippleApp.Views.HashtagCard(model: hashtag)
+      RippleApp.layout.setContextView(view)    
+      
+      tagContacts = new RippleApp.Collections.Contacts()
+      _.each(hashtag.get('contact_ids'), (contact_id)=>
+        tagContacts.add(@contacts.get(contact_id))
+      )
+      _.each(hashtag.get('group_ids'), (group_id)=>
+        tagContacts.add(@groups.get(group_id))
+      )
+      view = new RippleApp.Views.ContactsIndex(collection: tagContacts)
+      RippleApp.layout.setMainView(view)
     
   userPreview: (id) ->        
     #insert loading view here
@@ -131,10 +154,11 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   #Display the contact, and full detail in the main view
   show: (id) ->
     @getContact(id, (contact) =>
+      source = 'contact'
       @recentContacts.add(contact.getBadge())  
       @currentUser.set('recent_contacts', JSON.stringify(@recentContacts.getTop5()))
       @currentUser.save()
-      @setContextContact(contact)
+      @setContextContact(contact, source)
       @showContact(contact)
       @contacts.add(contact) #OC added so new contacts are added to the collection and we dont have to fetch from the server
     )
@@ -142,13 +166,15 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   #Display the contact card, without full detail
   preview: (id) ->
     after = (contact) =>
-      @setContextContact(contact)
+      source = 'contact'
+      @setContextContact(contact, source)
 
     @getContact(id, after)
     
   groupPreview: (id) ->
     after = (group) =>
-      @setContextContact(group)
+      source = 'group'
+      @setContextContact(group, source)
 
     @getGroup(id, after)    
 
@@ -178,16 +204,16 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     else
       return null
 
-  setContextContact: (contact) ->
+  setContextContact: (contact, source) ->
     @_contextContact = contact
     user = @currentUser.get("_id")
     if not user?
       @currentUser.fetchCurrent(success: (model) =>
-        view = new RippleApp.Views.ContactCard(model: @_contextContact, user: model)
+        view = new RippleApp.Views.ContactCard(model: @_contextContact, user: model, source: source)
         RippleApp.layout.setContextView(view)
       )
     else
-      view = new RippleApp.Views.ContactCard(model: @_contextContact, user: @currentUser)
+      view = new RippleApp.Views.ContactCard(model: @_contextContact, user: @currentUser, source: source)
       RippleApp.layout.setContextView(view)
 
   showContact: (contact) ->
