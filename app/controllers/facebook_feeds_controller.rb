@@ -31,6 +31,7 @@ class FacebookFeedsController < ApplicationController
     face1 = @user.facebook.get_connections("me", "friends")
     face2 = @user.facebook.search(query, {:type => "user", :limit => "25"})
     face3 = @user.facebook.search(query, {:type => "page", :limit => "25"})
+    face4 = @user.facebook.search(query, {:type => "group", :limit => "25"})
     
        
     if face1
@@ -45,7 +46,7 @@ class FacebookFeedsController < ApplicationController
       face2 = face2.insert(0, @friend)
     end
     
-    output = face2 + face3
+    output = face2 + face3 + face4
       
     respond_to do |format|
       format.json { render json: output }
