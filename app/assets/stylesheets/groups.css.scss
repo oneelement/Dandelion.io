@@ -32,7 +32,7 @@
       background: #f0f0f0;
       box-shadow: 2px 1px 3px #CCC;
       border-bottom: 1px solid #f0f0f0;
-      @include border-radius(0px 8px 0px 0px);
+      @include border-radius(8px 8px 0px 0px);
     }
     #group-social {
       border-bottom: 1px solid #CCC;
@@ -42,7 +42,7 @@
       background: #fefefe;
       box-shadow: -2px 1px 3px #CCC;
       border-bottom: 1px solid transparent;
-      @include border-radius(8px 0px 0px 0px);
+      @include border-radius(8px 8px 0px 0px);
     }
   }
   #group-contacts-wrapper {
@@ -58,8 +58,17 @@
         margin: 0px 2.5%;
         padding: 4px;
         width: 45%;
-        border: none;
-        box-shadow: 0px 4px 4px #CCC;
+        border: 1px solid #CCC;
+        @include border-radius(4px);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.15);
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.15);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.15);
+      }
+      input:focus {
+        border: 1px solid #FEB326;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(#f25f1d, 0.6);
       }
     }
     table {

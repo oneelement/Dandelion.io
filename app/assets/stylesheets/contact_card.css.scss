@@ -117,19 +117,16 @@
   }
 
   #contact-card-details {
-
-    $detailsPadding: 10px;
-
     position: relative;
-    top: 0px;
-    left: $detailsPadding;
-    right: $detailsPadding;
+    width: 94%;
+    margin: 0 3% 0 3%;
+
 
     #contact-card-head {
       position: absolute;
       top: 0;
       left: 0;
-      right: 20px;
+      right: 0;
 
       #contact-card-avatar {
         position: absolute;
@@ -180,36 +177,142 @@
         left: 0;
         right: 0;
 
-        #contact-card-details-input {
-          height: 28px;
+        #minibar-wrapper {
           margin: 0px;
-          input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 40px;
-            width: 250px;
+          float: left;
+          width: 100%;
+          background: transparent;
+          border: 1px solid #CCCCCC;
+          @include border-radius(4px);
+          #minibar-input-wrapper {
+            padding: 0px;
+            margin: 0px;
+            float: left;
+            width: 100%;
+            height: 24px;
+            input {
+              width: 100%;
+              padding: 2px 4px;
+              margin: 0px;
+              height: 24px;
+              border: none;
+              background: transparent;
+              @include box-sizing(border-box);
+              @include box-shadow(none);
+            }
+            input:focus {
+              @include box-shadow(none);
+            }
+            .ui-widget-content {
+              @include border-radius(0px);
+              @include border-corner-radius(bottom, left, 4px);
+              @include border-corner-radius(bottom, right, 4px);
+              background: #fefefe;
+              width: 300px !important;
+              left: -26px !important;
+              .ui-menu-item a {
+                padding: 3px 0px 3px 5px;
+              }
+            }
           }
-          input:focus {
-            @include box-shadow(none);
+          #minibar-type-wrapper {
+            padding: 4px 0px 4px 0px;
+            margin: 0px;
+            float: left;
+            width: 100%;
+            background: #f9f9f9;
+            display: none;
+            border-top: 1px solid #CCCCCC;
           }
+
 
           .add-on {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 260px;
             cursor: pointer;
-
-            width: auto;
+            padding: 0px;
+            margin: 0px 0px 0px 5px;
+            float: left;
+            border: none;
+            background: transparent;  
+            height: 18px;
+            .minibar-type-list {
+              padding: 0px 0px;
+              margin: 0px; 
+              min-width: 75px; 
+              font-size: 11px;
+              border: 1px solid #CCC;
+              @include border-radius(4px);
+              background: #f9f9f9;
+              position: relative;
+              z-index: 5;
+              cursor: pointer;
+              li {
+                padding: 0px 4px;
+                margin: 0px;
+                text-align: left;
+              }   
+              li:hover {
+                background: #f0f0f0;
+              }
+              li.minibar-type-selected {
+                margin: 0px 4px; 
+                padding: 0px;  
+              }    
+              li.minibar-type-selected:hover {
+                margin: 0px 4px;  
+                background: transparent;
+              }     
+            }          
+          }
+          .bp-select {
+            padding: 0px;
+            margin: 0px 0px 0px 5px;
+            float: left;
+            text-align: center;
+            height: 18px;
+            .minibar-type-list {
+              padding: 0px 0px;
+              margin: 0px; 
+              min-width: 75px; 
+              font-size: 11px;
+              border: 1px solid #CCC;
+              @include border-radius(4px);
+              background: #f9f9f9;
+              position: relative;
+              z-index: 5;
+              li {
+                margin: 0px;
+                text-align: left;
+              }     
+              li.bp-type-list {
+                display: none;
+                cursor: pointer;
+                padding: 0px 4px;
+              }  
+              li.bp-type-list:hover {
+                background: #f0f0f0;
+              }
+              li.minibar-type-selected {   
+                margin: 0px 4px; 
+                padding: 0px;              
+              }    
+            }
+            #bp-type {
+              padding: 0px;
+              margin: 0px; 
+              cursor: pointer;
+            }
+          }
+          .dicon-arrow-down {
+            font-size: 11px;
+            float: right;
           }
         }
           
         #override-match-wrapper {
           ul {
-            margin: 0px 0px 0px 180px;
+            margin: 0px 0px 0px 0px;
             padding: 0px;
-            background-color: #F5F5F5;
+            background-color: #F9f9f9;
             @include opacity(0.95);
             border: 1px solid #CCCCCC;
             border-radius: 3px 0 0 3px;
@@ -218,8 +321,9 @@
             position: relative;
             #left: 100px;
             li {
-              margin: 0px 0px 0px 10px;
+              margin: 0px 0px 0px 0px;
               padding: 2px;
+              text-align: left;
               font-size: 11px;
             }
           } 
@@ -277,13 +381,145 @@
       top: 138px;
       left: 0;
       width: 300px;
+  
+      .contact-card-section {
+        margin: 0px 0px 5px 0px;
+        float: left;
+        width: 100%;
+      }
+
+      .editing {
+        .subject_edit_view_input {
+          display: block !important;        
+        }
+        ul { 
+          li {
+            .contact-detail-delete {
+              color: #DDD;
+              display: block;
+            }
+            .contact-detail-value {
+              display: none;
+            }
+            .contact-detail-edit {
+              display: block;
+              #edit_value {
+                color: #555;
+              }
+	      input {
+		width: 75%;
+		font-size: 16px;
+		border: none;
+		box-shadow: none;
+		padding: 0px;
+		margin: 0px 0px 0px 12px;
+		line-height: 18px;
+		vertical-align: baseline;
+		background-color: transparent;
+		float: left;
+		color: #CCC;
+	      }
+            }
+          }
+        }
+      }
 
       .contact-card-hashtag-section {
         margin: 6px 0px 0px 0px;
+        float: left;
       }
 
       .contact-details-list {
         margin: 0px;
+      }
+
+      .edit-view-input {
+        color: inherit;
+        font-size: inherit;
+        float: left;
+        width: 100%;
+        position: relative;
+        ul {
+          padding: 0px;
+          margin: 0px;
+          .contact-detail-icon {
+            color: #BBBBBB;
+            cursor: pointer;
+            float: left;
+            font-size: 16px;
+          }
+          .icon-default {
+            padding: 0px;
+            margin: 0px;
+          }
+          .edit-view-icon-options {
+            display: none;
+            float: left;
+            position: absolute;
+            background: #f0f0f0;
+            z-index: 6;
+            width: 50%;
+            border: 1px solid #CCC;
+            @include border-radius(4px);
+            padding: 4px;
+            top: 22px;
+            left: -5px;
+	    .menu-caret {
+	      width: 0; 
+	      height: 0; 
+	      border-left: 5px solid transparent;
+	      border-right: 5px solid transparent;	
+	      border-bottom: 5px solid #f0f0f0;
+	      position: absolute;
+	      z-index: 9;
+              top: -5px;
+              left: 7px;
+              display: block;
+	    }
+
+	    .menu-caret.outline {
+	      border-color: transparent transparent #CCC;
+	      border-style: dashed dashed solid;
+	      border-width: 0 5px 5px;
+	      z-index: 8;
+              display: block;
+	    }
+            .options-item {
+              float: left;
+              width: 100%;
+              padding: 2px 0px 2px 0px;
+              font-size: 11px;
+	      span {
+		padding: 0px;
+		margin: 0px;
+		display: block;
+		float: left;
+	      }
+	      span.contact-detail-icon {
+		width: 20%;
+	      }
+	      span.icon-options-wording {
+		width: 80%;
+                margin-top: 2px;
+	      }
+            }
+          }
+	  .contact-detail-edit {
+            input {
+	      width: 75%;
+	      font-size: 16px;
+	      border: none;
+	      box-shadow: none;
+	      padding: 0px;
+	      margin: 0px 0px 0px 12px;
+	      line-height: 18px;
+	      vertical-align: baseline;
+	      background-color: transparent;
+	      float: left;
+	      color: #BBB;
+	    }
+          }
+        }
       }
 
       .contact-card-section-title {
@@ -308,8 +544,6 @@
         margin: 0px 0px 0px 0px;
         padding: 2px 0px 0px 0px;
         width: 100%;
-        border-top: 1px solid #FFF;
-        border-bottom: 1px solid #CCC;
         min-height: 22px;
  
         
@@ -317,7 +551,7 @@
         .contact-detail-icon {
           float: left;
           font-size: 16px;
-          color: #BBB;
+          color: #555;
           cursor: pointer; 
         }
   
@@ -325,6 +559,7 @@
           color: #FFF;
           @include opacity(0.8);
           cursor: pointer;
+          display: none;
         }
         
         .contact-detail-favorite {
@@ -341,22 +576,18 @@
 
         .contact-detail-value {
           float: left;
-          margin-left: 8px;
+          margin-left: 13px;
           width: 75%;
           
           font-weight: normal;
           font-size: 16px;
-          color: #BBB;
+          color: #555;
         }
         .contact-detail-edit {
           display: none;
         }
       }
       .contact-detail:hover {
-        .contact-detail-delete {
-          color: #FFF;
-          @include opacity(0.8);
-        }
         .contact-detail-favorite {
           color: #EEE;
         }

@@ -5,20 +5,20 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
   getViewIcon: ->
     type = @get("_type")
 
-    if type == 'PhoneHome'
+    if type == 'PhonePersonal'
       return 'phone'
     else if type == 'PhoneBusiness'
-      return 'phone'
-    else if type == 'PhoneMobileBusiness'
-      return 'mobile'
-    else if type == 'PhoneMobile'
+      return 'office'
+    else if type == 'MobileBusiness'
+      return 'mobile-2'
+    else if type == 'MobilePersonal'
       return 'mobile'
     else
       return 'phone'
       
   getTypes: ->
     #types = ['PhoneHome', 'PhoneBusiness', 'PhoneMobile', 'Phone']
-    types = [{icon: 'PH', type: 'PhoneHome'}, {icon: 'PB', type: 'PhoneBusiness'}, {icon: 'PMB', type: 'PhoneMobileBusiness'}, {icon: 'PM', type: 'PhoneMobile'}, {icon: 'PH', type: 'Phone'}]
+    types = [{icon: 'phone', type: 'PhonePersonal', text: 'Personal Phone'}, {icon: 'mobile', type: 'MobilePersonal', text: 'Personal Mobile'}, {icon: 'office', type: 'PhoneBusiness', text: 'Business Phone'}, {icon: 'mobile-2', type: 'MobileBusiness', text: 'Business Mobile'}]
     return types       
 
   getViewValue: ->
@@ -29,6 +29,9 @@ class RippleApp.Models.ContactPhoneDetail extends Backbone.RelationalModel
     
   getModelType: ->
     return "phone"
+    
+  defaultType: ->
+    return "PhonePersonal"
     
   destroyModel: (id, contact_id) ->
     url = '/admins/tester/?id=' + id + '&contact_id=' + contact_id

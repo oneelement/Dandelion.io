@@ -4,9 +4,8 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
   tagName: 'li'
   
   events:
-    'click span.contact-detail-value': 'editValue'
+    #'click span.contact-detail-value': 'editValue'
     'keypress #edit_value': 'checkEnter'
-    'click span.edit-icon': 'editValue'
     'click span.contact-detail-delete': 'deleteValue'
     'focusout input#edit_value': 'closeEdit'
     'click .main-icon': 'toggleDefault'
@@ -63,12 +62,12 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       this.$('input#edit_value').focus()
       this.$('span.edit-icon').css('display', 'block')
       this.$('.contact-detail-delete').css('color', '#DDD')
-      this.$('.contact-detail-favorite').css('display', 'none')
-      this.$('.contact-detail-delete').addClass('delete-icon')
+      #this.$('.contact-detail-favorite').css('display', 'none')
+      #this.$('.contact-detail-delete').addClass('delete-icon')
     
   deleteValue: ->
     console.log('Delete Entry')
-    @model.destroy()
+    @model.destroy(null, { silent: true })
     #@model.destroyModel(@model.get('_id'), @subject.get('_id'))
     #@collection.remove(@model)
     #coll = @model.getModelType()
@@ -89,11 +88,11 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       @closeEdit()
       
   closeEdit: ->
+    console.log('close edit detail')
     value = @model.getFieldName()
     this.model.set(value, this.$('input#edit_value').val())
-    $(this.el).removeClass('editing')
-    this.$('span.edit-icon').css('display', 'none')
-    this.$('.contact-detail-delete').removeClass('delete-icon')
-    this.$('.contact-detail-favorite').css('display', 'block')
-    this.$('.contact-detail-delete').css('color', '#FFF')
+    #$(this.el).removeClass('editing')
+    #this.$('.contact-detail-delete').removeClass('delete-icon')
+    #this.$('.contact-detail-favorite').css('display', 'block')
+    #this.$('.contact-detail-delete').css('color', '#FFF')
     @model.save()

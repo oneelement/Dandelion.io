@@ -29,13 +29,34 @@
           <span id="isFavourite" class="dicon-star"></span>
         </div>
         <form id="contact-card-details-input-form">
-            <div class="input-append" id="contact-card-details-input">
-                <input id="minibar" type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
-                <span class="add-on">
-                    <span id="contact-card-details-input-type">...</span>
-                <span>                
+            <div class="input-append" id="minibar-wrapper">
+                <div id="minibar-input-wrapper">
+                    <input id="minibar" type="text" name="contact-card-details-input" class="input-text" placeholder="Add details...">
+                </div>     
+                <div id="minibar-type-wrapper">           
+                    <span class="add-on">
+                        <ul class="minibar-type-list">
+                            <li class="minibar-type-selected">
+                                <span id="contact-card-details-input-type">n/a</span>
+                                <span class="dicon-arrow-down"></span>
+                            </li>
+                            <div id="override-match-wrapper"></div>
+                        </ul>                        
+                        
+                    </span>  
+                    <span class="bp-select">
+                        <ul class="minibar-type-list">
+                            <li class="minibar-type-selected">
+                                <span id="bp-type">Personal</span>
+                                <span class="dicon-arrow-down"></span>
+                            </li>
+                            <li class="bp-type-list">Personal</li>
+                            <li class="bp-type-list">Business</li>
+                        </ul> 
+                    </span>   
+                </div>           
             </div>
-            <div id="override-match-wrapper"></div>
+            
         </form>
         <div id="social-network-links">
             <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>

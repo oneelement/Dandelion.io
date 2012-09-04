@@ -1,0 +1,2 @@
+class PhonePersonal < Phone
+end

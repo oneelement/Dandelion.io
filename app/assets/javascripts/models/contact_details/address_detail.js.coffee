@@ -5,16 +5,16 @@ class RippleApp.Models.ContactAddressDetail extends Backbone.RelationalModel
   getViewIcon: ->
     type = @get("_type")
 
-    if type == 'AddressHome'
-      return 'book'
+    if type == 'AddressPersonal'
+      return 'location'
     else if type == 'AddressBusiness'
-      return 'book'
+      return 'office'
     else
-      return 'book'
+      return 'location'
       
   getTypes: ->
     #types = ['AddressHome', 'AddressBusiness', 'Address']
-    types = [{icon: 'AH', type: 'AddressHome'}, {icon: 'AB', type: 'AddressBusiness'}, {icon: 'AD', type: 'Address'}]
+    types = [{icon: 'location', type: 'AddressPersonal', text: 'Home Address'}, {icon: 'office', type: 'AddressBusiness', text: 'Business Address'}]
     return types   
 
   getViewValue: ->
@@ -25,3 +25,6 @@ class RippleApp.Models.ContactAddressDetail extends Backbone.RelationalModel
     
   getModelType: ->
     return "address"
+    
+  defaultType: ->
+    return "AddressPersonal"

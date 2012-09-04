@@ -1,2 +1,0 @@
-class PhoneMobileBusiness < Phone
-end

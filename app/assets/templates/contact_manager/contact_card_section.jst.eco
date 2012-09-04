@@ -1,15 +1,28 @@
-<p class="contact-card-section-title"><span class="dicon-<%= @icon %>"/> <%= @title %></p>
 <ul class="contact-details-list"></ul>
-<% if @types.length != 0: %>
-  <select class="item-type" style="display: none;">
-  <% for type in @types: %>  
-    <option value="<%= type.type %>"><%= type.icon %></option>
-  <% end %>
-  </select>
-<% end %>
 
-<% @value = "" %>
+<div class="edit-view-input" style="display: none;">
+  <ul>
+    <li class="" title="">
+        <span id="default-icon" class="contact-detail-icon dicon-<%= @icon %>" title="<%= @defaultType %>"></span>
+        <% if @title == 'note': %>
+        <% else: %>
+          <div class="edit-view-icon-options">
+          <span class="menu-caret"></span>
+          <span class="menu-caret outline"></span>
+          <% for type in @types: %>
+            <div class="options-item">
+              <span data-icon="<%= type.icon %>" class="icon-option-select contact-detail-icon dicon-<%= type.icon %>" title="<%= type.type %>"></span>  
+              <span class="icon-options-wording"><%= type.text %></span> 
+            </div> 
+          <% end %>
+          </div>
+        <% end %>
+        <span class="contact-detail-edit">
+	  <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="add <%= @title %>...""></input>          
+	</span> 
+    </li>
 
-<div>
-  <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="Enter new <%= @title %>" style="display: none;"></input>          
+  </ul>
+
+ 
 </div>

@@ -14,6 +14,7 @@ class Address
   belongs_to :group
 
   field :name, :type => String
+  field :full_address, :type => String
   field :line1, :type => String
   field :line2, :type => String
   field :line3, :type => String
@@ -35,12 +36,12 @@ class Address
     end
   end
 
-  def full_address=(address_string)
+  def address_full=(address_string)
     #Not really sure how we're gonna go about this... for now I will shove it in line1. Need to discuss
     self.line1= address_string
   end
   
-  def full_address
+  def address_full
     address_components = [self.line1, self.line2, self.line3, 
       self.county, self.postcode]
 

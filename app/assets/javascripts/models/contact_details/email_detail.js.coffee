@@ -6,14 +6,14 @@ class RippleApp.Models.ContactEmailDetail extends Backbone.RelationalModel
     type = @get("_type")
 
     if type == 'EmailPersonal'
-      return 'mail'
+      return 'paper-plane'
     else if type == 'EmailBusiness'
       return 'mail'
     else
       return 'mail'
       
   getTypes: ->
-    types = [{icon: 'EP', type: 'EmailPersonal'}, {icon: 'EB', type: 'EmailBusiness'}, {icon: 'EM', type: 'Email'}]
+    types = [{icon: 'paper-plane', type: 'EmailPersonal', text: 'Personal Email'}, {icon: 'mail', type: 'EmailBusiness', text: 'Business Email'}]
     #types = ['EmailPersonal', 'EmailBusiness', 'Email']
     return types    
 
@@ -25,3 +25,6 @@ class RippleApp.Models.ContactEmailDetail extends Backbone.RelationalModel
     
   getModelType: ->
     return "email"
+    
+  defaultType: ->
+    return "EmailPersonal"

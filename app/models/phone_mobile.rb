@@ -1,2 +1,0 @@
-class PhoneMobile < Phone
-end

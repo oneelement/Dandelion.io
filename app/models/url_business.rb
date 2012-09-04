@@ -1,0 +1,2 @@
+class UrlBusiness < Url
+end

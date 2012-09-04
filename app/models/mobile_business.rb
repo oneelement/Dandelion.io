@@ -1,0 +1,2 @@
+class MobileBusiness < Phone
+end

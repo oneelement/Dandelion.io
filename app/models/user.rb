@@ -123,7 +123,8 @@ class User
     )
     record.save
     record.emails.create!(
-      :text => self.email
+      :text => self.email,
+      :_type => 'Email'
     )
     self.contact_id = record._id
     self.full_name = self.first_name + ' ' + self.last_name

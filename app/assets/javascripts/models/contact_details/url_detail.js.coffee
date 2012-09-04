@@ -6,15 +6,15 @@ class RippleApp.Models.ContactUrlDetail extends Backbone.RelationalModel
     type = @get("_type")
 
     if type == 'UrlPersonal'
-      return 'link'
-    else if type == 'UrlCompany'
-      return 'link'
+      return 'globe'
+    else if type == 'UrlBusiness'
+      return 'office'
     else
-      return 'link'
+      return 'globe'
       
   getTypes: ->
     #types = ['UrlPersonal', 'UrlCompany', 'Url']
-    types = [{icon: 'UP', type: 'UrlPersonal'}, {icon: 'UC', type: 'UrlCompany'}, {icon: 'UL', type: 'Url'}]
+    types = [{icon: 'globe', type: 'UrlPersonal', text: 'Personal Website'}, {icon: 'office', type: 'UrlBusiness', text: 'Business Website'}]
     return types       
 
   getViewValue: ->
@@ -25,3 +25,6 @@ class RippleApp.Models.ContactUrlDetail extends Backbone.RelationalModel
     
   getModelType: ->
     return "url"
+    
+  defaultType: ->
+    return "UrlPersonal"

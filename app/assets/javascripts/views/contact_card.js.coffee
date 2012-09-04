@@ -5,11 +5,16 @@ class RippleApp.Views.ContactCard extends Backbone.View
   id: 'contact-card'
     
   events:
-    'keyup #contact-card-details-input input': 'matchInputDetails'
+    'keyup #minibar-input-wrapper input': 'matchInputDetails'
+    'focus #minibar-input-wrapper input': 'setMinibar'
+    #'focusout #minibar-input-wrapper input': 'closeMinibar'
+    #'click #minibar-wrapper': 'setMinibar'
     'click #isFavourite': 'toggleFavourite'
     'submit #contact-card-details-input-form': 'submitDetails'
     'click span.add-on': 'changeMatch'
-    'click #override-matcher': 'setOverriddenMatch'
+    'click span.bp-select': 'changeBpType'
+    'click .bp-type-list': 'setOverriddenType'
+    'click #override-match-wrapper': 'setOverriddenMatch'
     'render': 'matchInputDetails'
     'click .Phone span.c-sm-icon-house, .Phone span.c-sm-icon-mobile': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'  
@@ -41,6 +46,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @model.on('change', @render, this)
     @editViewOn = false
     @overrideMatch = false
+    @overrideBp = false
     @auths = @user.get('authentications')
   
   render: ->
@@ -68,6 +74,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
     if @model.get('is_user') == true
       this.$('#isRipple').addClass('connected')
+      
+    #this.$('.contact-detail').addClass('editing')
     
     return @
     
@@ -133,8 +141,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @user_contact = @user_contacts.get(id)
       
     emailsSection = new RippleApp.Views.ContactUserSection(
-      title: 'Emails'
-      icon: 'mail'
+      title: 'email'
+      icon: 'paper-plane'
       collection: @user_contact.get("emails")
       subject: @model
       modelName: RippleApp.Models.ContactEmailDetail
@@ -144,7 +152,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputEmails()
     
     phonesSection = new RippleApp.Views.ContactUserSection(
-      title: 'Phone Numbers'
+      title: 'phone'
       icon: 'phone'
       collection: @user_contact.get("phones")
       subject: @model
@@ -155,7 +163,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputPhones()
   
     urlsSection = new RippleApp.Views.ContactUserSection(
-      title: 'Urls'
+      title: 'website'
       icon: 'globe'
       collection: @user_contact.get("urls")
       subject: @model
@@ -166,8 +174,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputUrls()
 
     addressesSection = new RippleApp.Views.ContactUserSection(
-      title: 'Addresses'
-      icon: 'book'
+      title: 'address'
+      icon: 'location'
       collection: @user_contact.get("addresses")
       subject: @model
       modelName: RippleApp.Models.ContactAddressDetail
@@ -200,8 +208,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
           
   outputEmails: ->
     emailsSection = new RippleApp.Views.ContactCardSection(
-      title: 'Emails'
-      icon: 'mail'
+      title: 'email'
+      icon: 'paper-plane'
       collection: @model.get("emails")
       subject: @model
       modelName: RippleApp.Models.ContactEmailDetail
@@ -210,7 +218,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   
   outputPhones: ->  
     phonesSection = new RippleApp.Views.ContactCardSection(
-      title: 'Phone Numbers'
+      title: 'phone'
       icon: 'phone'
       collection: @model.get("phones")
       subject: @model
@@ -220,7 +228,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
   outputUrls: ->
     urlsSection = new RippleApp.Views.ContactCardSection(
-      title: 'Urls'
+      title: 'website'
       icon: 'globe'
       collection: @model.get("urls")
       subject: @model
@@ -230,8 +238,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
   outputAdresses: ->
     addressesSection = new RippleApp.Views.ContactCardSection(
-      title: 'Addresses'
-      icon: 'book'
+      title: 'address'
+      icon: 'location'
       collection: @model.get("addresses")
       subject: @model
       modelName: RippleApp.Models.ContactAddressDetail
@@ -249,7 +257,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   
   outputNotes: ->    
     notesSection = new RippleApp.Views.ContactCardSection(
-      title: 'Notes'
+      title: 'note'
       icon: 'flag'
       collection: @model.get("notes")
       subject: @model
@@ -261,7 +269,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if @model.get('group_ids')
       collection = new RippleApp.Collections.Groups()
       groupSection = new RippleApp.Views.ContactCardGroupSection(
-        title: 'Groups'
+        title: 'group'
         icon: 'circles'
         subject: @model
         collection: collection
@@ -320,15 +328,20 @@ class RippleApp.Views.ContactCard extends Backbone.View
   editView: ->
     console.log('Edit View')
     if @editViewOn == false
-      $('.contact-card-section-title').css('display', 'block')
-      $('.subject_edit_view_input').css('display', 'block')
+      $('.edit-view-input').css('display', 'block')
       $('.item-type').css('display', 'block')
       $('.dicon-pencil').addClass('active')
+
+      this.$('.contact-detail').addClass('editing')
+      this.$('.contact-card-section').addClass('editing')
+      
       @editViewOn = true
     else
-      $('.contact-card-section-title').css('display', 'none')
+      this.$('.contact-card-hashtag-section').removeClass('editing')
+      this.$('.contact-card-section').removeClass('editing')
+      this.$('.contact-detail').removeClass('editing')
       #$('.contact-card-section-title.active').css('display', 'block') #removed as titles no longer remain after edit
-      $('.subject_edit_view_input').css('display', 'none')
+      $('.edit-view-input').css('display', 'none')
       $('.item-type').css('display', 'none')
       $('.dicon-pencil').removeClass('active')
       @editViewOn = false
@@ -359,10 +372,25 @@ class RippleApp.Views.ContactCard extends Backbone.View
       this.$('#isFavourite').addClass('isFavorite')
       @user.set('favourite_contacts', JSON.stringify(@favouriteContacts.toJSON()))
       @user.save()
+      
+  setMinibar: ->
+    this.$('#minibar-type-wrapper').show()
+    this.$('#social-network-links').css('top', '140px')
+    this.$('#contact-card-body').css('top', '163px')
+    
+  closeMinibar: ->
+    this.$('#minibar-type-wrapper').hide()
+    this.$('#social-network-links').css('top', '115px')
+    this.$('#contact-card-body').css('top', '138px')
 
-  matchInputDetails: ->
+  matchInputDetails: (e) ->
     #Display our guess of what the input text relates to, 
     #on the label alongside the input itself
+    console.log('matching')
+    if e.keyCode == 13
+      @closeMinibar()
+    else
+      @setMinibar()
 
     $form = $('#contact-card-details-input-form', @el)
     $input = $('input', $form)
@@ -396,27 +424,49 @@ class RippleApp.Views.ContactCard extends Backbone.View
         console.log(groups)
         $input.autocomplete
           source: groups
+          appendTo: "#minibar-input-wrapper"
           select: (event, ui) =>
             @submitGroup(ui)
+            
             
       else
         $input.autocomplete('destroy')  
       
-      formWidth = $form.width()
+      ##formWidth = $form.width()
       #console.log(formWidth)
-      labelWidth = @calculateMatchLabelWidth(matchText, $addon)
+      ##labelWidth = @calculateMatchLabelWidth(matchText, $addon)
       #console.log(labelWidth)
-      inputWidth = formWidth - labelWidth
+      ##inputWidth = formWidth - labelWidth
       #console.log(inputWidth)
 
       $matchLabel.fadeOut(100, ->
         #$input.animate({right: labelWidth}, 100)
-        $input.animate({width: inputWidth - 10}, 100)
-        $addon.animate({left: inputWidth}, 100, ->
+        ##$input.animate({width: inputWidth - 10}, 100)
+        $addon.animate(100, ->
           $matchLabel.text(matchText)
           $matchLabel.fadeIn(200))
       )
       
+  changeBpType: ->
+    if @overrideBp == false
+      this.$('.bp-type-list').hide().slideDown(200)
+      this.$('.bp-select .minibar-type-selected').css('border-bottom', '1px dotted #CCC')
+      @overrideBp = true
+    else
+      this.$('.bp-type-list').slideUp(200, ->
+        $('.bp-type-list').hide()
+      )
+      this.$('.bp-select .minibar-type-selected').css('border-bottom', 'none')
+      @overrideBp = false
+      
+  setOverriddenType: (event) =>
+    newMatch = this.$(event.target).text()    
+    this.$('#bp-type').text(newMatch)
+    @matchType = newMatch
+    @overrideBp = true
+    this.$('#minibar').focus()
+    console.log(@matchType)
+    
   changeMatch: ->
     console.log('Change Match')
     console.log(@overrideMatch)
@@ -431,23 +481,25 @@ class RippleApp.Views.ContactCard extends Backbone.View
     #matchtypes = ['Mobile', 'Home Phone', 'Email', 'Address', 'Url']
     if @overrideMatch == false
       this.$('#override-match-wrapper').hide().append(@matchOverrideList()).slideDown(200)
+      this.$('.add-on .minibar-type-selected').css('border-bottom', '1px dotted #CCC')
       @overrideMatch = true
-      $matchLabel.fadeOut(100, ->
-        $input.animate({width: inputWidth - 10}, 100)
-        $addon.animate({left: inputWidth}, 100, ->
-          $matchLabel.fadeIn(200))
-      )
+      #$matchLabel.fadeOut(100, ->
+      #  $input.animate({width: inputWidth - 10}, 100)
+      #  $addon.animate({left: inputWidth}, 100, ->
+      #    $matchLabel.fadeIn(200))
+      #)
     else
       this.$('#override-match-wrapper').slideUp(200, ->
         console.log('waiting...')
         $('#override-match-wrapper').html(''))
+      this.$('.add-on .minibar-type-selected').css('border-bottom', 'none')
       @overrideMatch = false
       newMatch = this.$('#contact-card-details-input-type').text()
-      labelWidth = @calculateMatchLabelWidth(newMatch, $addon)
-      inputWidth = formWidth - labelWidth
+      ##labelWidth = @calculateMatchLabelWidth(newMatch, $addon)
+      ##inputWidth = formWidth - labelWidth
       $matchLabel.fadeOut(100, ->
-        $input.animate({width: inputWidth - 10}, 100)
-        $addon.animate({left: inputWidth}, 100, ->
+        ##$input.animate({width: inputWidth - 10}, 100)
+        $addon.animate(100, ->
           $matchLabel.fadeIn(200))
       )
       
@@ -458,19 +510,20 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $addon = $('.add-on', $form)   
     $matchLabel = $('#contact-card-details-input-type', $form)
     newMatch = this.$(event.target).text()
-    labelWidth = @calculateMatchLabelWidth(newMatch, $addon)
-    formWidth = $form.width()
-    inputWidth = formWidth - labelWidth
+    ##labelWidth = @calculateMatchLabelWidth(newMatch, $addon)
+    ##formWidth = $form.width()
+    ##inputWidth = formWidth - labelWidth
     this.$('#override-match-wrapper').html('')
     $matchLabel.fadeOut(100, ->
-      $input.animate({width: inputWidth - 10}, 100)
-      $addon.animate({left: inputWidth}, 100, ->
+      #$input.animate({width: inputWidth - 10}, 100)
+      $addon.animate(100, ->
         $matchLabel.text(newMatch)
         $matchLabel.fadeIn(200))
     )
     @match = newMatch
-    @overrideMatch = false
+    @overrideMatch = true
     this.$('#minibar').focus()
+    console.log(@match)
     
   submitGroup: (ui) =>
     this.$('#contact-card-details-input-type').text('...')
@@ -515,6 +568,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
   submitDetails: (e) ->
     e.preventDefault()
+    
+    #@closeMinibar()
 
     $form = $('#contact-card-details-input-form', @el)
     $input = $('input', $form)    
@@ -523,24 +578,26 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $matchLabel.text('...')
     
     if @match
-      if _.include(['Phone Mobile', 'Phone Home', 'Phone Business Mobile', 'Phone Business'], @match)
+      if _.include(['Phone', 'Mobile'], @match)
         m = new RippleApp.Models.ContactPhoneDetail(
           number: val
         )
         c = @model.get("phones")
 
-        if @match == 'Phone Mobile'
-          m.set('_type', 'PhoneMobile', {silent: true})
-        else if @match == 'Phone Home'
-          m.set('_type', 'PhoneHome', {silent: true})
-        else if @match == 'Phone Business Mobile'
-          m.set('_type', 'PhoneMobileBusiness', {silent: true})
-        else if @match == 'Phone Business'
-          m.set('_type', 'PhoneBusiness', {silent: true})
+        if @match == 'Mobile'
+          if @matchType == 'Personal'
+            m.set('_type', 'MobilePersonal', {silent: true})
+          else if @matchType == 'Business'
+            m.set('_type', 'MobileBusiness', {silent: true})
+        else if @match == 'Phone'
+          if @matchType == 'Personal'
+            m.set('_type', 'PhonePersonal', {silent: true})
+          else if @matchType == 'Business'
+            m.set('_type', 'PhoneBusiness', {silent: true})
 
         c.add(m)
 
-      if _.include(['Address', 'Address Home', 'Address Business'], @match)
+      if _.include(['Address'], @match)
         m = new RippleApp.Models.ContactAddressDetail(
           full_address: val
         )
@@ -548,11 +605,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("addresses")
         
         if @match == 'Address'
-          m.set('_type', 'Address', {silent: true})
-        else if @match == 'Address Home'
-          m.set('_type', 'AddressHome', {silent: true})
-        else if @match == 'Address Business'
-          m.set('_type', 'AddressBusiness', {silent: true})
+          if @matchType == 'Personal'
+            m.set('_type', 'AddressPersonal', {silent: true})
+          else if @matchType == 'Business'          
+            m.set('_type', 'AddressBusiness', {silent: true})
           
         c.add(m)
       
@@ -621,27 +677,31 @@ class RippleApp.Views.ContactCard extends Backbone.View
         c = @model.get("notes")
         c.add(m)
       
-      if _.include(['Email', 'Email Personal', 'Email Business'], @match)
+      if _.include(['Email'], @match)
         m = new RippleApp.Models.ContactEmailDetail(
           text: val
         )
         
         if @match == 'Email'
-          m.set('_type', 'Email', {silent: true})
-        else if @match == 'Email Personal'
-          m.set('_type', 'EmailPersonal', {silent: true})
-        else if @match == 'Email Business'
-          m.set('_type', 'EmailBusiness', {silent: true})
+          if @matchType == 'Personal'
+            m.set('_type', 'EmailPersonal', {silent: true})
+          else if @matchType == 'Business'
+            m.set('_type', 'EmailBusiness', {silent: true})
         
         c = @model.get("emails")
         c.add(m)
         
-      if _.include(['Url'], @match)
+      if _.include(['Web'], @match)        
         m = new RippleApp.Models.ContactUrlDetail(
           text: val
-          _type: 'UrlPersonal'
         )
         
+        if @match == 'Web'
+          if @matchType == 'Personal'
+            m.set('_type', 'UrlPersonal', {silent: true})
+          else if @matchType == 'Business'
+            m.set('_type', 'UrlBusiness', {silent: true})
+            
         c = @model.get("urls")
         c.add(m)
         

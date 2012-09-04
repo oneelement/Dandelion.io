@@ -1,2 +1,0 @@
-class AddressHome < Address
-end

@@ -1,10 +1,10 @@
 class RippleApp.Lib.DetailsMatcher
   matchers:
-    "Phone Mobile":
+    "Mobile":
       exprs: [
         /^(\+44|0)7(\d|\s)*$/,
       ]
-    "Phone Home":
+    "Phone":
       exprs: [
         /^(\+|\d)(\d|\s)*$/,
       ]
@@ -21,7 +21,7 @@ class RippleApp.Lib.DetailsMatcher
       exprs: [
         /^[^(:|#)].+,.+$/,
       ]
-    "Url":
+    "Web":
       exprs: [
         /^(www.)|(http).+$/,
       ]

@@ -22,192 +22,320 @@
 	font-style: normal;
 	speak: none;
 }
-.dicon-home:before {
+.ddicon-home:before {
 	content: "\25a0";
 }
-.dicon-mail:before {
+.ddicon-mail:before {
 	content: "\25a1";
 }
-.dicon-phone:before {
+.ddicon-phone:before {
 	content: "\25a2";
 }
-.dicon-mobile:before {
+.ddicon-mobile:before {
 	content: "\25a4";
 }
-.dicon-twitter:before {
+.ddicon-twitter:before {
 	content: "\25a7";
 }
-.dicon-facebook:before {
+.ddicon-facebook:before {
 	content: "\25ab";
 }
-.dicon-linkedin:before {
+.ddicon-linkedin:before {
 	content: "\25ae";
 }
-.dicon-pencil:before {
+.ddicon-pencil:before {
 	content: "\25b1";
 }
-.dicon-pencil-2:before {
+.ddicon-pencil-2:before {
 	content: "\25b2";
 }
-.dicon-tag:before {
+.ddicon-tag:before {
 	content: "\25b4";
 }
-.dicon-remove:before {
+.ddicon-remove:before {
 	content: "\25b6";
 }
-.dicon-remove-2:before {
+.ddicon-remove-2:before {
 	content: "\25ba";
 }
-.dicon-remove-3:before {
+.ddicon-remove-3:before {
 	content: "\25bc";
 }
-.dicon-star:before {
+.ddicon-star:before {
 	content: "\25bf";
 }
-.dicon-flag:before {
+.ddicon-flag:before {
 	content: "\25c1";
 }
-.dicon-link:before {
+.ddicon-link:before {
 	content: "\25f5";
 }
-.dicon-user:before {
+.ddicon-user:before {
 	content: "\25f6";
 }
-.dicon-users:before {
+.ddicon-users:before {
 	content: "\25f7";
 }
-.dicon-contact:before {
+.ddicon-contact:before {
 	content: "\25f8";
 }
-.dicon-globe:before {
+.ddicon-globe:before {
 	content: "\25f9";
 }
-.dicon-network:before {
+.ddicon-network:before {
 	content: "\25fa";
 }
-.dicon-circles:before {
+.ddicon-circles:before {
 	content: "\25fc";
 }
-.dicon-copy:before {
+.ddicon-copy:before {
 	content: "\2190";
 }
-.dicon-comments:before {
+.ddicon-comments:before {
 	content: "\25e6";
 }
-.dicon-card:before {
+.ddicon-card:before {
 	content: "\25e7";
 }
-.dicon-chat:before {
+.ddicon-chat:before {
 	content: "\25eb";
 }
-.dicon-price:before {
+.ddicon-price:before {
 	content: "\25ef";
 }
-.dicon-write:before {
+.ddicon-write:before {
 	content: "\25f3";
 }
-.dicon-book:before {
+.ddicon-book:before {
 	content: "\25c4";
 }
-.dicon-cog:before {
+.ddicon-cog:before {
 	content: "\25d8";
 }
-.dicon-equalizer:before {
+.ddicon-equalizer:before {
 	content: "\25ec";
 }
-.dicon-download:before {
+.ddicon-download:before {
 	content: "\25ee";
 }
-.dicon-exit:before {
+.ddicon-exit:before {
 	content: "\25df";
 }
-.dicon-arrow-up:before {
+.ddicon-arrow-up:before {
 	content: "\25f1";
 }
-.dicon-arrow-right:before {
+.ddicon-arrow-right:before {
 	content: "\25d1";
 }
-.dicon-arrow-down:before {
+.ddicon-arrow-down:before {
 	content: "\25f4";
 }
-.dicon-arrow-left:before {
+.ddicon-arrow-left:before {
 	content: "\25fb";
 }
-.dicon-info:before {
+.ddicon-info:before {
 	content: "\25c8";
 }
-.dicon-briefcase:before {
+.ddicon-briefcase:before {
 	content: "\25d7";
 }
-.dicon-search:before {
+.ddicon-search:before {
 	content: "\25fe";
 }
-.dicon-search-2:before {
+.ddicon-search-2:before {
 	content: "\25ff";
 }
-.dicon-minus:before {
+.ddicon-minus:before {
 	content: "\25a9";
 }
-.dicon-help:before {
+.ddicon-help:before {
 	content: "\25ca";
 }
-.dicon-cancel:before {
+.ddicon-cancel:before {
 	content: "\25cf";
 }
-.dicon-briefcase-2:before {
+.ddicon-briefcase-2:before {
 	content: "\21";
 }
-.dicon-bookmark:before {
+.ddicon-bookmark:before {
 	content: "\22";
 }
-.dicon-bookmark-2:before {
+.ddicon-bookmark-2:before {
 	content: "\23";
 }
-.dicon-flag-2:before {
+.ddicon-flag-2:before {
 	content: "\25dc";
 }
-.dicon-drawer:before {
+.ddicon-drawer:before {
 	content: "\21";
 }
-.dicon-drawer-2:before {
+.ddicon-drawer-2:before {
 	content: "\24";
 }
-.dicon-map:before {
+.ddicon-map:before {
 	content: "\25";
 }
-.dicon-book-2:before {
+.ddicon-book-2:before {
 	content: "\26";
 }
-.dicon-facebook-2:before {
+.ddicon-facebook-2:before {
 	content: "\27";
 }
-.dicon-cancel-2:before {
+.ddicon-cancel-2:before {
 	content: "\28";
 }
-.dicon-checkmark:before {
+.ddicon-checkmark:before {
 	content: "\29";
 }
-.dicon-arrow-right-2:before {
+.ddicon-arrow-right-2:before {
 	content: "\2a";
 }
-.dicon-refresh:before {
+.ddicon-refresh:before {
 	content: "\2b";
 }
-.dicon-comments-2:before {
+.ddicon-comments-2:before {
 	content: "\2c";
 }
-.dicon-thumbs-up:before {
+.ddicon-thumbs-up:before {
 	content: "\2d";
 }
-.dicon-thumbs-up-2:before {
+.ddicon-thumbs-up-2:before {
 	content: "\2e";
 }
-.dicon-comment:before {
+.ddicon-comment:before {
 	content: "\2f";
 }
-.dicon-loop:before {
+.ddicon-loop:before {
 	content: "\30";
 }
-.dicon-undo:before {
+.ddicon-undo:before {
 	content: "\31";
+}
+
+
+.dicon-home:before {
+	content: "\21";
+}
+.dicon-mail:before {
+	content: "\22";
+}
+.dicon-phone:before {
+	content: "\23";
+}
+.dicon-mobile:before {
+	content: "\24";
+}
+.dicon-twitter:before {
+	content: "\25";
+}
+.dicon-facebook:before {
+	content: "\26";
+}
+.dicon-linkedin:before {
+	content: "\27";
+}
+.dicon-pencil:before {
+	content: "\28";
+}
+.dicon-pencil-2:before {
+	content: "\29";
+}
+.dicon-tag:before {
+	content: "\2a";
+}
+.dicon-remove:before {
+	content: "\2b";
+}
+.dicon-remove-2:before {
+	content: "\2c";
+}
+.dicon-remove-3:before {
+	content: "\2d";
+}
+.dicon-star:before {
+	content: "\2e";
+}
+.dicon-flag:before {
+	content: "\2f";
+}
+.dicon-link:before {
+	content: "\30";
+}
+.dicon-user:before {
+	content: "\31";
+}
+.dicon-users:before {
+	content: "\32";
+}
+.dicon-contact:before {
+	content: "\33";
+}
+.dicon-globe:before {
+	content: "\34";
+}
+.dicon-network:before {
+	content: "\35";
+}
+.dicon-circles:before {
+	content: "\36";
+}
+.dicon-book:before {
+	content: "\37";
+}
+.dicon-arrow-up:before {
+	content: "\38";
+}
+.dicon-arrow-right:before {
+	content: "\39";
+}
+.dicon-arrow-down:before {
+	content: "\3a";
+}
+.dicon-arrow-left:before {
+	content: "\3b";
+}
+.dicon-info:before {
+	content: "\3c";
+}
+.dicon-briefcase:before {
+	content: "\3d";
+}
+.dicon-minus:before {
+	content: "\3e";
+}
+.dicon-drawer-2:before {
+	content: "\3f";
+}
+.dicon-drawer:before {
+	content: "\40";
+}
+.dicon-cancel:before {
+	content: "\41";
+}
+.dicon-checkmark:before {
+	content: "\42";
+}
+.dicon-thumbs-up:before {
+	content: "\43";
+}
+.dicon-thumbs-up-2:before {
+	content: "\44";
+}
+.dicon-loop:before {
+	content: "\45";
+}
+.dicon-paper-plane:before {
+	content: "\46";
+}
+.dicon-office:before {
+	content: "\47";
+}
+.dicon-graduation:before {
+	content: "\48";
+}
+.dicon-location:before {
+	content: "\49";
+}
+.dicon-mobile-2:before {
+	content: "\4a";
 }

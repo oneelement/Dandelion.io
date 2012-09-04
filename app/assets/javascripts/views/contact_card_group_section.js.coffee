@@ -51,15 +51,12 @@ class RippleApp.Views.ContactCardGroupSection extends Backbone.View
     return this
     
   checkEnter: (event) ->
-    val = this.$('input.subject_edit_view_input').val()
-    hashtags = []
-    _.each(@hashtags.toJSON(), (hashtag)=>
-      hashtags.push(hashtag.text)
-    )
-    this.$('input.subject_edit_view_input').autocomplete(source: hashtags)
-    if (event.keyCode == 13) 
-      event.preventDefault()
-      @closeEdit()
+    #val = this.$('input.subject_edit_view_input').val()
+
+
+    #if (event.keyCode == 13) 
+      #event.preventDefault()
+      #@closeEdit()
       
   closeEdit: ->
     type = this.$(".item-type option:selected").val()

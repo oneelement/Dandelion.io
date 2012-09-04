@@ -4,7 +4,9 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
   
   events:
     'keypress .subject_edit_view_input': 'checkEnter'
-
+    'click #default-icon': 'initEditType'
+    'click .icon-option-select': 'selectEditType'
+    
   initialize: ->
     @collection.on('add', @addDetail)
     @collection.on('remove', @render, this)
@@ -17,13 +19,11 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     @modelName = @options.modelName
     @dummyModel = new @modelName
     @types = @dummyModel.getTypes()
-    @modelType = @dummyModel.getModelType()
-    if @options.hashes
-      @hashtags = @options.hashes
+    @defaultType = @dummyModel.defaultType()
 
   render: ->
     console.log('contact card section render')
-    $(@el).html(@template(title: @title, icon: @icon, types: @types, modelType: @modelType))
+    $(@el).html(@template(title: @title, icon: @icon, types: @types, defaultType: @defaultType))
     
     #console.log(@collection.models.length)
 
@@ -32,44 +32,41 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
 
       _.each(@collection.models, (model) =>
         @addDetail(model, false))
+      
+        
     @
     
   checkEnter: (event) ->
-    if @modelType == 'hashtag'
-      val = this.$('input.subject_edit_view_input').val()
-      hashtags = []
-      _.each(@hashtags.toJSON(), (hashtag)=>
-        hashtags.push(hashtag.text)
-      )
-      this.$('input.subject_edit_view_input').autocomplete(source: hashtags)
     if (event.keyCode == 13) 
       event.preventDefault()
       @closeEdit()
       
   closeEdit: ->
-    type = this.$(".item-type option:selected").val()
+    console.log('close edit')
+    type = this.$('#default-icon').attr('title')
     val = this.$('input.subject_edit_view_input').val()
-    if @modelType == 'hashtag'
-      c = new RippleApp.Collections.Hashtags(@subject.get("hashtags")) 
-      isDuplicate = false
-      _.each(c.models, (hashtag) =>
-        if hashtag.get('text') is val
-          isDuplicate = true
-      )
-      if not isDuplicate
-        #@collection.remove(@collection.models)
-        contact_id = @subject.get('_id')
-        newmodel = @hashtags.addTagToContact(val, contact_id)
-        @collection.add(newmodel)
-        this.$('input.subject_edit_view_input').val('')  
-    else
-      m = new @modelName
-      field = m.getFieldName()
-      m.set(field, val, {silent: true})
-      m.set('_type', type, {silent: true})
-      @collection.add(m)
-      @subject.save(null, {silent: true})
-      this.$('input.subject_edit_view_input').val('')  
+    m = new @modelName
+    field = m.getFieldName()
+    m.set(field, val, {silent: true})
+    m.set('_type', type, {silent: true})
+    @collection.add(m)
+    @subject.save(null, {silent: true})
+    this.$('input.subject_edit_view_input').val('')  
+    
+  initEditType: ->
+    this.$('.edit-view-icon-options').css('display', 'block')
+    
+  selectEditType: (event) ->
+    console.log(event.target.title)
+    edit_icon = $(event.target).attr('data-icon')
+    icon = "dicon-" + edit_icon
+    console.log(edit_icon)
+    edit_title = event.target.title
+    this.$('#default-icon').removeAttr('class')
+    this.$('#default-icon').addClass('contact-detail-icon').addClass(icon)
+    this.$('#default-icon').attr('title', edit_title)
+    this.$('.edit-view-icon-options').css('display', 'none')
+    
     
   #this is obsolete
   makeTitleActive: () ->

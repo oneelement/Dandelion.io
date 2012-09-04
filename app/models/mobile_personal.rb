@@ -1,0 +1,2 @@
+class MobilePersonal < Phone
+end

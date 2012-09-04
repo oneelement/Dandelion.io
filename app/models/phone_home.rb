@@ -1,2 +1,0 @@
-class PhoneHome < Phone
-end

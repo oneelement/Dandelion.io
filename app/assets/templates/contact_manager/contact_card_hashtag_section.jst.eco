@@ -6,5 +6,5 @@
   <% @value = "" %>
 <% end %>
 <div>
-  <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="Enter new <%= @title %>" style="display: none;"></input>          
+  <input type="text" name="value" id="edit-view-group-input" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="Enter new <%= @title %>" style="display: none;"></input>          
 </div>
