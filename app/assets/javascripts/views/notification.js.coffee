@@ -42,7 +42,7 @@ class RippleApp.Views.Notification extends Backbone.View
         @model.save(is_actioned: true, is_read: true)
         @col = RippleApp.contactsRouter.notifications
         @col.remove(@model)
-        @getContact()
+        #@getContact()
       else
         @model.save(is_read: true)
       @collection.remove(@model)

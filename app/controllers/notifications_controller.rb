@@ -55,6 +55,8 @@ class NotificationsController < ApplicationController
         @contact = Contact.find(@user.contact_id)
 
         if @notification.ripple_id
+	  #if existing contact want sent as ripple_id, update this contact with linked_contact_id and set
+	  #is_ripple to true
           sent_contact = Contact.find(@notification.sent_contact_id)
           sent_contact.update_attribute(:linked_contact_id, @contact._id)
           sent_contact.update_attribute(:is_ripple, true)
@@ -66,19 +68,23 @@ class NotificationsController < ApplicationController
             :user_id => @notification.sent_id,
             :linked_contact_id => @contact._id,
             :is_ripple => true,
+            :avatar => @contact.avatar,
             :facebook_id => @contact.facebook_id,
             :linkedin_id => @contact.linkedin_id,
             :twitter_id => @contact.twitter_id,
             :facebook_picture => @contact.facebook_picture,
             :twitter_picture => @contact.twitter_picture,
-            :linkedin_picture => @contact.linkedin_picture      
+            :linkedin_picture => @contact.linkedin_picture,
+            :facebook_handle => @contact.facebook_handle,
+            :twitter_handle => @contact.twitter_handle,
+            :linkedin_handle => @contact.linkedin_handle    
           )
           contact.save
         end
     
 
 
-        #Adds user ids to the current users contact who have access to thier contact details
+        #Adds user ids to the current users contact who have access to their contact details
         @contact.push(:linked_user_ids, @notification.sent_id)
         a = @contact.linked_user_ids.uniq
         @contact.update_attribute(:linked_user_ids, a)
@@ -86,10 +92,10 @@ class NotificationsController < ApplicationController
  
         #Adds contact ids to the target user to list which contacts they have access to
         @target_user = User.find(@notification.sent_id)
-        @target_user.push(:linked_contact_ids, @user.contact_id)
+        @target_user.push(:linked_contact_ids, @contact._id)
         b = @target_user.linked_contact_ids.uniq
         @target_user.update_attribute(:linked_contact_ids, b)
-        @target_user.save	
+        @target_user.save
       end
     end
 

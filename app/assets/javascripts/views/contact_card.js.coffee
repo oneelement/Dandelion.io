@@ -48,6 +48,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @overrideMatch = false
     @overrideBp = false
     @auths = @user.get('authentications')
+    @matchType = 'Personal'
   
   render: ->
     this.$('#minibar').focus()
@@ -138,7 +139,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
   outputWithRippleDetails: ->
     id = @model.get('linked_contact_id')
     @user_contacts = RippleApp.contactsRouter.userContacts
+    console.log(@user_contacts)
     @user_contact = @user_contacts.get(id)
+    console.log(@user_contact)
       
     emailsSection = new RippleApp.Views.ContactUserSection(
       title: 'email'

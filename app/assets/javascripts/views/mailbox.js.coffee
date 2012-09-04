@@ -46,11 +46,18 @@ class RippleApp.Views.Mailbox extends Backbone.View
     $('#mail').toggleClass('view')
     $('#account-info').removeClass('view')
     
-  populateNotifications: (unread_count) ->
-    console.log('Populate Notifications')
+  populateNotifications: (unread_count) =>
+    console.log('Populate Notifications')    
     if @unactioned.length > 0
+      @will_sync = false
       _.each(@unactioned, (model) =>
-        #console.log(model)
+        console.log(model)
+        if model.get('_type') == 'NotificationRippleAccept'
+          console.log('begin here')
+          if model.get('is_synced') == false
+            model.set('is_synced', true)
+            model.save()
+            @will_sync = true
         view = new RippleApp.Views.Notification(
           model: model
           unread: @unread_count
@@ -58,6 +65,15 @@ class RippleApp.Views.Mailbox extends Backbone.View
         )
         this.$('#notifications').append(view.render().el)
       )
+      if @will_sync == true
+        console.log('syncing')
+        @current_user = RippleApp.contactsRouter.currentUser
+        @current_user.fetch()
+        @user_contacts = RippleApp.contactsRouter.userContacts
+        @user_contacts.fetch()
+        @contacts = RippleApp.contactsRouter.contacts
+        @contacts.fetch()
+      
     else
       view = '<li class="notification empty">No new notifications</li>'
       this.$('#notifications').append(view)
