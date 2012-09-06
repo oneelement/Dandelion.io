@@ -1,5 +1,9 @@
 <ul class="contact-details-list"></ul>
 
+
+
+<% if @source != 'contact_user': %>
+
 <div class="edit-view-input" style="display: none;">
   <ul>
     <li class="" title="">
@@ -21,8 +25,7 @@
 	  <input type="text" name="value" class="subject_edit_view_input" class="input-text" value="<%= @value %>" placeholder="add <%= @title %>...""></input>          
 	</span> 
     </li>
-
   </ul>
-
- 
 </div>
+
+<% end %>

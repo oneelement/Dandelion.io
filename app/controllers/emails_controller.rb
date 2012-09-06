@@ -9,6 +9,17 @@ class EmailsController < ApplicationController
     end
   end
   
+  def create
+    @email = Email.new(params[:email])
+    respond_to do |format|
+      if @email.save
+        format.json { render json: @email, status: :created, location: @email }
+      else
+        format.json { render json: @email.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # PUT /emails/1
   # PUT /emails/1.json
   def update

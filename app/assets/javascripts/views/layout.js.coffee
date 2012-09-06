@@ -2,10 +2,12 @@ class RippleApp.Views.Layout extends Backbone.View
   id: 'view-layout'
   template: JST['contact_manager/layout']
   settingsLightbox: JST['contact_manager/settings/settings_lightbox']
+  phoneLightbox: JST['contact_manager/phone_lightbox']
 
   render: ->
     $(@el).html(@template())
     $(@el).append(@settingsLightbox())
+    $(@el).append(@phoneLightbox())
     sidebarView = new RippleApp.Views.Sidebar()
     $('#view-sidebar', @el).html(sidebarView.render().el)
    

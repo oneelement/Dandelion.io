@@ -255,7 +255,8 @@
               }
               li.minibar-type-selected {
                 margin: 0px 4px; 
-                padding: 0px;  
+                padding: 0px; 
+                cursor: pointer; 
               }    
               li.minibar-type-selected:hover {
                 margin: 0px 4px;  
@@ -293,7 +294,8 @@
               }
               li.minibar-type-selected {   
                 margin: 0px 4px; 
-                padding: 0px;              
+                padding: 0px;     
+                cursor: pointer;          
               }    
             }
             #bp-type {
@@ -383,7 +385,7 @@
       width: 300px;
   
       .contact-card-section {
-        margin: 0px 0px 5px 0px;
+        margin: 0px 0px 0px 0px;
         float: left;
         width: 100%;
       }
@@ -419,6 +421,17 @@
 		float: left;
 		color: #CCC;
 	      }
+            }
+          }
+          .contact-user-detail, .uneditable {
+           .contact-detail-delete {
+              display: none;
+            }
+            .contact-detail-value {
+              display: block;
+            }
+            .contact-detail-edit {
+              display: none;
             }
           }
         }
@@ -540,7 +553,7 @@
   
 
 
-      .contact-detail {
+      .contact-detail, .contact-user-detail {
         margin: 0px 0px 0px 0px;
         padding: 2px 0px 0px 0px;
         width: 100%;
@@ -586,7 +599,19 @@
         .contact-detail-edit {
           display: none;
         }
+        .trigger-address {
+          cursor: pointer;
+        }
+        .trigger-phone {
+          cursor: pointer;
+        }
       }
+      .contact-user-detail, .uneditable {
+        .contact-detail-value {
+          color: #FEB326;
+        }
+      }
+ 
       .contact-detail:hover {
         .contact-detail-favorite {
           color: #EEE;

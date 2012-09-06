@@ -142,12 +142,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
     console.log(@user_contacts)
     @user_contact = @user_contacts.get(id)
     console.log(@user_contact)
-      
+     
     emailsSection = new RippleApp.Views.ContactUserSection(
       title: 'email'
       icon: 'paper-plane'
       collection: @user_contact.get("emails")
       subject: @model
+      subjectCollection: @model.get("emails")
       modelName: RippleApp.Models.ContactEmailDetail
     )
     $('#contact-card-body', @el).append(emailsSection.render().el)
@@ -159,6 +160,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       icon: 'phone'
       collection: @user_contact.get("phones")
       subject: @model
+      subjectCollection: @model.get("phones")
       modelName: RippleApp.Models.ContactPhoneDetail
     )
     $('#contact-card-body', @el).append(phonesSection.render().el)
@@ -170,17 +172,20 @@ class RippleApp.Views.ContactCard extends Backbone.View
       icon: 'globe'
       collection: @user_contact.get("urls")
       subject: @model
+      subjectCollection: @model.get("urls")
       modelName: RippleApp.Models.ContactUrlDetail
     )
     $('#contact-card-body', @el).append(urlsSection.render().el)
     
     @outputUrls()
 
+     
     addressesSection = new RippleApp.Views.ContactUserSection(
       title: 'address'
       icon: 'location'
       collection: @user_contact.get("addresses")
       subject: @model
+      subjectCollection: @model.get("addresses")
       modelName: RippleApp.Models.ContactAddressDetail
     )
     $('#contact-card-body', @el).append(addressesSection.render().el)
@@ -259,17 +264,18 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
   
   outputNotes: ->    
-    notesSection = new RippleApp.Views.ContactCardSection(
-      title: 'note'
-      icon: 'flag'
-      collection: @model.get("notes")
-      subject: @model
-      modelName: RippleApp.Models.ContactNoteDetail
-    )
-    $('#contact-card-body', @el).append(notesSection.render().el) 
+    if @model.get("notes").length != 0
+      notesSection = new RippleApp.Views.ContactCardSection(
+        title: 'note'
+        icon: 'flag'
+        collection: @model.get("notes")
+        subject: @model
+        modelName: RippleApp.Models.ContactNoteDetail
+      )
+      $('#contact-card-body', @el).append(notesSection.render().el) 
     
   outputGroups: ->    
-    if @model.get('group_ids')
+    if @model.get('group_ids').length != 0
       collection = new RippleApp.Collections.Groups()
       groupSection = new RippleApp.Views.ContactCardGroupSection(
         title: 'group'
@@ -305,8 +311,10 @@ class RippleApp.Views.ContactCard extends Backbone.View
       @closeNameEdit()
       
   closeNameEdit: ->
-    @model.unset('hashtags', { silent: true })
-    @model.save('name', this.$('input#subject_name_input').val())
+    #@model.unset('hashtags', { silent: true })
+    val = this.$('input#subject_name_input').val()
+    @model.set('name', val)
+    @model.save('name', val, { silent: true })
     this.$('#contact-card-name h3').css('display', 'inline-block')
     this.$('#subject_name_input').css('display', 'none')
   
@@ -928,8 +936,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
       handleType = "linkedin_handle"
     @model.set(handleType, handle, {silent: true})
     @model.set(pictureType, pictureUrl, {silent: true})
-    @model.set(socialType, social_id, pictureType, pictureUrl) #let the set fire the render
-    @model.unset('hashtags', { silent: true })
+    @model.set(socialType, social_id) #let the set fire the render
+    #@model.unset('hashtags', { silent: true })
     @model.save(null, { silent: true }) #required so social links dont get fired twice
     @updateSocialLinks()
     $('.lightbox-backdrop').css('display', 'none')

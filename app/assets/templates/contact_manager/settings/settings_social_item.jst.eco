@@ -10,7 +10,7 @@
   </div>
   <div class="settings-social-sync-all">
     <span class="dicon-network"></span>
-    <span class="dicon-refresh"></span>
+    <span class="dicon-loop-2"></span>
     <span class="dicon-<%= @social %>"></span>
   </div>
 

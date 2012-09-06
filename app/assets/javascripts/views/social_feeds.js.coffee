@@ -10,7 +10,7 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
     'focus #social-post': 'focusPost'
   
   initialize: ->
-    @model.on('change', @render, this)
+    @model.on('change', @reRender, this)
     @user = @options.user
     @globalTweets = @options.globalTweets
     @tweets = @options.tweets
@@ -22,16 +22,21 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
     $(@el).html(@template())
     @getSocialFeed()   
     
-    console.log('render social feeds')
+    #console.log('render social feeds')
       
     return this
+    
+  reRender: ->
+    facebook_changed = @model.hasChanged('facebook_id')
+    twitter_changed = @model.hasChanged('twitter_id')
+    if facebook_changed == true || twitter_changed == true
+      $(@el).html(@template())
+      @getSocialFeed() 
     
   getSocialFeed: ->
     this.$('#social-post-select').html('')
     auths = @user.get('authentications')
-    console.log(auths)
     if auths.length > 0
-      console.log('if auths')
       twitter = auths.where(provider: "twitter")
       facebook = auths.where(provider: "facebook")
       if @source == 'home'
@@ -74,26 +79,25 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
           message = "No social networks are connected, please connect them to view feeds."
           $(this.el).html(@socialNone(message: message))          
     else
-      console.log('else auths')
       message = "Your profile is not connected to any social networks, please go to the settings menu and connect them."
       $(this.el).html(@socialNone(message: message))
-      console.log('Add message here')
-    
+   
 
     
   getPictureTimeline: (call) ->
     @timelines = new RippleApp.Collections.Timelines([], { call : call })
     @timelines.fetch(success: (collection) =>
       view = new RippleApp.Views.PictureTimeline(collection: collection)
-      this.$('#picture-timeline-wrapper').append(view.render().el)  
-      this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
+      this.$('#picture-timeline-wrapper').html(view.render().el)  
+      #this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
+      next = "<span class='dicon-arrow-right-4'></span>"
+      prev = "<span class='dicon-arrow-left-4'></span>"
+      this.$('#picture-timeline').jcarousel({itemFallbackDimension: 200, buttonNextHTML: next, buttonPrevHTML: prev})
     )
     
   callTimeline: (call) ->
     @timelines = new RippleApp.Collections.Timelines([], { call : call })
     @timelines.fetch(success: (collection) =>
-      console.log('1')
-      console.log(collection)
       $('#timeline-wrapper').html('')
       view = new RippleApp.Views.Timeline(collection: collection)
       $('#timeline-wrapper').append(view.render().el)

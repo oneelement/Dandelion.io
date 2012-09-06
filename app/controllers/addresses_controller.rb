@@ -9,6 +9,17 @@ class AddressesController < ApplicationController
     end
   end
   
+  def create
+    @address = Address.new(params[:address])
+    respond_to do |format|
+      if @address.save
+        format.json { render json: @address, status: :created, location: @address }
+      else
+        format.json { render json: @address.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # PUT /addresses/1
   # PUT /addresses/1.json
   def update

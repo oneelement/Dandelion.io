@@ -10,24 +10,32 @@ class TimelinesController < ApplicationController
       @theirgroup = Group.find(@subject_id)
       if @theircontact
 	if @theircontact.facebook_id
-	  id = @theircontact.facebook_id
-	  facebook = @user.facebook.get_connections(id, 'feed')
-	  @user_facebook_id = @theircontact.facebook_id
+	  if @user.facebook
+	    id = @theircontact.facebook_id
+	    facebook = @user.facebook.get_connections(id, 'feed')
+	    @user_facebook_id = @theircontact.facebook_id
+	  end
 	end
 	if @theircontact.twitter_id
-	  id = @theircontact.twitter_id
-	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  if @user.tweeting
+	    id = @theircontact.twitter_id
+	    twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  end
 	end
       end
       if @theirgroup
 	if @theirgroup.facebook_id
-	  id = @theirgroup.facebook_id
-	  facebook = @user.facebook.get_connections(id, 'feed')
-	  @user_facebook_id = @theirgroup.facebook_id
+	  if @user.facebook
+	    id = @theirgroup.facebook_id
+	    facebook = @user.facebook.get_connections(id, 'feed')
+	    @user_facebook_id = @theirgroup.facebook_id
+	  end
 	end
 	if @theirgroup.twitter_id
-	  id = @theirgroup.twitter_id
-	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  if @user.tweeting
+	    id = @theirgroup.twitter_id
+	    twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  end
 	end
       end
     else

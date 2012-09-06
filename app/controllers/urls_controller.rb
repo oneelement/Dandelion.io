@@ -8,6 +8,17 @@ class UrlsController < ApplicationController
     end
   end
   
+  def create
+    @url = Url.new(params[:url])
+    respond_to do |format|
+      if @url.save
+        format.json { render json: @url, status: :created, location: @url }
+      else
+        format.json { render json: @url.errors, status: :unprocessable_entity }
+      end
+    end
+  end  
+  
   # PUT /urls/1
   # PUT /urls/1.json
   def update

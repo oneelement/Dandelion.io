@@ -1,8 +1,14 @@
 <span class="contact-detail-icon main-icon dicon-<%= @icon %>"></span>
-<% if @modeltype == "hashtag": %>
-  <span class="contact-detail-value"><a href="#hashtags/show/<%= @detail._id%>"><%= @value %></a></span>
+<% if @modeltype == "email": %>
+  <a href="mailto:<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a> 
+<% else if @modeltype == "url": %>
+  <% if @beg_val == "http": %>
+    <a target="_blank" href="<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a>
+  <% else: %>
+    <a target="_blank" href="http://<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a>
+  <% end %>
 <% else: %>
-  <span class="contact-detail-value"><%= @value %></span>
+  <a><span class="contact-detail-value"><%= @value %></span></a>
 <% end %>
 <span class="contact-detail-edit">
   <input type="text" name="value" id="edit_value" class="input-text" value="<%= @value %>"></input>

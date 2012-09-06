@@ -339,3 +339,33 @@
 .dicon-mobile-2:before {
 	content: "\4a";
 }
+.dicon-loop-2:before {
+	content: "\4b";
+}
+.dicon-comments:before {
+	content: "\4c";
+}
+.dicon-arrow-right-2:before {
+	content: "\4d";
+}
+.dicon-comment:before {
+	content: "\4e";
+}
+.dicon-arrow-left-2:before {
+	content: "\4f";
+}
+.dicon-arrow-right-3:before {
+	content: "\50";
+}
+.dicon-arrow-left-3:before {
+	content: "\51";
+}
+.dicon-arrow-right-4:before {
+	content: "\52";
+}
+.dicon-arrow-left-4:before {
+	content: "\53";
+}
+.dicon-pictures:before {
+	content: "\54";
+}

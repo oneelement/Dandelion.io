@@ -9,6 +9,17 @@ class PhonesController < ApplicationController
     end
   end
   
+  def create
+    @phone = Phone.new(params[:phone])
+    respond_to do |format|
+      if @phone.save
+        format.json { render json: @phone, status: :created, location: @phone }
+      else
+        format.json { render json: @phone.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # PUT /phones/1
   # PUT /phones/1.json
   def update

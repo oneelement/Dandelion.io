@@ -23,7 +23,8 @@ class Address
   field :country, :type => String
   field :postcode, :type => String
   field :default, :type => Boolean, :default => false
-  
+  field :parent_id, :type => String
+      
   field :coordinates, :type => Array
   
   def check_subject_map
@@ -58,6 +59,7 @@ class Address
     t.add :full_address
     t.add :coordinates
     t.add :default
+    t.add :parent_id
   end
   
   api_accessible :group do |t|
@@ -66,6 +68,7 @@ class Address
     t.add :full_address
     t.add :coordinates
     t.add :default
+    t.add :parent_id
   end
   
   api_accessible :user_contact do |t|

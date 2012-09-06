@@ -18,19 +18,6 @@
             <% end %>
           <% end %>
         </div>
-        <form id="contact-card-details-input-form">
-            <div class="input-append" id="contact-card-details-input">
-                <input type="text" name="contact-card-details-input" class="input-text" placeholder="Add contact details...">
-                <span class="add-on">
-                    <span id="contact-card-details-input-type">...</span>
-                <span>                
-            </div>
-        </form>
-        <div id="social-network-links">
-            <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>
-            <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a></div>
-            <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a></div>
-        </div>
     </div>
     <div id="contact-card-body">
         <ul id="contact-card-body-list"></ul>

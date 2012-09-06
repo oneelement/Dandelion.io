@@ -44,11 +44,34 @@
     #picture-timeline {
       padding: 0px;
       margin: 0px;
+      .dummy-entry {
+	padding: 0px;
+	margin: 0px;
+	font-size: 200px;
+	line-height: 200px;
+      }
+      .info-entry {
+	padding: 0px;
+	margin: 0px;
+	font-size: 24px;
+	line-height: 200px;
+	.dicon-info {
+	  left: 0px;
+	}
+	span {
+	  padding: 0px;
+	  margin: 0px;	
+	  position: absolute;
+	  width: 400px;
+	  left: 40px;
+	}
+      }
       .picture-timeline-entry {
 	padding: 0px;
 	margin: 0px;
-	width: 33.3%;
+        //width: 33.3%;
 	height: 200px;
+	width: 200px;
 	position: relative;
         #image-link {
 	  border: none;
@@ -80,7 +103,7 @@
     
   }
   #social-post-wrapper {
-    background: #f9f9f9;
+    background: #fefefe;
     border: 1px solid #CCC;
     width: 96%;
     margin: 0 2%;
@@ -90,7 +113,9 @@
       margin: 0px;
       padding: 0px 4px 0px 4px;
       border-top: 1px solid #CCC;
-      background: #EEE;
+      background: #f9f9f9;
+      @include border-corner-radius(bottom, left, 4px);
+      @include border-corner-radius(bottom, right, 4px);
       .post-source {
 	color: #DDD;
 	font-size: 24px;

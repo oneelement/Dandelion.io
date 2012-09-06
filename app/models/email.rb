@@ -9,7 +9,7 @@ class Email
   
   field :text, :type => String
   field :default, :type => Boolean, :default => false
-
+  field :parent_id, :type => String
   acts_as_api
 
   api_accessible :contact do |t|
@@ -17,6 +17,7 @@ class Email
     t.add :_type
     t.add :text
     t.add :default
+    t.add :parent_id
   end
   
   api_accessible :group do |t|
@@ -24,6 +25,7 @@ class Email
     t.add :_type
     t.add :text
     t.add :default
+    t.add :parent_id
   end
   
   api_accessible :user_contact do |t|

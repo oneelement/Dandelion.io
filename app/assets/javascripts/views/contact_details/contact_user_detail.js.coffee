@@ -1,6 +1,6 @@
 class RippleApp.Views.ContactUserDetail extends Backbone.View
   template: JST['contact_manager/contact_details/detail']
-  className: 'contact-detail'
+  className: 'contact-user-detail'
   tagName: 'li'
   
   initialize: ->
@@ -11,9 +11,11 @@ class RippleApp.Views.ContactUserDetail extends Backbone.View
     @subject = @options.subject
     #console.log(@subject)
     $(@el).addClass(@modelType)
+    if @options.source
+      @source = @options.source
 
   render: ->
-    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType, detail: @model.toJSON()))
+    $(@el).html(@template(source: @source, icon: @icon, value: @value, modeltype: @modelType, detail: @model.toJSON()))
     
     defaultInd = @model.get('default')
     if defaultInd == true

@@ -28,13 +28,10 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     #console.log(@collection.models.length)
 
     if @collection.models.length > 0
-      #@makeTitleActive()
-
       _.each(@collection.models, (model) =>
         @addDetail(model, false))
       
-        
-    @
+    return this
     
   checkEnter: (event) ->
     if (event.keyCode == 13) 
@@ -67,16 +64,6 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     this.$('#default-icon').attr('title', edit_title)
     this.$('.edit-view-icon-options').css('display', 'none')
     
-    
-  #this is obsolete
-  makeTitleActive: () ->
-    if not @sectionIsActive
-      this.$('.contact-card-section-title').addClass('active')
-      @sectionIsActive = true
-    else
-      if this.$('.contact-card-section-title').hasClass('active')
-      else
-        this.$('.contact-card-section-title').addClass('active')  
 
   buildDetailEl: (model) =>
     return $(new RippleApp.Views.ContactCardDetail(
@@ -99,7 +86,6 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
       $detailEl.css('display', 'none')
 
     $detailsList.append($detailEl)
-    #@makeTitleActive()
 
     if animate
-      $detailEl.fadeIn(500)
+      $detailEl.fadeIn(0)

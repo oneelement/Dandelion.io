@@ -9,6 +9,8 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     'click span.contact-detail-delete': 'deleteValue'
     'focusout input#edit_value': 'closeEdit'
     'click .main-icon': 'toggleDefault'
+    'click .trigger-address': 'triggerMap'
+    'click .trigger-phone': 'triggerPhone'
 
   initialize: ->
     @icon = @options.icon
@@ -20,10 +22,21 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     $(@el).addClass(@modelType)
 
   render: ->
-    $(@el).html(@template(icon: @icon, value: @value, modeltype: @modelType, detail: @model.toJSON()))
+    begin_value = @value.substr(0,4)
+    console.log(begin_value)
+    $(@el).html(@template(icon: @icon, value: @value, beg_val: begin_value, modeltype: @modelType, detail: @model.toJSON()))
     defaultInd = @model.get('default')
     if defaultInd == true
       this.$('.main-icon').addClass('default-active')
+      
+    if @model.get('parent_id')
+      $(this.el).addClass('uneditable')
+      
+    if @modelType == 'address'
+      this.$('span.contact-detail-value').addClass('trigger-address')
+      
+    if @modelType == 'phone'
+      this.$('span.contact-detail-value').addClass('trigger-phone')
     
     return this
     
@@ -33,9 +46,52 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     defaultInd = @model.get('default')
     if defaultInd == true
       this.$('.main-icon').addClass('default-active')
+      
+    if @model.get('parent_id')
+      $(this.el).addClass('uneditable')
+      
+    if @modelType == 'address'
+      this.$('span.contact-detail-value').addClass('trigger-address')
+      
+    if @modelType == 'phone'
+      this.$('span.contact-detail-value').addClass('trigger-phone')
 
       
     return this
+    
+  triggerMap: ->
+    console.log('trigger map')
+    $('#expanded-map').css('display','block')
+    $('.lightboxmap').addClass('show').addClass('map')
+    $('.lightboxmap').css('display', 'block')
+    $('.lightbox-backdrop').css('display', 'block')
+    c = new RippleApp.Collections.Addresses()
+    c.add(@model)
+    map = new RippleApp.Views.LightboxMap(
+      collection: c
+    )
+    $('.lightboxmap', @el).append(map.render().el)
+    
+  triggerPhone: ->
+    $('.lightbox-backdrop').css('display', 'block')
+    $('#phone-lightbox-container').css('display', 'block')
+    $('#phone-lightbox-value').css('display', 'block')
+    $('#phone-lightbox-value').html(@value)
+    container_width = $('#phone-lightbox-container').width()
+    value_width = $('#phone-lightbox-value').width()
+    console.log(container_width)
+    console.log(value_width)
+    new_cont_width = container_width * 0.8
+    font_multiple = new_cont_width / value_width
+    font_multiple = parseInt(font_multiple)
+    console.log(font_multiple)
+    fontsize = font_multiple * 10
+    $('#phone-lightbox-value').css('font-size', fontsize)
+    new_value_width = $('#phone-lightbox-value').width()
+    value_margin = (container_width - new_value_width) / 2
+    value_margin_px = String(value_margin) + "px"
+    $('#phone-lightbox-value').css('margin-left', value_margin_px)
+    
     
   toggleDefault: ->
     if @modelType != 'Note'
