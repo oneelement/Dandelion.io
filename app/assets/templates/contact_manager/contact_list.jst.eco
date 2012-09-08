@@ -24,7 +24,7 @@
 <td class="contact-list-detail name-cell">
   <div class="name">
       <a href="#<%= @modelType %>s/show/<%= @contact._id %>"><h3><%= @contact.name %></h3></a>
-      <p>Contact position at Contact Company</p>
+      <p><%= @contact.current_position %></p><p style="color: #bbb;"><%= @contact.current_company %></p>
   </div>
 </td>
 <td class="contact-list-detail socials">

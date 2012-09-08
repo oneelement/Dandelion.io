@@ -36,6 +36,8 @@ class RippleApp.Views.SettingsSocialTwitter extends Backbone.View
     
   activateTwitter: ->
     console.log('Activate')
+    $.get '/imports/import_twitter', (data) ->
+      console.log('Twitter Contacts Imported')
 
     
 

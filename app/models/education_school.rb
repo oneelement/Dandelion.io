@@ -1,0 +1,2 @@
+class EducationSchool < Education
+end

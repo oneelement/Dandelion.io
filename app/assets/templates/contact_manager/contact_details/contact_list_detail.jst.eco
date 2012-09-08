@@ -1,3 +1,3 @@
-<span class="dicon-<%= @icon %>"></span>
-<span class="contact-detail-value"><%= @value %></span>
+<span id="contact-detail-icon" class="dicon-<%= @icon %>"></span>
+<span class="contact-detail-value" title="<%= @value %>"><%= @value %></span>
 

@@ -8,9 +8,9 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     'click .icon-option-select': 'selectEditType'
     
   initialize: ->
-    @collection.on('add', @addDetail)
+    @collection.on('add', @addDetail, this)
     @collection.on('remove', @render, this)
-    @collection.on('reset', @clearDetails)
+    @collection.on('reset', @clearDetails, this)
     @title = @options.title
     @icon = @options.icon
     @sectionIsActive = false

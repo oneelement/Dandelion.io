@@ -83,7 +83,8 @@
     top: 58px;
     bottom: 0px;
     width: 100%;
-    overflow: auto;
+    @include border-corner-radius(bottom, left, 8px);
+    @include border-corner-radius(bottom, right, 8px);
     tr {
       background: rgba(#F9F9F9, 0.95);
       border-top: 2px solid #FFF;
@@ -181,7 +182,24 @@
           .linkedin-active {color: #4875B4; display: inline-block;}
         }
       }
-      .details-cell {width: 20%;}
+      .details-cell {
+	width: 20%;
+        .email-details, .phone-details {
+	  .contact-list-section {
+	    overflow: hidden;
+            #contact-detail-icon {
+	      width: 8%;
+	      float: left;
+	    }
+	    .contact-detail-value {
+              width: 92%;
+	      float: left;
+	      overflow: hidden;
+	      text-overflow: ellipsis;
+	    }
+	  }
+	}
+      }
       .tags {width: 25%;}
     }
   }

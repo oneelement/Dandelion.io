@@ -1,0 +1,1 @@
+class RippleApp.Models.GlobalPicture extends Backbone.RelationalModel

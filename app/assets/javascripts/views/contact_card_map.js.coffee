@@ -5,11 +5,11 @@ class RippleApp.Views.ContactCardMap extends Backbone.View
   initialize: ->
     @collection.on('add, remove', @render, this)
     @collection.on('reset', @render, this)
-    @source = 'http://ojw.dev.openstreetmap.org/StaticMap/?lat=51.521472879353&amp;lon=-0.13312339782715&amp;z=16&amp;w=400&amp;h=50&amp;filter=lightgrey&amp;mode=Export&amp;att=none&amp;show=1" width="400" height="50" alt="OpenStreetMap (mapnik) map of the area around 51.52147, -0.13312'
+    #@source = 'http://ojw.dev.openstreetmap.org/StaticMap/?lat=51.521472879353&amp;lon=-0.13312339782715&amp;z=16&amp;w=400&amp;h=50&amp;filter=lightgrey&amp;mode=Export&amp;att=none&amp;show=1" width="400" height="50" alt="OpenStreetMap (mapnik) map of the area around 51.52147, -0.13312'
     @width = '320'
     @height = '180'
-    @lat = '51.521472879353'
-    @long = '-0.13312339782715'
+    #@lat = '51.521472879353'
+    #@long = '-0.13312339782715'
 
   render: ->
     length = @collection.length
@@ -21,15 +21,27 @@ class RippleApp.Views.ContactCardMap extends Backbone.View
       if included == true
         _.each(@collection.models, (model) =>      
           if model.get('default') == true
-            @long = model.get('coordinates')[0]
-            @lat = model.get('coordinates')[1]
+            if model.get('coordinates')
+              @long = model.get('coordinates')[0]
+              @lat = model.get('coordinates')[1]
         )
       else
         first = @collection.at(0)
         if first        
-          @long = first.get('coordinates')[0]
-          @lat = first.get('coordinates')[1]
-      $(@el).html(@template(width: @width, height: @height, lat: @lat, long: @long))
+          if first.get('coordinates')
+            @long = first.get('coordinates')[0]
+            @lat = first.get('coordinates')[1]
+      if @lat
+        if @long
+          $(@el).html(@template(width: @width, height: @height, lat: @lat, long: @long))
+        else
+          html = "<img src='/assets/light-map.png'></img>"
+          $(@el).html(html)
+          $(this.el).removeClass('map-present')
+      else
+        html = "<img src='/assets/light-map.png'></img>"
+        $(@el).html(html)
+        $(this.el).removeClass('map-present')
     else
       html = "<img src='/assets/light-map.png'></img>"
       $(@el).html(html)

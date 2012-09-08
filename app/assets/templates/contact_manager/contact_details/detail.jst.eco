@@ -1,6 +1,12 @@
 <span class="contact-detail-icon main-icon dicon-<%= @icon %>"></span>
 <% if @modeltype == "email": %>
-  <a href="mailto:<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a> 
+  <a target="_blank" href="mailto:<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a> 
+<% else if @modeltype == "position": %>
+  <% if @value: %>
+    <a><span class="contact-detail-value"><%= @value %> at <%= @detail.company %></span></a> 
+  <% else: %>
+    <a><span class="contact-detail-value"><%= @detail.company %></span></a> 
+  <% end %>
 <% else if @modeltype == "url": %>
   <% if @beg_val == "http": %>
     <a target="_blank" href="<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a>

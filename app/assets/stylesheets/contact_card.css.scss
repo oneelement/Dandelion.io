@@ -46,6 +46,20 @@
         @include box-shadow(none);
         text-align: center;
       }
+      #contact-card-favourite {
+        position: relative;
+        top: 8px;
+        left: 4px;
+        .dicon-star {
+          font-size: 24px;
+          color: #f0f0f0;
+          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+          cursor: pointer;
+        }
+        .isFavorite {
+          color: #FFDF00;
+        }
+      }
       #isRipple {
         display: none;
 	font-size: 24px;
@@ -124,7 +138,7 @@
 
     #contact-card-head {
       position: absolute;
-      top: 0;
+      top: 15px;
       left: 0;
       right: 0;
 
@@ -153,27 +167,28 @@
 
         }
       }
-      
-      #contact-card-favourite {
+
+      #contact-card-company-position {
+        padding: 0px;
+        margin: 0px;
         position: absolute;
-        top: 40px;
-        left: 270px;
-        .dicon-star {
-          font-size: 24px;
-          color: #f0f0f0;
-          text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
-          cursor: pointer;
+        left: 70px;
+        top: 25px;
+        #contact-card-current-position {
+          padding: 0px;
+          margin: 0px;
         }
-        .isFavorite {
-          color: #FFDF00;
+        #contact-card-current-company {
+          padding: 0px;
+          margin: 0px;
         }
       }
-
+      
 
 
       #contact-card-details-input-form {
         position: absolute;
-        top: 75px;
+        top: 105px;
         left: 0;
         right: 0;
 
@@ -223,6 +238,8 @@
             background: #f9f9f9;
             display: none;
             border-top: 1px solid #CCCCCC;
+            @include border-corner-radius(bottom, left, 4px);
+            @include border-corner-radius(bottom, right, 4px);
           }
 
 
@@ -334,7 +351,7 @@
       
       #social-network-links{
         position: absolute;
-        top: 115px;
+        top: 75px;
         left: 0px;
         right: 0;
       }
@@ -380,9 +397,14 @@
 
     #contact-card-body {
       position: absolute;
-      top: 138px;
+      top: 153px;
       left: 0;
       width: 300px;
+
+      #contact-card-body-list {
+        padding: 0px;
+        margin: 0px;
+      }
   
       .contact-card-section {
         margin: 0px 0px 0px 0px;
@@ -394,8 +416,7 @@
         .subject_edit_view_input {
           display: block !important;        
         }
-        ul { 
-          li {
+          .contact-detail {
             .contact-detail-delete {
               color: #DDD;
               display: block;
@@ -434,7 +455,6 @@
               display: none;
             }
           }
-        }
       }
 
       .contact-card-hashtag-section {
@@ -551,7 +571,11 @@
       }
 
   
-
+      .contact-detail.position {
+        .contact-detail-value {
+          font-size: 13px;
+        }
+      }
 
       .contact-detail, .contact-user-detail {
         margin: 0px 0px 0px 0px;
@@ -569,7 +593,6 @@
         }
   
         .contact-detail-delete {
-          color: #FFF;
           @include opacity(0.8);
           cursor: pointer;
           display: none;
@@ -593,7 +616,7 @@
           width: 75%;
           
           font-weight: normal;
-          font-size: 16px;
+          font-size: 13px;
           color: #555;
         }
         .contact-detail-edit {

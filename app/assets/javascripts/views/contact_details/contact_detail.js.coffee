@@ -22,7 +22,10 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     $(@el).addClass(@modelType)
 
   render: ->
-    begin_value = @value.substr(0,4)
+    if @value
+      begin_value = @value.substr(0,4)
+    else
+      begin_value = ""      
     console.log(begin_value)
     $(@el).html(@template(icon: @icon, value: @value, beg_val: begin_value, modeltype: @modelType, detail: @model.toJSON()))
     defaultInd = @model.get('default')
@@ -60,17 +63,18 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     return this
     
   triggerMap: ->
-    console.log('trigger map')
-    $('#expanded-map').css('display','block')
-    $('.lightboxmap').addClass('show').addClass('map')
-    $('.lightboxmap').css('display', 'block')
-    $('.lightbox-backdrop').css('display', 'block')
-    c = new RippleApp.Collections.Addresses()
-    c.add(@model)
-    map = new RippleApp.Views.LightboxMap(
-      collection: c
-    )
-    $('.lightboxmap', @el).append(map.render().el)
+    if @model.get('coordinates')
+      console.log('trigger map')
+      $('#expanded-map').css('display','block')
+      $('.lightboxmap').addClass('show').addClass('map')
+      $('.lightboxmap').css('display', 'block')
+      $('.lightbox-backdrop').css('display', 'block')
+      c = new RippleApp.Collections.Addresses()
+      c.add(@model)
+      map = new RippleApp.Views.LightboxMap(
+        collection: c
+      )
+      $('.lightboxmap', @el).append(map.render().el)
     
   triggerPhone: ->
     $('.lightbox-backdrop').css('display', 'block')

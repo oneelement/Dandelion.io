@@ -37,7 +37,8 @@ class RippleApp.Views.SettingsSocialLinkedin extends Backbone.View
     
   activateLinkedin: ->
     console.log('Activate')
-    
+    $.get '/imports/import_linkedin', (data) ->
+      console.log('Facebook Contacts Imported')
 
 
 

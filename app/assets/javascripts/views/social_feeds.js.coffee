@@ -12,16 +12,19 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
   initialize: ->
     @model.on('change', @reRender, this)
     @user = @options.user
-    @globalTweets = @options.globalTweets
-    @tweets = @options.tweets
-    @globalFaces = @options.globalFaces
-    @faces = @options.faces
+    @globalTimeline = @options.globalTimeline
+    @timeline = @options.timeline
+    @globalPictures = @options.globalPictures
+    @pictures = @options.pictures
     @source = @options.source
   
   render: ->
     $(@el).html(@template())
+    
     @getSocialFeed()   
     
+    console.log(@timeline)
+        
     #console.log('render social feeds')
       
     return this
@@ -85,24 +88,47 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
 
     
   getPictureTimeline: (call) ->
-    @timelines = new RippleApp.Collections.Timelines([], { call : call })
-    @timelines.fetch(success: (collection) =>
+    if @pictures
+      collection = @pictures.get('picture_timeline')
       view = new RippleApp.Views.PictureTimeline(collection: collection)
-      this.$('#picture-timeline-wrapper').html(view.render().el)  
-      #this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
+      this.$('#picture-timeline-wrapper').html(view.render().el) 
       next = "<span class='dicon-arrow-right-4'></span>"
       prev = "<span class='dicon-arrow-left-4'></span>"
       this.$('#picture-timeline').jcarousel({itemFallbackDimension: 200, buttonNextHTML: next, buttonPrevHTML: prev})
-    )
+    else
+      @timelines = new RippleApp.Collections.Timelines([], { call : call })
+      @timelines.fetch(success: (collection) =>
+        picture_timeline = new RippleApp.Models.GlobalPicture()
+        picture_timeline.set('picture_timeline', collection)
+        picture_timeline.set('id', @model.get('_id'))
+        @globalPictures.add(picture_timeline)
+        view = new RippleApp.Views.PictureTimeline(collection: collection)
+        this.$('#picture-timeline-wrapper').html(view.render().el)  
+        #this.$('#picture-timeline').bxSlider({displaySlideQty: 3, moveSlideQty: 1})
+        next = "<span class='dicon-arrow-right-4'></span>"
+        prev = "<span class='dicon-arrow-left-4'></span>"
+        this.$('#picture-timeline').jcarousel({itemFallbackDimension: 200, buttonNextHTML: next, buttonPrevHTML: prev})
+      )
     
-  callTimeline: (call) ->
-    @timelines = new RippleApp.Collections.Timelines([], { call : call })
-    @timelines.fetch(success: (collection) =>
-      $('#timeline-wrapper').html('')
+  callTimeline: (call) =>
+    if @timeline
+      collection = @timeline.get('timeline')
+      this.$('#timeline-wrapper').html('')
       view = new RippleApp.Views.Timeline(collection: collection)
-      $('#timeline-wrapper').append(view.render().el)
-      $('#social-loading').addClass('disabled')        
-    ) 
+      this.$('#timeline-wrapper').append(view.render().el)
+      this.$('#social-loading').addClass('disabled')  
+    else
+      @timelines = new RippleApp.Collections.Timelines([], { call : call })
+      @timelines.fetch(success: (collection) =>
+        timeline = new RippleApp.Models.GlobalTimeline()
+        timeline.set('timeline', collection)
+        timeline.set('id', @model.get('_id'))
+        @globalTimeline.add(timeline)
+        $('#timeline-wrapper').html('')
+        view = new RippleApp.Views.Timeline(collection: collection)
+        $('#timeline-wrapper').append(view.render().el)
+        $('#social-loading').addClass('disabled')        
+      ) 
     
   selectPostFacebook: ->
     this.$('.post-source').removeClass('active')

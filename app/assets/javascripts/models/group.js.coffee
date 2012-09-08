@@ -37,6 +37,20 @@ class RippleApp.Models.Group extends Backbone.RelationalModel
     },
     {
       type: 'Backbone.HasMany'
+      key: 'educations'
+      relatedModel: 'RippleApp.Models.ContactEducationDetail'
+      includeInJSON: true
+      createModels: true
+    },
+    {
+      type: 'Backbone.HasMany'
+      key: 'positions'
+      relatedModel: 'RippleApp.Models.ContactPositionDetail'
+      includeInJSON: true
+      createModels: true
+    },
+    {
+      type: 'Backbone.HasMany'
       key: 'emails'
       relatedModel: 'RippleApp.Models.ContactEmailDetail'
       includeInJSON: true

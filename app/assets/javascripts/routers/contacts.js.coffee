@@ -13,6 +13,8 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "auth/accept": "acceptAuth"
 
   initialize: ->
+    @globalTimeline = new RippleApp.Collections.GlobalTimelines()
+    @globalPictures = new RippleApp.Collections.GlobalPictures()
     @globalTweets = new RippleApp.Collections.GlobalTweets()
     @globalFaces = new RippleApp.Collections.GlobalFaces()
     @currentUser = new RippleApp.Models.User()
@@ -50,9 +52,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   home: ->
     after = (contact) =>
       source = 'contact'
-      tweets = @globalTweets.get(@currentUser.get('_id'))
-      faces = @globalFaces.get(@currentUser.get('_id'))
-      view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser, globalTweets: @globalTweets, globalFaces: @globalFaces, tweets: tweets, faces: faces)
+      timeline = @globalTimeline.get(contact.get('_id'))
+      pictures = @globalPictures.get(contact.get('_id'))
+      view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
       RippleApp.layout.setMainView(view)
       @setContextContact(contact, source)
     
@@ -218,13 +220,15 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   showContact: (contact) ->
     user = @currentUser.get("_id")
+    timeline = @globalTimeline.get(contact.get('_id'))
+    pictures = @globalPictures.get(contact.get('_id'))
     if not user?
       @currentUser.fetchCurrent(success: (model) =>        
-        view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: model, globalTweets: @globalTweets, globalFaces: @globalFaces)
+        view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: model, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
         RippleApp.layout.setMainView(view)
       )
     else
-      view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: @currentUser, globalTweets: @globalTweets, globalFaces: @globalFaces)
+      view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: @currentUser, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
       RippleApp.layout.setMainView(view)
       
   showGroup: (group) ->

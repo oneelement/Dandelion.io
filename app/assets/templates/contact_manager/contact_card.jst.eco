@@ -1,5 +1,8 @@
 <div id="contact-card-top">
   <div id="contact-card-name">
+    <div id="contact-card-favourite">
+      <span id="isFavourite" class="dicon-star"></span>
+    </div>
     <span id="isRipple" class="dicon-network"></span>
     <h3><%= @contact.name %></h3>
     <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
@@ -25,8 +28,13 @@
           <% end %>
           </a>
         </div>
-        <div id="contact-card-favourite">
-          <span id="isFavourite" class="dicon-star"></span>
+        <div id="contact-card-company-position">
+          <div id="contact-card-current-position">
+            <%= @contact.current_position %>
+          </div>
+          <div id="contact-card-current-company">
+            <%= @contact.current_company %>
+          </div>
         </div>
         <form id="contact-card-details-input-form">
             <div class="input-append" id="minibar-wrapper">

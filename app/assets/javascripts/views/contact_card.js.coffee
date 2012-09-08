@@ -192,12 +192,31 @@ class RippleApp.Views.ContactCard extends Backbone.View
     
     @outputAdresses()
     
+    positionsSection = new RippleApp.Views.ContactUserSection(
+      title: 'position'
+      icon: 'briefcase-3'
+      collection: @user_contact.get("positions")
+      subject: @model
+      subjectCollection: @model.get("positions")
+      modelName: RippleApp.Models.ContactAddressDetail
+    )
+    $('#contact-card-body', @el).append(positionsSection.render().el)
+    
+    @outputPositions()
+    @outputEducations()
     @outputNotes()
     @outputGroups()
     #@outputHashes()
 
 
-  outputCard: ->      
+  outputCard: ->    
+    if @model.get('location')
+      dob = new RippleApp.Views.ContactCardDetailSingle(
+        icon: 'location'
+        value: 'location'
+        model: @model
+      )
+      $('#contact-card-body-list', @el).append(dob.render().el)
     if @model.get('dob')
       dob = new RippleApp.Views.ContactCardDetailSingle(
         icon: 'contact'
@@ -210,9 +229,31 @@ class RippleApp.Views.ContactCard extends Backbone.View
     @outputPhones()
     @outputUrls()
     @outputAdresses()
+    @outputPositions()
+    @outputEducations()
     @outputNotes()
     @outputGroups()
     #@outputHashes()
+    
+  outputEducations: ->
+    educationsSection = new RippleApp.Views.ContactCardSection(
+      title: 'education'
+      icon: 'graduation'
+      collection: @model.get("educations")
+      subject: @model
+      modelName: RippleApp.Models.ContactEducationDetail
+    )
+    $('#contact-card-body', @el).append(educationsSection.render().el)
+    
+  outputPositions: ->
+    positionsSection = new RippleApp.Views.ContactCardSection(
+      title: 'position'
+      icon: 'briefcase-3'
+      collection: @model.get("positions")
+      subject: @model
+      modelName: RippleApp.Models.ContactPositionDetail
+    )
+    $('#contact-card-body', @el).append(positionsSection.render().el)
           
   outputEmails: ->
     emailsSection = new RippleApp.Views.ContactCardSection(
@@ -345,9 +386,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
       this.$('.contact-detail').addClass('editing')
       this.$('.contact-card-section').addClass('editing')
+      this.$('#contact-card-body-list').addClass('editing')
       
       @editViewOn = true
     else
+      this.$('#contact-card-body-list').removeClass('editing')
       this.$('.contact-card-hashtag-section').removeClass('editing')
       this.$('.contact-card-section').removeClass('editing')
       this.$('.contact-detail').removeClass('editing')
@@ -386,13 +429,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
   setMinibar: ->
     this.$('#minibar-type-wrapper').show()
-    this.$('#social-network-links').css('top', '140px')
-    this.$('#contact-card-body').css('top', '163px')
+    #this.$('#social-network-links').css('top', '140px')
+    this.$('#contact-card-body').css('top', '178px')
     
   closeMinibar: ->
     this.$('#minibar-type-wrapper').hide()
-    this.$('#social-network-links').css('top', '115px')
-    this.$('#contact-card-body').css('top', '138px')
+    #this.$('#social-network-links').css('top', '115px')
+    this.$('#contact-card-body').css('top', '153px')
 
   matchInputDetails: (e) ->
     #Display our guess of what the input text relates to, 

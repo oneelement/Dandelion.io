@@ -11,8 +11,10 @@ class RippleApp.Views.Timeline extends Backbone.View
   render: ->    
     $(@el).html(@template())
     @collection.each(@appendTimeline) 
-    console.log('2')
-    console.log(@collection)
+    #console.log('2')
+    #console.log(@collection)
+    console.log('render timeline')
+    
     this    
   
   appendTimeline: (entry) =>

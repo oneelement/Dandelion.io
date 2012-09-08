@@ -14,6 +14,8 @@ class Contact
   has_many :notes, :autosave => true, :dependent => :destroy
   has_many :emails, :autosave => true, :dependent => :destroy
   has_many :urls, :autosave => true, :dependent => :destroy
+  has_many :positions, :autosave => true, :dependent => :destroy
+  has_many :educations, :autosave => true, :dependent => :destroy
   
   has_and_belongs_to_many :hashtags, :autosave => true
   
@@ -25,12 +27,15 @@ class Contact
   accepts_nested_attributes_for :socials, :allow_destroy => true
   accepts_nested_attributes_for :emails, :allow_destroy => true
   accepts_nested_attributes_for :urls, :allow_destroy => true
-  accepts_nested_attributes_for :hashtags, :allow_destroy => true #this this will delte
+  accepts_nested_attributes_for :positions, :allow_destroy => true
+  accepts_nested_attributes_for :educations, :allow_destroy => true
+  #accepts_nested_attributes_for :hashtags, :allow_destroy => true #this this will delte
 
   field :name, :type => String
-  field :position, :type => String
-  #field :email, :type => String
   field :dob, :type => Date
+  field :location, :type => String
+  field :current_position, :type => String
+  field :current_company, :type => String
   field :is_user, :type => Boolean, :default => false
   field :is_ripple, :type => Boolean, :default => false
   field :linked_contact_id, :type => String
@@ -60,11 +65,16 @@ class Contact
     t.add :notes
     t.add :emails
     t.add :urls
+    t.add :positions
+    t.add :educations
     t.add :name
     t.add :is_ripple
     t.add :is_user
     t.add :linked_contact_id
     t.add :dob
+    t.add :location
+    t.add :current_position
+    t.add :current_company
     t.add :avatar
     t.add :map
     t.add :facebook_id
@@ -98,6 +108,8 @@ class Contact
     t.add :phones
     t.add :emails
     t.add :urls
+    t.add :positions
+    t.add :educations
     t.add :name
   end
   
@@ -146,7 +158,7 @@ class Contact
   end
 
   def update_attributes_from_api(params)
-    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes", "emails", "urls", "hashtags"]
+    keys_with_nested_attributes = ["addresses", "phones", "socials", "notes", "emails", "urls", "positions", "educations", "hashtags"]
     params = api_to_nested_attributes(params, keys_with_nested_attributes)
     update_attributes(params)
   end

@@ -6,13 +6,13 @@
     <span class="dicon-user"></span>
   </div>
   <div class="settings-social-name">
-    <p>:username</p>
+    <p></p>
   </div>
-  <div class="settings-social-sync-all">
+  <!--<div class="settings-social-sync-all">
     <span class="dicon-network"></span>
     <span class="dicon-loop-2"></span>
     <span class="dicon-<%= @social %>"></span>
-  </div>
+  </div>-->
 
   <div class="settings-social-import-all" title="Import all contacts from <%= @social %>" rel="tooltip">
     <span class="dicon-<%= @social %>"></span>
