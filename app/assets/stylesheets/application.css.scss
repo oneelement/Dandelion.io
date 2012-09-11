@@ -3,6 +3,7 @@
 //@import "susy";
 @import "bootstrap";
 
+@import "public";
 @import "home";
 @import "layout";
 @import "sidebar";
@@ -21,6 +22,28 @@
 @import "reveal";
 @import "skin";
 
+
+@font-face {
+  font-family: 'danielregular';
+        src: url('/assets/daniel.eot');
+        src: url('/assets/daniel.eot?#iefix') format('embedded-opentype'),
+             url('/assets/daniel.svg#IcoMoon') format('svg'),
+             url('/assets/daniel.woff') format('woff'),
+             url('/assets/daniel.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'avenirbook';
+  src: url('/assets/avenirbook.eot');
+  src: url('/assets/avenirbook.eot?#iefix') format('embedded-opentype'),
+	url('/assets/avenirbook.svg#avenirbook') format('svg'),
+	url('/assets/avenirbook.woff') format('woff'),
+	url('/assets/avenirbook.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 p {
   /*color: #b5b1ae;*/
@@ -187,11 +210,23 @@ li {
   background: #EC6363;
 }
 
-.facebook-f {
-  //background: url(/assets/facebook-f.png) no-repeat;
-  position: relative;
-  right: 20%;
+.button-facebook {
+  color: #FFF;
+  @include opacity(1);
+  background-color:#3B5998;
+  border:1px solid #3B5998;
+  padding:6px 24px;
+  @include box-shadow(#5D8FF4 0px 1px 0px 0px inset);
 }
+
+.button-facebook:hover {
+  color: #FFF;
+  background-color:#3B5998;  
+  @include box-shadow(#5D8FF4 0px 1px 0px 0px inset);
+  font-weight: bold;
+}
+
+
 
 .modal-body {
   height: 350px;
@@ -238,29 +273,21 @@ li {
   @include border-radius(4px);
 }
 
-.outer-center {  
-  @include background(radial-gradient(top center, circle closest-corner, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 90%), 
-      image-url("/assets/wood089.jpg") repeat !important); 
-}
 
 #container {
   height: 100%;
 }
 
-span.granny-number{
-  font-size: 80px;
-  line-height: 80px;
+
+
+.handwritten {
+  font-family: danielregular;
 }
 
-li.granny-number{
-  padding: 0 20px 14px;
-  margin: 10px 0;
-  background-color: #ffffff;
-  border-radius: 50px; 
-  -moz-border-radius: 50px; 
-  -webkit-border-radius: 50px; 
-  border: 1px solid #3665FF;
+.book {
+  font-family: avenirbook;
 }
+
 
 .web-font {
   color: #50D14B;

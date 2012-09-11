@@ -12,6 +12,8 @@ class Group
   has_many :emails, :autosave => true, :dependent => :destroy
   has_many :urls, :autosave => true, :dependent => :destroy
   has_many :addresses, :autosave => true, :dependent => :destroy
+  has_many :positions, :autosave => true, :dependent => :destroy
+  has_many :educations, :autosave => true, :dependent => :destroy  
   
   has_and_belongs_to_many :hashtags, :autosave => true
   
@@ -23,6 +25,9 @@ class Group
   accepts_nested_attributes_for :socials, :allow_destroy => true
   accepts_nested_attributes_for :emails, :allow_destroy => true
   accepts_nested_attributes_for :urls, :allow_destroy => true
+  accepts_nested_attributes_for :positions, :allow_destroy => true
+  accepts_nested_attributes_for :educations, :allow_destroy => true
+  
   accepts_nested_attributes_for :hashtags
   
   field :name, :type => String
@@ -53,6 +58,8 @@ class Group
     t.add :notes
     t.add :emails
     t.add :urls
+    t.add :positions
+    t.add :educations
     t.add :name
     #t.add :email
     t.add :avatar
@@ -72,7 +79,7 @@ class Group
   end
 
   def update_attributes_from_api(params)
-    keys_with_nested_attributes = ["addresses", "notes", "phones", "socials", "emails",  "urls", "hashtags"]
+    keys_with_nested_attributes = ["addresses", "notes", "phones", "socials", "emails",  "urls", "positions", "educations", "hashtags"]
     params = api_to_nested_attributes(params, keys_with_nested_attributes)
     update_attributes(params)
   end

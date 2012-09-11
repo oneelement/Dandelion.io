@@ -9,7 +9,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     "groups/show/:id": "groupShow"
     "groups/preview/:id": "groupPreview"
     #"hashtags/show/:id": "hashtagShow"
-    "users/preview/:id": "userPreview"
+    #"users/preview/:id": "userPreview"
     "auth/accept": "acceptAuth"
 
   initialize: ->
@@ -52,9 +52,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
   home: ->
     after = (contact) =>
       source = 'contact'
-      timeline = @globalTimeline.get(contact.get('_id'))
-      pictures = @globalPictures.get(contact.get('_id'))
-      view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
+      view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser)
       RippleApp.layout.setMainView(view)
       @setContextContact(contact, source)
     
@@ -220,15 +218,13 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   showContact: (contact) ->
     user = @currentUser.get("_id")
-    timeline = @globalTimeline.get(contact.get('_id'))
-    pictures = @globalPictures.get(contact.get('_id'))
     if not user?
       @currentUser.fetchCurrent(success: (model) =>        
-        view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: model, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
+        view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: model)
         RippleApp.layout.setMainView(view)
       )
     else
-      view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: @currentUser, globalTimeline: @globalTimeline, globalPictures: @globalPictures, timeline: timeline, pictures: pictures)
+      view = new RippleApp.Views.SocialFeeds(source: 'contact', model: contact, user: @currentUser)
       RippleApp.layout.setMainView(view)
       
   showGroup: (group) ->

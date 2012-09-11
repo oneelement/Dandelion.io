@@ -12,10 +12,12 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
   initialize: ->
     @model.on('change', @reRender, this)
     @user = @options.user
-    @globalTimeline = @options.globalTimeline
-    @timeline = @options.timeline
-    @globalPictures = @options.globalPictures
-    @pictures = @options.pictures
+    @globalTimeline = RippleApp.contactsRouter.globalTimeline
+    @globalPictures = RippleApp.contactsRouter.globalPictures
+    #@timeline = @options.timeline
+    #@pictures = @options.pictures
+    @timeline = @globalTimeline.get(@model.get('_id'))
+    @pictures = @globalPictures.get(@model.get('_id'))
     @source = @options.source
   
   render: ->

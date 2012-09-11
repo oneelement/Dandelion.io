@@ -14,6 +14,7 @@ class RippleApp.Views.GroupShow extends Backbone.View
     @fillCollection() #tried this in the router but it was slow, this way seems much snappier, OC
     @collection.on('reset add destroy', @render, this)
 
+
   render: ->
     $(@el).html(@template(group: @model.toJSON())) 
     @autocomplete()

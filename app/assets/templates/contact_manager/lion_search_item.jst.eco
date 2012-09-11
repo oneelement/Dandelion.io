@@ -1,0 +1,24 @@
+<div class="social-search-image">  
+  <% if @lion.avatar?: %>
+    <img class="image-thumb medium" src="<%= @lion.avatar %>" alt=""/>
+  <% else: %>
+    <span class="subject-avatar dicon-user"></span>
+  <% end %>  
+ 
+</div>
+<div class="result-text">
+  <h3><%= @lion.full_name %></h3>
+ 
+  <% if @lion.awaiting == 'true': %>
+     <p>Connection is awaiting a response.</p> 
+  <% else: %>
+     <p></p> 
+  <% end %>    
+</div>
+<div class="link-action">
+  <% if @lion.awaiting == 'true': %>
+    
+  <% else: %>
+    <button class="button lionLinkButton" data-user-id="<%= @lion._id %>" data-contact-id="<%= @lion.contact_id %>" data-handle="" data-pictureurl="" data-socialid="" data-socialtype="">Link</button>  
+  <% end %>  
+</div>

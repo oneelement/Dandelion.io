@@ -106,7 +106,6 @@ class RippleApp.Views.Notification extends Backbone.View
     id = @model.get('_id')
     $.get '/notifications/complete_ripple/?id=' + id
     
-  #poss now obsolete  
   completeContactRipple: ->
     id = @model.get('_id')
     $.get '/notifications/complete_ripple/?id=' + id

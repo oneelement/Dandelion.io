@@ -2,7 +2,7 @@
         font-family: 'IcoMoon2';
         src: url('/assets/icomoon.eot');
         src: url('/assets/icomoon.eot?#iefix') format('embedded-opentype'),
-             url('/assets/icomoon.svg#IcoMoon') format('svg'),
+             url('/assets/icomoon.svg#IcoMoon2') format('svg'),
              url('/assets/icomoon.woff') format('woff'),
              url('/assets/icomoon.ttf') format('truetype');
         font-weight: normal;
@@ -374,4 +374,7 @@
 }
 .dicon-briefcase-3:before {
 	content: "\56";
+}
+.dicon-facebook-2:before {
+	content: "\57";
 }

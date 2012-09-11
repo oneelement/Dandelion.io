@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def layout_by_resource
     if devise_controller?
-      "sign"
+      "application"
     else
       "application"
     end
@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url
+  end
+  
+  def after_sign_in_path_for(resource)
+    "/app/"
   end
   
   include BackboneHelpers::Controller

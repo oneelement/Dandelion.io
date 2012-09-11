@@ -1,5 +1,7 @@
 Onelement::Application.routes.draw do
   
+  get "public/index"
+
   resources :autocomplete do
     get 'wonderbar', :on => :collection
     get 'contacts', :on => :collection
@@ -79,6 +81,8 @@ Onelement::Application.routes.draw do
   resources :tasks
 
   resources :home
+  
+  resources :app, :controller => :home
 
   resources :question_types
 
@@ -105,6 +109,19 @@ Onelement::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions'}
   
+  #devise_scope :user do
+  #  get "/login" => "devise/sessions#new"
+  #end
+  
+  
+  #devise_for :users, :skip => [:sessions]
+  as :user do
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
+    post 'login' => 'devise/sessions#create', :as => :user_session
+    delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
+  
+  
   resources :organisations
 
   resources :contacts do
@@ -122,11 +139,11 @@ Onelement::Application.routes.draw do
 
   resources :rating_blocks
 
-  root :to => "home#index"
+  root :to => "public#index"
 
   match '/auth/:provider/callback' => 'authentications#create'
   
-  match '/auth/failure' => 'home#index'
+  match '/auth/failure' => 'public#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

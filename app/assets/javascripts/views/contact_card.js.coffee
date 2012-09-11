@@ -29,7 +29,9 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click .facebookSearch': 'facebookModal'
     'click .twitterSearch': 'twitterModal'
     'click .linkedinSearch': 'linkedinModal'
+    'click .lionSearch': 'lionModal'
     'click .socialLinkButton': 'socialLink'
+    'click .lionLinkButton': 'lionLink'
     #"click .Hashtags span.contact-detail-value": "clickHashtag"
     'click #contact-card-avatar': 'showAvatarLightbox'
     #'click span.delete-icon': 'saveModel'
@@ -69,6 +71,8 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if @model.get('is_ripple') == true
       console.log(@model.get('is_ripple'))
       this.$('#isRipple').addClass('connected')
+      this.$('div.searchIcon').removeClass('lionSearch')
+      this.$('.dicon-network').addClass('dandelion-connected')
       @outputWithRippleDetails()
     else
       @outputCard()
@@ -385,6 +389,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       $('.dicon-pencil').addClass('active')
 
       this.$('.contact-detail').addClass('editing')
+      this.$('.uneditable').removeClass('editing')
       this.$('.contact-card-section').addClass('editing')
       this.$('#contact-card-body-list').addClass('editing')
       
@@ -963,7 +968,77 @@ class RippleApp.Views.ContactCard extends Backbone.View
       )
       #$('#social-search').off('keyup')
     
-  socialLink: (e)=>
+    
+          
+  lionModal: (e) =>
+    @showSocialLightbox()
+    #linkedinauth = @auths.where(provider: "linkedin")
+    $('.social-search-header h3').html('Dandelion Search')
+    $('#social-search').val(@model.get('name'))
+    name = @model.get('name')
+    @lions = new RippleApp.Collections.PublicUsers([], { call : "/?name="+@model.get('name') })
+    $('.social-search-body ul').empty().append("<li>Fetching...</li>")
+    @lions.fetch(success: (collection) =>
+      if collection.length > 0
+        $('.social-search-body ul').empty()
+        collection.each((link) =>
+          if @model.get('linked_contact_id') == link.get('contact_id')
+            link.set('awaiting', 'true')
+          console.log(@model.get('linked_contact_id'))
+          console.log(link.get('contact_id'))
+          $('.social-search-body ul').empty()
+          link.set('socialType', 'linked_contact_id')
+          view = new RippleApp.Views.LionSearch(model: link)
+          $('.social-search-body ul').append(view.render().el)
+        )
+      else
+        $('.social-search-body ul').empty().append("<li>No results to display</li>")
+    )
+    $('#social-search').on('keyup', @.lionSearch)
+      
+      
+  lionSearch: (e) =>
+    if e.keyCode == 13      
+      @socials = new RippleApp.Collections.PublicUsers([], { call : "/?name="+e.target.value })
+      $('.social-search-body ul').empty()
+      $('.social-search-body ul').append("<li>Fetching...</li>")
+      @socials.fetch(success: (collection) =>  
+        if collection.length > 0
+          $('.social-search-body ul').empty()
+          collection.each((social)=>
+            if @model.get('linked_contact_id') == social.get('contact_id')
+              social.set('awaiting', 'true')
+            console.log(@model.get('linked_contact_id'))
+            console.log(social.get('contact_id'))
+            social.set('socialType', 'linked_contact_id')
+            view = new RippleApp.Views.LionSearch(model: social)
+            $('.social-search-body ul').append(view.render().el)
+          )
+        else
+          $('.social-search-body ul').empty().append("<li>No results to display</li>")
+      )
+      #$('#social-search').off('keyup')
+
+  lionLink: (e) =>
+    target_user_id = $(e.target).attr('data-user-id')
+    target_user_contact_id = $(e.target).attr('data-contact-id')
+    if @model.get('is_ripple') == false
+      if @model.get('is_user') == false
+        @notification = new RippleApp.Models.Notification()
+        sent_contact_id = @model.get('_id') #contact_id of this contact
+        #ripple_id = @model.get('ripple_id') #contact_id of target user
+        @notification.set(
+          _type: 'NotificationContactRipple'
+          sent_contact_id: sent_contact_id
+          ripple_id: @model.get('_id')
+          user_id: target_user_id
+        )
+        console.log(@notification)
+        @notification.save() 
+    @model.set('linked_contact_id', target_user_contact_id, { silent: true })
+    @model.save(null, { silent: true })
+ 
+  socialLink: (e) =>
     socialType = $(e.target).attr('data-socialtype')
     social_id = $(e.target).attr('data-socialid')
     pictureUrl = $(e.target).attr('data-pictureurl')

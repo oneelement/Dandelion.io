@@ -3,7 +3,7 @@
     <div id="contact-card-favourite">
       <span id="isFavourite" class="dicon-star"></span>
     </div>
-    <span id="isRipple" class="dicon-network"></span>
+    <!--<span id="isRipple" class="dicon-network"></span>-->
     <h3><%= @contact.name %></h3>
     <input type="text" name="value" id="subject_name_input" class="input-text" value="<%= @contact.name %>" placeholder="Enter contact name..." style="display: none;"></input>          
   </div>
@@ -70,6 +70,7 @@
             <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>
             <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a></div>
             <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a></div>
+            <div class="searchIcon lionSearch"><a class="dicon-network social-grey"></a></div>
         </div>
     </div>
     <div id="contact-card-body">

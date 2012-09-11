@@ -7,15 +7,15 @@ class AutocompleteController < ApplicationController
     #
     # in this case we grab all movies that begin with the typed term and
     # rename the name attribute to value for convenience
-    users = User.excludes(:id => current_user.id)
-    users = users.where(:full_name => /#{params[:term]}/i).asc(:name).limit(8)
+    #users = User.excludes(:id => current_user.id)
+    #users = users.where(:full_name => /#{params[:term]}/i).asc(:name).limit(8)
     groups = Group.where(:user_id => current_user.id)
     groups = groups.where(:name => /#{params[:term]}/i).asc(:name).limit(8)
     #tasks = Task.where(:user_id => current_user.id)
     #tasks = tasks.where(:title => /#{params[:term]}/i).asc(:name).limit(8)
     contacts = Contact.where(:user_id => current_user.id)
     contacts = contacts.where(:name => /#{params[:term]}/i).asc(:name).limit(8)
-    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Contact", icon: "dicon-user"]} + groups.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Group", icon: "dicon-circles"]} + users.map {|u| Hash[ id: u.id, label: u.full_name, name: u.full_name, avatar: u.avatar, category: "User", icon: "dicon-user"]}
+    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Contact", icon: "dicon-user"]} + groups.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Group", icon: "dicon-circles"]} 
     #render json: list
     render :json => list.to_json
   end

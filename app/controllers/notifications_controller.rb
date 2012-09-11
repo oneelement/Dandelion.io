@@ -18,14 +18,7 @@ class NotificationsController < ApplicationController
       sent_name: current_user.full_name, 
       sent_avatar: current_user.avatar
     )
-    if params[:ripple_id]
-      contact = Contact.find(params[:ripple_id])
-      user_id = contact.user_id
-      @notification.update_attributes(
-        user_id: user_id
-      )
-    end
-    respond_to do |format|
+   respond_to do |format|
       if @notification.save
         format.json { render json: @notification, status: :created, location: @notification }
       else
