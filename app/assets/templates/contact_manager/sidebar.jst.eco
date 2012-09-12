@@ -16,6 +16,7 @@
 <div id="favorite-menu">
   <span class="dicon-star"></span>
   <span id="favorite-caret"></span>
+  <span id="favorite-caret" class="outline"></span>
 </div>
 
 <div id="favorite-container">

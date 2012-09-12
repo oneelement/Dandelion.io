@@ -1,9 +1,11 @@
 class RippleApp.Views.ContactsIndex extends Backbone.View
   template: JST['contact_manager/contact_index']
+  
   id: 'contacts-index'
   
   events:
     'click #delete-contact': 'deleteContact'
+    'click #merge-contact': 'mergeContact'
 
 
   initialize: ->
@@ -22,6 +24,7 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
 
   render: ->
     $(@el).html(@template())
+
     @collection.each(@appendContact)
     this.$('#contacts-table').dataTable("bPaginate": false,  "oLanguage": {sSearch: ""}, "bInfo": false, "aaSorting": [ [3,'asc'] ])
     html = "<div id='action-wrapper'></div>"
@@ -35,14 +38,31 @@ class RippleApp.Views.ContactsIndex extends Backbone.View
     this.$('#contacts-table-body').append(view.render().el)
     
   selectedContact: ->
-    console.log('worky worky')
-    console.log(@selected)
     if @selected.length > 0
-      html = "<span id='delete-contact' class='button button-delete'>delete</span>"
-      this.$('#action-wrapper').html(html)
+      if @selected.length > 1
+        html = "<span id='merge-contact' class='button button-success'>merge</span>"
+        html = html + "<span id='delete-contact' class='button button-delete'>delete</span>"
+        this.$('#action-wrapper').html(html)
+      else
+        html = "<span id='delete-contact' class='button button-delete'>delete</span>"
+        this.$('#action-wrapper').html(html)
     else
       html = ""
       this.$('#action-wrapper').html(html)
+      
+  mergeContact: ->
+    console.log('merge')
+    $('.lightbox-backdrop').css('display', 'block')
+    $('#merge-lightbox').css('display', 'block')
+    $('#merge-lightbox').addClass('show')
+    view = new RippleApp.Views.MergeMasterSelect(
+      collection: @collection
+      selected: @selected
+      source: @source
+    )
+    $('#merge-lightbox').html(view.render().el) 
+    #trigger lightbox to select master contact
+
       
   deleteContact: ->
     if @source == 'contact'

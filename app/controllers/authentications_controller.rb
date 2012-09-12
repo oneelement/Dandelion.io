@@ -52,7 +52,7 @@ class AuthenticationsController < ApplicationController
 	contact.linkedin_id = omniauth['uid']
 	contact.save      
       end
-      redirect_to '/#auth/accept'
+      redirect_to '/app/#auth/accept'
     elsif user = create_new_omniauth_user(omniauth)
       user.authentications.create!(
 	:provider => omniauth['provider'], 

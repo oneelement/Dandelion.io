@@ -5,12 +5,12 @@
 
 
 #lion-header {
-  height: 600px;
+  height: 550px;
   width: 100%;
   @include background-image(linear-gradient(#ffa75e, #ff7300));
   .container {
     margin: 0px auto;
-    width: 1100px;
+    width: 960px;
     .header {
       margin: 20px 0px 30px 0px;
       height: 40px;
@@ -96,8 +96,7 @@
   width: 100%;
   background: #fefefe;
   .container {
-    margin: 0px auto;
-    width: 1100px;
+    width: 100%;
     background-image: url('/assets/arrow.png');
     background-repeat: no-repeat;
     background-position: top center; 
@@ -205,7 +204,7 @@
     }
     
     .cta-section {
-      margin: 200px 0px 0px 0px;
+      margin: 200px 0px 20px 0px;
       .cta {
 
 	a.button {
@@ -239,7 +238,9 @@
     }
     
     .soon-section {
-      margin: 40px 0px 0px 0px;
+      padding: 40px 0px 0px 0px;
+      background: #f9f9f9;
+//border-top: 1px solid #CCC;
       .imagery {
 	width: 50%;
 	float: left;	

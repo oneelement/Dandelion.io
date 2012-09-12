@@ -60,6 +60,7 @@ Onelement::Application.routes.draw do
   
   resources :groups do
     get :multipledelete, :on => :collection
+    get :multiplemerge, :on => :collection
   end
 
   resources :authentications
@@ -126,6 +127,7 @@ Onelement::Application.routes.draw do
 
   resources :contacts do
     get :multipledelete, :on => :collection
+    get :multiplemerge, :on => :collection
   end
 
   resources :dashboard

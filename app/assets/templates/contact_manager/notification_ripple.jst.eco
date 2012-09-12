@@ -1,5 +1,9 @@
 <div class="inbox-avatar">
-  <img src="<%= @notification.sent_avatar %>">
+  <% if @notification.sent_avatar?: %>
+    <img src="<%= @notification.sent_avatar %>"/>
+  <% else: %>
+    <span class="subject-avatar dicon-user"></span>
+  <% end %>
 </div>
 <div class="message-details">
   <div class="sent-name">

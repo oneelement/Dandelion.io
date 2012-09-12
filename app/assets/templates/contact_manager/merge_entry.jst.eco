@@ -1,0 +1,48 @@
+<td class="contact-list-detail select">
+  <span class="dicon-square"></span>
+  <span class="dicon-checkmark"></span>
+</td>
+<td class="contact-list-detail favorite">
+  <div class="contact-list-favorite">
+    <span class="dicon-star"></span>
+  </div>
+</td>
+<td class="contact-list-detail avatar-cell">
+  <div class="avatar">
+    <% if @contact.avatar?: %>
+      <img src="<%= @contact.avatar %>"/>
+    <% else: %>
+      <% if @modelType == 'contact': %>
+	<span class="subject-avatar dicon-user"></span>
+      <% else: %>
+	  <span class="subject-avatar dicon-circles"></span>
+      <% end %>
+    <% end %>
+  </div>
+</td>
+<td class="contact-list-detail name-cell">
+  <div class="name">
+      <a><h3><%= @contact.name %></h3></a>
+      <p><%= @contact.current_position %></p><p style="color: #bbb;"><%= @contact.current_company %></p>
+  </div>
+</td>
+<td class="contact-list-detail socials">
+  <div class="contact-list-socials">
+    <span class="dicon-facebook"></span>
+    <span class="dicon-twitter"></span>
+    <span class="dicon-linkedin"></span>
+  </div>
+</td>
+<td class="contact-list-detail details-cell">
+    <div class="phone-details">
+    </div>
+    <div class="email-details">
+    </div>
+</td>
+<td class="contact-list-detail tags">
+  <div class="hashtag-details">
+  </div>
+</td>
+
+
+

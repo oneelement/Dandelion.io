@@ -147,4 +147,11 @@ $sidebarBorder: #ccc;
     display: none;
     z-index: 100000;
   }
+  #favorite-caret.outline {
+    border-top: 10px dashed transparent;
+    border-right: 10px solid #CCC;	
+    border-bottom: 10px dashed transparent;
+    left: 60px;
+    z-index: 99999;
+  }
 }

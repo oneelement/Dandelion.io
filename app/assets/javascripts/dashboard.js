@@ -57,7 +57,7 @@ $(function() {
             newContact.save({name: addName}, {success: 
                 function(model, response) {
                     show_id = response._id;
-                    var url = "/#contacts/show/" + show_id;
+                    var url = "/app/#contacts/show/" + show_id;
                     window.location.href = url;
                 }
             });    
@@ -73,18 +73,18 @@ $(function() {
               function(model, response) {
                 show_id = response._id;
                 console.log(show_id);
-                var url = "/#groups/show/" + show_id;
+                var url = "/app/#groups/show/" + show_id;
                 window.location.href = url;
               }
             });
         } else {
             addName = ui.item.value;
             if (ui.item.category == "Contact"){
-              var url = "/#contacts/show/" + ui.item.id;              
+              var url = "/app/#contacts/show/" + ui.item.id;              
             } else if (ui.item.category == "Group"){
-              var url = "/#groups/show/" + ui.item.id;
+              var url = "/app/#groups/show/" + ui.item.id;
             } else if (ui.item.category == "User"){
-              var url = "/#users/preview/" + ui.item.id;
+              var url = "/app/#users/preview/" + ui.item.id;
             }          
             window.location.href = url;
             console.log(ui.item.category)

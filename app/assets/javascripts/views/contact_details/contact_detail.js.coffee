@@ -26,7 +26,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       begin_value = @value.substr(0,4)
     else
       begin_value = ""      
-    console.log(begin_value)
+    #console.log(begin_value)
     $(@el).html(@template(icon: @icon, value: @value, beg_val: begin_value, modeltype: @modelType, detail: @model.toJSON()))
     defaultInd = @model.get('default')
     if defaultInd == true

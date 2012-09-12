@@ -134,6 +134,169 @@ class ContactsController < ApplicationController
     end
   end
   
+  def multiplemerge
+    master_id = params[:master]
+    ids = params[:sent]
+    #array = ids.split(",")
+    #@output = []
+    master_index = ids.index(master_id)
+    ids.delete_at(master_index)
+    #use array.index then delete or get at index
+    #array.delete_at(0)
+    @do_contact_save = false
+    @master_contact = Contact.find(master_id)
+    ids.each do |id|
+      @contact = Contact.find(id) 
+      @phones = Phone.where(:contact_id => id)
+      @phones.each do |model|
+        text = model.number
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.phones.create!(
+	  :_type => type,
+	  :number => text,
+	  :parent_id => parent_id
+	)
+      end
+      @emails = Email.where(:contact_id => id)
+      @emails.each do |model|
+        text = model.text
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.emails.create!(
+	  :_type => type,
+	  :text => text,
+	  :parent_id => parent_id
+	)
+      end
+      @addresses = Address.where(:contact_id => id)
+      @addresses.each do |model|
+        text = model.full_address
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.addresses.create!(
+	  :_type => type,
+	  :full_address => text,
+	  :parent_id => parent_id
+	)
+      end
+      @urls = Url.where(:contact_id => id)
+      @urls.each do |model|
+        text = model.text
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.urls.create!(
+	  :_type => type,
+	  :text => text,
+	  :parent_id => parent_id
+	)
+      end
+      @notes = Note.where(:contact_id => id)
+      @notes.each do |model|
+        text = model.text
+	type = model._type
+	@master_contact.notes.create!(
+	  :_type => type,
+	  :text => text
+	)
+      end
+      @positions = Position.where(:contact_id => id)
+      @positions.each do |model|
+        title = model.title
+	company = model.company
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.positions.create!(
+	  :_type => type,
+	  :title => title,
+	  :company => company,
+	  :parent_id => parent_id
+	)
+      end
+      if @contact.current_position
+        if @master_contact.current_position
+	else
+	  @master_contact.current_position = @contact.current_position
+	  @do_contact_save = true
+	end
+      end
+      if @contact.current_company
+        if @master_contact.current_company
+	else
+	  @master_contact.current_company = @contact.current_company
+	  @do_contact_save = true
+	end
+      end
+      @educations = Education.where(:contact_id => id)
+      @educations.each do |model|
+        title = model.title
+	year = model.year
+	type = model._type
+	parent_id = model.parent_id
+	@master_contact.educations.create!(
+	  :_type => type,
+	  :title => title,
+	  :year => year,
+	  :parent_id => parent_id
+	)
+      end
+      if @contact.avatar
+        if @master_contact.avatar
+	else
+	  @master_contact.avatar = @contact.avatar
+	  @do_contact_save = true
+	end
+      end
+      if @contact.facebook_id
+        if @master_contact.facebook_id
+	else
+	  @master_contact.facebook_id = @contact.facebook_id
+	  @master_contact.facebook_handle = @contact.facebook_handle
+	  @master_contact.facebook_picture = @contact.facebook_picture
+	  @do_contact_save = true
+	end
+      end
+      if @contact.twitter_id
+        if @master_contact.twitter_id
+	else
+	  @master_contact.twitter_id = @contact.twitter_id
+	  @master_contact.twitter_handle = @contact.twitter_handle
+	  @master_contact.twitter_picture = @contact.twitter_picture
+	  @do_contact_save = true
+	end
+      end
+      if @contact.linkedin_id
+        if @master_contact.linkedin_id
+	else
+	  @master_contact.linkedin_id = @contact.linkedin_id
+	  @master_contact.linkedin_handle = @contact.linkedin_handle
+	  @master_contact.linkedin_picture = @contact.linkedin_picture
+	  @do_contact_save = true
+	end
+      end
+      if @contact.is_ripple == true
+        if @master_contact.is_ripple == true
+        else
+	  @master_contact.is_ripple = true
+	  @master_contact.linked_contact_id = @contact.linked_contact_id
+	  @do_contact_save = true
+        end 
+      end
+      if @contact.is_user == false
+	#@output << @contact.name
+        @contact.destroy
+      end
+    end
+    if @do_contact_save == true
+      @master_contact.save
+    end
+    #@contacts = Contact.where(:user_id => current_user.id)
+    
+    respond_to do |format|
+      format.json { render json: ids, status: :created, location: @contact }
+    end
+  end
+  
 
 
 end

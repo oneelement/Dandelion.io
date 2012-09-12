@@ -1,6 +1,7 @@
 <span id="mail-icon" class="dicon-drawer-2"></span>
 
 <span class="inbox-caret"></span>
+<span class="inbox-caret outline"></span>
 <div id="inbox">
   <div id="inbox-header">
     <h3>Inbox</h3>

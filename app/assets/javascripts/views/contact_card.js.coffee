@@ -309,15 +309,14 @@ class RippleApp.Views.ContactCard extends Backbone.View
 
   
   outputNotes: ->    
-    if @model.get("notes").length != 0
-      notesSection = new RippleApp.Views.ContactCardSection(
-        title: 'note'
-        icon: 'flag'
-        collection: @model.get("notes")
-        subject: @model
-        modelName: RippleApp.Models.ContactNoteDetail
-      )
-      $('#contact-card-body', @el).append(notesSection.render().el) 
+    notesSection = new RippleApp.Views.ContactCardSection(
+      title: 'note'
+      icon: 'flag'
+      collection: @model.get("notes")
+      subject: @model
+      modelName: RippleApp.Models.ContactNoteDetail
+    )
+    $('#contact-card-body', @el).append(notesSection.render().el) 
     
   outputGroups: ->    
     if @model.get('group_ids').length != 0
@@ -388,7 +387,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       $('.item-type').css('display', 'block')
       $('.dicon-pencil').addClass('active')
 
-      this.$('.contact-detail').addClass('editing')
+      #this.$('.contact-detail').addClass('editing')
       this.$('.uneditable').removeClass('editing')
       this.$('.contact-card-section').addClass('editing')
       this.$('#contact-card-body-list').addClass('editing')
@@ -398,7 +397,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       this.$('#contact-card-body-list').removeClass('editing')
       this.$('.contact-card-hashtag-section').removeClass('editing')
       this.$('.contact-card-section').removeClass('editing')
-      this.$('.contact-detail').removeClass('editing')
+      #this.$('.contact-detail').removeClass('editing')
       #$('.contact-card-section-title.active').css('display', 'block') #removed as titles no longer remain after edit
       $('.edit-view-input').css('display', 'none')
       $('.item-type').css('display', 'none')
@@ -445,7 +444,6 @@ class RippleApp.Views.ContactCard extends Backbone.View
   matchInputDetails: (e) ->
     #Display our guess of what the input text relates to, 
     #on the label alongside the input itself
-    console.log('matching')
     if e.keyCode == 13
       @closeMinibar()
     else
@@ -1037,6 +1035,11 @@ class RippleApp.Views.ContactCard extends Backbone.View
         @notification.save() 
     @model.set('linked_contact_id', target_user_contact_id, { silent: true })
     @model.save(null, { silent: true })
+    $('.lightbox-backdrop').css('display', 'none')
+    $('.lightbox').removeClass('show')
+    $('.lightbox').removeClass('social')
+    $('.lightbox').css('display', 'none')
+    $('.lightbox').html('')
  
   socialLink: (e) =>
     socialType = $(e.target).attr('data-socialtype')

@@ -1,0 +1,14 @@
+<div id="merge-lightbox-header">
+  <h3>Please select the record you wish to keep and then click merge.</h3>
+</div>
+<div id="merge-lightbox-body">
+  <table id="contacts-table">
+
+  <tbody id="merge-table-body">
+  </tbody>
+
+  </table>
+</div>
+<div id="merge-lightbox-footer">
+  <span id='merge-with-master-contact' class='button button-success'>merge</span>
+</div>

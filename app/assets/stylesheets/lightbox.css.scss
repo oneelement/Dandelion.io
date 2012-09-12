@@ -465,6 +465,66 @@
   }
 }
 
+#merge-lightbox {
+  display: none;
+  padding: 0px;
+  margin: 0 0 0 0;
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 20%;
+  top: 10%;
+  z-index: 999991;
+  #merge-lightbox-header {
+    padding: 20px 10px 10px 10px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 20px;
+    border-bottom: 1px solid #CCC;
+    h3 {
+      text-align: center;
+    }
+  }
+  #merge-lightbox-body {
+    padding: 0px;
+    padding: 10px 10px 20px 10px;
+    position: absolute;
+    top: 51px;
+    left: 0px;
+    right: 0px;
+    bottom: 60px;
+    table {
+      padding: 0px;
+      tbody {
+        padding: 0px;
+        top: 0px;
+	left: 0px;
+        right: 0px;
+	background-color: transparent;
+      }
+    }
+  }
+  #merge-lightbox-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 0px;
+    padding: 10px 20px 20px 20px;
+    height: 30px;
+    #merge-with-master-contact {
+      float: right;
+      width: 100px;
+      background: #eee;
+    }
+    .complete-merge {
+      background: #BBDD46 !important;
+    }
+  }
+}
+
 
 
 

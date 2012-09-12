@@ -30,6 +30,7 @@
     }
     .button {
       padding: 1px 4px;
+      margin-right: 5px;
     }
     .button:hover {
 
@@ -83,6 +84,7 @@
     top: 58px;
     bottom: 0px;
     width: 100%;
+    overflow: auto;
     @include border-corner-radius(bottom, left, 8px);
     @include border-corner-radius(bottom, right, 8px);
     tr {
@@ -147,7 +149,7 @@
 	  @include opacity(0);
 	  cursor: pointer;
 	}
-	.select-item {
+	.select-item, .select-merge-item {
 	  @include opacity(1);
 
 	}
@@ -188,11 +190,11 @@
 	  .contact-list-section {
 	    overflow: hidden;
             #contact-detail-icon {
-	      width: 8%;
+	      width: 10%;
 	      float: left;
 	    }
 	    .contact-detail-value {
-              width: 92%;
+              width: 90%;
 	      float: left;
 	      overflow: hidden;
 	      text-overflow: ellipsis;
@@ -208,7 +210,7 @@
   }
 }
 
-#contacts-index, #group-contacts-wrapper {
+#contacts-index, #group-contacts-wrapper, #merge-lightbox {
 
   .contact-list-item {
     
