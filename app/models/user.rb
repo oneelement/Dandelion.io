@@ -133,15 +133,90 @@ class User
   
   
   def contact_update(omniauth)
-    # assuming only facebook is used to sign in/up for now    
+    # assuming only facebook is used to sign in/up for now  
+    record = Contact.find(self.contact_id)
     if omniauth['provider'] == 'facebook'
       facebook_id = omniauth['uid']
       facebook_handle = omniauth['extra']['raw_info']['link']
+      
+      if omniauth['extra']['raw_info']['work']
+        positions = omniauth['extra']['raw_info']['work']
+	i = 1
+	positions.each do |pos|
+	  if pos["employer"]["name"]
+	    company = pos["employer"]["name"]
+	  else
+	    company = nil
+	  end
+	  if pos["position"]
+	    title = pos["position"]["name"]
+	  else
+	    title = nil
+	  end
+	  if i == 1
+	    current = true
+	  else
+	    current = false
+	  end
+	  record.positions.create!(
+	    :title => title,
+	    :company => company,
+	    :current => current
+	  )
+	  i = i + 1
+	end
+      end
+      
+      if omniauth['extra']['raw_info']['education']
+	educations = omniauth['extra']['raw_info']['education']
+	educations.each do |edu|
+	  if edu["school"]["name"]
+	    title = edu["school"]["name"]
+	  else
+	    title = nil
+	  end
+	  if edu["year"]
+	    year = edu["year"]["name"]
+	  else
+	    year = nil
+	  end
+	  if edu["type"]
+	    if edu["type"] == "High School"
+	    type = "EducationSchool"
+	    elsif edu["type"] == "College"
+	    type = "EducationCollege"
+	    end
+	  else
+	    type = "Education"
+	  end
+	  record.educations.create!(
+	    :title => title,
+	    :year => year,
+	    :_type => type
+	  )
+        end
+      end
+      
+      if omniauth['extra']['raw_info']['website']
+        url = omniauth['extra']['raw_info']['website']
+        record.urls.create!(
+          :text => url,
+          :_type => 'UrlPersonal'
+        )
+      end
+      
+      if omniauth['extra']['raw_info']['location']
+        location = omniauth['extra']['raw_info']['location']
+        record.addresses.create!(
+          :full_address => location['name'],
+          :_type => 'AddressPersonal'
+        )
+      end      
+      
     else
       facebook_id = nil
       facebook_handle = nil
-    end
-    record = Contact.find(self.contact_id)
+    end    
     record.avatar = self.avatar
     record.facebook_picture = self.avatar
     record.facebook_id = facebook_id

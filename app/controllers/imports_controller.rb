@@ -280,7 +280,7 @@ class ImportsController < ApplicationController
     id = current_user.id
     @user = User.find(id)
     if @user.linkedin
-      @connections = @user.linkedin.connections(:fields => [:id, :first_name, :last_name, :headline, :picture_url, :public_profile_url, :positions, :industry, :location])
+      @connections = @user.linkedin.connections(:fields => [:id, :first_name, :last_name, :headline, :picture_url, :public_profile_url, :positions, :educations, :location])
       @connections = @connections.all
       @connections.each do |connection|        
         id = connection.id

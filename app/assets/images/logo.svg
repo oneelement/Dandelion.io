@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="2368px" height="300px" viewBox="56 101.52 2368 300"
+	 overflow="visible" enable-background="new 56 101.52 2368 300" xml:space="preserve">
+<defs>
+</defs>
+<rect x="0.5" y="0.5" display="none" fill="#808080" stroke="#FFFFFF" stroke-miterlimit="10" width="2510" height="518"/>
+<rect x="1936" y="99.5" stroke="#000000" stroke-miterlimit="10" width="15" height="300"/>
+<polygon stroke="#000000" stroke-miterlimit="10" points="2027.5,154.98 1982.5,129 2027.5,103.02 "/>
+<polygon stroke="#000000" stroke-miterlimit="10" points="2088.98,165.5 2063,210.5 2037.02,165.5 "/>
+<polygon stroke="#000000" stroke-miterlimit="10" points="2037.02,333.5 2063,288.5 2088.98,333.5 "/>
+<polygon stroke="#000000" stroke-miterlimit="10" points="2027.5,396.98 1982.5,371 2027.5,345.02 "/>
+<text transform="matrix(1 0 0 -1 317.1289 119.5977)" font-family="'Novecentowide-Light'" font-size="400">V</text>
+<rect x="1936" y="102.52" transform="matrix(0.5 0.866 -0.866 0.5 1190.4303 -1556.8564)" stroke="#000000" stroke-miterlimit="10" width="15" height="300.001"/>
+<rect x="1793.5" y="246.02" display="none" stroke="#000000" stroke-miterlimit="10" width="300" height="15"/>
+<rect x="1936.001" y="99.5" transform="matrix(-0.5 0.866 -0.866 -0.5 3131.3315 -1308.865)" stroke="#000000" stroke-miterlimit="10" width="15" height="300"/>
+<rect x="1936" y="102.52" transform="matrix(-0.866 0.5 -0.5 -0.866 3752.8767 -500.5504)" stroke="#000000" stroke-miterlimit="10" width="15" height="300"/>
+<rect x="1936" y="102.519" transform="matrix(0.866 0.5 -0.5 0.866 386.6453 -937.9264)" stroke="#000000" stroke-miterlimit="10" width="15" height="300.001"/>
+<polygon fill="#FF7200" points="2095,260.105 1392.773,250.105 2095,240.105 "/>
+<polygon fill="#FF7200" stroke="#FF7200" stroke-miterlimit="10" points="2093.5,225.02 2138.5,251 2093.5,276.98 "/>
+<text transform="matrix(1 0 0 1 13.2329 399.4053)" font-family="'Novecentowide-Light'" font-size="400">D  </text>
+<text transform="matrix(1 0 0 1 533.228 399.4053)" font-family="'Novecentowide-Light'" font-size="350"> </text>
+<text transform="matrix(1 0 0 1 620.728 399.4053)" font-family="'Novecentowide-Light'" font-size="400">NDELI   </text>
+<text transform="matrix(1 0 0 1 2103.5107 399.4053)" font-family="'Novecentowide-Light'" font-size="250"> </text>
+<text transform="matrix(1 0 0 1 2166.0107 399.4053)" font-family="'Novecentowide-Light'" font-size="400">N</text>
+</svg>

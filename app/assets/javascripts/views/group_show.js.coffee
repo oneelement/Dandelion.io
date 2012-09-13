@@ -21,6 +21,8 @@ class RippleApp.Views.GroupShow extends Backbone.View
     @sortedCollection = @collection.byName()
     @sortedCollection.each(@appendContact)
     @populateSocial()
+    this.$('#groups').focus()
+    
     return this
     
   fillCollection: ->
@@ -55,8 +57,9 @@ class RippleApp.Views.GroupShow extends Backbone.View
     
   autocomplete: =>
     auto = this.$('#groups').autocomplete
-             source: "autocomplete/contacts"
-             delay: 100      
+             source: "/autocomplete/contacts"
+             delay: 100   
+             autoFocus: true
              minLength: 2
              select: (event, ui) =>
                @addGroupContact(event, ui)    
@@ -77,6 +80,7 @@ class RippleApp.Views.GroupShow extends Backbone.View
     contact.set('group_ids', unique, { silent: true })
     contact.save(null, { silent: true })
     this.$('#groups').val("")
+    this.$('#groups').focus()
     
   appendContact: (contact) =>
     view = new RippleApp.Views.ContactsList(model: contact, source: 'group_show', selected: '')

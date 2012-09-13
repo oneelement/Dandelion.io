@@ -16,15 +16,17 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
     @sectionIsActive = false
     @subject = @options.subject
     #@subject.on('change', @render, this)  #re-renders on subject change to fetch extra values form server
-    @modelName = @options.modelName
+    @modelName = @options.modelName #e.g. RippleApp.Models.xxx
     @dummyModel = new @modelName
     @types = @dummyModel.getTypes()
+    @modelType = @dummyModel.getModelType()
     @defaultType = @dummyModel.defaultType()
 
   render: ->
     console.log('contact card section render')
-    $(@el).html(@template(title: @title, icon: @icon, types: @types, defaultType: @defaultType))
+    $(@el).html(@template(title: @title, icon: @icon, types: @types, defaultType: @defaultType, modelType: @modelType))
     
+    console.log(@modelType)
     #console.log(@collection.models.length)
 
     if @collection.models.length > 0
@@ -41,11 +43,22 @@ class RippleApp.Views.ContactCardSection extends Backbone.View
   closeEdit: ->
     console.log('close edit')
     type = this.$('#default-icon').attr('title')
-    val = this.$('input.subject_edit_view_input').val()
-    m = new @modelName
-    field = m.getFieldName()
-    m.set(field, val, {silent: true})
-    m.set('_type', type, {silent: true})
+    if @modelType == 'position'
+      title = this.$('input#subject_edit_view_input_title').val()
+      company = this.$('input#subject_edit_view_input_company').val()
+      m = new @modelName
+      m.set('title', title, {silent: true})
+      m.set('company', company, {silent: true})
+      m.set('_type', type, {silent: true})
+      if @subject.get('current_position') == null && @subject.get('current_company') == null
+        @subject.set('current_position', title)
+        @subject.set('current_company', company)
+    else
+      val = this.$('input.subject_edit_view_input').val()
+      m = new @modelName
+      field = m.getFieldName()
+      m.set(field, val, {silent: true})
+      m.set('_type', type, {silent: true})
     @collection.add(m)
     @subject.save(null, {silent: true})
     this.$('input.subject_edit_view_input').val('')  

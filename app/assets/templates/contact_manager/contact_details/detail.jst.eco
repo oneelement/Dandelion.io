@@ -3,7 +3,11 @@
   <a target="_blank" href="mailto:<%= @value %>"><span class="contact-detail-value"><%= @value %></span></a> 
 <% else if @modeltype == "position": %>
   <% if @value: %>
-    <a><span class="contact-detail-value"><%= @value %> at <%= @detail.company %></span></a> 
+    <% if @detail.company: %>
+        <a><span class="contact-detail-value"><%= @value %> at <%= @detail.company %></span></a> 
+    <% else: %>
+        <a><span class="contact-detail-value"><%= @value %></a> 
+    <% end %>
   <% else: %>
     <a><span class="contact-detail-value"><%= @detail.company %></span></a> 
   <% end %>
@@ -16,8 +20,14 @@
 <% else: %>
   <a><span class="contact-detail-value"><%= @value %></span></a>
 <% end %>
+
 <span class="contact-detail-edit">
+<% if @modeltype == "position": %>
+  <input type="text" name="title" id="edit_value_title" class="input-text" value="<%= @detail.title %>"></input>
+  <input type="text" name="company" id="edit_value_company" class="input-text" value="<%= @detail.company %>"></input>
+<% else: %>
   <input type="text" name="value" id="edit_value" class="input-text" value="<%= @value %>"></input>
+<% end %>
 </span>
 <span class="contact-detail-icon contact-detail-delete dicon-minus" style="float: right;"></span>
 <div style="clear:both;"></div>

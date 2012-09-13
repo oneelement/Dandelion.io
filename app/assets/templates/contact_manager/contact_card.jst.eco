@@ -67,10 +67,10 @@
             
         </form>
         <div id="social-network-links">
-            <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a></div>
-            <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a></div>
-            <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a></div>
-            <div class="searchIcon lionSearch"><a class="dicon-network social-grey"></a></div>
+            <div class="searchIcon facebookSearch"><a class="dicon-facebook social-grey"></a><span class="dicon-cancel"></span></div>
+            <div class="searchIcon twitterSearch"><a class="dicon-twitter social-grey"></a><span class="dicon-cancel"></div>
+            <div class="searchIcon linkedinSearch"><a class="dicon-linkedin social-grey"></a><span class="dicon-cancel"></div>
+            <div class="searchIcon lionSearch"><a class="dicon-dandelion-outline social-grey"></a><span class="dicon-cancel"></div>
         </div>
     </div>
     <div id="contact-card-body">

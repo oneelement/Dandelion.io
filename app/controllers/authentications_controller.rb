@@ -30,18 +30,110 @@ class AuthenticationsController < ApplicationController
       )
       flash[:notice] = "Authentication successful"
       if omniauth['provider'] == 'facebook'
-	contact = Contact.find(current_user.contact_id)
-	contact.facebook_handle = omniauth['extra']['raw_info']['link']
-	contact.facebook_picture = omniauth['info']['image']
-	contact.facebook_id = omniauth['uid']
-	contact.save      
+	@contact = Contact.find(current_user.contact_id)
+	@contact.facebook_handle = omniauth['extra']['raw_info']['link']
+	@contact.facebook_picture = omniauth['info']['image']
+	@contact.facebook_id = omniauth['uid']
+	@contact.save 
+
+        if omniauth['extra']['raw_info']['work']
+	  positions = omniauth['extra']['raw_info']['work']
+	  i = 1
+	  positions.each do |pos|
+	    if pos["employer"]["name"]
+	      company = pos["employer"]["name"]
+	    else
+	      company = nil
+	    end
+	    if pos["position"]
+	      title = pos["position"]["name"]
+	    else
+	      title = nil
+	    end
+	    if i == 1
+	      current = true
+	    else
+	      current = false
+	    end
+	    @contact.positions.create!(
+	      :title => title,
+	      :company => company,
+	      :current => current
+	    )
+	    i = i + 1
+	  end
+	end
+      
+	if omniauth['extra']['raw_info']['education']
+	  educations = omniauth['extra']['raw_info']['education']
+	  educations.each do |edu|
+	    if edu["school"]["name"]
+	      title = edu["school"]["name"]
+	    else
+	      title = nil
+	    end
+	    if edu["year"]
+	      year = edu["year"]["name"]
+	    else
+	      year = nil
+	    end
+	    if edu["type"]
+	      if edu["type"] == "High School"
+	      type = "EducationSchool"
+	      elsif edu["type"] == "College"
+	      type = "EducationCollege"
+	      end
+	    else
+	      type = "Education"
+	    end
+	    @contact.educations.create!(
+	      :title => title,
+	      :year => year,
+	      :_type => type
+	    )
+	  end
+	end
+      
+	if omniauth['extra']['raw_info']['website']
+	  url = omniauth['extra']['raw_info']['website']
+	  @contact.urls.create!(
+	    :text => url,
+	    :_type => 'UrlPersonal'
+	  )
+	end
+	
+	if omniauth['extra']['raw_info']['location']
+	  location = omniauth['extra']['raw_info']['location']
+	  @contact.addresses.create!(
+	    :full_address => location['name'],
+	    :_type => 'AddressPersonal'
+	  )
+	end 	
+	
       end
       if omniauth['provider'] == 'twitter'
-	contact = Contact.find(current_user.contact_id)
-	contact.twitter_handle = omniauth['info']['urls']['Twitter']
-	contact.twitter_picture = omniauth['info']['image']
-	contact.twitter_id = omniauth['info']['nickname']
-	contact.save      
+	@contact = Contact.find(current_user.contact_id)
+	@contact.twitter_handle = omniauth['info']['urls']['Twitter']
+	@contact.twitter_picture = omniauth['info']['image']
+	@contact.twitter_id = omniauth['info']['nickname']
+	@contact.save      
+	
+	if omniauth['info']['urls']['website']
+	  url = omniauth['info']['urls']['website']
+	  @contact.urls.create!(
+	    :text => url,
+	    :_type => 'UrlPersonal'
+	  )
+	end
+	
+	if omniauth['info']['location']
+	  location = omniauth['info']['location']
+	  @contact.addresses.create!(
+	    :full_address => location,
+	    :_type => 'AddressPersonal'
+	  )
+	end 
+	
       end
       if omniauth['provider'] == 'linkedin'
 	contact = Contact.find(current_user.contact_id)
@@ -51,6 +143,7 @@ class AuthenticationsController < ApplicationController
 	contact.linkedin_picture = person.picture_url
 	contact.linkedin_id = omniauth['uid']
 	contact.save      
+	contact.update_linkedin(omniauth['uid'])
       end
       redirect_to '/app/#auth/accept'
     elsif user = create_new_omniauth_user(omniauth)

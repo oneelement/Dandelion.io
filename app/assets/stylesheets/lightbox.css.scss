@@ -450,7 +450,7 @@
   left: 0px;
   right: 0px;
   //bottom: 0px;
-  top: 40%;
+  top: 30%;
   display: none;
   z-index: 999991;
   #phone-lightbox-value {
@@ -531,7 +531,7 @@
 .lightbox-backdrop {
   //background-color: #F76A02;
   background-color: #000;
-  @include opacity(0.35);
+  @include opacity(0.50);
   position: fixed;
   bottom: 0;
   left: 0;

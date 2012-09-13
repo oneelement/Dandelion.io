@@ -1,4 +1,4 @@
-<div class="face-image">
+<div class="face-image" id="<%= @model.id %>">
   <a rel="tooltip" title="<%= @model.name %>">
   <% if @model.avatar?: %>
     <img src="<%= @model.avatar %>"/>

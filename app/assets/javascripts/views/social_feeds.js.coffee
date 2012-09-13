@@ -25,6 +25,11 @@ class RippleApp.Views.SocialFeeds extends Backbone.View
     
     @getSocialFeed()   
     
+    id = @model.get('_id')
+    $('.face-image').removeClass('selected')
+    path = "#" + id
+    $(path).addClass('selected')
+    
     console.log(@timeline)
         
     #console.log('render social feeds')

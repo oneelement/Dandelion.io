@@ -54,16 +54,16 @@ $sidebarBorder: #ccc;
   }
   
   #sidebar-home.active {
-    color: #feb326;  
+    color: #FF7200;  
     
   }
   
   #sidebar-contacts.active {
-    color: #bbdd46;
+    color: #FF7200;
   }
   
   #sidebar-groups.active {
-    color: #12cef1;
+    color: #FF7200;
   }
   
   .face-image{
@@ -94,6 +94,20 @@ $sidebarBorder: #ccc;
       border: 1px solid #EEEEEE;
       box-shadow: 0 0 1px #777777;
       @include border-radius(4px);
+    }
+  }
+  
+  .selected {
+    img {
+      border: 1px solid #FF7200;
+    }
+    span.dicon-user {
+      border: 1px solid #FF7200;
+      box-shadow: 0 0 1px #FF7200;
+    }
+    span.dicon-circles {
+      border: 1px solid #FF7200;
+      box-shadow: 0 0 1px #FF7200;
     }
   }
 

@@ -18,13 +18,17 @@ class RippleApp.Views.RecentContactsEntry extends Backbone.View
       if @$el.hasClass('active')
         @$el.removeClass('active')
     $(@el).html(@template(model: @model.toJSON(), isSelected: isContextContact))
-    @
+    
+    console.log(@model)
+    
+    return this
 
   events:
     "click": "clicked"
 
-  clicked: ->   
-    if @model.get('type') == 'contact'
-      Backbone.history.navigate('contacts/show/' + @model.id, true)
-    else if @model.get('type') == 'group'
-      Backbone.history.navigate('groups/show/' + @model.id, true)
+  clicked: -> 
+    console.log(@model)
+    #if @model.get('type') == 'contact'
+     # Backbone.history.navigate('contacts/show/' + @model.id, true)
+    #else if @model.get('type') == 'group'
+    #  Backbone.history.navigate('groups/show/' + @model.id, true)

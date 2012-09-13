@@ -10,6 +10,8 @@ class Education
   
   field :title, :type => String
   field :year, :type => String
+  field :grade, :type => String
+  field :subject, :type => String
   field :current, :type => Boolean, :default => false
   field :default, :type => Boolean, :default => false
   field :icon, :type => String

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="512px" height="512px" viewBox="1.5 0.5 512 512"
+	 overflow="visible" enable-background="new 1.5 0.5 512 512" xml:space="preserve">
+<defs>
+</defs>
+<line display="none" fill="none" stroke="#B35047" x1="33.5" y1="0.5" x2="33.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="65.5" y1="0.5" x2="65.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="97.5" y1="0.5" x2="97.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="129.5" y1="0.5" x2="129.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="161.5" y1="0.5" x2="161.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="193.5" y1="0.5" x2="193.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="225.5" y1="0.5" x2="225.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="257.5" y1="0.5" x2="257.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="289.5" y1="0.5" x2="289.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="321.5" y1="0.5" x2="321.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="353.5" y1="0.5" x2="353.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="385.5" y1="0.5" x2="385.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="417.5" y1="0.5" x2="417.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="449.5" y1="0.5" x2="449.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="481.5" y1="0.5" x2="481.5" y2="512.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="32.5" x2="513.5" y2="32.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="64.5" x2="513.5" y2="64.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="96.5" x2="513.5" y2="96.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="128.5" x2="513.5" y2="128.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="160.5" x2="513.5" y2="160.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="192.5" x2="513.5" y2="192.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="224.5" x2="513.5" y2="224.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="256.5" x2="513.5" y2="256.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="288.5" x2="513.5" y2="288.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="320.5" x2="513.5" y2="320.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="352.5" x2="513.5" y2="352.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="384.5" x2="513.5" y2="384.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="416.5" x2="513.5" y2="416.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="448.5" x2="513.5" y2="448.5"/>
+<line display="none" fill="none" stroke="#B35047" x1="1.5" y1="480.5" x2="513.5" y2="480.5"/>
+<rect x="1.5" y="0.5" display="none" fill="none" stroke="#B35047" width="512" height="512"/>
+<path display="none" d="M428.172,0.5H86.842C39.906,0.5,1.5,38.907,1.5,85.844v341.313c0,46.969,38.406,85.343,85.342,85.343
+	l341.33-0.001c46.938,0,85.328-38.373,85.328-85.344V85.844C513.5,38.907,475.109,0.5,428.172,0.5z M436.796,256.5H353.5v224h-96
+	v-224h-46.263v-73.282H257.5v-47.593C257.5,70.954,285.396,32.5,361.435,32.5h87.622v79.285h-71.564
+	c-21.241-0.035-23.876,11.076-23.876,31.756l-0.116,39.677h96L436.796,256.5z"/>
+<path display="none" d="M513.5,427.5c0,46.943-38.056,85-85,85h-342c-46.944,0-85-38.057-85-85v-342c0-46.944,38.056-85,85-85h342
+	c46.944,0,85,38.056,85,85V427.5z"/>
+<rect x="209.48" y="26.968" transform="matrix(-0.866 -0.5 0.5 -0.866 293.5527 579.1266)" display="none" fill="#F2F2F2" width="29.769" height="446.533"/>
+<rect x="209.481" y="26.969" transform="matrix(-0.5 -0.866 0.866 -0.5 119.8322 569.6552)" display="none" fill="#F2F2F2" width="29.769" height="446.531"/>
+<rect y="236" display="none" fill="#F2F2F2" width="447" height="29"/>
+<rect x="209.481" y="26.969" transform="matrix(0.5 -0.866 0.866 0.5 -104.5276 319.422)" display="none" fill="#F2F2F2" width="29.767" height="446.532"/>
+<rect x="209.48" y="26.969" transform="matrix(0.866 -0.5 0.5 0.866 -95.0598 145.7123)" display="none" fill="#F2F2F2" width="29.769" height="446.532"/>
+<rect x="209" y="27" display="none" fill="#F2F2F2" width="29" height="447"/>
+<polygon display="none" fill="#F2F2F2" points="447,212.308 513.98,250.979 447,289.648 "/>
+<polygon display="none" fill="#F2F2F2" points="349,109.548 282.021,70.878 349,32.208 "/>
+<polygon display="none" fill="#F2F2F2" points="440.903,125 402.232,191.979 363.562,125 "/>
+<polygon display="none" fill="#F2F2F2" points="363.562,376 402.232,309.021 440.903,376 "/>
+<polygon display="none" fill="#F2F2F2" points="349,469.75 282.021,431.08 349,392.409 "/>
+<path display="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M129.212,450.291l-24.971-14.418l216.258-374.56
+	l24.972,14.417L129.212,450.291z M44.771,376.416l-14.417-24.97l374.558-216.257l14.417,24.97L44.771,376.416z M8,241h433v30H8V241z
+	 M30.352,160.157l14.417-24.97l374.559,216.258l-14.417,24.97L30.352,160.157z M104.225,75.725l24.971-14.417l216.258,374.559
+	l-24.972,14.418L104.225,75.725z M210,40h29v432h-29V40z M441,219.061l64.877,37.457L441,293.975V219.061z M346,119.526
+	L281.123,82.07L346,44.614V119.526z M434.588,134l-37.456,64.877L359.675,134H434.588z M359.675,377l37.457-64.877L434.588,377
+	H359.675z M346,468.421l-64.877-37.456L346,393.509V468.421z"/>
+<path d="M428.5,0.5h-342c-46.944,0-85,38.056-85,85v342c0,46.943,38.056,85,85,85h342c46.944,0,85-38.057,85-85v-342
+	C513.5,38.556,475.444,0.5,428.5,0.5z M445,289.648V265H279.707l110.956,64.06l11.569-20.039L440.903,376h-77.341l12.217-21.16
+	l-110.751-63.941l64.949,112.494L349,392.409v77.341l-66.979-38.67l22.175-12.803L238,303.621V474h-29V306.616l-83.378,144.415
+	l-25.78-14.885L183.7,290.899L38.454,374.757l-14.885-25.779L169.022,265H4v-29h165.941L23.568,151.492l14.884-25.781L183.7,209.57
+	L99.842,64.323l25.78-14.885L209,193.854V27h29v169.849l65.552-113.54l-21.53-12.431L349,32.208v77.341l-19.668-11.355
+	l-64.303,111.377l110.52-63.809L363.562,125h77.341l-38.671,66.979l-11.799-20.437L278.789,236H445v-23.692l66.98,38.671
+	L445,289.648z"/>
+</svg>

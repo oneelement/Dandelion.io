@@ -46,7 +46,8 @@ $(function() {
         });
     },
     delay: 500,       
-    minLength: 3,  
+    minLength: 3, 
+    autoFocus: true,
     select: function (event, ui) {
         $(event.target).val(ui.item.value);
         if (ui.item.label == "Add Contact") {

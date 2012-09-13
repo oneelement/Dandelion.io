@@ -50,6 +50,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
     
   home: ->
+    $('#sidebar-contacts').removeClass('active')
+    $('#sidebar-groups').removeClass('active')
+    $('#sidebar-home').addClass('active')
     after = (contact) =>
       source = 'contact'
       view = new RippleApp.Views.SocialFeeds(source: 'home', model: contact, user: @currentUser)
@@ -68,6 +71,9 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @getContact(id, after) 
 
   index: ->
+    $('#sidebar-contacts').addClass('active')
+    $('#sidebar-groups').removeClass('active')
+    $('#sidebar-home').removeClass('active')
     view = new RippleApp.Views.ContactsIndex(collection: @contacts, favorites: @favouriteContacts, source: 'contact')
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddSubjectCard(model: new RippleApp.Models.Contact(), source: 'contact')
@@ -84,12 +90,21 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     
     
   groupindex: ->
+    $('#sidebar-contacts').removeClass('active')
+    $('#sidebar-groups').addClass('active')
+    $('#sidebar-home').removeClass('active')
     view = new RippleApp.Views.ContactsIndex(collection: @groups, favorites: @favouriteContacts, source: 'group')
     RippleApp.layout.setMainView(view)
     viewContext = new RippleApp.Views.AddSubjectCard(model: new RippleApp.Models.Group(), source: 'group')
     RippleApp.layout.setContextView(viewContext)
     
   groupShow: (id) ->
+    $('#sidebar-contacts').removeClass('active')
+    $('#sidebar-groups').removeClass('active')
+    $('#sidebar-home').removeClass('active')
+    $('.face-image').removeClass('selected')
+    path = "#" + id
+    $(path).addClass('selected')
     after = (group) =>
       source = 'group'
       @recentContacts.add(group.getBadge())  
@@ -153,6 +168,12 @@ class RippleApp.Routers.Contacts extends Backbone.Router
 
   #Display the contact, and full detail in the main view
   show: (id) ->
+    $('#sidebar-contacts').removeClass('active')
+    $('#sidebar-groups').removeClass('active')
+    $('#sidebar-home').removeClass('active')
+    $('.face-image').removeClass('selected')
+    path = "#" + id
+    $(path).addClass('selected')
     @getContact(id, (contact) =>
       source = 'contact'
       @recentContacts.add(contact.getBadge())  

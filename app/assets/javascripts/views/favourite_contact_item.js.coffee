@@ -15,12 +15,14 @@ class RippleApp.Views.ContactBadge extends Backbone.View
       if @$el.hasClass('active')
         @$el.removeClass('active')
     $(@el).html(@template(model: @model.toJSON()), isSelected: isContextContact)
-    @
-
+    
+    return this
+    
   events:
     "click": "clicked"
 
   clicked: ->   
+    console.log(@model)
     if @model.get('type') == 'contact'
       Backbone.history.navigate('contacts/show/' + @model.id, true)
     else if @model.get('type') == 'group'

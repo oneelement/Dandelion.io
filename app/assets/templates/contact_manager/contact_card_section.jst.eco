@@ -21,9 +21,15 @@
           <% end %>
           </div>
         <% end %>
+
         <span class="contact-detail-edit">
-	  <input type="text" name="value" class="subject_edit_view_input input-text" value="<%= @value %>" placeholder="add <%= @title %>..."></input>          
-	</span> 
+          <% if @modelType == "position": %>
+              <input type="text" name="title" id="subject_edit_view_input_title" class="subject_edit_view_input input-text" value="" placeholder="add position..."></input>
+              <input type="text" name="company" id="subject_edit_view_input_company" class="subject_edit_view_input input-text" value="" placeholder="add company..."></input>
+          <% else: %>
+	      <input type="text" name="value" class="subject_edit_view_input input-text" value="<%= @value %>" placeholder="add <%= @title %>..."></input>          
+	  <% end %>
+        </span> 
     </li>
   </ul>
 </div>

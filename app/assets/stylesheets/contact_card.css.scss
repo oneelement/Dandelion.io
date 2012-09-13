@@ -48,7 +48,7 @@
       }
       #contact-card-favourite {
         position: relative;
-        top: 8px;
+        top: 4px;
         left: 4px;
         .dicon-star {
           font-size: 24px;
@@ -89,7 +89,7 @@
 
     #contact-card-edit {
       position: absolute;
-      top: 8px;
+      top: 4px;
       right: 0px;
       width: 10%;
       .dicon-pencil {
@@ -360,29 +360,41 @@
         padding: 0 12px 0 0;
         float: left;
         cursor: pointer;
+        position: relative;
+   
+        .dicon-cancel {
+          position: absolute;
+          color: #f07746;
+          font-size: 20px;
+          left: 2px;
+          top: 2px;
+          display: none;
+        }
+
         .social-grey {
           font-size: 24px;
-          color: #DDD;
-          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+          color: #DDD !important;
+
         }
         .social-facebook {
           font-size: 24px;
           color: #3B5998;
-          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+
         }
         .social-twitter {
           font-size: 24px;
           color: #33CCFF;
-          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+
         }
         .social-linkedin {
           font-size: 24px;
           color: #4875B4;
-          text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
+
         }
 	.dandelion-connected {
 	  display: inline-block !important;
-	  color: #FEB326 !important; 
+	  color: #FF7200; 
+          font-size: 24px;
 	}
       }
     }

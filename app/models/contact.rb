@@ -121,6 +121,74 @@ class Contact
     end
   end
   
+  def update_linkedin(uid)
+    @user = User.find(self.user_id)
+    profile = @user.linkedin.profile(:id => uid, :fields => [:headline, :first_name, :last_name, :public_profile_url, :picture_url, :summary, :educations, :positions, :location])
+    if profile.positions.total > 0
+      positions = profile.positions.all
+      positions.each do |pos|
+	if pos.is_current
+	  current = pos.is_current
+	else
+	  current = nil
+	end
+	if pos.title
+	  title = pos.title
+	else
+	  title = nil
+	end
+	if pos.company.name
+	  company = pos.company.name
+	else
+	  company = nil
+	end
+	self.positions.create!(
+	  :title => title,
+	  :company => company,
+	  :current => current
+	)
+      end 
+    end
+    if profile.educations.total > 0
+      educations = profile.educations.all
+      educations.each do |edu|
+	if edu.school_name
+	  title = edu.school_name
+	else
+	  title = nil
+	end
+        if edu.end_date
+	  year = edu.end_date.year
+	else
+	  year = nil
+	end
+	if edu.field_of_study
+	  subject = edu.field_of_study
+	else
+	  subject = nil
+	end
+	if edu.degree
+	  grade = edu.degree
+	else
+	  grade = nil
+	end
+	self.educations.create!(
+	  :title => title,
+	  :subject => subject,
+	  :grade => grade,
+	  :year => year,
+	  :_type => 'Education'
+	)
+      end 
+    end
+    if profile.location.name
+      self.addresses.create!(
+	:full_address => profile.location.name,
+	:_type => 'AddressPersonal'
+      )
+    end
+  end
+  
   def self.update_user_contacts
     user_contacts = Contact.where(:is_user => true)
     

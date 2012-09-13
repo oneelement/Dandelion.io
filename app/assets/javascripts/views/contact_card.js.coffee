@@ -16,14 +16,12 @@ class RippleApp.Views.ContactCard extends Backbone.View
     'click .bp-type-list': 'setOverriddenType'
     'click #override-match-wrapper': 'setOverriddenMatch'
     'render': 'matchInputDetails'
-    'click .Phone span.c-sm-icon-house, .Phone span.c-sm-icon-mobile': 'showPhoneModal'  
     'dblclick span.contact-detail-value': 'editValue'  
     'click #contact-card-name h3': 'editName'
     'keypress #subject_name_input': 'checkNameEnter'
     'focusout input#subject_name_input': 'closeNameEdit'
     'keypress #edit_value': 'checkEnter'
     #'focusout input#edit_value': 'closeEdit'
-    'click #subject-delete': 'destroySubject'
     'click #subject-edit': 'editView'
     'click .main-icon': 'silentSave'
     'click .facebookSearch': 'facebookModal'
@@ -37,6 +35,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
     #'click span.delete-icon': 'saveModel'
     'click .map-present': 'showMapLightbox'
     'click #isRipple': 'rippleRequest'
+    'click .dicon-cancel': 'disconnectSocial'
     
   initialize: ->
     @user = @options.user
@@ -71,14 +70,20 @@ class RippleApp.Views.ContactCard extends Backbone.View
     if @model.get('is_ripple') == true
       console.log(@model.get('is_ripple'))
       this.$('#isRipple').addClass('connected')
+      this.$('div.lionSearch').addClass('lion-connected')
+      this.$('.dicon-dandelion-outline').removeClass('social-grey')
       this.$('div.searchIcon').removeClass('lionSearch')
-      this.$('.dicon-network').addClass('dandelion-connected')
+      this.$('.dicon-dandelion-outline').addClass('dandelion-connected')
       @outputWithRippleDetails()
     else
       @outputCard()
       
     if @model.get('is_user') == true
       this.$('#isRipple').addClass('connected')
+      this.$('div.lionSearch').addClass('lion-connected')
+      this.$('.dicon-dandelion-outline').removeClass('social-grey')
+      this.$('div.searchIcon').removeClass('lionSearch')
+      this.$('.dicon-dandelion-outline').addClass('dandelion-connected')
       
     #this.$('.contact-detail').addClass('editing')
     
@@ -250,6 +255,15 @@ class RippleApp.Views.ContactCard extends Backbone.View
     $('#contact-card-body', @el).append(educationsSection.render().el)
     
   outputPositions: ->
+    #this is setting the current position and company if they are blank and there are positions
+    if @model.get("positions").length != 0
+      if @model.get('current_position') == null && @model.get('current_company') == null
+        console.log('its null')
+        position = @model.get("positions").at(0)
+        console.log(position)
+        @model.set('current_position', position.get('title'), { silent: true })
+        @model.set('current_company', position.get('company'), { silent: true })
+        @model.save()
     positionsSection = new RippleApp.Views.ContactCardSection(
       title: 'position'
       icon: 'briefcase-3'
@@ -392,6 +406,21 @@ class RippleApp.Views.ContactCard extends Backbone.View
       this.$('.contact-card-section').addClass('editing')
       this.$('#contact-card-body-list').addClass('editing')
       
+      
+      #social edit view
+      this.$('#social-network-links').addClass('editing')
+      this.$('.facebook-connected .social-facebook').addClass('social-grey')
+      this.$('.facebook-connected .dicon-cancel').css('display', 'block')
+      
+      this.$('.twitter-connected .social-twitter').addClass('social-grey')
+      this.$('.twitter-connected .dicon-cancel').css('display', 'block')
+      
+      this.$('.linkedin-connected .social-linkedin').addClass('social-grey')
+      this.$('.linkedin-connected .dicon-cancel').css('display', 'block')
+      if @model.get('is_user') == false
+        this.$('.lion-connected .dandelion-connected').addClass('social-grey')
+        this.$('.lion-connected .dicon-cancel').css('display', 'block')
+      
       @editViewOn = true
     else
       this.$('#contact-card-body-list').removeClass('editing')
@@ -402,22 +431,61 @@ class RippleApp.Views.ContactCard extends Backbone.View
       $('.edit-view-input').css('display', 'none')
       $('.item-type').css('display', 'none')
       $('.dicon-pencil').removeClass('active')
+      
+      #social edit view
+      this.$('.facebook-connected .social-facebook').removeClass('social-grey')
+      this.$('.facebook-connected .dicon-cancel').css('display', 'none')
+      
+      this.$('.twitter-connected .social-twitter').removeClass('social-grey')
+      this.$('.twitter-connected .dicon-cancel').css('display', 'none')
+      
+      this.$('.linkedin-connected .social-linkedin').removeClass('social-grey')
+      this.$('.linkedin-connected .dicon-cancel').css('display', 'none')
+      
+      this.$('.lion-connected .dandelion-connected').removeClass('social-grey')
+      this.$('.lion-connected .dicon-cancel').css('display', 'none')
+      this.$('#social-network-links').removeClass('editing')
+      
       @editViewOn = false
+      
+  disconnectSocial: (event) ->
+    social_type = event.target.parentElement.className
+    if social_type.indexOf("facebook") != -1
+      @model.set('facebook_id', null, {silent: true})
+      @model.set('facebook_handle', null, {silent: true})
+      @model.set('facebook_picture', null, {silent: true})
+      this.$('.facebook-connected').addClass('facebookSearch')
+      this.$('.facebook-connected .dicon-cancel').css('display', 'none')
+      this.$('.dicon-facebook').removeClass('social-facebook')      
+      this.$('.facebookSearch').removeClass('facebook-connected')
+      $('#social-network-links a.dicon-facebook', @el).removeAttr('href').removeAttr('target', '_blank')
+    else if social_type.indexOf("twitter") != -1
+      @model.set('twitter_id', null, {silent: true})
+      @model.set('twitter_handle', null, {silent: true})
+      @model.set('twitter_picture', null, {silent: true})
+      this.$('.twitter-connected').addClass('twitterSearch')
+      this.$('.twitter-connected .dicon-cancel').css('display', 'none')
+      this.$('.dicon-twitter').removeClass('social-twitter')      
+      this.$('.twitterSearch').removeClass('twitter-connected')
+      $('#social-network-links a.dicon-twitter', @el).removeAttr('href').removeAttr('target', '_blank')
+    else if social_type.indexOf("linkedin") != -1
+      @model.set('linkedin_id', null, {silent: true})
+      @model.set('linkedin_handle', null, {silent: true})
+      @model.set('linkedin_picture', null, {silent: true})
+      this.$('.linkedin-connected').addClass('linkedinSearch')
+      this.$('.linkedin-connected .dicon-cancel').css('display', 'none')
+      this.$('.dicon-linkedin').removeClass('social-linkedin')      
+      this.$('.linkedinSearch').removeClass('linkedin-connected')
+      $('#social-network-links a.dicon-linkedin', @el).removeAttr('href').removeAttr('target', '_blank')
+    else if social_type.indexOf("lion") != -1
+      @model.set('is_ripple', null, {silent: true})
+      @model.set('linked_contact_id', null, {silent: true})
+      this.$('div.lion-connected').addClass('lionSearch')
+      this.$('.lion-connected .dicon-cancel').css('display', 'none')
+      this.$('div.lionSearch').removeClass('lion-connected')
+      this.$('.dicon-dandelion-outline').removeClass('dandelion-connected')        
+    @model.save(null, {silent: true})
     
-  destroySubject: ->
-    getrid = confirm "Are you sure you want to delete this record?"
-    if getrid == true
-      @favouriteContacts.remove(@model)
-      RippleApp.contactsRouter.recentContacts.remove(@model)
-      @user.set('favourite_contacts', JSON.stringify(@favouriteContacts))
-      @user.set('recent_contacts', JSON.stringify(RippleApp.contactsRouter.recentContacts))
-      @user.save()
-      @model.destroy()
-      #gotoContactId = RippleApp.contactsRouter.recentContacts.last().get('id')
-      #Backbone.history.navigate('#contacts/show/'+gotoContactId, true)
-      Backbone.history.navigate('#contacts', true)
-      #I think after a delete its best to redirect to contacts, OC
-
  
   toggleFavourite: (e) ->   
     if @favouriteContacts.get(@model.get("_id"))
@@ -1071,6 +1139,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
   updateSocialLinks: ()=>
     if @model.get('facebook_handle')
       $('#social-network-links a.dicon-facebook', @el).removeAttr('style').attr('href', @model.get('facebook_handle')).attr('target', '_blank')
+      this.$('div.facebookSearch').addClass('facebook-connected')
       this.$('div.searchIcon').removeClass('facebookSearch')
       this.$('.dicon-facebook').removeClass('social-grey')
       this.$('.dicon-facebook').addClass('social-facebook')
@@ -1079,6 +1148,7 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
     if @model.get('twitter_handle')
       $('#social-network-links a.dicon-twitter', @el).removeAttr('style').attr('href', @model.get('twitter_handle')).attr('target', '_blank')
+      this.$('div.twitterSearch').addClass('twitter-connected')
       this.$('div.searchIcon').removeClass('twitterSearch')
       this.$('.dicon-twitter').removeClass('social-grey')
       this.$('.dicon-twitter').addClass('social-twitter')
@@ -1087,21 +1157,13 @@ class RippleApp.Views.ContactCard extends Backbone.View
       
     if @model.get('linkedin_handle')
       $('#social-network-links a.dicon-linkedin', @el).removeAttr('style').attr('href', @model.get('linkedin_handle')).attr('target', '_blank')
+      this.$('div.linkedinSearch').addClass('linkedin-connected')
       this.$('div.searchIcon').removeClass('linkedinSearch')
       this.$('.dicon-linkedin').removeClass('social-grey')
       this.$('.dicon-linkedin').addClass('social-linkedin')
     else
       $('#social-network-links a.linkedin', @el).attr('style', 'background-color:#CFCFCF;')
       
-  showPhoneModal: (e)=>
-    grannyView = new RippleApp.Views.GrannyPhoneCard(
-      collection: @model.get('phones')
-    )
-    $('#granny-phone-card').remove()
-    $('body').append(grannyView.render().el)
-    modalWidth = $(window).width()*0.8
-    $('#granny-phone-card').attr('style','width:'+modalWidth+'px; margin-left:-'+(modalWidth/2)+'px;')
-    $('#granny-phone-card').reveal()
     
   saveModel: =>
     @model.unset('hashtags', { silent: true })

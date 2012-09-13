@@ -7,7 +7,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     #'click span.contact-detail-value': 'editValue'
     'keypress #edit_value': 'checkEnter'
     'click span.contact-detail-delete': 'deleteValue'
-    'focusout input#edit_value': 'closeEdit'
+    'focusout input#edit_value, input#edit_value_title, input#edit_value_company': 'closeEdit'
     'click .main-icon': 'toggleDefault'
     'click .trigger-address': 'triggerMap'
     'click .trigger-phone': 'triggerPhone'
@@ -25,7 +25,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     if @value
       begin_value = @value.substr(0,4)
     else
-      begin_value = ""      
+      begin_value = ""   
     #console.log(begin_value)
     $(@el).html(@template(icon: @icon, value: @value, beg_val: begin_value, modeltype: @modelType, detail: @model.toJSON()))
     defaultInd = @model.get('default')
@@ -112,6 +112,13 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
         model.set('default', false)
       )
       @model.set('default', true)
+      if @modelType == 'position'
+        if @model.get('title')
+          title = @model.get('title')
+          @subject.set('current_position', title)
+        if @model.get('company')
+          company = @model.get('company')
+          @subject.set('current_company', company)           
       this.$('.main-icon').addClass('default-active')
 
     
@@ -149,8 +156,12 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
       
   closeEdit: ->
     console.log('close edit detail')
-    value = @model.getFieldName()
-    this.model.set(value, this.$('input#edit_value').val())
+    if @modelType == 'position'
+      this.model.set('title', this.$('input#edit_value_title').val())
+      this.model.set('company', this.$('input#edit_value_company').val())
+    else
+      value = @model.getFieldName()
+      this.model.set(value, this.$('input#edit_value').val())
     #$(this.el).removeClass('editing')
     #this.$('.contact-detail-delete').removeClass('delete-icon')
     #this.$('.contact-detail-favorite').css('display', 'block')
