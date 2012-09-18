@@ -445,7 +445,7 @@
             }
             .contact-detail-edit {
               display: block;
-              #edit_value {
+              #edit_value, #edit_value_title, #edit_value_company {
                 color: #555;
               }
 	      input, textarea {

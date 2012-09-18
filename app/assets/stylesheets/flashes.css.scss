@@ -1,0 +1,56 @@
+#global-flashes {
+  padding: 0px;
+  margin: 0px;
+  background: #ff7200;
+  @include opacity(0.8);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 9999998;
+  display: none;
+  #flash-left {
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    width: 20%;
+    height: 40px;
+  }
+  #flash-middle {
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    width: 60%;
+    height: 40px;
+    #flash-content {
+      margin: 8px 0px 0px 0px;
+      .dicon-info {
+	font-size: 24px;
+	padding: 8px;
+	color: #FFF;
+        position: relative;
+        top: 5px;
+      }
+      .content {
+	font-size: 16px;
+	color: #FFF;
+	text-align: center;
+      }
+    }
+  }
+  #flash-right {
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    width: 20%;
+    height: 40px;
+    .dicon-cancel {
+      color: #FFF;
+      float: right;
+      font-size: 24px;
+      padding: 8px;
+      cursor: pointer;
+    }
+  }
+}

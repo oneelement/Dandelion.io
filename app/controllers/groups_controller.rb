@@ -10,7 +10,6 @@ class GroupsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to root_path }
       format.json { render_for_api :group, :json => @groups }
     end
   end
@@ -22,7 +21,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      format.html { redirect_to root_path }
       #format.json { render json: @group }
       format.json { render_for_api :group, :json => @group }
     end
@@ -37,10 +35,8 @@ class GroupsController < ApplicationController
     @group.update_attributes(user_id: current_user.id)
     respond_to do |format|
       if @group.save
-        format.html { redirect_to root_path, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
-        format.html { redirect_to root_path }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
@@ -53,10 +49,8 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update_attributes_from_api(params[:group])
-        format.html { redirect_to root_path, notice: 'Group was successfully updated.' }
         format.json { render_for_api :group, :json => @group }
       else
-        format.html { redirect_to root_path }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
@@ -69,7 +63,6 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path }
       format.json { head :ok }
     end
   end
@@ -102,7 +95,7 @@ class GroupsController < ApplicationController
     @master_group = Group.find(master_id)
     ids.each do |id|
       @group = Group.find(id) 
-      @phones = Phone.where(:group_id => id)
+      @phones = @group.phones
       @phones.each do |model|
         text = model.number
 	type = model._type
@@ -113,7 +106,7 @@ class GroupsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @emails = Email.where(:group_id => id)
+      @emails = @group.emails
       @emails.each do |model|
         text = model.text
 	type = model._type
@@ -124,7 +117,7 @@ class GroupsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @addresses = Address.where(:group_id => id)
+      @addresses = @group.addresses
       @addresses.each do |model|
         text = model.full_address
 	type = model._type
@@ -135,7 +128,7 @@ class GroupsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @urls = Url.where(:group_id => id)
+      @urls = @group.urls
       @urls.each do |model|
         text = model.text
 	type = model._type
@@ -146,7 +139,7 @@ class GroupsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @notes = Note.where(:group_id => id)
+      @notes = @group.notes
       @notes.each do |model|
         text = model.text
 	type = model._type

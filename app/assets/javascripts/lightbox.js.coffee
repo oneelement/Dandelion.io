@@ -24,3 +24,7 @@ $(document).ready ->
     $('.lightboxmap').css('display', 'none')
     $('.lightboxmap').html('<div id="expanded-map"></div>')
     $('.lightbox-backdrop').css('display', 'none')
+    
+  $('#flash-right .dicon-cancel').click ->
+    $('#global-flashes').css('display', 'none')
+    $('#flash-content').html('')

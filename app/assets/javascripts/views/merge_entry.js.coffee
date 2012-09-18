@@ -12,6 +12,7 @@ class RippleApp.Views.MergeEntry extends Backbone.View
     @selected = @options.selected
     @master = @options.master
     @favouriteContacts = RippleApp.contactsRouter.favouriteContacts 
+    @groups = RippleApp.contactsRouter.groups
    
   render: ->
     $(@el).html(@template(contact: @model.toJSON(), modelType: @source))

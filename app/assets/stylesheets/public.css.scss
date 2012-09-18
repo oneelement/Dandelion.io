@@ -11,6 +11,11 @@
     display: table;
 }
 
+#lion-header.page {
+  height: 80px;  
+  position: absolute;
+}
+
 #lion-header {
   height: 550px;
   width: 100%;
@@ -99,11 +104,281 @@
     }
   }
 }
+
+#lion-body.page {
+  height: auto;
+  min-height: 100%;
+  .container {
+    background-image: none;
+    padding-top: 100px;
+    #us-nav-icons {
+      width: 70px;
+      height: 100%;
+      float: left;
+      font-size: 32px;
+      color: #777;
+      span {
+	margin: 0 19px;
+        padding: 10px 0px 0px 0px;
+	display: inline-block;
+      }
+      span.active {
+	color: #ff7200;
+      }
+    }
+    #us-about-main {
+      margin: 0px 20px 20px 0px;
+      width: 865px;   
+      border: solid 1px #CCC;
+
+      border: 1px solid #CCC;
+      @include border-radius(4px);
+      float: left;
+      h1 {
+	text-align: center;
+	color: #ff7200;
+	margin: 0px 0px 20px 0px;	
+      }
+      h2, h3 {
+	padding: 10px 40px;
+      }
+      ol.first {
+	list-style-type: decimal;
+	li {list-style: inherit;}
+      }
+      ol.second {
+	list-style-type: lower-alpha;
+	li {list-style: inherit;}
+      }
+      p.privacy {
+	font-size: 13px;	
+      }
+      p {
+	font-size: 18px;
+	padding: 10px 40px;
+	line-height: 24px;
+      }
+      p.subscript {
+	font-size: 10px;
+      }
+      #us-about-profiles {
+	padding: 40px;
+	.us-about-profile {
+	  float: left;
+	  width: 392px;
+	  img {
+	    display: block;
+	    margin: 0 auto;
+	  }
+	  p.name {
+	    display: block;
+	    text-align: center;
+	    font-size: 18px;
+	    padding: 0px;
+	  }
+	  p.desc {
+	    display: block;
+	    text-align: center;
+	    font-size: 13px;
+	    padding: 0px;	    
+	  }
+	  p.social {
+	    padding: 0px;	    
+	    display: block;
+	    text-align: center;	   
+	    .dicon-twitter {
+	      color: #33CCFF;
+	      margin: 5px;
+	    }
+	    .dicon-linkedin {
+	      color: #4875B4;
+	      margin: 5px;	      
+	    }
+	  }
+	}
+      }
+    }
+    #us-contact-card {
+      margin: 0px 20px 20px 0px;
+      width: 320px;   
+      border: solid 1px #CCC;
+      height: 700px;
+      border: 1px solid #CCC;
+      @include border-radius(4px);
+      float: left;
+      position: relative;
+      #us-contact-card-top {
+	border-bottom: 1px solid #CCC;
+	height: 40px;
+	img {
+	  padding: 4px;
+	  margin: 0px 0px 0px 24px;
+	  height: 26px;
+	  width: 200px;
+	}
+	span {
+	  font-size: 24px;
+	  color: #f0f0f0;
+	  padding: 4px;
+	  text-shadow: 0 -1px 0px #BBB, 0 1px 0px white;
+	}
+	.dicon-star {
+	  float: left;
+	}
+	.dicon-pencil {
+          float: right;
+	}
+      }
+      #us-contact-card-map {
+	margin: 0px;
+	img {
+	  margin: 0px;
+	}
+      }
+      #us-contact-card-body {
+	margin: 0px;
+	position: absolute;
+	top: 190px;
+	width: 320px;
+	min-height: 200px;
+	background: #fefefe;
+	border-top: 1px solid #CCC;
+	#us-contact-card-avatar {
+	  margin: 0px;
+	  position: absolute;
+	  top: -20px;
+	  left: 6px;
+	  background: #fefefe;
+	  img {
+	    border: 1px solid #CCC;
+            @include border-radius(4px);
+	    height: 60px;
+	    width: 60px;
+	  }
+
+	}
+	#us-contact-card-socials {
+	  position: absolute;
+	  top: 50px;
+	  left: 10px;
+	  span {
+	    margin: 0px 4px 0px 0px;
+	    font-size: 24px;
+	  }
+	  .dicon-facebook {
+	    color: #3B5998;
+	  }
+	  .dicon-twitter {
+	    color: #33CCFF;
+	  }
+	  .dicon-linkedin {
+	    color: #4875B4;
+	  }
+	  .dicon-dandelion-outline {
+	    color: #ff7200;
+	  }
+	}
+	#us-contact-card-details {
+	  position: absolute;
+	  top: 85px;
+	  left: 12px;
+
+	  .us-contact-card-detail {
+	    margin-bottom: 5px;
+	    font-size: 16px;
+	    color: #777;
+	    .icon {
+	      margin-right: 5px;
+	    }
+	  }
+	}
+	img {
+	  margin: 0px;
+	}
+      }
+    }
+    #us-contact-main {
+      width: 520px;  
+      border: solid 1px #CCC;
+      height: 700px;
+      border: 1px solid #CCC;
+      @include border-radius(4px);
+      float: left;
+      //margin-bottom: 40px;
+      h1 {
+	text-align: center;
+	color: #ff7200;
+	margin: 0px 0px 40px 0px;
+      }
+      #hot-tip {
+	margin: 0px;
+	#hot-tip-flame {
+	  margin: 0px;
+	  float: left;
+	  height: 100px;
+	  width: 32px;
+	  padding: 0px 20px 0px 20px;
+	  span {
+	    margin: 0px;
+	    font-size: 32px;
+	    color: #ff7200;
+	    position: relative;
+	    top: 15px;
+	  }
+	}
+	#hot-tip-text {
+	  margin: 0px;
+	  float: left;
+	  width: 400px;
+	  height: 100px;
+	  h3 {
+	    margin: 0px;
+	    color: #ff7200;
+	    margin-bottom: 10px;
+	  }
+	  p {
+	    margin: 0px;
+	    font-size: 16px;
+	  }
+	}
+      }
+      
+      #contact-form {
+	margin: 0px 0px 0px 0px;
+	form {
+	  padding: 0px 20px 20px 20px;
+	  label {
+	    margin: 10px 0px 5px 0px;
+	    display: block;
+	    font-size: 16px;
+	  }
+	  input {
+	    margin: 0px;
+	    font-size: 16px;
+	    padding: 5px;
+	    width: 300px;
+	  }
+	  input[type='submit'] {
+	    width: 100px;
+	  }
+	  textarea {
+	    margin: 0px 0px 10px 0px;	 
+	    font-size: 16px;
+	    width: 400px;
+	  }
+	}
+      }
+      
+    }
+  }
+}
+
 #lion-body {
   width: 100%;
   background: #fefefe;
   .container {
-    width: 100%;
+    width: 960px;
+    margin: 0 auto;
     background-image: url('/assets/arrow.png');
     background-repeat: no-repeat;
     background-position: top center; 
@@ -144,9 +419,13 @@
       .imagery {
 	width: 50%;
 	float: left;	
+	position: relative;
+	top: -75px;
 	img {
 	  margin: 0 auto;
 	  display: block;
+	  height: 300px;
+	  width: 300px;
 	}
       }
       .prose {
@@ -172,13 +451,17 @@
     }
     
     .bar-section {
-      margin: 40px 0px 0px 0px;
+      margin: 10px 0px 0px 0px;
       .imagery {
 	width: 50%;
 	float: left;	
+	position: relative;
+	right: 40px;
 	img {
 	  margin: 0 auto;
 	  display: block;
+	  width: 400px;
+	  height: 236px;
 	}
       }
       .prose {
@@ -211,7 +494,7 @@
     }
     
     .cta-section {
-      margin: 200px 0px 20px 0px;
+      margin: 140px 0px 20px 0px;
       .cta {
 
 	a.button {
@@ -246,7 +529,7 @@
     
     .soon-section {
       padding: 40px 0px 0px 0px;
-      background: #f9f9f9;
+      //background: #f9f9f9;
 //border-top: 1px solid #CCC;
       .imagery {
 	width: 50%;
@@ -266,6 +549,13 @@
 	  text-align: center;
 	  color: #ff7200;
 	}
+	p {
+	  margin: 0px 30px 20px 30px;
+	  color: #7a7a7a;
+	  font-size: 18px;
+	  line-height: 24px;
+	  text-align: center;
+	}
       }
     }
     
@@ -274,9 +564,13 @@
 
 #lion-footer {
   background: #111;
+  height: 100px;
+  margin-top: -100px;
+  clear: both;
   .container {
-    width: 1100px;
+    width: 960px;
     padding: 10px 0px 10px 0px;
+    margin: 0 auto;
     nav {
       margin: 10px 0px 10px 0px;
       ul {

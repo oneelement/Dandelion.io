@@ -34,10 +34,17 @@ class RippleApp.Views.SettingsSocialTwitter extends Backbone.View
     this.$('.settings-social-avatar').html(twitterImage)
     this.$('.settings-social-name').html(twitterHandle)  
     
-  activateTwitter: ->
+  activateTwitter: =>
+    this.$('.settings-social-importing').css('display', 'block')
     console.log('Activate')
-    $.get '/imports/import_twitter', (data) ->
-      console.log('Twitter Contacts Imported')
+    $.get '/imports/import_twitter', (data) =>
+      @import_count = data
+      @contacts.fetch(success: (response) =>        
+        this.$('.settings-social-importing').css('display', 'none')
+        $('#global-flashes').css('display', 'block')
+        flash = "<p class='content'><span class='dicon-info'></span>" + @import_count + " twitter contacts have been imported.</p>"
+        $('#flash-content').html(flash)
+      )
 
     
 

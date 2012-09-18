@@ -35,10 +35,17 @@ class RippleApp.Views.SettingsSocialLinkedin extends Backbone.View
       this.$('.settings-social-avatar').html(linkedinImage)
     this.$('.settings-social-name').html(linkedinHandle) 
     
-  activateLinkedin: ->
+  activateLinkedin: =>
+    this.$('.settings-social-importing').css('display', 'block')
     console.log('Activate')
-    $.get '/imports/import_linkedin', (data) ->
-      console.log('Facebook Contacts Imported')
+    $.get '/imports/import_linkedin', (data) =>
+      @import_count = data
+      @contacts.fetch(success: (response) =>        
+        this.$('.settings-social-importing').css('display', 'none')
+        $('#global-flashes').css('display', 'block')
+        flash = "<p class='content'><span class='dicon-info'></span>" + @import_count + " linkedIn contacts have been imported.</p>"
+        $('#flash-content').html(flash)
+      )
 
 
 

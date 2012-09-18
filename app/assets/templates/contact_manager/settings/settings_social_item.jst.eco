@@ -6,7 +6,7 @@
     <span class="dicon-user"></span>
   </div>
   <div class="settings-social-name">
-    <p></p>
+    <p>click to connect your <%= @social %> account</p>
   </div>
   <!--<div class="settings-social-sync-all">
     <span class="dicon-network"></span>
@@ -22,6 +22,10 @@
   
   <div class="settings-social-connected">
     <span class="dicon-cancel-2"></span>
+  </div>
+  <div class="settings-social-importing">
+    <p>importing</p>
+    <img class="loading" src="/assets/loading-60.gif"></img>
   </div>
 </a>
 

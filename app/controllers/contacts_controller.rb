@@ -137,17 +137,17 @@ class ContactsController < ApplicationController
   def multiplemerge
     master_id = params[:master]
     ids = params[:sent]
-    #array = ids.split(",")
+    array = ids.split(",")
     #@output = []
-    master_index = ids.index(master_id)
-    ids.delete_at(master_index)
+    master_index = array.index(master_id)
+    array.delete_at(master_index)
     #use array.index then delete or get at index
     #array.delete_at(0)
     @do_contact_save = false
     @master_contact = Contact.find(master_id)
-    ids.each do |id|
+    array.each do |id|
       @contact = Contact.find(id) 
-      @phones = Phone.where(:contact_id => id)
+      @phones = @contact.phones
       @phones.each do |model|
         text = model.number
 	type = model._type
@@ -158,7 +158,7 @@ class ContactsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @emails = Email.where(:contact_id => id)
+      @emails = @contact.emails
       @emails.each do |model|
         text = model.text
 	type = model._type
@@ -169,7 +169,7 @@ class ContactsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @addresses = Address.where(:contact_id => id)
+      @addresses = @contact.addresses
       @addresses.each do |model|
         text = model.full_address
 	type = model._type
@@ -180,7 +180,7 @@ class ContactsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @urls = Url.where(:contact_id => id)
+      @urls = @contact.urls
       @urls.each do |model|
         text = model.text
 	type = model._type
@@ -191,7 +191,7 @@ class ContactsController < ApplicationController
 	  :parent_id => parent_id
 	)
       end
-      @notes = Note.where(:contact_id => id)
+      @notes = @contact.notes
       @notes.each do |model|
         text = model.text
 	type = model._type
@@ -200,7 +200,7 @@ class ContactsController < ApplicationController
 	  :text => text
 	)
       end
-      @positions = Position.where(:contact_id => id)
+      @positions = @contact.positions
       @positions.each do |model|
         title = model.title
 	company = model.company
@@ -227,7 +227,7 @@ class ContactsController < ApplicationController
 	  @do_contact_save = true
 	end
       end
-      @educations = Education.where(:contact_id => id)
+      @educations = @contact.educations
       @educations.each do |model|
         title = model.title
 	year = model.year
@@ -293,7 +293,7 @@ class ContactsController < ApplicationController
     #@contacts = Contact.where(:user_id => current_user.id)
     
     respond_to do |format|
-      format.json { render json: ids, status: :created, location: @contact }
+      format.json { render json: array }
     end
   end
   

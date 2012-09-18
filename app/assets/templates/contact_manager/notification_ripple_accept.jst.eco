@@ -7,7 +7,7 @@
 </div>
 <div class="message-details">
   <div class="sent-name">
-    <a><%= @notification.sent_name %></a> has accepted your ripple request.
+    <a><%= @notification.sent_name %></a> has accepted your request.
   </div>
   <div class="message-body"></div>
   <div class="message-actions">

@@ -12,7 +12,8 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     #"users/preview/:id": "userPreview"
     "auth/accept": "acceptAuth"
 
-  initialize: ->
+  initialize: ->  
+    @loading_counter = 0
     @globalTimeline = new RippleApp.Collections.GlobalTimelines()
     @globalPictures = new RippleApp.Collections.GlobalPictures()
     @globalTweets = new RippleApp.Collections.GlobalTweets()
@@ -30,7 +31,10 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @favouriteContacts.add(JSON.parse(user.get('favourite_contacts')))
     )
     @contacts = new RippleApp.Collections.Contacts()  
-    @contacts.fetch() #OC fetching contacts just once on init, then all others are added to the collection.
+    @contacts.fetch(success: (contacts) =>
+      @loading_counter = @loading_counter + 1
+      @checkLoading()
+    ) #OC fetching contacts just once on init, then all others are added to the collection.
     @groups = new RippleApp.Collections.Groups()
     @groups.fetch()
     @groupContacts = new RippleApp.Collections.Contacts()
@@ -46,7 +50,13 @@ class RippleApp.Routers.Contacts extends Backbone.Router
       @notifications.fetch()        
     ), 60000
     
+       
+    
     @
+    
+  checkLoading: ->
+    if @loading_counter == 1
+      $('#site-loading-backdrop').css('display', 'none') 
 
     
   home: ->

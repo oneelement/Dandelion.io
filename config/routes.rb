@@ -1,6 +1,10 @@
 Onelement::Application.routes.draw do
   
-  get "public/index"
+  get "public/index"  
+  get "about", to: "public#about"
+  get "contact", to: "public#contact"
+  get "terms", to: "public#terms"
+  get "privacy", to: "public#privacy"
 
   resources :autocomplete do
     get 'wonderbar', :on => :collection

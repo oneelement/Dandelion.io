@@ -384,3 +384,18 @@
 .dicon-dandelion-outline:before {
 	content: "\58";
 }
+.dicon-fire:before {
+	content: "\5a";
+}
+.dicon-vcard:before {
+	content: "\5b";
+}
+.dicon-locked:before {
+	content: "\5c";
+}
+.dicon-pencil-3:before {
+	content: "\5d";
+}
+.dicon-dandelion-social:before {
+	content: "\5e";
+}

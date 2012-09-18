@@ -268,13 +268,14 @@
     ul {
       padding: 0px;
       margin: 0px;
-      font-size: 16px;
+      font-size: 24px;
       li {
         margin: 12px 0px 12px 0px;
+	padding: 0px 0px 12px 0px;
         cursor: pointer;
       }
       li.active {
-        color: #12CEF1;
+        color: #ff7200;
       }
     }
   }
@@ -299,6 +300,7 @@
       width: 100%;
       height: 100%;
       #social-profile-info {
+	margin: 10px 0px 0px 0px;
         float: left;
 	width: 20%;
 	height: 100%;
@@ -306,6 +308,7 @@
         }
       }
       #social-profile-details {
+	margin: 10px 0px 0px 0px;
 	float: left;
 	width: 80%;
 	height: 100%;
@@ -332,6 +335,7 @@
 	cursor: pointer;
 	@include border-radius(4px);
 	@include box-shadow(0px 1px 2px rgba(0,0,0, 0.15));
+	display: inline-block;
       }
       .settings-social-import-all:hover, .settings-social-sync-all:hover {
 	background: #f9f9f9;
@@ -345,6 +349,12 @@
       }
       .dicon-arrow-right-2, .dicon-loop-2 {
 	color: #999;
+      }
+      .settings-social-avatar {
+	display: inline-block;
+      }
+      .settings-social-name {
+	width: 30%;
       }
     }
     #settings-social-facebook.connected {
@@ -378,6 +388,7 @@
       .settings-social-avatar {
         width: 15%;
         float: left;
+	display: none;
 	img {
 	  width: 48px;
           height: 48px;
@@ -387,7 +398,7 @@
 	}
       }
       .settings-social-name {
-	width: 30%;
+	width: 70%;
         float: left;
 	p, a {
 	  margin: 0px;
@@ -409,17 +420,32 @@
         float: left;
 	font-size: 18px;
 	margin-left: 1%;
+	display: none;
       }
       .settings-social-sync-all {
         width: 14%;
         float: left;
 	font-size: 18px;
 	margin-right: 1%;
+	display: none;
       }
       .settings-social-connected {
         width: 10%;
         float: left;
 	font-size: 32px;
+      }
+      .settings-social-importing {
+	width: 10%;
+        float: left;
+	margin-top: 18px;
+	display: none;
+	p {
+	  font-size: 12px;
+	  color: #ff7200;
+	}
+	img {
+	  display: block;
+	}
       }
       
     }

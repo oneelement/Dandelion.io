@@ -93,6 +93,7 @@ class ImportsController < ApplicationController
       @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })      
     end
     id = current_user.id
+    @import_count = @facefriends.size
     #@friends = FacebookFriend.where(:user_id => id)
     #@friends = @friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
     @facefriends.each do |friend|
@@ -149,7 +150,7 @@ class ImportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @friends }
+      format.json { render json: @import_count }
     end
 
   end
@@ -242,6 +243,8 @@ class ImportsController < ApplicationController
     @twitter_friends = TwitterFollow.where(:user_id => current_user.id).asc(:name)
     @twitter_friends = @twitter_friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })   
     
+    @import_count = @twitter_friends.size
+    
     @twitter_friends.each do |friend|
       id = current_user.id
       contact = Contact.new(
@@ -272,7 +275,7 @@ class ImportsController < ApplicationController
     #@follows = @follows[0..9]
     
     respond_to do |format|
-      format.json { render json: @friends }
+      format.json { render json: @import_count }
     end
   end
   
@@ -330,6 +333,8 @@ class ImportsController < ApplicationController
       #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
       @linkedin_friends = @linkedin_friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })   
     end
+    
+    @import_count = @linkedin_friends.size
 
     @linkedin_friends.each do |friend|
       id = current_user.id
@@ -368,7 +373,7 @@ class ImportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @connections }
+      format.json { render json: @import_count }
     end
   end
   

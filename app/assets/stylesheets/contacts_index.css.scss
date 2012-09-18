@@ -71,6 +71,27 @@
       text-shadow: 0 -1px 0px #999, 0 1px 0px white;
       margin: 0px 4px 0px 0px;
     }
+    .sel {
+      width: 5% !important;
+    }
+    .fav {
+      width: 5% !important;
+    }
+    .av {
+      width: 7.5% !important;
+    }
+    .nam {
+      width: 25% !important;
+    }
+        .soc {
+      width: 12.5% !important;
+    }
+        .det {
+      width: 20% !important;
+    }
+        .tag {
+      width: 25% !important;
+    }
   }
 
   tbody {
@@ -116,7 +137,7 @@
       }
       .select {
         text-align: center;
-        width: 4%;
+        width: 5%;
 	//background: #f0f0f0;
 	//border-right: 1px solid #CCC;
 	.select-indicator {
@@ -133,7 +154,7 @@
 	  padding: 0;
 	  width: 12px;
 	  position: relative;
-	  top: 14px;
+	  top: 18px;
 	  z-index: 3;
 	  cursor: pointer;
 	}
@@ -169,9 +190,9 @@
         }
       }
    
-      .avatar-cell {width: 5%;}
+      .avatar-cell {width: 7.5%;}
       .name-cell {width: 25%;}
-      .socials {width: 10%;
+      .socials {width: 12.5%;
         .contact-list-socials {
           font-size: 18px;
           color: #ddd;

@@ -20,7 +20,7 @@ class RippleApp.Views.SettingsProfile extends Backbone.View
     console.log(event)
     console.log(event.target.id)
     if (event.keyCode == 13) 
-      event.preventDefault()
+      #event.preventDefault()
       console.log(event.target)
       if event.target.id == 'social-profile-password-input'
         @savePassword()
@@ -31,7 +31,7 @@ class RippleApp.Views.SettingsProfile extends Backbone.View
     @current_user.set(
       first_name: this.$('input#social-profile-first-name-input').val(),
       last_name: this.$('input#social-profile-last-name-input').val(),
-      email: this.$('input#social-profile-email-input').val()    
+      email: this.$('input#social-profile-email-input').val(), { silent: true }    
     )
     @current_user.save()
     

@@ -1,12 +1,12 @@
 <table id="contacts-table">
 <thead>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th class="sel" style="width: 4%;"></th>
+      <th class="fav" style="width: 5%;"></th>
+      <th class="av" style="width: 5%;"></th>
+      <th class="nam" style="width: 25%;"></th>
+      <th class="soc" style="width: 10%;"></th>
+      <th class="det" style="width: 20%;"></th>
+      <th class="tag" style="width: 25%;"></th>
 </thead>
 
 <tbody id="contacts-table-body">

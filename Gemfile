@@ -50,6 +50,8 @@ gem 'backbone-on-rails'
 
 gem "geocoder"
 
+#gem "browser"
+
 
 
 # Deploy with Capistrano

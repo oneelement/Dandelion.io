@@ -25,42 +25,46 @@ class RippleApp.Views.MergeMasterSelect extends Backbone.View
     this.$('#merge-table-body').append(view.render().el)
     
     
-  completeMerge: ->
+  completeMerge: =>
+    $('#merge-lightbox').css('display', 'none')
+    $('.lightbox').removeClass('show')
+    $('.lightbox').css('display', 'none')
+    $('.lightbox').html('')
+    $('.lightbox-backdrop').css('display', 'none')
     if @source == 'contact'
       ids = @selected.pluck('_id')
       sent = ids
       console.log(sent)
       master = @master.get('_id')
-      $('#merge-lightbox').css('display', 'none')
-      $('.lightbox').removeClass('show')
-      $('.lightbox').css('display', 'none')
-      $('.lightbox').html('')
-      $('.lightbox-backdrop').css('display', 'none')
-      $.ajax '/contacts/multiplemerge', 
-        type: 'GET'
-        data: {sent: sent, master: master}
-        success: (data) =>          
-          @selected.remove(@master)
-          @collection.remove(@selected.models)
-          @favouriteContacts.remove(@selected.models)
-          @recentContacts.remove(@selected.models)
-          @selected.reset()
-          @currentUser.set('favourite_contacts', JSON.stringify(@favouriteContacts))
-          @currentUser.set('recent_contacts', JSON.stringify(@recentContacts))
-          @currentUser.save()
-          contact = @collection.get(master)
-          contact.fetch()
-      Backbone.history.navigate('#contacts', true)
+      @selected.remove(@master)
+      @collection.remove(@selected.models)
+      @favouriteContacts.remove(@selected.models)
+      @recentContacts.remove(@selected.models)
+      @selected.reset()
+      @currentUser.set('favourite_contacts', JSON.stringify(@favouriteContacts))
+      @currentUser.set('recent_contacts', JSON.stringify(@recentContacts))
+      @currentUser.save()
+      @kept_contact = @collection.get(master)      
+      view = new RippleApp.Views.ContactCard(model: @kept_contact, user: @currentUser, source: @source)
+      RippleApp.layout.setContextView(view)
+      call = "?master=" + master + "&sent=" + sent      
+      @mergers = new RippleApp.Collections.Mergers([], { call : call})
+      @mergers.fetch(success: (response) => 
+        contact = @collection.get(master)
+        contact.fetch()
+      )
+      #$.ajax '/contacts/multiplemerge', 
+        #type: 'GET'
+        #data: {sent: sent, master: master}
+        #success: (data) =>          
+          #contact = @collection.get(master)
+          #contact.fetch()
+      #Backbone.history.navigate('#contacts', true)
     if @source == 'group'
       ids = @selected.pluck('_id')
       sent = ids
       console.log(sent)
       master = @master.get('_id')
-      $('#merge-lightbox').css('display', 'none')
-      $('.lightbox').removeClass('show')
-      $('.lightbox').css('display', 'none')
-      $('.lightbox').html('')
-      $('.lightbox-backdrop').css('display', 'none')
       $.ajax '/groups/multiplemerge', 
         type: 'GET'
         data: {sent: sent, master: master}

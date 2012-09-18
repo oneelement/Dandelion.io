@@ -26,7 +26,7 @@ class RippleApp.Views.SettingsSocialFacebook extends Backbone.View
     @user_contact = @contacts.get(id)
     facebookImage = '<img src="' + @user_contact.get('facebook_picture') + '"></img>'
     facebookHandle = '<p><a target="_blank" href="' + @user_contact.get('facebook_handle') + '">' + @user_contact.get('name') + '</a></p>'
-    console.log(@user_contact.get('facebook_picture'))
+    #console.log(@user_contact.get('facebook_picture'))
     this.$('a').removeAttr('title').removeAttr('rel').removeAttr('href')
     $(this.el).addClass('connected')
     $(this.el).removeClass('activatable')
@@ -36,13 +36,19 @@ class RippleApp.Views.SettingsSocialFacebook extends Backbone.View
     this.$('.settings-social-name').html(facebookHandle)
 
     
-  activateFacebok: ->
+  activateFacebok: =>
+    this.$('.settings-social-importing').css('display', 'block')
     console.log('Activate')
     #username = $(this).val()
     #callback = (response) -> markerUsername response
-    $.get '/imports/import_facebook', (data) ->
-      console.log('Facebook Contacts Imported')
-
+    $.get '/imports/import_facebook', (data) =>
+      @import_count = data
+      @contacts.fetch(success: (response) =>        
+        this.$('.settings-social-importing').css('display', 'none')
+        $('#global-flashes').css('display', 'block')
+        flash = "<p class='content'><span class='dicon-info'></span>" + @import_count + " facebook contacts have been imported.</p>"
+        $('#flash-content').html(flash)
+      )
     
 
 
