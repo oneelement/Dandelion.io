@@ -8,7 +8,7 @@ class Section
   validates_presence_of :name
 
   scope :top_level, where("builder_details_container.is_top_level" => true)
-  scope :children_of, ->(section) { where("builder_details_container.section_id" => section.id) }
+  #scope :children_of, ->(section) { where("builder_details_container.section_id" => section.id) }
 
   scope :suggestions, where("builder_details_container.is_standard_section" => true)
   scope :custom, where("builder_details_container.is_standard_section" => false)

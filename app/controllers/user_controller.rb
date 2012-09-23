@@ -8,7 +8,7 @@ class UserController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
+      format.json { render :json => @user }
     end
   end
   
@@ -105,7 +105,7 @@ class UserController < ApplicationController
     @user = User.new
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @user }
+      format.json { render :json => @user }
     end
   end
 
@@ -115,7 +115,7 @@ class UserController < ApplicationController
     @user = User.new
     respond_to do |format|
       format.html # newent.html.erb
-      format.json { render json: @user }
+      format.json { render :json => @user }
     end
   end
 
@@ -129,7 +129,7 @@ class UserController < ApplicationController
   def create
     @user = User.new(params[:user])
     if current_user 
-      @user.update_attributes(organisation_id: current_user.organisation_id)
+      @user.update_attributes(:organisation_id => current_user.organisation_id)
     end
     #if @user.save
       #if session[:omniauth]
@@ -139,11 +139,11 @@ class UserController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
+        format.html { redirect_to @user, :notice => 'User was successfully created.' }
+        format.json { render :json => @user, :status => :created, :location => @user }
       else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -155,11 +155,11 @@ class UserController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes_from_api(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, :notice => 'User was successfully updated.' }
         format.json { render_for_api :user, :json => @user }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end

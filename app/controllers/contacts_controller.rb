@@ -63,7 +63,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @contact }
+      format.json { render :json => @contact }
     end
   end
 
@@ -76,14 +76,14 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(params[:contact])
-    @contact.update_attributes(user_id: current_user.id)
+    @contact.update_attributes(:user_id => current_user.id)
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
-        format.json { render json: @contact, status: :created, location: @contact }
+        format.html { redirect_to @contact, :notice => 'Contact was successfully created.' }
+        format.json { render :json => @contact, :status => :created, :location => @contact }
       else
-        format.html { render action: "new" }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -95,11 +95,11 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update_attributes_from_api(params[:contact])
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+        format.html { redirect_to @contact, :notice => 'Contact was successfully updated.' }
         format.json { render_for_api :contact, :json => @contact }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -130,7 +130,7 @@ class ContactsController < ApplicationController
     #@contacts = Contact.where(:user_id => current_user.id)
     
     respond_to do |format|
-      format.json { render json: @output, status: :created, location: @contact }
+      format.json { render :json => @output, :status => :created, :location => @contact }
     end
   end
   
@@ -293,7 +293,7 @@ class ContactsController < ApplicationController
     #@contacts = Contact.where(:user_id => current_user.id)
     
     respond_to do |format|
-      format.json { render json: array }
+      format.json { render :json => array }
     end
   end
   

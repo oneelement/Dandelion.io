@@ -11,6 +11,6 @@ class Task
   
  
   def as_json(options = nil)
-    super((options || {}).merge(include: { user: { only: [:first_name, :last_name] } }))
+    super((options || {}).merge(:include => { :user => { :only => [:first_name, :last_name] } }))
   end  
 end

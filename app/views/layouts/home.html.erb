@@ -24,7 +24,7 @@
   </div>
   <div id="sitewide-search">
     <%= form_tag contacts_path, :method => 'get', :id => 'search_form', :class => 'navbar-search' do %>
-        <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', value: "", placeholder: "search or add here" %>
+        <%= text_field_tag :search, params[:search], :id => 'autocomplete', :class => 'search-query', :value => "", :placeholder => "search or add here" %>
         <%# submit_tag "", :name => nil , :id => 'searchbutton' %>
     <% end %>
   </div>

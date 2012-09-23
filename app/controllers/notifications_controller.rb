@@ -14,15 +14,15 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(params[:notification])
     @notification.update_attributes(
-      sent_id: current_user.id, 
-      sent_name: current_user.full_name, 
-      sent_avatar: current_user.avatar
+      :sent_id => current_user.id, 
+      :sent_name => current_user.full_name, 
+      :sent_avatar => current_user.avatar
     )
    respond_to do |format|
       if @notification.save
-        format.json { render json: @notification, status: :created, location: @notification }
+        format.json { render :json => @notification, :status => :created, :location => @notification }
       else
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
+        format.json { render :json => @notification.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -32,9 +32,9 @@ class NotificationsController < ApplicationController
 
     respond_to do |format|
       if @notification.update_attributes(params[:notification])
-        format.json { render json: @notification }
+        format.json { render :json => @notification }
       else
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
+        format.json { render :json => @notification.errors, :status => :unprocessable_entity }
       end
     end
   end

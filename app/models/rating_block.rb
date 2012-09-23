@@ -2,10 +2,10 @@ class RatingBlock
   include Mongoid::Document
 
   #Can source data from several sections
-  has_and_belongs_to_many :sections, inverse_of: nil
+  has_and_belongs_to_many :sections, :inverse_of => nil
 
   #Can delegate rating to sub rating units
-  has_many :sub_blocks, class_name: 'RatingBlock'
+  has_many :sub_blocks, :class_name => 'RatingBlock'
 
   #Actual steps that peform calculations
   embeds_many :rating_steps

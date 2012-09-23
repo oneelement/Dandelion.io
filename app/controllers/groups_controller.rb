@@ -32,12 +32,12 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(params[:group])
-    @group.update_attributes(user_id: current_user.id)
+    @group.update_attributes(:user_id => current_user.id)
     respond_to do |format|
       if @group.save
-        format.json { render json: @group, status: :created, location: @group }
+        format.json { render :json => @group, :status => :created, :location => @group }
       else
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render :json => @group.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
       if @group.update_attributes_from_api(params[:group])
         format.json { render_for_api :group, :json => @group }
       else
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render :json => @group.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -78,7 +78,7 @@ class GroupsController < ApplicationController
     end
     
     respond_to do |format|
-      format.json { render json: @output, status: :created, location: @group }
+      format.json { render :json => @output, :status => :created, :location => @group }
     end
   end
   
@@ -191,7 +191,7 @@ class GroupsController < ApplicationController
     end
     
     respond_to do |format|
-      format.json { render json: ids, status: :created, location: @group }
+      format.json { render :json => ids, :status => :created, :location => @group }
     end
   end
   

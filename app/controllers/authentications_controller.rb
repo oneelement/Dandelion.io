@@ -6,7 +6,7 @@ class AuthenticationsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @authentications }
+      format.json { render :json => @authentications }
     end
   end
   

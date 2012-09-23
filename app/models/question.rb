@@ -8,7 +8,7 @@ class Question
 
   field :name, :type => String
 
-  scope :children_of, ->(section) { where("builder_details_container.section_id" => section.id) }
+  #scope :children_of, -> (section) { where("builder_details_container.section_id" => section.id) }
 
   scope :suggestions, where("builder_details_container.is_standard_question" => true)
   scope :custom, where("builder_details_container.is_standard_question" => false)

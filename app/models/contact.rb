@@ -232,6 +232,6 @@ class Contact
   end
 
   def as_json(options = nil)
-    super((options || {}).merge(include: { addresses: { only: [:postcode, :coordinates] }, socials: {}}))
+    super((options || {}).merge(:include => { :addresses => { :only => [:postcode, :coordinates] }, :socials => {}}))
   end
 end

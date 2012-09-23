@@ -9,7 +9,7 @@
 
 #Entering User Types
 
-UserType.find_or_create_by(name: "Superuser")
-UserType.find_or_create_by(name: "Organisation")
-UserType.find_or_create_by(name: "Entity")
-UserType.find_or_create_by(name: "Consumer")
+UserType.find_or_create_by(:name => "Superuser")
+UserType.find_or_create_by(:name => "Organisation")
+UserType.find_or_create_by(:name => "Entity")
+UserType.find_or_create_by(:name => "Consumer")

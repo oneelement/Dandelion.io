@@ -5,7 +5,7 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @emails }
+      format.json { render :json => @emails }
     end
   end
   
@@ -13,9 +13,9 @@ class EmailsController < ApplicationController
     @email = Email.new(params[:email])
     respond_to do |format|
       if @email.save
-        format.json { render json: @email, status: :created, location: @email }
+        format.json { render :json => @email, :status => :created, :location => @email }
       else
-        format.json { render json: @email.errors, status: :unprocessable_entity }
+        format.json { render :json => @email.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -27,11 +27,11 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       if @email.update_attributes(params[:email])
-        format.html { redirect_to @email, notice: 'Email was successfully updated.' }
-        format.json { render json: @email }
+        format.html { redirect_to @email, :notice => 'Email was successfully updated.' }
+        format.json { render :json => @email }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @email.errors, :status=> :unprocessable_entity }
       end
     end
   end

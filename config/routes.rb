@@ -1,10 +1,10 @@
 Onelement::Application.routes.draw do
   
   get "public/index"  
-  get "about", to: "public#about"
-  get "contact", to: "public#contact"
-  get "terms", to: "public#terms"
-  get "privacy", to: "public#privacy"
+  get "about", :to => "public#about"
+  get "contact", :to => "public#contact"
+  get "terms", :to => "public#terms"
+  get "privacy", :to => "public#privacy"
 
   resources :autocomplete do
     get 'wonderbar', :on => :collection
@@ -49,6 +49,8 @@ Onelement::Application.routes.draw do
     get :contact, :on => :collection
     get :picture_timeline, :on => :collection
   end
+  
+  resources :educations
   
   resources :positions
   

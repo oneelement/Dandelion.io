@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
     @positions = Position.all
 
     respond_to do |format|
-      format.json { render json: @positions }
+      format.json { render :json => @positions }
     end
   end
   
@@ -12,9 +12,9 @@ class PositionsController < ApplicationController
     @position = Position.new(params[:position])
     respond_to do |format|
       if @position.save
-        format.json { render json: @position, status: :created, location: @position }
+        format.json { render :json => @position, :status => :created, :location => @position }
       else
-        format.json { render json: @position.errors, status: :unprocessable_entity }
+        format.json { render :json => @position.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -24,9 +24,9 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.update_attributes(params[:position])
-        format.json { render json: @position }
+        format.json { render :json => @position }
       else
-        format.json { render json: @position.errors, status: :unprocessable_entity }
+        format.json { render :json => @position.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -5,7 +5,7 @@ class PhonesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @phones }
+      format.json { render :json => @phones }
     end
   end
   
@@ -13,9 +13,9 @@ class PhonesController < ApplicationController
     @phone = Phone.new(params[:phone])
     respond_to do |format|
       if @phone.save
-        format.json { render json: @phone, status: :created, location: @phone }
+        format.json { render :json => @phone, :status => :created, :location => @phone }
       else
-        format.json { render json: @phone.errors, status: :unprocessable_entity }
+        format.json { render :json => @phone.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -27,11 +27,11 @@ class PhonesController < ApplicationController
 
     respond_to do |format|
       if @phone.update_attributes(params[:phone])
-        format.html { redirect_to @phone, notice: 'Contact was successfully updated.' }
-        format.json { render json: @phone }
+        format.html { redirect_to @phone, :notice => 'Contact was successfully updated.' }
+        format.json { render :json => @phone }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @phone.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @phone.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -50,7 +50,7 @@ class PhonesController < ApplicationController
     @phones = Phone.where(:contact_id => params[:id])
     
     respond_to do |format|
-      format.json { render json: @phones }
+      format.json { render :json => @phones }
     end
   end
 end

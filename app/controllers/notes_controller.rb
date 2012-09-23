@@ -5,7 +5,7 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @notes }
+      format.json { render :json => @notes }
     end
   end
   
@@ -16,11 +16,11 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        format.html { redirect_to @note, notice: 'Contact was successfully updated.' }
-        format.json { render json: @note }
+        format.html { redirect_to @note, :notice => 'Contact was successfully updated.' }
+        format.json { render :json => @note }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @note.errors, :status => :unprocessable_entity }
       end
     end
   end

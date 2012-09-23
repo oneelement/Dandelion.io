@@ -4,7 +4,7 @@ class HashtagsController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: @hashtags }
+      format.json { render :json => @hashtags }
     end
   end
   
@@ -13,20 +13,20 @@ class HashtagsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.json { render json: @hashtag }
+      format.json { render :json => @hashtag }
     end
   end
   
   def create
     @hashtag = Hashtag.new(params[:hashtag])
-    @hashtag.update_attributes(user_id: current_user.id)
+    @hashtag.update_attributes(:user_id => current_user.id)
     respond_to do |format|
       if @hashtag.save
-        format.html { redirect_to root_path, notice: 'Hashtag was successfully created.' }
-        format.json { render json: @hashtag, status: :created, location: @hashtag }
+        format.html { redirect_to root_path, :notice => 'Hashtag was successfully created.' }
+        format.json { render :json => @hashtag, :status => :created, :location => @hashtag }
       else
         format.html { redirect_to root_path }
-        format.json { render json: @hashtag.errors, status: :unprocessable_entity }
+        format.json { render :json => @hashtag.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -36,11 +36,11 @@ class HashtagsController < ApplicationController
 
     respond_to do |format|
       if @hashtag.update_attributes(params[:hashtag])
-        format.html { redirect_to root_path, notice: 'Hashtag was successfully updated.' }
-        format.json { render json: @hashtag }
+        format.html { redirect_to root_path, :notice => 'Hashtag was successfully updated.' }
+        format.json { render :json => @hashtag }
       else
         format.html { redirect_to root_path }
-        format.json { render json: @hashtag.errors, status: :unprocessable_entity }
+        format.json { render :json => @hashtag.errors, :status => :unprocessable_entity }
       end
     end
   end

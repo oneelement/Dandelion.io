@@ -4,7 +4,7 @@ class EducationsController < ApplicationController
     @educations = Education.all
 
     respond_to do |format|
-      format.json { render json: @educations }
+      format.json { render :json => @educations }
     end
   end
   
@@ -12,9 +12,9 @@ class EducationsController < ApplicationController
     @education = Education.new(params[:education])
     respond_to do |format|
       if @education.save
-        format.json { render json: @education, status: :created, location: @education }
+        format.json { render :json => @education, :status => :created, :location => @education }
       else
-        format.json { render json: @education.errors, status: :unprocessable_entity }
+        format.json { render :json => @education.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -24,9 +24,9 @@ class EducationsController < ApplicationController
 
     respond_to do |format|
       if @education.update_attributes(params[:education])
-        format.json { render json: @education }
+        format.json { render :json => @education }
       else
-        format.json { render json: @education.errors, status: :unprocessable_entity }
+        format.json { render :json => @education.errors, :status => :unprocessable_entity }
       end
     end
   end

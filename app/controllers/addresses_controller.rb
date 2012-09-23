@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @addresses }
+      format.json { render :json => @addresses }
     end
   end
   
@@ -13,9 +13,9 @@ class AddressesController < ApplicationController
     @address = Address.new(params[:address])
     respond_to do |format|
       if @address.save
-        format.json { render json: @address, status: :created, location: @address }
+        format.json { render :json => @address, :status => :created, :location => @address }
       else
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+        format.json { render :json => @address.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -27,11 +27,11 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.update_attributes(params[:address])
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
-        format.json { render json: @address }
+        format.html { redirect_to @address, :notice => 'Address was successfully updated.' }
+        format.json { render :json => @address }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @address.errors, :status => :unprocessable_entity }
       end
     end
   end

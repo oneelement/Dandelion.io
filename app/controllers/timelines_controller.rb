@@ -19,7 +19,7 @@ class TimelinesController < ApplicationController
 	if @theircontact.twitter_id
 	  if @user.tweeting
 	    id = @theircontact.twitter_id
-	    twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	    twitter = @user.tweeting.user_timeline(:screen_name => id, :count => '25', :include_rts => true, :include_entities => true)
 	  end
 	end
       end
@@ -34,14 +34,14 @@ class TimelinesController < ApplicationController
 	if @theirgroup.twitter_id
 	  if @user.tweeting
 	    id = @theirgroup.twitter_id
-	    twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	    twitter = @user.tweeting.user_timeline(:screen_name => id, :count => '25', :include_rts => true, :include_entities => true)
 	  end
 	end
       end
     else
       #fetch the users tweets
       if @user.tweeting
-	twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+	twitter = @user.tweeting.user_timeline(:count => '25', :include_rts => true, :include_entities => true)
       end      
       #fetch the users facebook feed
       if @user.facebook
@@ -257,7 +257,7 @@ class TimelinesController < ApplicationController
     timeline.sort! { |a, b|  b['time'] <=> a['time'] }
     
     respond_to do |format|
-      format.json { render json: timeline }
+      format.json { render :json => timeline }
     end
   end
   
@@ -275,7 +275,7 @@ class TimelinesController < ApplicationController
 	end
 	if @theircontact.twitter_id
 	  id = @theircontact.twitter_id
-	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  twitter = @user.tweeting.user_timeline(:screen_name => id, :count => '25', :include_rts => true, :include_entities => true)
 	end
       end
       if @theirgroup
@@ -285,13 +285,13 @@ class TimelinesController < ApplicationController
 	end
 	if @theirgroup.twitter_id
 	  id = @theirgroup.twitter_id
-	  twitter = @user.tweeting.user_timeline(screen_name: id, count: '25', include_rts: true, include_entities: true)
+	  twitter = @user.tweeting.user_timeline(:screen_name => id, :count => '25', :include_rts => true, :include_entities => true)
 	end
       end
     else
       #fetch the users tweets
       if @user.tweeting
-	twitter = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+	twitter = @user.tweeting.user_timeline(:count => '25', :include_rts => true, :include_entities => true)
       end      
       #fetch the users facebook feed
       if @user.facebook
@@ -360,7 +360,7 @@ class TimelinesController < ApplicationController
     
     
     respond_to do |format|
-      format.json { render json: timeline }
+      format.json { render :json => timeline }
     end    
   end
   

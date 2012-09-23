@@ -234,7 +234,7 @@ class User
   end
 
   def authenticated_with?(auth)
-    return (authentications.where(provider: auth.to_s).count > 0)
+    return (authentications.where(:provider => auth.to_s).count > 0)
   end
   
   #def apply_omniauth(omniauth)
