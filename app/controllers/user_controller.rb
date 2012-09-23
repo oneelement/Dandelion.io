@@ -4,7 +4,7 @@ class UserController < ApplicationController
   load_and_authorize_resource
   
   def currentuser
-    @user = User.find(current_user.id) #find(:_id => current_user.id)
+    @user ||= User.find(current_user.id) #find(:_id => current_user.id)
     
     respond_to do |format|
       format.html # show.html.erb
@@ -13,7 +13,7 @@ class UserController < ApplicationController
   end
   
   def current
-    @user = User.find(current_user.id) #find(:_id => current_user.id)
+    @user ||= User.find(current_user.id) #find(:_id => current_user.id)
     
     respond_to do |format|
       format.html # show.html.erb

@@ -15,9 +15,16 @@ gem 'omniauth'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 gem "twitter" #api for twitter
 gem 'koala' #api for facebook
 gem 'linkedin' 
+gem 'google-api-client', :require => 'google/api_client'
+gem 'httparty'
+gem 'crack'
+gem 'json'
+#gem 'http_logger'
+#gem 'gdata'
 #gem 'linkedin', :git => 'http://github.com/pengwynn/linkedin.git', :branch => '2-0-stable'
 #api for linkedin
 

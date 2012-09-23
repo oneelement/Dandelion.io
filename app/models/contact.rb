@@ -3,6 +3,7 @@ require 'backbone_helpers'
 class Contact
   include Mongoid::Document
   include Mongoid::Paranoia
+  include Mongoid::Timestamps
   include BackboneHelpers::Model
   
   before_destroy :clean_contact_delete
@@ -47,6 +48,7 @@ class Contact
   field :facebook_id, :type => String
   field :linkedin_id, :type => String
   field :twitter_id, :type => String
+  field :google_id, :type => String
   field :facebook_picture, :type => String
   field :twitter_picture, :type => String
   field :linkedin_picture, :type => String
@@ -80,6 +82,7 @@ class Contact
     t.add :facebook_id
     t.add :linkedin_id
     t.add :twitter_id
+    t.add :google_id
     t.add :facebook_picture
     t.add :twitter_picture
     t.add :linkedin_picture
@@ -97,6 +100,7 @@ class Contact
     t.add :facebook_id
     t.add :linkedin_id
     t.add :twitter_id
+    t.add :google_id
     t.add :facebook_picture
     t.add :twitter_picture
     t.add :linkedin_picture

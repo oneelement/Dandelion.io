@@ -15,6 +15,9 @@ class RippleApp.Views.SettingsSocial extends Backbone.View
     view = new RippleApp.Views.SettingsSocialLinkedin(
     )
     this.$('#settings-social-container').append(view.render().el)
+    view = new RippleApp.Views.SettingsSocialGoogle(
+    )
+    this.$('#settings-social-container').append(view.render().el)
     
     return @
     

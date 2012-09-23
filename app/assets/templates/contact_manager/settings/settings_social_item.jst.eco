@@ -1,4 +1,8 @@
-<a href="/auth/<%= @social %>" title="Connect account to <%= @social %>" rel="tooltip">
+<% if @social == 'google': %>
+  <a href="/auth/google_oauth2" title="Connect account to <%= @social %>" rel="tooltip">
+<% else: %>
+  <a href="/auth/<%= @social %>" title="Connect account to <%= @social %>" rel="tooltip">
+<% end %>
   <div class="settings-social-icon">
     <span class="dicon-<%= @social %>"></span>
   </div>

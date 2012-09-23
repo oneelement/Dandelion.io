@@ -4,7 +4,9 @@ class RippleApp.Views.SettingsSocialTwitter extends Backbone.View
   className: 'activatable'
   
   events:
-    'click .connected .settings-social-import-all': 'activateTwitter' 
+    'click .settings-social-import-all': 'activateTwitter' 
+
+    
       
   initialize: ->    
     @current_user = RippleApp.contactsRouter.currentUser
@@ -18,6 +20,7 @@ class RippleApp.Views.SettingsSocialTwitter extends Backbone.View
     c = @current_user.get('authentications')
     if c.where(provider: "twitter").length > 0
       @checkConnections()  
+
       
     return @
     
@@ -33,6 +36,8 @@ class RippleApp.Views.SettingsSocialTwitter extends Backbone.View
     this.$('.settings-social-connected span').removeClass('dicon-cancel-2')
     this.$('.settings-social-avatar').html(twitterImage)
     this.$('.settings-social-name').html(twitterHandle)  
+    
+
     
   activateTwitter: =>
     this.$('.settings-social-importing').css('display', 'block')

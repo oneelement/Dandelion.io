@@ -399,3 +399,9 @@
 .dicon-dandelion-social:before {
 	content: "\5e";
 }
+.dicon-google-plus:before {
+	content: "\5f";
+}
+.dicon-google:before {
+	content: "\61";
+}

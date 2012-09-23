@@ -3,6 +3,7 @@ require 'backbone_helpers'
 class User 
   include Mongoid::Document
   include Mongoid::Paranoia
+  include Mongoid::Timestamps
   include BackboneHelpers::Model
   
   after_create :contact_create_manual
@@ -25,11 +26,12 @@ class User
   has_many :hashtags
   has_many :favorites
   has_many :facebook_friends
+  has_many :google_contacts
   has_many :linkedin_connections
   has_many :authentications, :autosave => true, :dependent => :destroy
   
   accepts_nested_attributes_for :organisation, :contacts, :groups, :tasks, :favorites
-  accepts_nested_attributes_for :facebook_friends, :linkedin_connections
+  accepts_nested_attributes_for :facebook_friends, :linkedin_connections, :google_contacts
   accepts_nested_attributes_for :hashtags
   accepts_nested_attributes_for :authentications, :allow_destroy => true
   
@@ -311,7 +313,19 @@ class User
     if provider
       client = LinkedIn::Client.new('5bhck1eg3l0i', 'c8IO2JxzHp74OvtQ')
       client.authorize_from_access(provider.token, provider.secret)
-      @linkedin = client
+      @linkedin ||= client
+    end
+  end
+  
+    
+  def google
+    provider = self.authentications.where(:provider => 'google_oauth2').first    
+    if provider
+      client = Google::APIClient.new
+      client.authorization.access_token = provider.token
+      #client.authorization.update_token!(provider.token)
+      #client.authorize_from_access(provider.token, provider.secret)
+      @google ||= client
     end
   end
   
