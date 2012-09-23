@@ -1,5 +1,142 @@
 class ImportsController < ApplicationController
   
+  def import_google
+    @user = User.find(current_user.id)
+    
+    #using the google client to access calendars
+    provider = @user.authentications.where(:provider => 'google_oauth2').first       
+    
+    ## This is how to use the discoveries, do NOT delete
+    ##@client = Google::APIClient.new
+    ##@client.authorization.access_token = provider.token
+    ##service = @client.discovered_api('calendar', 'v3')  
+    #method_names = @client.discovered_api('plus').to_h.keys
+    ##method_names = @client.discovered_api('calendar', 'v3').to_h.keys
+    ##result = @client.execute(
+    ##  :api_method => service.calendar_list.list,
+    ##  :parameters => {},
+    ##  :headers => {'Content-Type' => 'application/json'})
+
+    ##test = result.data
+    
+    #new = GData::Client::Contacts.new
+
+    
+
+    
+    if provider
+      #getting a new token
+      @newclient = Google::APIClient.new
+      @newclient.authorization.client_id = '815307397724.apps.googleusercontent.com'
+      @newclient.authorization.client_secret = 'MNhKJWej9dJaXv1AKhI9CD7E'
+      @newclient.authorization.scope = 'https://www.google.com/m8/feeds/'
+      @newclient.authorization.redirect_uri = 'http://localhost:3000/auth/google_oauth2/callback'
+      @newclient.authorization.access_token = provider.token
+      @newclient.authorization.refresh_token = provider.refresh_token
+      newkey = @newclient.authorization.fetch_access_token!
+    
+      new_token = newkey["access_token"]
+    
+      #manual Api call to contacts using new token
+      url = 'https://www.google.com/m8/feeds/contacts/default/full/'
+      auth = 'OAuth ' + new_token
+      #auth = 'OAuth ya29.AHES6ZTcxPBLMj6eczmP4s5b8JmLd08-ADUZM-drP4jWDA'
+    
+      response = HTTParty.get(url, :headers => {'Authorization' => auth, 'Content-Type' => 'application/json', 'Host' => 'www.google.com', 'Gdata-version' => '3.0', 'Content-length' => '0'})
+      xml  = Crack::XML.parse(response.body)
+      result = xml.to_json
+      #result = response.to_json
+      
+      @import_count = 0
+    
+      contacts = xml["feed"]["entry"]
+      
+      contacts.each do |contact|
+	google_id = contact["gd:etag"]
+	if GoogleContact.where(:google_id => google_id, :user_id => current_user.id).exists?
+	else
+	  if contact["gd:name"]
+	    if contact["gd:name"]["gd:familyName"]
+	      name = contact["gd:name"]["gd:givenName"] + " " + contact["gd:name"]["gd:familyName"]
+	    else
+	      name = contact["gd:name"]["gd:fullName"]
+	    end
+	  else
+	    if contact["gd:email"]
+	      #name = contact["gd:email"]["address"]
+	      emails = contact["gd:email"]
+	      if emails.kind_of?(Array) == true
+		emails.each do |email|
+		  if email['primary'] == 'true'
+		    name = email['address']
+		  end
+		end		
+	      else
+		name = emails['address']
+	      end
+	    end    
+	  end	  
+	  if name
+	    friend = GoogleContact.new(
+	      :name => name, 
+	      :user_id => current_user.id,
+	      :google_id => google_id
+	    )
+            friend.save
+	    if Contact.where(:name => name, :user_id => current_user.id).exists?
+	      @contact_dual = Contact.where(:name => name, :user_id => current_user.id).first
+	      if @contact_dual.google_id == nil
+		@contact_dual.google_id = google_id
+		@contact_dual.save
+	      end
+	      friend.contact_id = @contact_dual._id
+              friend.save
+	    else
+	      @contact_dual = Contact.new(
+                :name => name, 
+                :user_id => current_user.id, 
+                :google_id => google_id
+              )
+              @contact_dual.save
+	      @import_count = @import_count + 1
+	      friend.contact_id = @contact_dual._id
+              friend.save
+	    end
+	    
+	    if contact["gd:email"]
+	      emails = contact["gd:email"]
+	      if emails.kind_of?(Array) == true
+		emails.each do |email|
+		  @contact_dual.emails.create!(
+                    :text => email['address'],
+		    :_type => 'EmailPersonal'
+                  )
+		end		
+	      else
+	        @contact_dual.emails.create!(
+                  :text => emails['address'],
+		  :_type => 'EmailPersonal'
+                 )
+	      end
+	    end 
+	    
+	  end	  
+	end
+      end
+    end
+    @google_contacts = GoogleContact.where(:user_id => current_user.id).asc(:name)
+    #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
+    @google_contacts = @google_contacts.any_of({ :contact_id.exists => false }, { :contact_id => "" }) 
+    
+    ##TODO
+    #return enriched count or merged count
+    #check for changes to existing contact info and enhance existing contacts, separate sync button I think
+
+    respond_to do |format|
+      format.json { render json: @import_count }
+    end
+  end
+  
   def import_facebook
     id = current_user.id
     @user = User.find(id)

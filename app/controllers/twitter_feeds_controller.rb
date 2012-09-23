@@ -2,13 +2,6 @@ class TwitterFeedsController < ApplicationController
   
   
   def index
-    @user = User.find(current_user.id)
-    
-    tweets = @user.tweeting.user_timeline(count: '10', trim_user: 1, exclude_replies: 1)
-
-    respond_to do |format|
-      format.json { render json: tweets }
-    end
   end
   
   def home

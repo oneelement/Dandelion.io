@@ -19,6 +19,7 @@
 #lion-header {
   height: 550px;
   width: 100%;
+  background-color: #ff7200;
   @include background-image(linear-gradient(#ffa75e, #ff7300));
   .container {
     margin: 0px auto;
@@ -565,7 +566,7 @@
 #lion-footer {
   background: #111;
   height: 100px;
-  margin-top: -100px;
+  margin-top: 0px;
   clear: both;
   .container {
     width: 960px;

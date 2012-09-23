@@ -193,6 +193,9 @@
 	    right: 5%;
 	    text-shadow: 0px -1px 0 #BBB, 0px 1px 0 #FFF;
 	  }
+	  .dicon-google {
+            color: #4285F4;
+          }
 	  .dicon-facebook {
             color: #3B5998;
           }
@@ -330,7 +333,7 @@
 	}
       }
     }
-    #settings-social-facebook.connected, #settings-social-twitter.connected, #settings-social-linkedin.connected {
+    #settings-social-google.connected, #settings-social-facebook.connected, #settings-social-twitter.connected, #settings-social-linkedin.connected {
       .settings-social-import-all, .settings-social-sync-all {
 	cursor: pointer;
 	@include border-radius(4px);
@@ -357,6 +360,11 @@
 	width: 30%;
       }
     }
+    #settings-social-google.connected {
+      .settings-social-icon, .settings-social-avatar, .settings-social-import-all, .settings-social-sync-all {
+	color: #4285F4;
+      }      
+    }
     #settings-social-facebook.connected {
       .settings-social-icon, .settings-social-avatar, .settings-social-import-all, .settings-social-sync-all {
 	color: #3B5998;
@@ -372,7 +380,7 @@
 	color: #4875B4;
       }        
     }
-    #settings-social-facebook, #settings-social-twitter, #settings-social-linkedin {
+    #settings-social-google, #settings-social-facebook, #settings-social-twitter, #settings-social-linkedin {
       margin: 10px 0px 10px 0px;
       padding: 10px 0px 10px 0px;
       float: left;

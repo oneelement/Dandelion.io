@@ -4,7 +4,7 @@ class RippleApp.Views.SettingsSocialFacebook extends Backbone.View
   className: 'activatable'
   
   events:
-    'click .connected .settings-social-import-all': 'activateFacebok'
+    'click .settings-social-import-all': 'activateFacebok'
   
   initialize: ->    
     @current_user = RippleApp.contactsRouter.currentUser

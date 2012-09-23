@@ -18,6 +18,7 @@ class Authentication
   field :uid
   field :token
   field :secret
+  field :refresh_token
   field :url
   field :image
   
@@ -28,6 +29,7 @@ class Authentication
     t.add :provider
     t.add :uid
     t.add :token
+    t.add :refresh_token
     t.add :url
     t.add :image
   end

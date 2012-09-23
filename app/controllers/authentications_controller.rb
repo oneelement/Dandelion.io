@@ -10,6 +10,10 @@ class AuthenticationsController < ApplicationController
     end
   end
   
+  def created
+    raise request.env["omniauth.auth"].to_yaml
+  end
+  
   def create
     omniauth = request.env["omniauth.auth"]
     #current_user.authentications.where(:provider => omniauth['provider']).delete_all
@@ -26,9 +30,12 @@ class AuthenticationsController < ApplicationController
 	:provider => omniauth['provider'], 
 	:uid => omniauth['uid'],
 	:token => omniauth['credentials']['token'],
-	:secret => omniauth['credentials']['secret']
+	:secret => omniauth['credentials']['secret'],
+	:refresh_token => omniauth['credentials']['refresh_token']
       )
       flash[:notice] = "Authentication successful"
+      if omniauth['provider'] == 'google_oauth2'      
+      end
       if omniauth['provider'] == 'facebook'
 	@contact = Contact.find(current_user.contact_id)
 	@contact.facebook_handle = omniauth['extra']['raw_info']['link']
