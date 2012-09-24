@@ -6,9 +6,9 @@ class TwitterFeedsController < ApplicationController
   
   def home
     @user = User.find(current_user.id)
-    tweet = @user.tweeting.home_timeline(count: '10', trim_user: 1, exclude_replies: 1)
+    tweet = @user.tweeting.home_timeline(:count => '10', :trim_user => 1, :exclude_replies => 1)
     
-    list = tweet.map {|u| Hash[ text: u.text ]} 
+    list = tweet.map {|u| Hash[ :text => u.text ]} 
     #render json: list
     render :json => list.to_json
   end
@@ -19,7 +19,7 @@ class TwitterFeedsController < ApplicationController
     @user = User.find(current_user.id)
     #@user = User.find(current_user.id)
     #query = "chestermano"
-    tweets = @user.tweeting.user_timeline(count: '25', include_rts: true, include_entities: true)
+    tweets = @user.tweeting.user_timeline(:count => '25', :include_rts => true, :include_entities => true)
     #tweets = @user.tweeting.user_search(query)
     
     parsed_tweets = []
@@ -79,7 +79,7 @@ class TwitterFeedsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: tweets }
+      format.json { render :json => tweets }
     end
   end
   
@@ -90,14 +90,14 @@ class TwitterFeedsController < ApplicationController
     search = @user.tweeting.user_search(query)
 
     respond_to do |format|
-      format.json { render json: search }
+      format.json { render :json => search }
     end
   end
   
   def contacttimeline
     social_id = params[:id]
     @user = User.find(current_user.id)
-    tweets = @user.tweeting.user_timeline(screen_name: social_id, count: '10', include_entities: true)
+    tweets = @user.tweeting.user_timeline(:screen_name => social_id, :count => '10', :include_entities => true)
 
     parsed_tweets = []
     
@@ -142,7 +142,7 @@ class TwitterFeedsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: parsed_tweets }
+      format.json { render :json => parsed_tweets }
     end
     
   end
@@ -153,7 +153,7 @@ class TwitterFeedsController < ApplicationController
     tweets = @user.tweeting.update(text)
 
     respond_to do |format|
-      format.json { render json: tweets }
+      format.json { render :json => tweets }
     end
   end
   

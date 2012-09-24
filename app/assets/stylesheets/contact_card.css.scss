@@ -225,6 +225,10 @@
               background: #fefefe;
               width: 300px !important;
               left: -1px !important;
+              position: relative;
+              .ui-menu-item {
+                z-index: 66 !important;
+              }
               .ui-menu-item a {
                 padding: 3px 0px 3px 5px;
               }

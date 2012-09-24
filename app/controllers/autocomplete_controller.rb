@@ -15,7 +15,7 @@ class AutocompleteController < ApplicationController
     #tasks = tasks.where(:title => /#{params[:term]}/i).asc(:name).limit(8)
     contacts = Contact.where(:user_id => current_user.id)
     contacts = contacts.where(:name => /#{params[:term]}/i).asc(:name).limit(8)
-    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Contact", icon: "dicon-user"]} + groups.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Group", icon: "dicon-circles"]} 
+    list = contacts.map {|u| Hash[ :id => u.id, :label => u.name, :name => u.name, :avatar => u.avatar, :category => "Contact", :icon => "dicon-user"]} + groups.map {|u| Hash[ :id => u.id, :label => u.name, :name => u.name, :avatar => u.avatar, :category => "Group", :icon => "dicon-circles"]} 
     #render json: list
     render :json => list.to_json
   end
@@ -23,14 +23,14 @@ class AutocompleteController < ApplicationController
   def contacts
     contacts = Contact.where(:user_id => current_user.id)
     contacts = contacts.where(:name => /#{params[:term]}/i).asc(:name).limit(8)
-    list = contacts.map {|u| Hash[ id: u.id, label: u.name, name: u.name, avatar: u.avatar, category: "Contact", icon: "dicon-user"]}
+    list = contacts.map {|u| Hash[ :id => u.id, :label => u.name, :name => u.name, :avatar => u.avatar, :category => "Contact", :icon => "dicon-user"]}
     render :json => list.to_json
   end
   
   def hashtags
     hashtags = Hashtag.where(:user_id => current_user.id)
     hashtags = hashtags.where(:text => /#{params[:term]}/i).asc(:name).limit(8)
-    list = hashtags.map {|u| Hash[ id: u.id, label: u.text, name: u.text, category: "Hashtag", icon: "icon-avatar"]}
+    list = hashtags.map {|u| Hash[ :id => u.id, :label => u.text, :name => u.text, :category => "Hashtag", :icon => "icon-avatar"]}
     render :json => list.to_json
   end
 end

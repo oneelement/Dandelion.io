@@ -160,6 +160,7 @@ class AuthenticationsController < ApplicationController
 	:token => omniauth['credentials']['token'],
 	:secret => omniauth['credentials']['secret']
       )
+      UserMailer.signup_confirmation(user).deliver
       sign_in_and_redirect(:user, user)
     else
       flash[:notice] = "Please sign up manually."

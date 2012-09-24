@@ -14,9 +14,24 @@ Onelement::Application.configure do
   config.action_controller.perform_caching = false
   
   config.serve_static_assets = true
+  
+  config.action_mailer.perform_deliveries = true
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  
+  # Change mail deliver to either :smtp, :sendmail, :file, :test
+  config.action_mailer.delivery_method = :smtp
+  
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => "dandelion.io",
+    :authentication => "plain",
+    :enable_starttls_auto => true,
+    :user_name => "oliverchesterman@gmail.com",
+    :password => "Ronaldo99"
+  }
   
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
@@ -32,4 +47,6 @@ Onelement::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.log_level = :debug
 end

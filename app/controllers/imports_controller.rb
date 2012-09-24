@@ -133,7 +133,7 @@ class ImportsController < ApplicationController
     #check for changes to existing contact info and enhance existing contacts, separate sync button I think
 
     respond_to do |format|
-      format.json { render json: @import_count }
+      format.json { render :json => @import_count }
     end
   end
   
@@ -287,7 +287,7 @@ class ImportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @import_count }
+      format.json { render :json => @import_count }
     end
 
   end
@@ -412,7 +412,7 @@ class ImportsController < ApplicationController
     #@follows = @follows[0..9]
     
     respond_to do |format|
-      format.json { render json: @import_count }
+      format.json { render :json => @import_count }
     end
   end
   
@@ -510,7 +510,7 @@ class ImportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @import_count }
+      format.json { render :json => @import_count }
     end
   end
   

@@ -9,7 +9,7 @@ class LinkedinFeedsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: linkedin }
+      format.json { render :json => linkedin }
     end
   end
   
@@ -22,7 +22,7 @@ class LinkedinFeedsController < ApplicationController
     #search = @user.linkedin.profile(:fields => [:headline, :first_name, :last_name, :summary, :educations, :positions])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: search.people.all }
+      format.json { render :json => search.people.all }
     end
   end
   
@@ -32,7 +32,7 @@ class LinkedinFeedsController < ApplicationController
     profile = @user.linkedin.profile(:id => id, :fields => [:headline, :first_name, :last_name, :public_profile_url, :picture_url, :summary, :educations, :positions])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: profile }
+      format.json { render :json => profile }
     end
   end
 end

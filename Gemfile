@@ -34,6 +34,11 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem "rmagick"
 
+gem "system_timer"
+
+gem 'daemons'
+gem 'delayed_job_mongoid'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -58,6 +63,8 @@ gem 'backbone-on-rails'
 gem "geocoder"
 
 #gem "browser"
+
+gem "active_attr"
 
 
 

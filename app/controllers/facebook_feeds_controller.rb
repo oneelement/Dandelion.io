@@ -7,7 +7,7 @@ class FacebookFeedsController < ApplicationController
     face = @user.facebook.get_connections('me', 'feed')
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
   
@@ -20,7 +20,7 @@ class FacebookFeedsController < ApplicationController
     face = @user.facebook.get_connections(social_id, 'feed')
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
   
@@ -49,7 +49,7 @@ class FacebookFeedsController < ApplicationController
     output = face2 + face3 + face4
       
     respond_to do |format|
-      format.json { render json: output }
+      format.json { render :json => output }
     end
   end 
   
@@ -63,7 +63,7 @@ class FacebookFeedsController < ApplicationController
     #face = @user.facebook.get_object(id, "fields" => "name, gender, email, address")
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
   
@@ -196,7 +196,7 @@ class FacebookFeedsController < ApplicationController
     internal_hash['comment_parsed_data'] = comments
     internal_hash['raw'] = face
     respond_to do |format|
-      format.json { render json: internal_hash }
+      format.json { render :json => internal_hash }
     end
   end
   
@@ -206,7 +206,7 @@ class FacebookFeedsController < ApplicationController
     face = @user.facebook.put_like(id)
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
   
@@ -216,7 +216,7 @@ class FacebookFeedsController < ApplicationController
     face = @user.facebook.delete_like(id)
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
   
@@ -227,7 +227,7 @@ class FacebookFeedsController < ApplicationController
     face = @user.facebook.put_comment(id, text)
 
     respond_to do |format|
-      format.json { render json: face }
+      format.json { render :json => face }
     end
   end
 end

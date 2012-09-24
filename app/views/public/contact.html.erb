@@ -91,27 +91,44 @@
       <h3 class="book">Hot tip of the week</h3>
       <p class="book">to ensure you get the most out of dandelion connect all your social networks, remember we will never share your details with anyone.</p>
     </div>
+     <div class="clear"></div>
   </div>
   <div class="clear"></div>
+ 
+ <div id="contact-form">
+ 
+    <% if  flash[:notice] %>
+      <div class="contact-form-notice">
+        <p class="book notice"><%= flash[:notice] %></p>
+      </div>
+    <% end %>
+ 
+    <%= form_for @message, :url => { :action => "contact_create" } do |f| %>
+      <% if @message.errors.any? %>
+	<div class="contact-form-errors">
+	  <p>Please correct the following error(s):</p>
+	  <ul>
+	  <% @message.errors.full_messages.each do |msg| %>
+	    <li><%= msg %></li>
+	  <% end %>
+	  </ul>
+	</div>
+      <% end %>
+      <div class="field">
+	<%= f.label :name, "name*", :class => "book" %>
+	<%= f.text_field :name %>
+      </div>
+      <div class="field">
+	<%= f.label :email, "email*", :class => "book" %>
+	<%= f.text_field :email %>
+      </div>
+      <div class="field">
+	<%= f.label :message, "message*", :class => "book" %>
+	<%= f.text_area :message, :rows => 5 %>
+      </div>
+      <div class="actions"><%= f.submit "Submit" %></div>
+    <% end %>
 
-
-  <div id="contact-form">
-    <form>
-      <div>
-          <label class="book">name*</label> 
-          <input type="text" name="name" />
-      </div>
-      <div>
-          <label class="book">email*</label><input type="email" name="email" />
-      </div>
-      <div>
-          <label class="book">message*</label>
-          <textarea rows="10" cols="30"></textarea>
-      </div>
-      <div>
-          <input type="submit" value="Submit" />
-      </div>
-    </form>
   </div>
 
 </div>

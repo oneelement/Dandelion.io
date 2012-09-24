@@ -3,6 +3,7 @@ Onelement::Application.routes.draw do
   get "public/index"  
   get "about", :to => "public#about"
   get "contact", :to => "public#contact"
+  post "contact_create", :to => "public#contact_create"
   get "terms", :to => "public#terms"
   get "privacy", :to => "public#privacy"
 

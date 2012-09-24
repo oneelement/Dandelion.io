@@ -136,6 +136,9 @@ class UserController < ApplicationController
 	#@user.authentications.create!(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'])
       #end
     #end
+    
+    UserMailer.signup_confirmation(@user).deliver
+    
 
     respond_to do |format|
       if @user.save

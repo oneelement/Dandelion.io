@@ -4,8 +4,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, 'ABP2ZruFX54U9FpM3HOzNg', '7sk9KK4mraEdpv9vvJfgeySnLsukauxOwQeK88WuhA'
   #provider :google_oauth2, '815307397724.apps.googleusercontent.com', 'MNhKJWej9dJaXv1AKhI9CD7E', {:access_type => 'online', :approval_prompt => ''}
   provider :google_oauth2, '815307397724.apps.googleusercontent.com', 'MNhKJWej9dJaXv1AKhI9CD7E', {
-    access_type: 'offline',
-    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://www.google.com/m8/feeds/',
-    redirect_uri:'http://localhost:3000/auth/google_oauth2/callback'
+    :access_type => 'offline',
+    :scope => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://www.google.com/m8/feeds/',
+    :redirect_uri => 'http://localhost:3000/auth/google_oauth2/callback'
   }
 end

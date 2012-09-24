@@ -39,7 +39,7 @@ class RippleApp.Routers.Contacts extends Backbone.Router
     @groups.fetch()
     @groupContacts = new RippleApp.Collections.Contacts()
     @hashtags = new RippleApp.Collections.Hashtags()
-    @hashtags.fetch()
+    #@hashtags.fetch()
     
     @userContacts = new RippleApp.Collections.UserContacts()
     @userContacts.fetch()
