@@ -71,7 +71,9 @@ Onelement::Application.routes.draw do
     get :multiplemerge, :on => :collection
   end
 
-  resources :authentications
+  resources :authentications do
+    post :mobile_create, :on => :collection
+  end
 
   resources :favorites
 

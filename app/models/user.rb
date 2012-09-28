@@ -60,6 +60,7 @@ class User
   field :avatar, :type => String
   field :contact_id, :type => String
   field :is_admin, :type => Boolean, :default => false
+  field :is_mobile, :type => Boolean, :default => false
   field :favourite_contacts, :type => String
   field :recent_contacts, :type => String
   field :linked_contact_ids, :type => Array, :default => []

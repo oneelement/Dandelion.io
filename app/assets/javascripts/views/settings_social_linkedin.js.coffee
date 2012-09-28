@@ -38,6 +38,18 @@ class RippleApp.Views.SettingsSocialLinkedin extends Backbone.View
   activateLinkedin: =>
     this.$('.settings-social-importing').css('display', 'block')
     console.log('Activate')
+    #response = { "isMobile": "true", "provider": "facebook", "authResponse":{"accessToken":"AAADrdwPPB6EBAGwfzDDjz0tMJBhNTFhFy3VdfAc6nAnLPJZCbuswZBguggnA4JoknjI8oEuMGUpT5XmLcI5gEW2JM0A2tXSeZBijd0ZC4AZDZD","session_key":true,"expiresIn":"1353957710711","userId":"628485144","sig":"...","expirationTime":1355306489069966}}
+    #$.ajax
+    #  type: 'POST'
+    #  url: '/authentications/mobile_create'
+    #  data: response
+    #  dataType: 'json'
+    #  #timeout: 300
+    #  context: $('body')
+    #  success: (data) =>
+    #    console.log(JSON.stringify(data))
+    #    console.log('success')
+
     $.get '/imports/import_linkedin', (data) =>
       @import_count = data
       @contacts.fetch(success: (response) =>        

@@ -34,8 +34,6 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem "rmagick"
 
-gem "system_timer"
-
 gem 'daemons'
 gem 'delayed_job_mongoid'
 

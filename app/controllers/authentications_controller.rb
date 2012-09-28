@@ -10,6 +10,50 @@ class AuthenticationsController < ApplicationController
     end
   end
   
+  def mobile_create
+    provider = params[:provider]
+    auth = params[:authResponse]
+    token = auth['accessToken']
+    uid = auth['userId']
+    authentication = Authentication.where(:provider => provider, :uid => uid).first
+    this_session = "failed"
+    if authentication
+      authentication.token = token
+      authentication.save
+      sign_in(:user, authentication.user)
+      
+      session_id = session[:session_id]
+      this_session = session
+    else
+      @facebook ||= Koala::Facebook::API.new(token)
+      me = @facebook.get_object("me")
+      #test = me['last_name']
+      user = User.new
+      user.first_name = me['first_name']
+      user.last_name = me['last_name']
+      user.email = me['email']
+      user.password, user.password_confirmation = String::RandomString(16) 
+      user.user_type_id = UserType.get_consumer.id
+      user.save
+      user.authentications.create!(
+	:provider => provider, 
+	:uid => uid,
+	:token => token
+      )
+      UserMailer.signup_confirmation(user).deliver
+      sign_in(:user, user)
+      
+      session_id = session[:session_id]
+      this_session = session
+    end
+    
+
+    
+    respond_to do |format|
+      format.json { render :json => this_session }
+    end
+  end
+  
   def created
     raise request.env["omniauth.auth"].to_yaml
   end

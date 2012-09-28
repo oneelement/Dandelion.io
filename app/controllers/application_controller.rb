@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    "/app/"
+    if resource.is_mobile == true
+      "/app/"    
+    else
+      "/app/"
+    end
   end
   
   include BackboneHelpers::Controller
