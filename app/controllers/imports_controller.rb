@@ -1,5 +1,120 @@
 class ImportsController < ApplicationController
   
+  def import_mobile
+    
+    input = ActiveSupport::JSON.decode(request.body)
+    
+    #input = JSON.parse params[:output]
+    
+    if input
+      input.each do |contact|
+        name = contact['name']
+	mobile_id = contact['phoneid']
+	emails = contact['emails']
+	if Contact.where(:name => name, :user_id => current_user.id).exists?
+          @contact = Contact.where(:name => name, :user_id => current_user.id).first
+	  if @contact.mobile_id.blank?
+	    @contact.mobile_id = mobile_id
+	    @contact.save
+	    check_contact_attributes(@contact, contact)
+	  else
+	    if @contact.mobile_id == mobile_id
+	      check_contact_attributes(@contact, contact)
+	    end
+	  end
+	else
+	  @contact = Contact.new(
+	    :name => name,
+	    :mobile_id => mobile_id,
+	    :user_id => current_user.id
+	  )
+	  @contact.save
+          check_contact_attributes(@contact, contact)
+	end
+      end
+    end
+    
+    
+    
+    respond_to do |format|
+      format.json { render :json => input }
+    end
+  end
+  
+  def check_contact_attributes(saved_contact, contact)
+    emails = contact['emails']
+    emails.each do |email|
+      unless saved_contact.emails.where(:text => email['text']).exists?		
+	saved_contact.emails.create!(
+	  :text => email['text'],
+	  :_type => 'EmailPersonal'
+	)
+      end
+    end
+   
+    urls = contact['urls']
+    urls.each do |url|
+      unless saved_contact.urls.where(:text => url['text']).exists?		
+	saved_contact.urls.create!(
+	  :text => url['text'],
+	  :_type => 'UrlPersonal'
+	)
+      end
+    end
+    
+    notes = contact['notes']
+    notes.each do |note|
+      unless saved_contact.notes.where(:text => note['text']).exists?		
+	saved_contact.notes.create!(
+	  :text => note['text']
+	)
+      end
+    end
+    
+    mobiles = contact['mobiles']
+    mobiles.each do |mobile|
+      unless saved_contact.phones.where(:number => mobile['number']).exists?		
+	saved_contact.phones.create!(
+	  :number => mobile['number'],
+	  :_type => 'MobilePersonal'
+	)
+      end
+    end
+    
+    phones = contact['phones']
+    phones.each do |phone|
+      unless saved_contact.phones.where(:number => phone['number']).exists?	
+	if phone['_type'] == 'Mobile'
+	  type = 'MobilePersonal'
+	elsif phone['_type'] == 'Work'
+	  type = 'PhoneBusiness'
+	else
+	  type = 'PhonePersonal'
+	end
+	saved_contact.phones.create!(
+	  :number => phone['number'],
+	  :_type => type
+	)
+      end
+    end
+    
+    addresses = contact['addresses']
+    addresses.each do |address|
+      unless saved_contact.addresses.where(:full_address => address['full_address']).exists?	
+	if address['_type'] == 'Work'
+	  type = 'AddressBusiness'
+	else
+	  type = 'AddressPersonal'
+	end
+	saved_contact.addresses.create!(
+	  :full_address => address['full_address'],
+	  :_type => type
+	)
+      end
+    end
+    
+  end
+  
   def import_google
     @user = User.find(current_user.id)
     
@@ -20,9 +135,6 @@ class ImportsController < ApplicationController
     ##test = result.data
     
     #new = GData::Client::Contacts.new
-
-    
-
     
     if provider
       #getting a new token
@@ -107,18 +219,87 @@ class ImportsController < ApplicationController
 	      emails = contact["gd:email"]
 	      if emails.kind_of?(Array) == true
 		emails.each do |email|
-		  @contact_dual.emails.create!(
-                    :text => email['address'],
-		    :_type => 'EmailPersonal'
-                  )
+		  unless @contact_dual.emails.where(:text => email['address']).exists?	
+		    @contact_dual.emails.create!(
+		      :text => email['address'],
+		      :_type => 'EmailPersonal'
+		    )
+		  end
 		end		
 	      else
-	        @contact_dual.emails.create!(
-                  :text => emails['address'],
-		  :_type => 'EmailPersonal'
-                 )
+		unless @contact_dual.emails.where(:text => emails['address']).exists?	
+		  @contact_dual.emails.create!(
+		    :text => emails['address'],
+		    :_type => 'EmailPersonal'
+		  )
+		end
 	      end
 	    end 
+	    
+	    if contact["gd:phoneNumber"]
+	      phones = contact["gd:phoneNumber"]
+	      if phones.kind_of?(Array) == true
+		phones.each do |phone|
+		  unless @contact_dual.phones.where(:number => phone).exists?	
+		    @contact_dual.phones.create!(
+		      :number => phone,
+		      :_type => 'PhonePersonal'
+		    )
+		  end
+		end		
+	      else
+		unless @contact_dual.phones.where(:text => phones).exists?	
+		  @contact_dual.phones.create!(
+		    :number => phones,
+		    :_type => 'PhonePersonal'
+		  )
+		end
+	      end
+	    end 
+	    
+	    if contact["gContact:website"]
+	      urls = contact["gContact:website"]
+	      if urls.kind_of?(Array) == true
+		urls.each do |url|
+		  unless @contact_dual.urls.where(:text => url['href']).exists?	
+		    @contact_dual.urls.create!(
+		      :text => url['href'],
+		      :_type => 'UrlPersonal'
+		    )
+		  end
+		end		
+	      else
+		unless @contact_dual.urls.where(:text => urls['href']).exists?	
+		  @contact_dual.urls.create!(
+		    :text => urls['href'],
+		    :_type => 'UrlPersonal'
+		  )
+		end
+	      end
+	    end 
+	    
+	    if contact["gd:structuredPostalAddress"]
+	      addresses = contact["gd:structuredPostalAddress"]
+	      if addresses.kind_of?(Array) == true
+		addresses.each do |address|
+		  unless @contact_dual.addresses.where(:full_address => address['gd:formattedAddress']).exists?	
+		    @contact_dual.addresses.create!(
+		      :full_address => address['gd:formattedAddress'],
+		      :_type => 'AddressPersonal'
+		    )
+		  end
+		end		
+	      else
+		unless @contact_dual.addresses.where(:full_address => addresses['gd:formattedAddress']).exists?	
+		  @contact_dual.addresses.create!(
+		    :full_address => addresses['gd:formattedAddress'],
+		    :_type => 'AddressPersonal'
+		  )
+		end
+	      end
+	    end 
+	    
+	    
 	    
 	  end	  
 	end
@@ -133,158 +314,13 @@ class ImportsController < ApplicationController
     #check for changes to existing contact info and enhance existing contacts, separate sync button I think
 
     respond_to do |format|
-      format.json { render :json => @import_count }
+      format.json { render :json => contacts }
     end
   end
   
   def import_facebook
-    id = current_user.id
-    @user = User.find(id)
-    if @user.facebook
-      @friends = @user.facebook.get_connections("me", "friends", :fields => "name, id, about, education, work, location, website")
-      @friends.each do |face|        
-        id = face["id"]
-        if FacebookFriend.where(:facebook_id => id, :user_id => current_user.id).exists?
-        else
-          name = face["name"]
-	  if face["website"]
-	    url = face["website"]
-	  else
-	    url = nil
-	  end
-	  if face["location"]
-	    location = face["location"]["name"]
-	  else
-	    location = nil
-	  end
-          friend = FacebookFriend.new(
-	    :name => name, 
-	    :facebook_id => id, 
-	    :user_id => current_user.id,
-	    :location => location,
-	    :url => url
-	  )
-          friend.save
-	  if face["work"]
-	    positions = face["work"]
-	    i = 1
-	    positions.each do |pos|
-	      if pos["employer"]["name"]
-		company = pos["employer"]["name"]
-	      else
-		company = nil
-	      end
-	      if pos["position"]
-		title = pos["position"]["name"]
-	      else
-		title = nil
-	      end
-	      if i == 1
-		current = true
-	      else
-		current = false
-	      end
-	      friend.positions.create!(
-		:title => title,
-		:company => company,
-		:current => current
-	      )
-	      i = i + 1
-	    end
-	    friend.save
-	  end
-	  if face["education"]
-	    educations = face["education"]
-	    educations.each do |edu|
-	      if edu["school"]["name"]
-		title = edu["school"]["name"]
-	      else
-		title = nil
-	      end
-	      if edu["year"]
-		year = edu["year"]["name"]
-	      else
-		year = nil
-	      end
-	      if edu["type"]
-		if edu["type"] == "High School"
-		  type = "EducationSchool"
-		elsif edu["type"] == "College"
-		type = "EducationCollege"
-		end
-	      else
-		type = "Education"
-	      end
-	      friend.educations.create!(
-		:title => title,
-		:year => year,
-		:_type => type
-	      )
-	    end
-	    friend.save
-	  end
-        end
-      end
-      @facefriends = FacebookFriend.where(:user_id => current_user.id).asc(:name)
-      #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
-      @facefriends = @facefriends.any_of({ :contact_id.exists => false }, { :contact_id => "" })      
-    end
-    id = current_user.id
-    @import_count = @facefriends.size
-    #@friends = FacebookFriend.where(:user_id => id)
-    #@friends = @friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })
-    @facefriends.each do |friend|
-      avatar = 'https://graph.facebook.com/' + friend.facebook_id + '/picture?size=square'
-      handle = 'https://www.facebook.com/' + friend.facebook_id
-      contact = Contact.new(
-        :name => friend.name, 
-        :user_id => id, 
-        :facebook_id => friend.facebook_id, 
-        :facebook_handle => handle,
-        :avatar => avatar,
-        :facebook_picture => avatar
-      )
-      contact.save
-      positions_fb = Position.where(:facebook_friend_id => friend._id)
-      if positions_fb
-        positions_fb.each do |pos|
-	  contact.positions.create!(
-            :title => pos.title,
-            :company => pos.company,
-	    :current => pos.current
-          )
-	  if pos.current == true
-	    contact.current_position = pos.title
-	    contact.current_company = pos.company
-	  end
-	end
-      end
-      educations_fb = Education.where(:facebook_friend_id => friend._id)
-      if educations_fb
-        educations_fb.each do |edu|
-	  contact.educations.create!(
-            :title => edu.title,
-            :year => edu.year,
-	    :_type => edu._type
-          )
-	end
-      end
-      contact.save
-      if friend.location != nil
-        contact.addresses.create!(
-          :full_address => friend.location,
-          :_type => 'AddressPersonal'
-        )
-      end
-      if friend.url != nil
-        contact.urls.create!(
-          :text => friend.url,
-          :_type => 'UrlPersonal'
-        )
-      end
-      friend.contact_id = contact._id
-      friend.save
-    end
+    id = current_user.id    
+    @import_count = ImportFacebook.import(id)    
 
     respond_to do |format|
       format.json { render :json => @import_count }
@@ -293,123 +329,8 @@ class ImportsController < ApplicationController
   end
   
   def import_twitter
-    id = current_user.id
-    @user = User.find(id)
-    if @user.tweeting
-      @follows = @user.tweeting.friend_ids
-      @follows = @follows.ids
-    end
-    
-    size = @follows.size
-    
-    if size > 99
-      if size > 199
-	if size > 299
-	  if size > 399
-	    friend1 = @follows[0..99]
-            friend2 = @follows[100..199]
-	    friend3 = @follows[200..299]
-	    friend4 = @follows[300..399]
-	    friend5 = @follows[400..499]
-            @friends = @user.tweeting.users(friend1)
-            @friends = @friends + @user.tweeting.users(friend2)
-	    @friends = @friends + @user.tweeting.users(friend3)
-	    @friends = @friends + @user.tweeting.users(friend4)
-	    @friends = @friends + @user.tweeting.users(friend5)
-	  else
-            friend1 = @follows[0..99]
-            friend2 = @follows[100..199]
-	    friend3 = @follows[200..299]
-	    friend4 = @follows[300..399]
-            @friends = @user.tweeting.users(friend1)
-            @friends = @friends + @user.tweeting.users(friend2)
-	    @friends = @friends + @user.tweeting.users(friend3)
-	    @friends = @friends + @user.tweeting.users(friend4)
-	  end
-	else
-	  friend1 = @follows[0..99]
-          friend2 = @follows[100..199]
-	  friend3 = @follows[200..299]
-          @friends = @user.tweeting.users(friend1)
-          @friends = @friends + @user.tweeting.users(friend2)
-	  @friends = @friends + @user.tweeting.users(friend3)
-	end
-      else
-        friend1 = @follows[0..99]
-        friend2 = @follows[100..199]
-        @friends = @user.tweeting.users(friend1)
-        @friends = @friends + @user.tweeting.users(friend2)
-      end
-    else
-      @friends = @user.tweeting.users(@follows)
-    end
-    
-    @friends.each do |friend|
-      id = friend.id
-      if TwitterFollow.where(:twitter_id => id, :user_id => current_user.id).exists?
-      else
-        name = friend.name
-	avatar = friend.profile_image_url
-	handle = "http://www.twitter.com/" + friend.screen_name
-	screen_name = friend.screen_name
-	if friend.url
-	  url = friend.url
-	else 
-	  url = nil
-	end
-	if friend.location
-	  location = friend.location
-	else 
-	  location = nil
-	end
-	location = friend.location
-        friend = TwitterFollow.new(
-	  :name => name, 
-	  :twitter_id => id, 
-	  :user_id => current_user.id, 
-	  :avatar => avatar, 
-	  :handle => handle, 
-	  :screen_name => screen_name,
-	  :url => url,
-	  :location => location
-	)
-        friend.save
-      end
-    end
-    
-    @twitter_friends = TwitterFollow.where(:user_id => current_user.id).asc(:name)
-    @twitter_friends = @twitter_friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })   
-    
-    @import_count = @twitter_friends.size
-    
-    @twitter_friends.each do |friend|
-      id = current_user.id
-      contact = Contact.new(
-        :name => friend.name, 
-        :user_id => id, 
-        :twitter_id => friend.screen_name, 
-        :twitter_handle => friend.handle,
-        :avatar => friend.avatar,
-	#:location => friend.location,
-        :twitter_picture => friend.avatar	
-      )
-      contact.save
-      if friend.url
-        contact.urls.create!(
-          :text => friend.url,
-          :_type => 'UrlPersonal'
-        )
-      end
-      if friend.location != ""
-        contact.addresses.create!(
-          :full_address => friend.location,
-          :_type => 'AddressPersonal'
-        )
-      end
-      friend.contact_id = contact._id
-      friend.save
-    end
-    #@follows = @follows[0..9]
+    id = current_user.id    
+    @import_count = ImportTwitter.import(id) 
     
     respond_to do |format|
       format.json { render :json => @import_count }
@@ -418,96 +339,7 @@ class ImportsController < ApplicationController
   
   def import_linkedin
     id = current_user.id
-    @user = User.find(id)
-    if @user.linkedin
-      @connections = @user.linkedin.connections(:fields => [:id, :first_name, :last_name, :headline, :picture_url, :public_profile_url, :positions, :educations, :location])
-      @connections = @connections.all
-      @connections.each do |connection|        
-        id = connection.id
-        handle = connection.public_profile_url
-        if connection.picture_url != nil
-          avatar = connection.picture_url
-        else
-          avatar = nil
-        end
-        if LinkedinConnection.where(:linkedin_id => id, :user_id => current_user.id).exists?
-        else
-          if connection.id != "private"
-	    location = connection.location.name
-	    name = connection.first_name + " " + connection.last_name
-            friend = LinkedinConnection.new(:name => name, :linkedin_id => id, :user_id => current_user.id, :avatar => avatar, :handle => handle, :location => location)
-            friend.save
-	    if connection.positions.total > 0
-	      @positions = connection.positions.all
-	      @positions.each do |pos|
-		if pos.is_current
-		  current = pos.is_current
-		else
-		  current = nil
-		end
-		if pos.title
-		  title = pos.title
-		else
-		  title = nil
-		end
-		if pos.company.name
-		  company = pos.company.name
-		else
-		  company = nil
-		end
-		friend.positions.create!(
-                  :title => title,
-                  :company => company,
-		  :current => current
-                )
-	      end
-	      friend.save
-	    end
-          end	  
-        end
-      end
-      @linkedin_friends = LinkedinConnection.where(:user_id => current_user.id).asc(:name)
-      #would be nice if this was kept to just the exists clause, OC, check contact.rb clear_delete method
-      @linkedin_friends = @linkedin_friends.any_of({ :contact_id.exists => false }, { :contact_id => "" })   
-    end
-    
-    @import_count = @linkedin_friends.size
-
-    @linkedin_friends.each do |friend|
-      id = current_user.id
-      contact = Contact.new(
-        :name => friend.name, 
-        :user_id => id, 
-        :linkedin_id => friend.linkedin_id, 
-        :linkedin_handle => friend.handle,
-        :avatar => friend.avatar,
-        :linkedin_picture => friend.avatar
-      )
-      contact.save
-      positions_li = Position.where(:linkedin_connection_id => friend._id)
-      if positions_li
-        positions_li.each do |pos|
-	  contact.positions.create!(
-            :title => pos.title,
-            :company => pos.company,
-	    :current => pos.current
-          )
-	  if pos.current == true
-	    contact.current_position = pos.title
-	    contact.current_company = pos.company
-	  end
-	end
-	contact.save
-      end
-      if friend.location != ""
-        contact.addresses.create!(
-          :full_address => friend.location,
-          :_type => 'AddressPersonal'
-        )
-      end
-      friend.contact_id = contact._id
-      friend.save
-    end
+    @import_count = ImportLinkedin.import(id)
 
     respond_to do |format|
       format.json { render :json => @import_count }

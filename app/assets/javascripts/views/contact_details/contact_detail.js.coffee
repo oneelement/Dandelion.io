@@ -98,10 +98,12 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
     
     
   toggleDefault: ->
+    console.log('toggle default')
     if @modelType != 'Note'
       @setDefault()
     
   setDefault: ->
+    console.log('set default')
     if @model.get('default') == true
       _.each(@collection.models, (model) ->
         model.set('default', false)
@@ -120,6 +122,7 @@ class RippleApp.Views.ContactCardDetail extends Backbone.View
           company = @model.get('company')
           @subject.set('current_company', company)           
       this.$('.main-icon').addClass('default-active')
+    @subject.save()
 
     
   

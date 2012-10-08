@@ -45,8 +45,8 @@ $(function() {
             return false;
         });
     },
-    delay: 100,       
-    minLength: 1, 
+    delay: 300,       
+    minLength: 3, 
     autoFocus: true,
     select: function (event, ui) {
         $(event.target).val(ui.item.value);

@@ -18,6 +18,7 @@ Onelement::Application.routes.draw do
     get 'import_twitter', :on => :collection
     get 'import_linkedin', :on => :collection
     get 'import_google', :on => :collection
+    post 'import_mobile', :on => :collection
   end
 
   resources :linkedin_feeds do

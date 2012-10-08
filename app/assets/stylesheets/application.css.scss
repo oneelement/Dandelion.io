@@ -135,6 +135,7 @@ body {
 
 input {
   border: 1px solid #CCC;
+  outline: none;
   @include border-radius(4px);
   box-shadow: none;
   color: #777;
