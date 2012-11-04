@@ -1,7 +1,9 @@
 class ImportsController < ApplicationController
   
+  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
+  
   def import_mobile
-    
+    puts "hello"
     input = ActiveSupport::JSON.decode(request.body)
     
     #input = JSON.parse params[:output]
@@ -9,32 +11,31 @@ class ImportsController < ApplicationController
     if input
       input.each do |contact|
         name = contact['name']
-	mobile_id = contact['phoneid']
-	emails = contact['emails']
-	if Contact.where(:name => name, :user_id => current_user.id).exists?
-          @contact = Contact.where(:name => name, :user_id => current_user.id).first
-	  if @contact.mobile_id.blank?
-	    @contact.mobile_id = mobile_id
-	    @contact.save
-	    check_contact_attributes(@contact, contact)
-	  else
-	    if @contact.mobile_id == mobile_id
-	      check_contact_attributes(@contact, contact)
-	    end
-	  end
-	else
-	  @contact = Contact.new(
-	    :name => name,
-	    :mobile_id => mobile_id,
-	    :user_id => current_user.id
-	  )
-	  @contact.save
+        mobile_id = contact['phoneid']
+        emails = contact['emails']
+
+        if Contact.where(:name => name, :user_id => current_user.id).exists?
+          @contact = Contact.where(:name => name, :user_id => current_user.id).first          
+          if @contact.mobile_id.blank?
+            @contact.mobile_id = mobile_id
+            @contact.save
+            check_contact_attributes(@contact, contact)
+          else
+            if @contact.mobile_id == mobile_id              
+              check_contact_attributes(@contact, contact)
+            end
+          end
+        else
+          @contact = Contact.new(
+            :name => name,
+            :mobile_id => mobile_id,
+            :user_id => current_user.id
+          )
+          @contact.save
           check_contact_attributes(@contact, contact)
-	end
+        end
       end
-    end
-    
-    
+    end  
     
     respond_to do |format|
       format.json { render :json => input }
@@ -43,73 +44,85 @@ class ImportsController < ApplicationController
   
   def check_contact_attributes(saved_contact, contact)
     emails = contact['emails']
-    emails.each do |email|
-      unless saved_contact.emails.where(:text => email['text']).exists?		
-	saved_contact.emails.create!(
-	  :text => email['text'],
-	  :_type => 'EmailPersonal'
-	)
+    unless emails.nil?
+      emails.each do |email|
+        unless saved_contact.emails.where(:text => email['text']).exists?
+          saved_contact.emails.create!(
+            :text => email['text'],
+            :_type => 'EmailPersonal'
+          )
+        end
       end
     end
    
     urls = contact['urls']
-    urls.each do |url|
-      unless saved_contact.urls.where(:text => url['text']).exists?		
-	saved_contact.urls.create!(
-	  :text => url['text'],
-	  :_type => 'UrlPersonal'
-	)
+    unless urls.nil?
+      urls.each do |url|
+        unless saved_contact.urls.where(:text => url['text']).exists?		
+    saved_contact.urls.create!(
+      :text => url['text'],
+      :_type => 'UrlPersonal'
+    )
+        end
       end
-    end
+    end     
     
     notes = contact['notes']
-    notes.each do |note|
-      unless saved_contact.notes.where(:text => note['text']).exists?		
-	saved_contact.notes.create!(
-	  :text => note['text']
-	)
+    unless notes.nil?
+      notes.each do |note|
+        unless saved_contact.notes.where(:text => note['text']).exists?		
+    saved_contact.notes.create!(
+      :text => note['text']
+    )
+        end
       end
     end
     
     mobiles = contact['mobiles']
-    mobiles.each do |mobile|
-      unless saved_contact.phones.where(:number => mobile['number']).exists?		
-	saved_contact.phones.create!(
-	  :number => mobile['number'],
-	  :_type => 'MobilePersonal'
-	)
+    unless mobiles.nil?
+      mobiles.each do |mobile|
+        unless saved_contact.phones.where(:number => mobile['number']).exists?		
+    saved_contact.phones.create!(
+      :number => mobile['number'],
+      :_type => 'MobilePersonal'
+    )
+        end
       end
     end
     
     phones = contact['phones']
-    phones.each do |phone|
-      unless saved_contact.phones.where(:number => phone['number']).exists?	
-	if phone['_type'] == 'Mobile'
-	  type = 'MobilePersonal'
-	elsif phone['_type'] == 'Work'
-	  type = 'PhoneBusiness'
-	else
-	  type = 'PhonePersonal'
-	end
-	saved_contact.phones.create!(
-	  :number => phone['number'],
-	  :_type => type
-	)
+    unless phones.nil?
+      phones.each do |phone|
+        unless saved_contact.phones.where(:number => phone['number']).exists?	
+    if phone['_type'] == 'Mobile'
+      type = 'MobilePersonal'
+    elsif phone['_type'] == 'Work'
+      type = 'PhoneBusiness'
+    else
+      type = 'PhonePersonal'
+    end
+    saved_contact.phones.create!(
+      :number => phone['number'],
+      :_type => type
+    )
+        end
       end
     end
     
     addresses = contact['addresses']
-    addresses.each do |address|
-      unless saved_contact.addresses.where(:full_address => address['full_address']).exists?	
-	if address['_type'] == 'Work'
-	  type = 'AddressBusiness'
-	else
-	  type = 'AddressPersonal'
-	end
-	saved_contact.addresses.create!(
-	  :full_address => address['full_address'],
-	  :_type => type
-	)
+    unless addresses.nil?
+      addresses.each do |address|
+        unless saved_contact.addresses.where(:full_address => address['full_address']).exists?	
+    if address['_type'] == 'Work'
+      type = 'AddressBusiness'
+    else
+      type = 'AddressPersonal'
+    end
+    saved_contact.addresses.create!(
+      :full_address => address['full_address'],
+      :_type => type
+    )
+        end
       end
     end
     

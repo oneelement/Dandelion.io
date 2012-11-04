@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   
   load_and_authorize_resource
-  
+  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
  
   # GET /contacts
   # GET /contacts.json
