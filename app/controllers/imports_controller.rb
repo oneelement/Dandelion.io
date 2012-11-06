@@ -11,24 +11,27 @@ class ImportsController < ApplicationController
     if input
       input.each do |contact|
         name = contact['name']
-        mobile_id = contact['phoneid']
+        phoneid = contact['phoneid']
+        phonerawid = contact['phonerawid']
         emails = contact['emails']
-
+        puts name
         if Contact.where(:name => name, :user_id => current_user.id).exists?
           @contact = Contact.where(:name => name, :user_id => current_user.id).first          
-          if @contact.mobile_id.blank?
-            @contact.mobile_id = mobile_id
+          if @contact.phoneid.blank? or @contact.phonerawid.blank?
+            @contact.phoneid = phoneid
+            @contact.phonerawid = phonerawid
             @contact.save
             check_contact_attributes(@contact, contact)
           else
-            if @contact.mobile_id == mobile_id              
+            if @contact.phoneid == phoneid and @contact.phonerawid == phonerawid
               check_contact_attributes(@contact, contact)
             end
           end
         else
           @contact = Contact.new(
             :name => name,
-            :mobile_id => mobile_id,
+            :phoneid => phoneid,
+            :phonerawid => phonerawid,
             :user_id => current_user.id
           )
           @contact.save

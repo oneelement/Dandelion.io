@@ -56,7 +56,8 @@ class Contact
   field :twitter_handle
   field :linkedin_handle
   
-  field :mobile_id
+  field :phoneid
+  field :phonerawid
   #field :favorite_users, :type => Array
   
   acts_as_api
@@ -93,7 +94,8 @@ class Contact
     t.add :linkedin_handle
     #t.add :hashtags
     t.add :group_ids
-    t.add :mobile_id
+    t.add :phoneid
+    t.add :phonerawid
   end
   
   api_accessible :public_contact do |t|
@@ -107,7 +109,8 @@ class Contact
     t.add :facebook_picture
     t.add :twitter_picture
     t.add :linkedin_picture
-    t.add :mobile_id
+    t.add :phoneid
+    t.add :phonerawid
   end
   
   api_accessible :user_contact do |t|
@@ -119,7 +122,8 @@ class Contact
     t.add :positions
     t.add :educations
     t.add :name
-    t.add :mobile_id
+    t.add :phoneid
+    t.add :phonerawid
   end
   
   def clean_contact_delete
